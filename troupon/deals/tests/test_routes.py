@@ -3,7 +3,6 @@
 
 from django.test import TestCase, Client
 from django.template.loader import render_to_string
-from deals import views
 
 
 class ViewTestCase(TestCase):
