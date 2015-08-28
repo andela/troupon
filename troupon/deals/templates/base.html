@@ -128,7 +128,8 @@
             </div>            
         </div>
     </nav>
-
+    <br /><br /><br /><br /><br />
+    
     {% block search_box %}
     <!-- search_box begins -->
         
@@ -138,11 +139,13 @@
     {% block main %}
         <!-- main begins -->
         <div class="main_container">
-        
+        {% block signup %}
+        {% endblock signup %}
         </div>
         <!-- main ends -->
     {% endblock main %}
 
+    
     {% block footer %}
         <!-- footer begins -->
         <footer class="container">
@@ -177,6 +180,7 @@
     <script src="{% static "js/jquery.min.js" %}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "js/bootstrap.min.js" %}"></script>
+    
 </body>
 
 </html>
