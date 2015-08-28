@@ -1,0 +1,14 @@
+.main_container
+{
+	min-height: 200px;
+}
+
+i
+{
+	padding: 5px 15px;
+}
+
+.subscriber_form
+{
+	text-align: center;
+}
