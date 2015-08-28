@@ -127,56 +127,53 @@
                 <!-- /.navbar-collapse -->
             </div>            
         </div>
-        <!-- /.container -->
-
-        <div class="container">
-        {% block search_box %}
-        <!-- search_box begins -->
-            
-        <!-- search_box ends -->        
-        {% endblock search_box %}
-        {% block main %}
-            <!-- main begins -->
-                <div class="main_container">
-                    
-                </div>
-            <!-- main ends -->
-        {% endblock main %}
-        {% block footer %}
-            <!-- footer begins -->
-            <footer>
-               <div class="row">
-                    <div class="col-md-4">
-                        <h4>About Troupon</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. </p>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Quick links</h4>
-                        <br/>
-                        <a href="#">Team</a><br/>
-                        <a href="#">Investors</a><br/>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Don't be shy, connect</h4>
-                            <i class="fa fa-twitter fa-2x"></i>
-                            <i class="fa fa-facebook fa-2x"></i>
-                            <i class="fa fa-youtube fa-2x"></i>
-                    </div>
-               </div>
-            </footer>
-            <!-- footer ends -->
-        {% endblock footer %}
-        </div>
-        <!-- /.container -->
     </nav>
-    
-    
+
+    {% block search_box %}
+    <!-- search_box begins -->
+        
+    <!-- search_box ends -->        
+    {% endblock search_box %}
+
+    {% block main %}
+        <!-- main begins -->
+        <div class="main_container">
+        
+        </div>
+        <!-- main ends -->
+    {% endblock main %}
+
+    {% block footer %}
+        <!-- footer begins -->
+        <footer class="container">
+           <div class="row">
+                <div class="col-md-4">
+                    <h4>About Troupon</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. </p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Quick links</h4>
+                    <br/>
+                    <a href="#">Team</a><br/>
+                    <a href="#">Investors</a><br/>
+                </div>
+                <div class="col-md-4">
+                    <h4>Don't be shy, connect</h4>
+                        <i class="fa fa-twitter fa-2x"></i>
+                        <i class="fa fa-facebook fa-2x"></i>
+                        <i class="fa fa-youtube fa-2x"></i>
+                </div>
+           </div>
+        </footer>
+        <!-- footer ends -->
+    {% endblock footer %}
+
     <script src="{% static "js/jquery.min.js" %}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "js/bootstrap.min.js" %}"></script>
