@@ -11,5 +11,5 @@ class ViewTestCase(TestCase):
         self.client = Client()
 
     def test_route_signup(self):
-        response = self.client.get('/auth')
+        response = self.client.get('/auth/')
         self.assertEquals(response.status_code, 200)
