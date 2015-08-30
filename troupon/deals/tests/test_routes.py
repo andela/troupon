@@ -10,6 +10,12 @@ class ViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_route_signup(self):
+    def test_route_index(self):
+        response = self.client.get('/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_route_auth(self):
         response = self.client.get('/auth/')
         self.assertEquals(response.status_code, 200)
+
+        
