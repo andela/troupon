@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
-from deals import views
+from deals.views import Signup
 
 urlpatterns = [
 
-    url(r'^auth/$',views.signup, name = 'signup'),
+    url(r'^auth/$', Signup.as_view(), name = 'Signup'),
 ]
