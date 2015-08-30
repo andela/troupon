@@ -18,4 +18,6 @@ class ViewTestCase(TestCase):
         response = self.client.get('/auth/')
         self.assertEquals(response.status_code, 200)
 
-        
+    def test_route_accounts_profile(self):
+        response = self.client.get('/accounts/profile/')
+        self.assertEquals(response.status_code, 200)
