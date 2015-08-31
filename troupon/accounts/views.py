@@ -11,8 +11,8 @@ class IndexRedirectView(RedirectView):
 class SettingsView(TemplateView):
     template_name = "accounts/settings.html"
 
-class ProfileView(TemplateView):
-    template_name = "accounts/settings.html"
+# class ProfileView(TemplateView):
+#     template_name = "accounts/settings.html"
 
 # class HistoryView(TemplateView):
 #     template_name = "accounts/settings.html"
