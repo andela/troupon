@@ -1,19 +1,18 @@
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
+from django.views.generic.base import RedirectView, TemplateView
 
 # Create your views here.
 
+class IndexRedirectView(RedirectView):
+    permanent = True
+    pattern_name = 'accounts:settings'
 
-# from django.shortcuts import render
-# from django.views.generic.base import RedirectView
+# class SettingsView(TemplateView):
+#     template_name = "accounts/settings.html"
 
-# from articles.models import Article
+# class ProfileView(TemplateView):
+#     template_name = "accounts/settings.html"
 
-# class IndexRedirectView(RedirectView):
-
-#     permanent = False
-#     pattern_name = 'article-detail'
-
-#     def get_redirect_url(self, *args, **kwargs):
-#         article = get_object_or_404(Article, pk=kwargs['pk'])
-#         article.update_counter()
-#         return super(ArticleCounterRedirectView, self).get_redirect_url(*args, **kwargs)
+# class HistoryView(TemplateView):
+#     template_name = "accounts/settings.html"
