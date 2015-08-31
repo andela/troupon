@@ -7,3 +7,4 @@ from django.views.generic import TemplateView
 
 class Signup(TemplateView):
     template_name = "signin_register.html"
+
