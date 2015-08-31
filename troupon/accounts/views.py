@@ -8,8 +8,8 @@ class IndexRedirectView(RedirectView):
     permanent = True
     pattern_name = 'accounts:settings'
 
-# class SettingsView(TemplateView):
-#     template_name = "accounts/settings.html"
+class SettingsView(TemplateView):
+    template_name = "accounts/settings.html"
 
 # class ProfileView(TemplateView):
 #     template_name = "accounts/settings.html"
