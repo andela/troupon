@@ -6,5 +6,5 @@ from deals import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('deals.urls')),
-    
+    url(r'^', include('accounts.urls', namespace="accounts")),
 ]
