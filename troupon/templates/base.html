@@ -58,11 +58,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">Troupon Logo</a>
+                    <a class="navbar-brand" href="/"><img src="{% static "img/logo.png" %}"></a>
                 </div>
             </div>
             <!-- shopping cart start-->
-            <div class="col-md-8">
+            <div class="col-md-8 client_widget">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> 1 - Item(s)<span class="caret"></span></a>
@@ -133,7 +133,8 @@
             </div>            
         </div>
     </nav>
-    <br /><br /><br /><br /><br />
+    
+   <div class="container">  
     
     {% block search_box %}
     <!-- search_box begins -->
@@ -181,7 +182,7 @@
         </footer>
         <!-- footer ends -->
     {% endblock footer %}
-
+    </div>
     <script src="{% static "js/jquery.min.js" %}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "js/bootstrap.min.js" %}"></script>
