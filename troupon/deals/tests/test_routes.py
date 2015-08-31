@@ -16,15 +16,3 @@ class ViewTestCase(TestCase):
     def test_route_auth(self):
         response = self.client.get('/auth/')
         self.assertEquals(response.status_code, 200)
-
-    def test_route_accounts_profile(self):
-        response = self.client.get('/accounts/profile/')
-        self.assertEquals(response.status_code, 200)
-
-    def test_route_accounts_settings(self):
-        response = self.client.get('/accounts/settings/')
-        self.assertEquals(response.status_code, 200)
-
-    def test_route_accounts_history(self):
-        response = self.client.get('/accounts/history/')
-        self.assertEquals(response.status_code, 200)
