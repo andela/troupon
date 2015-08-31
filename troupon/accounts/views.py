@@ -14,5 +14,5 @@ class SettingsView(TemplateView):
 class ProfileView(TemplateView):
     template_name = "accounts/settings.html"
 
-# class HistoryView(TemplateView):
-#     template_name = "accounts/settings.html"
+class HistoryView(TemplateView):
+    template_name = "accounts/settings.html"
