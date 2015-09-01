@@ -9,6 +9,10 @@ class ViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
+    def test_route_accounts_index(self):
+        response = self.client.get('/accounts/')
+        self.assertRedirects(response, '/accounts/settings/')
+
     def test_route_accounts_profile(self):
         response = self.client.get('/accounts/profile/')
         self.assertEquals(response.status_code, 200)
