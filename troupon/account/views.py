@@ -7,8 +7,8 @@ class ForgotPasswordView(View):
 
     def get(self, request, *args, **kwargs):
 
-        return HttpResponse('Hi, This is just a placeholder for forgot_password.html')
         context = {
+            'page_title': 'Forgot Password',
             'email_form': EmailForm(auto_id=True),
         }
         return render(request, 'account/forgot_password.html', context)
@@ -16,4 +16,8 @@ class ForgotPasswordView(View):
 
     def post(self, request, *args, **kwargs):
 
-        return HttpResponse('Hi, This is just a placeholder for forgot_password_mail.html')
+        context = {
+            'page_title': 'Forgot Password',
+            'email_form': EmailForm(auto_id=True),
+        }
+        return render(request, 'account/forgot_password.html', context)
