@@ -3,11 +3,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User as UserAccount
 from django.contrib import messages
 
-from hashids import Hashids
-from time import time
-
 from forms import EmailForm
 from email import send_email
+from hashs import gen_user_hash
 
 
 
@@ -29,10 +27,11 @@ class ForgotPasswordView(View):
                 input_email = email_form.cleaned_data.get('email')
                 registered_account = UserAccount.objects.get(email__exact=input_email)
 
-                # generate a recovery hash link for that account:
-                recovery_hash_link = self.gen_recovery_hash_link(registered_account)
+                # generate a recovery hash url for that account:
+                recovery_hash_base_url = "/account/"
+                recovery_hash_url = self.gen_user_hash(registered_account, recovery_hash_base_url)
 
-                # compose the email
+                # compose the email:
                 template = 'forgot_password_recovery_email'
                 sender = 'Troupon <troupon@andela.com>'
                 reciepient = registered_account.email
