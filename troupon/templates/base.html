@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Troupon - {% block title %}Get Some!{% endblock %}</title>
+
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen" />
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+    {% block app_styles %}
+
+    {% endblock app_styles %}
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="row alert alert-dismissible {% if show_subscribe %}show{% else %}hidden{% endif %} subscriber_form">
+                <form class="form-inline">
+                    <span class="">Be the first to know! Subscribe to the Troupon Newsletter!</span>
+                    <div class="form-group">
+                        <input type="email" size="35" class="form-control" name="subscriber_email" id="subscriber_email" placeholder="Your Email">
+                    </div>
+                    <button type="submit" class="btn btn-default">Subscribe</button>
+                    <a href="#" id="subcribe-close-but"></a>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-times-circle"></i></button>
+                </form>
+            </div>
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="row">
+            <div class="col-md-4">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"><img src="{% static "img/logo.png" %}"></a>
+                </div>
+            </div>
+            <!-- shopping cart start-->
+            <div class="col-md-8 client_widget">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> 1 - Item(s)<span class="caret"></span></a>
+                      <ul class="dropdown-menu dropdown-cart" role="menu">
+                          <li>
+                              <span class="item">
+                                <span class="item-left">
+                                    <img src="http://lorempixel.com/50/50/" alt="">
+                                    <span class="item-info">
+                                        <span>Item name</span>
+                                        <span>23$</span>
+                                    </span>
+                                </span>
+                                <span class="item-right">
+                                    <button class="btn btn-xs btn-danger pull-right">x</button>
+                                </span>
+                            </span>
+                          </li>
+                          <li class="divider"></li>
+                          <li><a class="text-center" href="">View Cart</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <i class="fa fa-user"></i><span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-cart" role="menu">
+                          <li>
+                              <a href="#">My Profile</a>
+                          </li>
+                          <li>
+                              <a href="#">Edit Profile</a>
+                          </li>
+                          <li>
+                              <a href="#">View History</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li><a class="text-center" href="">Sign Out</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+            </div>
+            <!-- shopping cart ends-->
+            </div>
+            
+            <!-- Collect the nav lisnks, forms, and other content for toggling -->
+            <div class="row">
+                <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+                {% block nav_menu %}
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Deals</a>
+                        </li>
+                        <li>
+                            <a href="#">Categories</a>
+                        </li>
+                        <li>
+                            <a href="#">Cities</a>
+                        </li>
+                        <li>
+                            <a href="#">Support</a>
+                        </li>
+                    </ul>
+                {% endblock nav_menu %}
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>            
+        </div>
+    </nav>
+    
+   <div class="container">  
+    
+    {% block search_box %}
+    <!-- search_box begins -->
+        
+    <!-- search_box ends -->        
+    {% endblock search_box %}
+
+    {% block main %}
+        <!-- main begins -->
+        <div class="main_container">
+        {% block signup %}
+        {% endblock signup %}
+        </div>
+        <!-- main ends -->
+    {% endblock main %}
+
+    
+    {% block footer %}
+        <!-- footer begins -->
+        <footer class="container">
+           <div class="row">
+                <div class="col-md-4">
+                    <h4>About Troupon</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. </p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Quick links</h4>
+                    <br/>
+                    <a href="#">Team</a><br/>
+                    <a href="#">Investors</a><br/>
+                </div>
+                <div class="col-md-4">
+                    <h4>Don't be shy, connect</h4>
+                        <i class="fa fa-twitter fa-2x"></i>
+                        <i class="fa fa-facebook fa-2x"></i>
+                        <i class="fa fa-youtube fa-2x"></i>
+                </div>
+           </div>
+        </footer>
+        <!-- footer ends -->
+    {% endblock footer %}
+    </div>
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    
+</body>
+
+</html>
