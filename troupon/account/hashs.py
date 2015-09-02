@@ -12,7 +12,7 @@ class UserHashUtils:
     alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789'
     delim = "_"
 
-
+    @staticmethod
     def gen_hash(self, user_account):
         """ accepts a intance of user account and returns a reversible 'time-unique' hash for it """
 
@@ -30,7 +30,7 @@ class UserHashUtils:
         # return the combination delimited by UserHashUtils.delim:
         return "%s%s%s" % (user_email_hash, UserHashUtils.delim, timestamp_hash)
 
-
+    @staticmethod
     def reverse_hash(self, hash_str):
         """ accepts a unique hash string representing a user account and decodes it to return an actual intance of that account
             Returns None if decoded user does not exits """

@@ -4,8 +4,8 @@ from django.contrib.auth.models import User as UserAccount
 from django.contrib import messages
 
 from forms import EmailForm
-from email import send_email
-from hashs import gen_user_hash
+# from email import send_email
+from hashs import UserHashUtils as Hasher
 
 
 class ForgotPasswordView(View):
@@ -27,19 +27,20 @@ class ForgotPasswordView(View):
                 registered_account = UserAccount.objects.get(email__exact=input_email)
 
                 # generate a recovery hash url for that account:
-                recovery_hash_base_url = "/account/"
-                recovery_hash_url = self.gen_user_hash(registered_account, recovery_hash_base_url)
+                recovery_hash_base_url = "/account/recovery/"
+                recovery_hash = Hasher.gen_hash(registered_account)
+                recovery_hash_url =  recovery_hash_base_url + recovery_hash
 
                 # compose the email:
                 template = 'forgot_password_recovery_email'
                 sender = 'Troupon <troupon@andela.com>'
                 reciepient = registered_account.email
                 subject = 'Troupon: Account Password Recovery'
-                html =  render_template(template + '.html', {"recovery_hash_link": recovery_hash_link})
-                text =  render_template(template + '.txt', {"recovery_hash_link": recovery_hash_link})
+                html =  render_template(template + '.html', {"recovery_hash_url": recovery_hash_url})
+                text =  render_template(template + '.txt', {"recovery_hash_url": recovery_hash_url})
 
                 # send it and get request status:
-                email_status = send_email(sender,reciepient, subject, text, html)
+                email_status = 200 # send_email(sender,reciepient, subject, text, html)
 
                 # inform the user of the status of the recovery mail:
                 context = {
