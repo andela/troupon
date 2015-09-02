@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^confirm/$', Userconfirm,name = 'Userconfirm'),
 
 
-
+]
 
