@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
@@ -30,11 +31,18 @@ class UserSignInViewTestCase(TestCase):
         self.assertIn('deals', response.content)
 
 
+=======
+from django.test import TestCase, Client
+>>>>>>> [#102569504] Feature: Forgot Password: test that a 'get' to ForgotPasswordView renders with email_form in context
 class ForgotPasswordViewTestCase(TestCase):
     
     def setUp(self):
         self.client = Client()
 
     def test_get_status(self):
-    	response = self.client.get('/account/forgot_password/')
+        response = self.client.get('/account/forgot_password/')
         self.assertEquals(response.status_code, 200)
+
+    def test_get_context_has_email_form(self):
+        response = self.client.get('/account/forgot_password/')
+        self.assertContains(response.context, 'email_form')

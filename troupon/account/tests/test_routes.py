@@ -19,9 +19,7 @@ class UserSigninTestCase(TestCase):
         self.assertEquals(response.status_code, 200)
 
     def test_route_post_auth_signin(self):
-        response = self.client.post('/auth/signin/',
-                                    dict(email='johndoe@gmail.com',
-                                         password='12345'))
+        response = self.client.post('/auth/signin/', dict(email='johndoe@gmail.com', password='12345'))
         self.assertEquals(response.status_code, 302)
 
 
@@ -33,3 +31,4 @@ class ForgotPasswordRouteTestCase(TestCase):
     def test_route_resolves_to_correct_view(self):
         response = self.client.get('/account/forgot_password/')
         self.assertEqual(response.resolver_match.func.__name__, ForgotPasswordView.as_view().__name__)
+    
