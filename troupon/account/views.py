@@ -5,12 +5,12 @@ from django.template import RequestContext, loader
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 
+from hashs import UserHasher as Hasher
 from forms import EmailForm
-# from email import send_email
-from hashs import UserHashUtils as Hasher
-
+from emails import Mailgunner
 
 class ForgotPasswordView(View):
+
 
     def get(self, request, *args, **kwargs):
         context = {
@@ -34,19 +34,18 @@ class ForgotPasswordView(View):
                 recovery_hash_url =  recovery_hash_base_url + recovery_hash
 
                 # compose the email:
-                template = 'account/forgot_password_recovery_email'
-                sender = 'Troupon <troupon@andela.com>'
-                reciepient = registered_account.email
-                subject = 'Troupon: Account Password Recovery'
-                email_context = RequestContext(request, {
+                recovery_email_context = RequestContext(request, {
                     'registered_account':  registered_account,
                     'recovery_hash_url': recovery_hash_url,
                 })
-                html = loader.get_template('account/forgot_password_recovery_email.html').render(email_context)
-                text = loader.get_template('account/forgot_password_recovery_email.txt').render(email_context)
-
                 # send it and get request status:
-                email_status = 200  # send_email(sender,reciepient, subject, text, html)
+                recovery_email =  Mailgunner.compose(
+                    sender = 'Troupon <troupon@andela.com>',
+                    reciepient = registered_account.email,
+                    subject = 'Troupon: Account Password Recovery',
+                    html = loader.get_template('account/forgot_password_recovery_email.html').render(recovery_email_context),
+                    text = loader.get_template('account/forgot_password_recovery_email.txt').render(recovery_email_context),
+                )
 
                 # inform the user of the status of the recovery mail:
                 context = {

@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User as Account
-from account.hashs import UserHashUtils as Hasher
+from account.hashs import UserHasher as Hasher
 
 class AccountHashsTestCase(TestCase):
     """ This class tests the user account hash generation and hash reversing functions defined in the 'account.hashs'module.
