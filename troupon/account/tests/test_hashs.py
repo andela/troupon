@@ -27,7 +27,7 @@ class AccountHashsTestCase(TestCase):
         self.assertIsInstance(reversed_user_hash_result, UserAccount)
 
 
-    # def test_generated_hash_reverses_correctly(self):
-    #     generated_user_hash = gen_user_hash(self.registered_account)
-    #     reversed_user_hash_result = reverse_user_hash(self.generated_user_hash)
-    #     self.assertEquals(self.registered_account.id, reversed_user_hash_result.id)
+    def test_generated_hash_reverses_correctly(self):
+        generated_user_hash = gen_user_hash(self.registered_account)
+        reversed_user_hash_result = reverse_user_hash(self.generated_user_hash)
+        self.assertEquals(self.registered_account.id, reversed_user_hash_result.id)
