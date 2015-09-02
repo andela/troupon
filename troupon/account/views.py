@@ -8,7 +8,6 @@ from email import send_email
 from hashs import gen_user_hash
 
 
-
 class ForgotPasswordView(View):
 
     def get(self, request, *args, **kwargs):
