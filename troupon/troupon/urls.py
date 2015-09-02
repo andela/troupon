@@ -6,7 +6,5 @@ from auth import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('deals.urls')),
-    url(r'^', include('auth.urls')),
 
 ]
