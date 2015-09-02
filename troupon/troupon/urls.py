@@ -13,3 +13,5 @@ urlpatterns = [
     url(r'^auth/', include('account.urls')),
 
 ]
+
+
