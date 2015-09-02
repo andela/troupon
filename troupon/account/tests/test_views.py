@@ -2,7 +2,8 @@ from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
-<<<<<<< HEAD
+
+
 
 class UserSignInViewTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
@@ -30,10 +31,6 @@ class UserSignInViewTestCase(TestCase):
         self.assertIn('deals', response.content)
 
 
-=======
-from django.contrib.auth.models import User
->>>>>>> [#102569504] Feature-Forgot-Password: added sample registered user account for test.
-
 class ForgotPasswordViewTestCase(TestCase):
     
     def setUp(self):
@@ -46,7 +43,6 @@ class ForgotPasswordViewTestCase(TestCase):
     def test_get_returns_200(self):
         response = self.client.get('/account/forgot_password/')
         self.assertEquals(response.status_code, 200)
-        self.assertNotEquals(response.status_code, 200)
 
     def test_post_returns_200(self):
         response = self.client.get('/account/forgot_password/')
