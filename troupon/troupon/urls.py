@@ -10,3 +10,4 @@ urlpatterns = [
     url(r'^deals/', include('deals.urls')),
     url(r'^$', deals.views.HomePage.as_view(), name='homepage'),
 ]
+
