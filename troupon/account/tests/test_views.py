@@ -2,7 +2,6 @@ from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
-<<<<<<< HEAD
 
 class UserSignInViewTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
@@ -55,21 +54,13 @@ class ForgotPasswordViewTestCase(TestCase):
         response = self.client.get('/account/forgot_password/')
         self.assertEquals(response.status_code, 200)
 
-    # def test_post_request_data_has_email_field(self):
-    #     response = self.client.post('/account/forgot_password/', {"email":"awillionaire@gmail.com"})
-    #     self.assertIn('email', response.request)
-
     def test_recovery_email_sent_for_registered_account(self):
         response = self.client.post('/account/forgot_password/', {"email":"awillionaire@gmail.com" })
         self.assertIn('registered_account', response.context)
         self.assertIn('recovery_mail_status', response.context)
         self.assertEquals(response.context['recovery_mail_status'], 200)
-    
-    def test_post_has_email_field(self):
-        response = self.client.post('/account/forgot_password/', {})
-        self.assertRaises(response.request.POST['email'], MultiValueDictKeyError)
 
-    # def test_recovery_email_not_sent_for_unregistered_account(self):
-    #     response = self.client.post('/account/forgot_password/', {"email":"awillionaire2015@gmail.com" })
-    #     self.assertNotIn('registered_account', response.context)
-    #     self.assertNotIn('recovery_mail_status', response.context)
+    def test_recovery_email_not_sent_for_unregistered_account(self):
+        response = self.client.post('/account/forgot_password/', {"email":"awillionaire2015@gmail.com" })
+        self.assertNotIn('registered_account', response.context)
+        self.assertNotIn('recovery_mail_status', response.context)
