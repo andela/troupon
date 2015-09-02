@@ -5,7 +5,6 @@ from troupon.settings import SECRET_KEY as secret_key
 
 
 class UserHashUtils:
-
     """ NOTE: This class has the Hashids package as a dependency. 
         Run 'pip install requirements.txt' to install on your environment. """
 
