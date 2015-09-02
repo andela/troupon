@@ -26,6 +26,10 @@ class AccountHashsTestCase(TestCase):
         reversed_user_hash_result = reverse_user_hash(self.generated_user_hash)
         self.assertIsInstance(reversed_user_hash_result, UserAccount)
 
+    def test_reverse_user_hash_returns_None_for_Wrong_hash(self):
+        generated_user_hash = "a2374920910"
+        reversed_user_hash_result = reverse_user_hash(self.generated_user_hash)
+        self.assertIsInstance(reversed_user_hash_result, UserAccount)
 
     def test_generated_hash_reverses_correctly(self):
         generated_user_hash = gen_user_hash(self.registered_account)

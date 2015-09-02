@@ -22,7 +22,7 @@ class ForgotPasswordView(View):
         email_form = EmailForm(request.POST,auto_id=True)
         if email_form.is_valid():
             try:
-                # get the account for that mail if it exists:
+                # get the account for that email if it exists:
                 input_email = email_form.cleaned_data.get('email')
                 registered_account = UserAccount.objects.get(email__exact=input_email)
 
