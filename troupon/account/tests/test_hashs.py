@@ -16,9 +16,9 @@ class AccountHashsTestCase(TestCase):
         self.registered_account.save()
 
 
-    # def test_gen_user_hash_returns_min_50_chars(self):
-    #     generated_user_hash = gen_user_hash(self.registered_account)
-    #     self.assertGreaterEqual(len(generated_user_hash), 50)
+    def test_gen_user_hash_returns_min_50_chars(self):
+        generated_user_hash = gen_user_hash(self.registered_account)
+        self.assertGreaterEqual(len(generated_user_hash), 50)
 
 
     # def test_reverse_user_hash_returns_user_instance(self):
