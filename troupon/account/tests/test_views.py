@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
@@ -29,3 +28,13 @@ class UserSignInViewTestCase(TestCase):
         data = {'email': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/auth/signin/', data)
         self.assertIn('deals', response.content)
+
+
+class ForgotPasswordViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_view_forgot_password_get_status(self):
+    	self.assertEquals(response.status_code, 200)
+        response = self.client.get('/account/forgot_password/')
+        self.assertEquals(response.status_code, 200)
