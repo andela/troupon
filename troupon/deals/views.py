@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 class HomePage(TemplateView):
     """class that handles display of the homepage"""
 
-    template_name = "deals/homepage.html"
+    template_name = "deals/index.html"
     context_var = {'show_subscribe': True}
 
     def get(self, request):
