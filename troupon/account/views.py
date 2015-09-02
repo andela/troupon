@@ -38,7 +38,6 @@ class ForgotPasswordView(View):
                     'registered_account':  registered_account,
                     'recovery_hash_url': recovery_hash_url,
                 })
-                # send it and get request status:
                 recovery_email =  Mailgunner.compose(
                     sender = 'Troupon <troupon@andela.com>',
                     reciepient = registered_account.email,
@@ -46,6 +45,8 @@ class ForgotPasswordView(View):
                     html = loader.get_template('account/forgot_password_recovery_email.html').render(recovery_email_context),
                     text = loader.get_template('account/forgot_password_recovery_email.txt').render(recovery_email_context),
                 )
+                # send it and get the request status:
+                email_status = Mailgunner.send(recovery_email)
 
                 # inform the user of the status of the recovery mail:
                 context = {

@@ -23,5 +23,5 @@ class Mailgunner:
     @staticmethod
     def send(email):
         """NOTE: email must be a dict"""
-        response = requests.post( Mailgunner.url, Mailgunner.auth, email)
+        response = requests.post( Mailgunner.url, Mailgunner.auth, email )
         return response
