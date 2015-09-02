@@ -13,26 +13,26 @@ class AccountManager(BaseUserManager):
         if not kwargs.get('username'):
             raise ValueError('Users must have a valid username.')
 
-        account = self.model(
+        newaccount = self.model(
             email=self.normalize_email(email), username=kwargs.get('username')
         )
 
-        account.set_password(password)
-        account.save()
+        newaccount.set_password(password)
+        newaccount.save()
 
-        return account
+        return newaccount
 
     def create_superuser(self, email, password, **kwargs):
-        account = self.create_user(email, password, **kwargs)
+        newaccount = self.create_user(email, password, **kwargs)
 
-        account.is_admin = True
-        account.save()
+        newaccount.is_admin = True
+        newaccount.save()
 
-        return account
+        return newaccount
 
 
 class Account(AbstractBaseUser):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(max_length=254,unique=True)
     username = models.CharField(max_length=40, unique=True)
 
     first_name = models.CharField(max_length=40, blank=True)
