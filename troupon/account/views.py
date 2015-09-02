@@ -1,7 +1,9 @@
 from django.views.generic.base import View
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User as UserAccount
+from django.contrib.auth.models import User as Account
+from django.template import RequestContext, loader
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 from forms import EmailForm
 # from email import send_email
@@ -24,7 +26,7 @@ class ForgotPasswordView(View):
             try:
                 # get the account for that email if it exists:
                 input_email = email_form.cleaned_data.get('email')
-                registered_account = UserAccount.objects.get(email__exact=input_email)
+                registered_account = Account.objects.get(email__exact=input_email)
 
                 # generate a recovery hash url for that account:
                 recovery_hash_base_url = "/account/recovery/"
@@ -32,25 +34,29 @@ class ForgotPasswordView(View):
                 recovery_hash_url =  recovery_hash_base_url + recovery_hash
 
                 # compose the email:
-                template = 'forgot_password_recovery_email'
+                template = 'account/forgot_password_recovery_email'
                 sender = 'Troupon <troupon@andela.com>'
                 reciepient = registered_account.email
                 subject = 'Troupon: Account Password Recovery'
-                html =  render_template(template + '.html', {"recovery_hash_url": recovery_hash_url})
-                text =  render_template(template + '.txt', {"recovery_hash_url": recovery_hash_url})
+                email_context = RequestContext(request, {
+                    'registered_account':  registered_account,
+                    'recovery_hash_url': recovery_hash_url,
+                })
+                html = loader.get_template('account/forgot_password_recovery_email.html').render(email_context)
+                text = loader.get_template('account/forgot_password_recovery_email.txt').render(email_context)
 
                 # send it and get request status:
-                email_status = 200 # send_email(sender,reciepient, subject, text, html)
+                email_status = 200  # send_email(sender,reciepient, subject, text, html)
 
                 # inform the user of the status of the recovery mail:
                 context = {
                     'page_title': 'Forgot Password',
-                    'registered_account':  registered_account
-                    'recovery_mail_status': email_status
+                    'registered_account':  registered_account,
+                    'recovery_mail_status': email_status,
                 }
                 return render(request, 'account/forgot_password_recovery_status.html', context)
             
-            except DoesNotExist:
+            except ObjectDoesNotExist:
                 # set a flash message:
                 messages.add_message(request, messages.ERROR, 'The email you entered does not belong to a registered user!')
 

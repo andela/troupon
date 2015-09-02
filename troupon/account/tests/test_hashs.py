@@ -21,15 +21,15 @@ class AccountHashsTestCase(TestCase):
 
     def test_reverse_hash_returns_user_instance(self):
         generated_hash = Hasher.gen_hash(self.registered_account)
-        reversed_hash_result = Hasher.reverse_hash(self.generated_hash)
-        self.assertIsInstance(reversed_hash_result, UserAccount)
+        reversed_hash_result = Hasher.reverse_hash(generated_hash)
+        self.assertIsInstance(reversed_hash_result, Account)
 
     def test_reverse_hash_returns_None_for_Wrong_hash(self):
         generated_hash = "a2374920910"
-        reversed_hash_result = Hasher.reverse_hash(self.generated_hash)
+        reversed_hash_result = Hasher.reverse_hash(generated_hash)
         self.assertEquals(reversed_hash_result, None)
 
     def test_generated_hash_reverses_correctly(self):
         generated_hash = Hasher.gen_hash(self.registered_account)
-        reversed_hash_result = Hasher.reverse_hash(self.generated_hash)
-        self.assertEquals(self.registered_account.id, reversed_hash_result.id)
+        reversed_hash_result = Hasher.reverse_hash(generated_hash)
+        self.assertEquals(self.registered_account.pk, reversed_hash_result.pk)
