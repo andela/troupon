@@ -21,10 +21,10 @@ class AccountHashsTestCase(TestCase):
         self.assertGreaterEqual(len(generated_user_hash), 50)
 
 
-    # def test_reverse_user_hash_returns_user_instance(self):
-    #     generated_user_hash = gen_user_hash(self.registered_account)
-    #     reversed_user_hash_result = reverse_user_hash(self.generated_user_hash)
-    #     self.assertIsInstance(reversed_user_hash_result, UserAccount)
+    def test_reverse_user_hash_returns_user_instance(self):
+        generated_user_hash = gen_user_hash(self.registered_account)
+        reversed_user_hash_result = reverse_user_hash(self.generated_user_hash)
+        self.assertIsInstance(reversed_user_hash_result, UserAccount)
 
 
     # def test_generated_hash_reverses_correctly(self):
