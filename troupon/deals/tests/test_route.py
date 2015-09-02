@@ -12,3 +12,11 @@ class HomepageRouteTests(TestCase):
 
         response = self.client.get(reverse('homepage'))
         self.assertEqual(response.status_code, 200)
+
+    def test_anonymous_can_access_homepage(self,):
+        """
+        Checks if an anonymous user can view the landing page
+        """
+
+        response = self.client.get(reverse('homepage'))
+        self.assertEqual(response.status_code, 200)
