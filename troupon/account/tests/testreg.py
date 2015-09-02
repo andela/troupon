@@ -9,3 +9,8 @@ class RegViewTest(TestCase):
     response = self.client_stub.get('/auth/signin/')
     self.assertEquals(response.status_code, 200)
 
+  def test_view_reg_success_route(self):
+    response = self.client_stub.get('/auth/confirm/')
+    self.assertEquals(response.status_code, 200)
+
+
