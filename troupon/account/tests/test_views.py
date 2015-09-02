@@ -31,10 +31,10 @@ class UserSignInViewTestCase(TestCase):
 
 
 class ForgotPasswordViewTestCase(TestCase):
+    
     def setUp(self):
         self.client = Client()
 
-    def test_view_forgot_password_get_status(self):
-    	self.assertEquals(response.status_code, 200)
-        response = self.client.get('/account/forgot_password/')
+    def test_get_status(self):
+    	response = self.client.get('/account/forgot_password/')
         self.assertEquals(response.status_code, 200)
