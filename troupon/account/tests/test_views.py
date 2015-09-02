@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-
 from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
-
+from django.utils.datastructures import MultiValueDictKeyError
 
 class UserSignInViewTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
@@ -31,9 +29,7 @@ class UserSignInViewTestCase(TestCase):
         self.assertIn('deals', response.content)
 
 
-=======
-from django.test import TestCase, Client
->>>>>>> [#102569504] Feature: Forgot Password: test that a 'get' to ForgotPasswordView renders with email_form in context
+
 class ForgotPasswordViewTestCase(TestCase):
     
     def setUp(self):
@@ -45,4 +41,8 @@ class ForgotPasswordViewTestCase(TestCase):
 
     def test_get_context_has_email_form(self):
         response = self.client.get('/account/forgot_password/')
-        self.assertContains(response.context, 'email_form')
+        self.assertIn(response.context, 'email_form')
+
+    def test_post_has_email_field(self):
+        response = self.client.post('/account/forgot_password/', {})
+        self.assertRaises(response.request.POST['email'], MultiValueDictKeyError)

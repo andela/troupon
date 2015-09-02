@@ -11,4 +11,4 @@ class ForgotPasswordView(View):
      	# context = {
 	    #     'search_form': 'placeholder',
 	    # }
-	    # return render(request, 'webapp/home.html', context)
+	    # return render(request, 'account/forgot_password.html', context)
