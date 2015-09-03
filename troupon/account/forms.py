@@ -22,11 +22,8 @@ class ResetPasswordForm(forms.Form):
             "placeholder": ""
         }))
 
-
 class MySignupForm(UserCreationForm):
     email = forms.EmailField(required = True)
-    first_name = forms.CharField(required = True)
-    last_name = forms.CharField(required=True)
     username = forms.CharField(required = True)
 
 
@@ -35,10 +32,7 @@ class MySignupForm(UserCreationForm):
         fields = ('email', 'username', 'created_at', 'updated_at',
                   'first_name', 'last_name', 'password','confirm_password',)
 
-        created_at = forms.DateTimeField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
-
-        updated_at = forms.DateTimeField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
-
+        
 
         def save(self, commit=True):          
           user = super(MySignupForm, self).save(commit=False)

@@ -224,6 +224,8 @@ class ResetPasswordView(View):
 
 
 
+class Userconfirm(TemplateView):
+    template_name = 'confirm.html'
+    
 
-#args.update(csrf(request)),
 
