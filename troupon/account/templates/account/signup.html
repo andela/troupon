@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% block signup %}
 <div class="container-fluid">
     <section class="container">
     <div class="container-page">        
@@ -8,57 +9,50 @@
         
         <div class="form-group col-lg-12">
           <label>Username</label>
-          <input type="" name="" class="form-control" id="" value="">
+          <input type="text" name="username" class="form-control" id="" value="" placeholder="username">
+        </div>
+
+        <div class="form-group col-lg-6">
+          <label>First Name</label>
+          <input type="text" name="first_name" class="form-control" id="" value="" placeholder="First Name here">
         </div>
         
         <div class="form-group col-lg-6">
+          <label>Last Name</label>
+          <input type="text" name="last_name" class="form-control" id="" value="" placeholder="Last Name here>
+        </div>
+        
+        
+        <div class="form-group col-lg-6">
           <label>Password</label>
-          <input type="password" name="" class="form-control" id="" value="">
+          <input type="password" name="password" class="form-control" id="" value="" placeholder="Enter Password>
         </div>
         
         <div class="form-group col-lg-6">
           <label>Repeat Password</label>
-          <input type="password" name="" class="form-control" id="" value="">
+          <input type="password" name="confirm_password" class="form-control" id="" value="" placeholder="Confirm Password">
         </div>
                 
         <div class="form-group col-lg-6">
           <label>Email Address</label>
-          <input type="" name="" class="form-control" id="" value="">
-        </div>
-        
-        <div class="form-group col-lg-6">
-          <label>Repeat Email Address</label>
-          <input type="" name="" class="form-control" id="" value="">
-        </div>      
-        
-        <div class="col-sm-6">
-          <input type="checkbox" class="checkbox" />Sigh up for our newsletter
+          <input type="" name="email" class="form-control" id="" value="" placeholder="Email address here">
         </div>
 
-        <div class="col-sm-6">
-          <input type="checkbox" class="checkbox" />Send notifications to this email
-        </div>        
-      
       </div>
     
       <div class="col-md-6">
-        <h3 class="dark-grey">Terms and Conditions</h3>
+        <h3 class="dark-grey">Facebook Sign-Up</h3>
         <p>
-          By clicking on "Register" you agree to The Company's' Terms and Conditions
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 
         </p>
-        <p>
-          While rare, prices are subject to change based on exchange rate fluctuations - 
-          should such a fluctuation happen, we may request an additional payment. You have the option to request a full refund or to pay the new price. (Paragraph 13.5.8)
-        </p>
-        <p>
-          Should there be an error in the description or pricing of a product, we will provide you with a full refund (Paragraph 13.5.6)
-        </p>
-        <p>
-          Acceptance of an order by us is dependent on our suppliers ability to provide the product. (Paragraph 13.5.6)
-        </p>
+
+         <div class="col-md-offset-3 col-md-9">
+            <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
+        </div>
         
         <button type="submit" class="btn btn-primary">Register</button>
       </div>
     </div>
   </section>
 </div>
+{% endblock %}
