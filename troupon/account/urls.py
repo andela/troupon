@@ -6,4 +6,3 @@ urlpatterns = [
     url(r'^signin/$', UserSigninView.as_view()),
 ]
 
-
