@@ -94,6 +94,7 @@ class UserSigninView(View):
 from django.shortcuts import render
 from account.forms import MySignupForm
 from django.views.generic.base import TemplateView
+from django.core.context_processors import csrf
 
 # Create your views here.
 def UserSignupreq(request):
@@ -115,6 +116,12 @@ def UserSignupreq(request):
 
 class UserSignup(TemplateView):
   template_name = signup.html
+
+  def get_context_data(self, **kwargs):
+        context = super(UserSignup, self).get_context_data()
+        return context
+
+
 
 
 >>>>>>> [#102560626] modifying signup.html and modified views.py
