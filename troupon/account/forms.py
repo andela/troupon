@@ -28,7 +28,7 @@ class MySignupForm(UserCreationForm):
 
 
           if commit:
-            Account.objects.create_user(email = user.email,password = password)
+            user = Account.objects.create_user(email = user.email, username = user.name, password = password)
             user.save()
           return user
 

@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 class AccountManager(BaseUserManager):
-    def create_user(self, email, password=None, **kwargs):
+    def create_user(self, email, username, password=None, **kwargs):
         if not email:
             raise ValueError('Users must have a valid email address.')
 
