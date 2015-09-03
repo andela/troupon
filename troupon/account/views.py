@@ -54,10 +54,14 @@ class UserSigninView(View):
                 # Redirect to a success page.
                 referer_view = self.get_referer_view(self.request)
 
-                return HttpResponseRedirect(referer_view, '/deals/')
+                return HttpResponseRedirect(referer_view,
+                                            'Redirect to /deals/ route')
             else:
                 # Show an error page
-                data = {'msg': {'content': self.cls_default_msgs['invalid_param']}}
+                data = {'msg': {
+                            'content': self.cls_default_msgs['invalid_param']
+                            }
+                        }
                 t_stub = Template('{{msg.content}}')
                 return HttpResponse(t_stub.render(Context(data)))
 
