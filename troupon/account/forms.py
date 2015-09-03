@@ -29,8 +29,8 @@ class MySignupForm(UserCreationForm):
 
     class meta:
         model = Account
-        fields = ('email', 'username', 'created_at', 'updated_at',
-                  'first_name', 'last_name', 'password','confirm_password',)
+        fields = ('id','email', 'username', 'created_at', 'updated_at',
+                  'first_name', 'last_name', 'password1','password2',)
 
         
 
@@ -40,11 +40,9 @@ class MySignupForm(UserCreationForm):
           user.first_name = self.cleaned_data['first_name']
           user.last_name = self.cleaned_data['last_name']
           user.username = self.cleaned_data['username']
-
+          user.is_staff = True
 
           if commit:
-            user = Account.objects.create_user(email = user.email, username = user.name, password = password)
             user.save()
           return user
-
 
