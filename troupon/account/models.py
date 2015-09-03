@@ -37,6 +37,7 @@ class Account(AbstractBaseUser):
     last_name = models.CharField(max_length=40, blank=True)
 
     is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
