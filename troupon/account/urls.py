@@ -5,4 +5,3 @@ from account.views import UserSigninView
 urlpatterns = [
     url(r'^signin/$', UserSigninView.as_view()),
 ]
-

@@ -1,4 +1,7 @@
-<<<<<<< HEAD
+from account.forms import MySignupForm
+from django.views.generic.base import TemplateView
+from django.shortcuts import render,render_to_response
+from django.core.context_processors import csrf
 from django.views.generic import View
 from django.contrib import auth
 from django.template import Template, Context
@@ -90,38 +93,35 @@ class UserSigninView(View):
         # add the slash at the relative path's view and finished
         referer = u'/' + u'/'.join(referer[1:])
         return referer
-=======
-from django.shortcuts import render
-from account.forms import MySignupForm
-from django.views.generic.base import TemplateView
-from django.core.context_processors import csrf
 
-# Create your views here.
-def UserSignupreq(request):
-    if request.method == 'POST':
-        MySignupForm.username = MySignupForm(request.POST.get('username',''))
-        MySignupForm.email = MySignupForm(request.POST.get('email',''))
-        MySignupForm.first_name = MySignupForm(request.POST.get('first_name',''))
-        MySignupForm.last_name = MySignupForm(request.POST.get('last_name',''))
-        MySignupForm.password = MySignupForm(request.POST.get('password',''))
-        MySignupForm.confirm_password = MySignupForm(request.POST.get('confirm_password',''))
-        if MySignupForm.is_valid():
-            MySignupForm.save()
-            return HttpResponseRedirect('/auth/confirm/')
+class UserSignupreq(View):
+  template_name = 'signup.html'
+  def post(self,request):
+    MySignupForm.username = MySignupForm(request.POST.get('username',''))
+    MySignupForm.email = MySignupForm(request.POST.get('email',''))
+    MySignupForm.first_name = MySignupForm(request.POST.get('first_name',''))
+    MySignupForm.last_name = MySignupForm(request.POST.get('last_name',''))
+    MySignupForm.password = MySignupForm(request.POST.get('password',''))
+    MySignupForm.confirm_password = MySignupForm(request.POST.get('confirm_password',''))
+
+    if MySignupForm.is_valid():
+        MySignupForm.save()
+        return HttpResponseRedirect('/auth/confirm/')
 
     else:
       return HttpResponseRedirect('/auth/signup/')
+ 
 
 
 
-class UserSignup(TemplateView):
-  template_name = signup.html
+class UserSignupView(TemplateView):
+  template_name = 'signup.html'
 
   def get_context_data(self, **kwargs):
-        context = super(UserSignup, self).get_context_data()
+        auth_token = csrf(self.request)
+        context = super(UserSignupView, self).get_context_data(**kwargs)
+        context['csrf_token'] = auth_token
         return context
 
 
 
-
->>>>>>> [#102560626] modifying signup.html and modified views.py
