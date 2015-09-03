@@ -12,6 +12,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template.context_processors import csrf
 from account.forms import MySignupForm
 from django.views.generic.base import TemplateView
+from django.core.context_processors import csrf
 
 
 from hashs import UserHasher as Hasher
@@ -225,5 +226,11 @@ class ResetPasswordView(View):
 
 class UserSignup(TemplateView):
   template_name = signup.html
+
+  def get_context_data(self, **kwargs):
+        context = super(UserSignup, self).get_context_data()
+        return context
+
+
 
 
