@@ -1,6 +1,10 @@
 from account.forms import MySignupForm
 from django.views.generic.base import TemplateView
 from django.shortcuts import render,render_to_response
+<<<<<<< HEAD
+=======
+from django.http import HttpResponseRedirect, HttpResponse
+>>>>>>> [#102560626] renamed password input
 from django.core.context_processors import csrf
 from django.views.generic import View
 from django.contrib import auth
@@ -95,19 +99,19 @@ class UserSigninView(View):
         return referer
 
 class UserSignupreq(View):
-  template_name = 'signup.html'
+    
   def post(self,request):
     form_data = {'username' :request.POST.get('username',''),
                     'email' :request.POST.get('email',''),
                 'first_name':request.POST.get('first_name',''),
                 'last_name':request.POST.get('last_name',''),
-                'password':request.POST.get('password',''),
-        'confirm_password': request.POST.get('confirm_password','')
+                'password1':request.POST.get('password',''),
+        'password2': request.POST.get('confirm_password',''),
+        'csrfmiddlewaretoken': request.POST.get('csrf_token',''),
                 }
 
     mysignupform = MySignupForm(form_data)
-
-
+    #return HttpResponse(dir(mysignupform))
     if mysignupform.is_valid():
         mysignupform.save()
         return HttpResponseRedirect('/auth/confirm/')
@@ -115,9 +119,6 @@ class UserSignupreq(View):
     else:
       return HttpResponseRedirect('/auth/signup/')
  
-
-
-
 class UserSignupView(TemplateView):
   template_name = 'account/signup.html'
 
