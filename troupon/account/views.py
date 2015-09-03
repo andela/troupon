@@ -10,15 +10,19 @@ from django.core.context_processors import csrf
 class UserSignupreq(View):
   template_name = 'signup.html'
   def post(self,request):
-    MySignupForm.username = MySignupForm(request.POST.get('username',''))
-    MySignupForm.email = MySignupForm(request.POST.get('email',''))
-    MySignupForm.first_name = MySignupForm(request.POST.get('first_name',''))
-    MySignupForm.last_name = MySignupForm(request.POST.get('last_name',''))
-    MySignupForm.password = MySignupForm(request.POST.get('password',''))
-    MySignupForm.confirm_password = MySignupForm(request.POST.get('confirm_password',''))
+    form_data = {'username' :request.POST.get('username',''),
+                    'email' :request.POST.get('email',''),
+                'first_name':request.POST.get('first_name',''),
+                'last_name':request.POST.get('last_name',''),
+                'password':request.POST.get('password',''),
+        'confirm_password': request.POST.get('confirm_password','')
+                }
 
-    if MySignupForm.is_valid():
-        MySignupForm.save()
+    mysignupform = MySignupForm(form_data)
+
+
+    if mysignupform.is_valid():
+        mysignupform.save()
         return HttpResponseRedirect('/auth/confirm/')
 
     else:
@@ -28,18 +32,17 @@ class UserSignupreq(View):
 
 
 class UserSignupView(TemplateView):
-  template_name = 'signup.html'
+  template_name = 'account/signup.html'
 
   def get_context_data(self, **kwargs):
-        auth_token = csrf(self.request)
+        auth_token = unicode(csrf(self.request)['csrf_token'])
         context = super(UserSignupView, self).get_context_data(**kwargs)
         context['csrf_token'] = auth_token
         return context
 
 class Userconfirm(TemplateView):
-    template_name = 'confirm.html'
-    
+    template_name = 'account/confirm.html'
 
 
-#args.update(csrf(request)),
+
 
