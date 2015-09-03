@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.views.generic.base import View
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
@@ -12,8 +11,10 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template.context_processors import csrf
 from account.forms import MySignupForm
 from django.views.generic.base import TemplateView
+from django.views.generic import View
+from django.shortcuts import render,render_to_response
+from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
-
 
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
@@ -224,13 +225,5 @@ class ResetPasswordView(View):
 
 
 
-class UserSignup(TemplateView):
-  template_name = signup.html
-
-  def get_context_data(self, **kwargs):
-        context = super(UserSignup, self).get_context_data()
-        return context
-
-
-
+#args.update(csrf(request)),
 
