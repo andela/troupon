@@ -3,6 +3,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 import deals
 from account import views
+import account 
 
 urlpatterns = [
     url(r'^auth/', include('account.urls')),

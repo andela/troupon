@@ -123,5 +123,9 @@ class UserSignupView(TemplateView):
         context['csrf_token'] = auth_token
         return context
 
+class Userconfirm(TemplateView):
+    template_name = 'confirm.html'
+    
+
 
 
