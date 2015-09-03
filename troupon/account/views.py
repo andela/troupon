@@ -23,12 +23,12 @@ import re
 
 # Create your views here.
 class UserSignupreq(View):
-    
-  def post(self,request):
-    form_data = {'username' :request.POST.get('username',''),
-                    'email' :request.POST.get('email',''),
+
+    def post(self,request):
+        form_data = {'username' :request.POST.get('username',''),
+                'email' :request.POST.get('email',''),
                 'first_name':request.POST.get('first_name',''),
-                'last_name':request.POST.get('last_name',''),
+                'last_name' :request.POST.get('last_name',''),
                 'password1':request.POST.get('password',''),
         'password2': request.POST.get('confirm_password',''),
         'csrfmiddlewaretoken': request.POST.get('csrf_token',''),
@@ -40,7 +40,6 @@ class UserSignupreq(View):
         mysignupform.save()
         return HttpResponseRedirect('/auth/confirm/')
 
-<<<<<<< HEAD
 
 class UserSigninView(View):
 
@@ -255,6 +254,4 @@ class UserSignupView(TemplateView):
 
 class Userconfirm(TemplateView):
     template_name = 'account/confirm.html'
-
-
 
