@@ -97,16 +97,18 @@ class UserSigninView(View):
 class UserSignupreq(View):
 
     def post(self,request):
-        form_data = {'username' :request.POST.get('username',''),
-                'email' :request.POST.get('email',''),
+        form_data = {'username':request.POST.get('username',''),
+                'email':request.POST.get('email',''),
+                'first_name':request.POST.get('first_name',''),
+                'last_name':request.POST.get('last_name',''),
                 'password1':request.POST.get('password1',''),
-                'password2': request.POST.get('password2',''),
-       'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken',''),
+                'password2':request.POST.get('password2',''),
+       'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
                         }
 
         mysignupform = MySignupForm(form_data)
         if mysignupform.is_valid():
-            print form is valid
+            print ('form is valid')
             mysignupform.save()
 
             return HttpResponseRedirect('/auth/confirm/')
