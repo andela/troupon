@@ -14,14 +14,6 @@ class MySignupForm(UserCreationForm):
 
 
 
-    def save(self, commit=True):
-        user = super(MySignupForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.is_staff = True 
-
-        if commit:
-            user.save()
+    def save(self):
+        user = User.objects.create_user(username=self.cleaned_data['username'],email=self.cleaned_data['email'],password=self.cleaned_data['password1'])
         return user
-
