@@ -11,14 +11,12 @@ from emails import Mailgunner
 
 class ForgotPasswordView(View):
 
-
     def get(self, request, *args, **kwargs):
         context = {
             'page_title': 'Forgot Password',
             'email_form': EmailForm(auto_id=True),
         }
         return render(request, 'account/forgot_password.html', context)
-
 
     def post(self, request, *args, **kwargs):
         email_form = EmailForm(request.POST,auto_id=True)
@@ -29,17 +27,14 @@ class ForgotPasswordView(View):
                 registered_account = Account.objects.get(email__exact=input_email)
 
                 # generate a recovery hash url for that account:
-                recovery_hash_base_url = "/account/recovery/"
+                recovery_hash_base_url = "http://127.0.0.1:8000/account/recovery/"
                 recovery_hash = Hasher.gen_hash(registered_account)
                 recovery_hash_url =  recovery_hash_base_url + recovery_hash
 
                 # compose the email:
-                recovery_email_context = RequestContext(request, {
-                    'registered_account':  registered_account,
-                    'recovery_hash_url': recovery_hash_url,
-                })
+                recovery_email_context = RequestContext(request, {'recovery_hash_url': recovery_hash_url})
                 recovery_email =  Mailgunner.compose(
-                    sender = 'Troupon <troupon@andela.com>',
+                    sender = 'Troupon <support.troupon@andela.com>',
                     reciepient = registered_account.email,
                     subject = 'Troupon: Account Password Recovery',
                     html = loader.get_template('account/forgot_password_recovery_email.html').render(recovery_email_context),

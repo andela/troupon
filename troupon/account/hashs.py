@@ -6,14 +6,15 @@ from time import time
 
 from troupon.settings import SECRET_KEY as secret_key
 
+
 class UserHasher:
     """ NOTE: This class has the Hashids package as a dependency. 
         Run 'pip install requirements.txt' to install on your environment. """
 
     timehash_min_length = 40
     userhash_min_length = 20
-    alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    delim = "_"
+    alphabet = 'abcdefghijklmnopqrsuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    delim = "t"
 
     @staticmethod
     def gen_hash(registered_account):
@@ -32,6 +33,7 @@ class UserHasher:
         
         # return the combination delimited by UserHasher.delim:
         return "%s%s%s" % (timestamp_hash, UserHasher.delim, pk_hash)
+
 
     @staticmethod
     def reverse_hash(hash_str):

@@ -1,3 +1,4 @@
+from django.test import TestCase
 from account.emails import Mailgunner
 
 class EmailTestCase(TestCase):
