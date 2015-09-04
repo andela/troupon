@@ -14,14 +14,14 @@ class UserSignupreq(View):
                 'email' :request.POST.get('email',''),
                 'first_name':request.POST.get('first_name',''),
                 'last_name' :request.POST.get('last_name',''),
-                'password1':request.POST.get('password',''),
-                'password2': request.POST.get('confirm_password',''),
+                'password1':request.POST.get('password1',''),
+                'password2': request.POST.get('password1',''),
          'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken',''),
                         }
 
         mysignupform = MySignupForm(form_data)
         if mysignupform.is_valid():
-            print "form is valid"
+            print form is valid
             mysignupform.save()
 
             return HttpResponseRedirect('/auth/confirm/')
