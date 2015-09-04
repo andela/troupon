@@ -63,3 +63,22 @@ class ForgotPasswordViewTestCase(TestCase):
         response = self.client.post('/account/recovery/', {"email":"unregistereduser@andela.com" })
         self.assertNotIn('registered_user', response.context)
         self.assertNotIn('recovery_mail_status', response.context)
+
+
+# class ResetPasswordViewTestCase(TestCase):
+    # def setUp(self):
+    #     # create a test client:
+    #     self.client = Client()
+    #     # register a sample user:
+    #     self.registered_user = User.objects.create_user('AwiliUzo', 'awillionaire@gmail.com', 'Young1491')
+    #     self.registered_user.first_name = 'Uzo'
+    #     self.registered_user.last_name = 'Awili'
+    #     self.registered_user.save()
+
+    # def test_get_reset_works_for_valid_recovery_urls(self):
+    #     recovery_hash = Hasher.gen_hash(self.registered_user)
+
+    #     recovery_hash_url = request.build_absolute_uri(reverse('account_reset_password', kwargs={'recovery_hash': recovery_hash}))
+               
+    #     response = self.client.get('/account/recovery/')
+    #     self.assertEquals(response.status_code, 200)d

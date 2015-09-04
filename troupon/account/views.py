@@ -102,14 +102,13 @@ class ResetPasswordView(View):
             # raise 404 when the hash doesn't return a user:
             raise Http404("/User does not exist")
 
-
     def post(self, request, *args, **kwargs):
         reset_password_form = ResetPasswordForm(request.POST,auto_id=True)
         if reset_password_form.is_valid():
             try:
                 # get the recovery_user from the session:
                 recovery_user_pk = request.session['recovery_user_pk'] 
-                user = User.objects.get(pk=account_pk)
+                user = User.objects.get(pk=recovery_user_pk)
 
                 # change the user's password to the new password:
                 new_password = reset_password_form.cleaned_data.get('password')
@@ -120,7 +119,6 @@ class ResetPasswordView(View):
                 messages.add_message(request, messages.INFO, 'Your password was changed successfully!')
 
                 # redirect the user to the sign in:
-                render(request, 'account/forgot_password_recovery_status.html', context)
                 return redirect('/signin/')
             
             except ObjectDoesNotExist:
