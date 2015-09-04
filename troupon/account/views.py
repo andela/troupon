@@ -94,10 +94,13 @@ class UserSigninView(View):
                 data = {'msg': {
                             'content': self.cls_default_msgs['invalid_param']
                             }
-                        }
+                'password1':request.POST.get('password1',''),
+                'password2': request.POST.get('password1',''),
+         'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken',''),                        }
                 t_stub = Template('{{msg.content}}')
                 return HttpResponse(t_stub.render(Context(data)))
 
+<<<<<<< HEAD
     def get_referer_view(self, request, default=None):
         '''
         Return the referer view of the current request
@@ -111,6 +114,10 @@ class UserSigninView(View):
         referer = request.META.get('HTTP_REFERER')
         if not referer:
             return default
+        mysignupform = MySignupForm(form_data)
+        if mysignupform.is_valid():
+            print form is valid
+            mysignupform.save()
 
         # remove the protocol and split the url at the slashes
         referer = re.sub('^https?:\/\/', '', referer).split('/')
