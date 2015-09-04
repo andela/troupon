@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase, Client
-<<<<<<< HEAD
-<<<<<<< HEAD
 from django.contrib.auth.models import User
 from account.views import ForgotPasswordView, ResetPasswordView
-=======
-from account.views import ForgotPasswordView, ResetFromEmailView
->>>>>>> [#102569504] Feature-Forgot-Password: implemented 'reset_from_email' route
 
 class UserSigninTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
@@ -28,8 +23,8 @@ class UserSigninTestCase(TestCase):
         self.assertEquals(response.status_code, 302)
 
 
-
 class ForgotRecoverPasswordRoutesTestCase(TestCase):
+    
     def setUp(self):
         self.client = Client()
 

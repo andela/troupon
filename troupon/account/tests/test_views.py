@@ -3,6 +3,8 @@ from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
 
+from account.hashs import UserHasher as Hasher
+
 
 
 class UserSignInViewTestCase(TestCase):
@@ -31,36 +33,33 @@ class UserSignInViewTestCase(TestCase):
         self.assertIn('deals', response.content)
 
 
+
 class ForgotPasswordViewTestCase(TestCase):
     
     def setUp(self):
         # create a test client:
         self.client = Client()
+        # register a sample user:
         self.registered_account = User.objects.create_user('AwiliUzo', 'awillionaire@gmail.com', 'Young1491')
         self.registered_account.first_name = 'Uzo'
         self.registered_account.last_name = 'Awili'
         self.registered_account.save()
 
-
     def test_get_returns_200(self):
         response = self.client.get('/account/recovery/')
         self.assertEquals(response.status_code, 200)
-
 
     def test_post_returns_200(self):
         response = self.client.get('/account/recovery/')
         self.assertEquals(response.status_code, 200)
 
-
-    def test_recovery_email_sent_for_registered_account(self):
-        response = self.client.post('/account/recovery/', {"email":"awillionaire@gmail.com" })
+    def test_recovery_email_sent_for_registered_user(self):
+        response = self.client.post('/account/recovery/', {"email": self.registered_account.email})
         self.assertIn('registered_account', response.context)
         self.assertIn('recovery_mail_status', response.context)
         self.assertEqual(response.context['recovery_mail_status'], 200)
-        # self.assertGreaterEqual(response.context['recovery_mail_status'], 200)
 
-
-    def test_recovery_email_not_sent_for_unregistered_account(self):
-        response = self.client.post('/account/recovery/', {"email":"awillionaire2015@gmail.com" })
+    def test_recovery_email_not_sent_for_unregistered_user(self):
+        response = self.client.post('/account/recovery/', {"email":"unregistereduser@andela.com" })
         self.assertNotIn('registered_account', response.context)
         self.assertNotIn('recovery_mail_status', response.context)

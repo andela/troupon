@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User as Account
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 from hashids import Hashids
@@ -12,7 +12,7 @@ class UserHasher:
         Run 'pip install requirements.txt' to install on your environment. """
 
     timehash_min_length = 40
-    userhash_min_length = 20
+    pkhash_min_length = 20
     alphabet = 'abcdefghijklmnopqrstuvwyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     delim = "x"
 
@@ -28,7 +28,7 @@ class UserHasher:
         timestamp_hash = hashids.encode(timestamp)
         
         # encode the user's pk with timestamp:
-        hashids = Hashids(salt=str(timestamp), min_length=UserHasher.userhash_min_length, alphabet=UserHasher.alphabet)
+        hashids = Hashids(salt=str(timestamp), min_length=UserHasher.pkhash_min_length, alphabet=UserHasher.alphabet)
         pk_hash = hashids.encode(registered_account.pk)
         
         # return the combination delimited by UserHasher.delim:
@@ -52,12 +52,12 @@ class UserHasher:
         timestamp = hashids.decode(hashs[0])[0]
         
         # decode the pk_hash (i.e hashs[1] ) with the timestamp:
-        hashids = Hashids(salt=str(timestamp), min_length=UserHasher.userhash_min_length, alphabet=UserHasher.alphabet)
+        hashids = Hashids(salt=str(timestamp), min_length=UserHasher.pkhash_min_length, alphabet=UserHasher.alphabet)
         account_pk = hashids.decode(hashs[1])[0]
         
         try:
             # return the account for that pk if it exists:
-            registered_account = Account.objects.get(pk=account_pk)
+            registered_account = User.objects.get(pk=account_pk)
             return registered_account
         except ObjectDoesNotExist:
             # return None if it doesn't:

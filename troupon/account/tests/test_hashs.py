@@ -10,9 +10,9 @@ class AccountHashsTestCase(TestCase):
         # create a test client:
         self.client = Client()
         # register a sample user:
-        self.registered_account = Account.objects.create_user('AwiliUzo', 'awillionaire@gmail.com', 'Young1491')
-        self.registered_account.first_name = 'Uzo'
-        self.registered_account.last_name = 'Awili'
+        self.registered_account = Account.objects.create_user('SamuelJames', 'samuel.james@andela.com', 'Django1491')
+        self.registered_account.first_name = 'James'
+        self.registered_account.last_name = 'Samuel'
         self.registered_account.save()
 
 

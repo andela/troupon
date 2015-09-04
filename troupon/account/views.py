@@ -1,13 +1,15 @@
 from django.views.generic.base import View
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User as Account
+from django.core.urlresolvers import reverse
 from django.template import RequestContext, loader
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User
 
 from hashs import UserHasher as Hasher
 from forms import EmailForm
 from emails import Mailgunner
+
 
 class ForgotPasswordView(View):
 
@@ -24,19 +26,18 @@ class ForgotPasswordView(View):
             try:
                 # get the account for that email if it exists:
                 input_email = email_form.cleaned_data.get('email')
-                registered_account = Account.objects.get(email__exact=input_email)
+                registered_account = User.objects.get(email__exact=input_email)
 
                 # generate a recovery hash url for that account:
-                recovery_hash_base_url = "http://127.0.0.1:8000/account/recovery/"
                 recovery_hash = Hasher.gen_hash(registered_account)
-                recovery_hash_url =  recovery_hash_base_url + recovery_hash
-
+                recovery_hash_url = request.build_absolute_uri(reverse('account_reset_password', kwargs={'recovery_hash': recovery_hash}))
+                
                 # compose the email:
                 recovery_email_context = RequestContext(request, {'recovery_hash_url': recovery_hash_url})
                 recovery_email =  Mailgunner.compose(
                     sender = 'Troupon <support.troupon@andela.com>',
                     reciepient = registered_account.email,
-                    subject = 'Troupon: Account Password Recovery',
+                    subject = 'Troupon: Password Recovery',
                     html = loader.get_template('account/forgot_password_recovery_email.html').render(recovery_email_context),
                     text = loader.get_template('account/forgot_password_recovery_email.txt').render(recovery_email_context),
                 )
@@ -62,3 +63,5 @@ class ForgotPasswordView(View):
         return render(request, 'account/forgot_password.html', context)
 
 
+class ResetPasswordView(View):
+    pass
