@@ -1,6 +1,7 @@
 
 from django.conf.urls import patterns, include, url
 from account.views import UserSigninView
+from account import views
 
 urlpatterns = patterns('',
     url(r'^signup/$',views.UserSignupView.as_view(),name = 'UserSignupView'),
