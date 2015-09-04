@@ -100,9 +100,13 @@ class UserSigninView(View):
          'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken',''),                        }
                 t_stub = Template('{{msg.content}}')
                 return HttpResponse(t_stub.render(Context(data)))
+        form_data = {'username':request.POST.get('username',''),
+                'email':request.POST.get('email',''),
+                'first_name':request.POST.get('first_name',''),
+                'last_name':request.POST.get('last_name',''),
                 'password1':request.POST.get('password1',''),
-                'password2': request.POST.get('password2',''),
-       'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken',''),
+                'password2':request.POST.get('password2',''),
+       'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
                         }
     def get_referer_view(self, request, default=None):
         '''
@@ -119,7 +123,7 @@ class UserSigninView(View):
             return default
         mysignupform = MySignupForm(form_data)
         if mysignupform.is_valid():
-            print form is valid
+            print ('form is valid')
             mysignupform.save()
 
         # remove the protocol and split the url at the slashes

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django import forms 
@@ -18,6 +18,9 @@ class ResetPasswordForm(forms.Form):
             "class": "",
             "placeholder": ""
         }))
+    class meta:
+        model = User
+        fields = ('first_name','last_name','username','email','password1','password2')
 
     password2 = forms.CharField(label='Confirm New Password', required=True, max_length=200, widget=forms.PasswordInput(attrs={
             "class": "",
