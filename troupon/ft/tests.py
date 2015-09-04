@@ -4,6 +4,9 @@ from selenium.webdriver.common.keys import Keys
 from django.test import LiveServerTestCase
 
 class UserSignupTest(LiveServerTestCase):
+    '''
+    functional test to test app like user would
+    '''
 
   def setUp(self):
     self.browser = webdriver.Firefox()
