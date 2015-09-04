@@ -1,3 +1,4 @@
+
 from django.views.generic.base import View
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
@@ -99,8 +100,10 @@ class UserSigninView(View):
          'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken',''),                        }
                 t_stub = Template('{{msg.content}}')
                 return HttpResponse(t_stub.render(Context(data)))
-
-<<<<<<< HEAD
+                'password1':request.POST.get('password1',''),
+                'password2': request.POST.get('password2',''),
+       'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken',''),
+                        }
     def get_referer_view(self, request, default=None):
         '''
         Return the referer view of the current request

@@ -11,7 +11,7 @@ class RegViewTest(TestCase):
 
   def test_view_reg_route(self):
     response = self.client_stub.get('/auth/signupreq/')
-    csrf_client = Client(enforce_csrf_checks=True)
+    #csrf_client = Client(enforce_csrf_checks=True)
     self.assertEquals(response.status_code, 200)
 
   def test_view_reg_success_route(self):
