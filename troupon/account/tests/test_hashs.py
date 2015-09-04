@@ -10,19 +10,19 @@ class AccountHashsTestCase(TestCase):
         # create a test client:
         self.client = Client()
         # register a sample user:
-        self.registered_account = Account.objects.create_user('SamuelJames', 'samuel.james@andela.com', 'Django1491')
-        self.registered_account.first_name = 'James'
-        self.registered_account.last_name = 'Samuel'
-        self.registered_account.save()
+        self.registered_user = Account.objects.create_user('SamuelJames', 'samuel.james@andela.com', 'Django1491')
+        self.registered_user.first_name = 'James'
+        self.registered_user.last_name = 'Samuel'
+        self.registered_user.save()
 
 
     def test_gen_hash_returns_min_50_chars(self):
-        generated_hash = Hasher.gen_hash(self.registered_account)
+        generated_hash = Hasher.gen_hash(self.registered_user)
         self.assertGreaterEqual(len(generated_hash), 50)
 
 
     def test_reverse_hash_returns_user_instance(self):
-        generated_hash = Hasher.gen_hash(self.registered_account)
+        generated_hash = Hasher.gen_hash(self.registered_user)
         reversed_hash_result = Hasher.reverse_hash(generated_hash)
         self.assertIsInstance(reversed_hash_result, Account)
 
@@ -34,7 +34,7 @@ class AccountHashsTestCase(TestCase):
 
 
     def test_generated_hash_reverses_correctly(self):
-        generated_hash = Hasher.gen_hash(self.registered_account)
+        generated_hash = Hasher.gen_hash(self.registered_user)
         reversed_hash_result = Hasher.reverse_hash(generated_hash)
-        self.assertEquals(self.registered_account.pk, reversed_hash_result.pk)
-        # self.assertEquals(self.registered_account.pk, 1)
+        self.assertEquals(self.registered_user.pk, reversed_hash_result.pk)
+        # self.assertEquals(self.registered_user.pk, 1)
