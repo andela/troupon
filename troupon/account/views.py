@@ -1,5 +1,6 @@
 from account.forms import MySignupForm
 from django.views.generic.base import TemplateView
+<<<<<<< HEAD
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.context_processors import csrf
@@ -94,6 +95,14 @@ class UserSigninView(View):
         referer = u'/' + u'/'.join(referer[1:])
         return referer
 
+=======
+from django.views.generic import View
+from django.shortcuts import render,render_to_response
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.context_processors import csrf
+
+# Create your views here.
+>>>>>>> d432157acd84c8463a4b053243f2273e62e72c25
 class UserSignupreq(View):
 
     def post(self,request):
