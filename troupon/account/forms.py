@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
  
 class MySignupForm(UserCreationForm):
@@ -9,7 +9,7 @@ class MySignupForm(UserCreationForm):
 
 
     class meta:
-        model = AbstractUser
+        model = User
         fields = ('first_name','last_name','username','email','password1','password2')
 
 
