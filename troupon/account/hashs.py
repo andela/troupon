@@ -13,8 +13,8 @@ class UserHasher:
 
     timehash_min_length = 40
     userhash_min_length = 20
-    alphabet = 'abcdefghijklmnopqrsuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    delim = "t"
+    alphabet = 'abcdefghijklmnopqrstuvwyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    delim = "x"
 
     @staticmethod
     def gen_hash(registered_account):

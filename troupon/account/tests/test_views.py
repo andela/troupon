@@ -43,17 +43,17 @@ class ForgotPasswordViewTestCase(TestCase):
 
 
     def test_get_returns_200(self):
-        response = self.client.get('/account/forgot_password/')
+        response = self.client.get('/account/recovery/')
         self.assertEquals(response.status_code, 200)
 
 
     def test_post_returns_200(self):
-        response = self.client.get('/account/forgot_password/')
+        response = self.client.get('/account/recovery/')
         self.assertEquals(response.status_code, 200)
 
 
     def test_recovery_email_sent_for_registered_account(self):
-        response = self.client.post('/account/forgot_password/', {"email":"awillionaire@gmail.com" })
+        response = self.client.post('/account/recovery/', {"email":"awillionaire@gmail.com" })
         self.assertIn('registered_account', response.context)
         self.assertIn('recovery_mail_status', response.context)
         self.assertEqual(response.context['recovery_mail_status'], 200)
@@ -61,6 +61,6 @@ class ForgotPasswordViewTestCase(TestCase):
 
 
     def test_recovery_email_not_sent_for_unregistered_account(self):
-        response = self.client.post('/account/forgot_password/', {"email":"awillionaire2015@gmail.com" })
+        response = self.client.post('/account/recovery/', {"email":"awillionaire2015@gmail.com" })
         self.assertNotIn('registered_account', response.context)
         self.assertNotIn('recovery_mail_status', response.context)

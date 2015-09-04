@@ -29,6 +29,6 @@ class ForgotPasswordRouteTestCase(TestCase):
         self.client = Client()
 
     def test_route_resolves_to_correct_view(self):
-        response = self.client.get('/account/forgot_password/')
+        response = self.client.get('/account/recovery/')
         self.assertEqual(response.resolver_match.func.__name__, ForgotPasswordView.as_view().__name__)
     
