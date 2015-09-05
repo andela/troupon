@@ -1,6 +1,5 @@
 from django.conf.urls import url
-from account.views import UserSigninView
-from views import ForgotPasswordView, ResetPasswordView
+from account.views import UserSigninView, ForgotPasswordView, ResetPasswordView
 
 urlpatterns = [
     url(r'^signin/$', UserSigninView.as_view(), name='signin'),
