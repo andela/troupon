@@ -112,14 +112,14 @@ class ResetPasswordView(View):
 
                 # change the user's password to the new password:
                 new_password = reset_password_form.cleaned_data.get('password')
-                user.set_password('new_password')
+                user.set_password(new_password)
                 user.save()
 
                 # inform the user thru a flash message:
                 messages.add_message(request, messages.INFO, 'Your password was changed successfully!')
 
                 # redirect the user to the sign in:
-                return redirect('/signin/')
+                return redirect('signin/')
             
             except ObjectDoesNotExist:
                 # set an error message:
