@@ -14,7 +14,7 @@ from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
 from emails import Mailgunner
 
-# import re
+import re
 
 
 class UserSigninView(View):
@@ -25,7 +25,6 @@ class UserSigninView(View):
                         'not_signed_in': 'User is not signed in',
                         'invalid_param': 'Invalid signin parameters',
                         }
-
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
@@ -44,7 +43,6 @@ class UserSigninView(View):
             # Replace this template before deployment to test or production
 
             return HttpResponse(t_stub.render(Context(data)))
-
 
     def post(self, *args, **kwargs):
         if self.request.user.is_authenticated():
@@ -75,7 +73,6 @@ class UserSigninView(View):
                         }
                 t_stub = Template('{{msg.content}}')
                 return HttpResponse(t_stub.render(Context(data)))
-
 
     def get_referer_view(self, request, default=None):
         '''

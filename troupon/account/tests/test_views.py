@@ -20,15 +20,16 @@ class UserSignInViewTestCase(TestCase):
             the class name `UserSigninView`.
         """
 
-        response = resolve('/signin/')
+        response = resolve('/auth/signin/')
         self.assertEquals(response.func.__name__, 'UserSigninView')
 
     def test_view_post_auth_signin(self):
         """Test that user post to signin route has a session
         """
         data = {'email': 'johndoe@gmail.com', 'password': '12345'}
-        response = self.client.post('/signin/', data)
+        response = self.client.post('/auth/signin/', data)
         self.assertIn('deals', response.content)
+
 
 
 class ForgotPasswordViewTestCase(TestCase):

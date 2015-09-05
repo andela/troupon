@@ -5,8 +5,9 @@ import deals
 from account import views
 
 urlpatterns = [
-	url(r'^admin/', include(admin.site.urls)),
-	url(r'^deals/', include('deals.urls')),
+	url(r'^auth/', include('account.urls')),
+    url(r'^account/', include('account.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^deals/', include('deals.urls')),
     url(r'^$', deals.views.HomePage.as_view(), name='homepage'),
-    url(r'^', include('account.urls')),
 ]
