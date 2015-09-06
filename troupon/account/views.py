@@ -1,4 +1,4 @@
-from account.forms import MySignupForm
+from account.forms import UserSignupForm
 from django.views.generic.base import TemplateView
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
@@ -94,12 +94,12 @@ class UserSigninView(View):
         referer = u'/' + u'/'.join(referer[1:])
         return referer
 
-class UserSignupreq(View):
+class UserSignupRequest(View):
 
     def post(self,request):
         '''
-        raw data posted from form is recieved here,bound to form 
-        as dictionary and sent to unrendered django form for validation
+        Raw data posted from form is recieved here,bound to form 
+        as dictionary and sent to unrendered django form for validation.
         ''' 
         form_data = {'username':request.POST.get('username',''),
                 'email':request.POST.get('email',''),
@@ -125,7 +125,7 @@ class UserSignupView(TemplateView):
 
   def get_context_data(self, **kwargs):
     '''
-    method used here to send csrf to html page when rendered
+    Method used here to send csrf to html page when rendered.
     '''
         auth_token = unicode(csrf(self.request)['csrf_token'])
         context = super(UserSignupView, self).get_context_data(**kwargs)
