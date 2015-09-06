@@ -110,15 +110,15 @@ class UserSignupRequest(View):
        'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
                         }
 
-        mysignupform = MySignupForm(form_data)
-        if mysignupform.is_valid():
+        usersignupform = UserSignupForm(form_data)
+        if usersignupform.is_valid():
             print ('form is valid')
-            mysignupform.save()
+            usersignupform.save()
 
-            return HttpResponseRedirect('/auth/confirm/')
+            return HttpResponseRedirect('/account/confirm/')
 
         else:
-          return HttpResponseRedirect('/auth/signup/')
+          return HttpResponseRedirect('/account/signup/')
  
 class UserSignupView(TemplateView):
   template_name = 'account/signup.html'
