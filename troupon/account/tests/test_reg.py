@@ -23,14 +23,14 @@ class UserRegistrationViewTest(TestCase):
     '''
     User signup page is called.
     '''
-    response = self.client_stub.get('/account/signup/')
+    response = self.client_stub.get('/auth/signup/')
     self.assertEquals(response.status_code, 200)
 
   def test_view_reg_route(self):
     '''
     User is redirected after signup data is validated.
     '''
-    response = self.client_stub.post('/account/signuprequest/', self.form_data)
+    response = self.client_stub.post('/auth/signuprequest/', self.form_data)
     self.assertEquals(response.status_code, 302)
 
   def test_view_reg_success_route(self):
@@ -38,7 +38,7 @@ class UserRegistrationViewTest(TestCase):
     User gets to view confirmation page after signup.
     '''
 
-    response = self.client_stub.get('/account/confirm/')
+    response = self.client_stub.get('/auth/confirm/')
     self.assertEquals(response.status_code, 200)
 
 
