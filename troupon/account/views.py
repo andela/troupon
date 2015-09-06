@@ -125,10 +125,10 @@ class UserSignupView(TemplateView):
     '''
     Method used here to send csrf to html page when rendered.
     '''
-        auth_token = unicode(csrf(self.request)['csrf_token'])
-        context = super(UserSignupView, self).get_context_data(**kwargs)
-        context['csrf_token'] = auth_token
-        return context
+    auth_token = unicode(csrf(self.request)['csrf_token'])
+    context = super(UserSignupView,self).get_context_data(**kwargs)
+    context['csrf_token'] = auth_token
+    return context
 
 class Userconfirm(TemplateView):
     template_name = 'account/confirm.html'
