@@ -1,4 +1,3 @@
-
 from django.views.generic.base import View
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
@@ -9,12 +8,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.template.context_processors import csrf
 from account.forms import MySignupForm
 from django.views.generic.base import TemplateView
 from django.views.generic import View
-from django.shortcuts import render,render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
@@ -23,23 +20,6 @@ from emails import Mailgunner
 import re
 
 # Create your views here.
-class UserSignupreq(View):
-
-    def post(self,request):
-        form_data = {'username' :request.POST.get('username',''),
-                'email' :request.POST.get('email',''),
-                'first_name':request.POST.get('first_name',''),
-                'last_name' :request.POST.get('last_name',''),
-                'password1':request.POST.get('password',''),
-        'password2': request.POST.get('confirm_password',''),
-        'csrfmiddlewaretoken': request.POST.get('csrf_token',''),
-                }
-
-    mysignupform = MySignupForm(form_data)
-    #return HttpResponse(dir(mysignupform))
-    if mysignupform.is_valid():
-        mysignupform.save()
-        return HttpResponseRedirect('/auth/confirm/')
 
 
 class UserSigninView(View):
@@ -257,14 +237,39 @@ class ResetPasswordView(View):
     else:
       return HttpResponseRedirect('/auth/signup/')
  
-class UserSignupView(TemplateView):
-  template_name = 'account/signup.html'
+class UserSignupView(View):
+    
+    template_name = 'account/signup.html'
 
-  def get_context_data(self, **kwargs):
-        auth_token = unicode(csrf(self.request)['csrf_token'])
-        context = super(UserSignupView, self).get_context_data(**kwargs)
-        context['csrf_token'] = auth_token
-        return context
+    def get(self, request, *args, **kwargs):
+        args = {}
+        args.update(csrf(request))
+        return render(request, self.template_name, args)
+
+
+    def post(self,request):
+        '''
+        Raw data posted from form is recieved here,bound to form 
+        as dictionary and sent to unrendered django form for validation.
+        ''' 
+        form_data = {'username':request.POST.get('username',''),
+                'email':request.POST.get('email',''),
+                'password1':request.POST.get('password1',''),
+                'password2':request.POST.get('password2',''),
+       'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
+                        }
+
+        usersignupform = UserSignupForm(form_data)
+        if usersignupform.is_valid():
+            print ('form is valid')
+            usersignupform.save()
+
+            return HttpResponseRedirect('/account/confirm/')
+
+        else:
+            args = {}
+            args.update(csrf(request))
+            return render(request, self.template_name, args)
 
 class Userconfirm(TemplateView):
     template_name = 'account/confirm.html'

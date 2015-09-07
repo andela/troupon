@@ -37,3 +37,40 @@ class ForgotRecoverPasswordRoutesTestCase(TestCase):
     def test_reset_route_resolves_to_correct_view(self):
         response = self.client.get('/account/recovery/ajkzfYba9847DgJ7wbkwAaSbkTjUdawGG998qo3HG8qae83')
         self.assertEqual(response.resolver_match.func.__name__, ResetPasswordView.as_view().__name__)
+
+class UserRegistrationViewTest(TestCase):
+  '''
+  Test class to user registration.
+  '''
+  def setUp(self):
+    '''
+    User sign's up with data.
+    '''
+    self.client_stub = Client()
+    self.form_data = dict(username="andela",
+                           password1="andela",
+                           password2="andela",
+                           email="andela@andela.com",
+                           )
+
+  def test_view_signup_route(self):
+    '''
+    User signup page is called.
+    '''
+    response = self.client_stub.get('/account/signup/')
+    self.assertEquals(response.status_code, 200)
+
+  def test_view_reg_route(self):
+    '''
+    User is redirected after signup data is validated.
+    '''
+    response = self.client_stub.post('/account/signup/', self.form_data)
+    self.assertEquals(response.status_code, 302)
+
+  def test_view_reg_success_route(self):
+    '''
+    User gets to view confirmation page after signup.
+    '''
+
+    response = self.client_stub.get('/account/confirm/')
+    self.assertEquals(response.status_code, 200)
