@@ -36,6 +36,15 @@ class HomepageViewTests(unittest.TestCase):
         driver.get("http://127.0.0.1:8000/")
         assert "About Troupon" in driver.page_source
 
+    def test_social_links(self,):
+        """
+        Checks social links are working
+        """
+        driver = self.driver
+        driver.get("http://127.0.0.1:8000/")
+        assert "http://facebook.com/troupon/" in driver.page_source
+        assert "http://twitter.com/troupon/" in driver.page_source
+
     def tearDown(self,):
         """
         Close the browser window
