@@ -37,10 +37,10 @@ class ForgotPasswordViewTestCase(TestCase):
         # create a test client:
         self.client = Client()
         # register a sample user:
-        self.registered_user = User.objects.create_user('AwiliUzo', 'awillionaire@gmail.com', 'Young1491')
-        self.registered_user.first_name = 'Uzo'
-        self.registered_user.last_name = 'Awili'
-        self.registered_user.save()
+        self.user = User.objects.create_user('AwiliUzo', 'awillionaire@gmail.com', 'Young1491')
+        self.user.first_name = 'Uzo'
+        self.user.last_name = 'Awili'
+        self.user.save()
 
     def test_get_returns_200(self):
         response = self.client.get('/account/recovery/')
@@ -51,7 +51,7 @@ class ForgotPasswordViewTestCase(TestCase):
         self.assertEquals(response.status_code, 200)
 
     def test_recovery_email_sent_for_registered_user(self):
-        response = self.client.post('/account/recovery/', {"email": self.registered_user.email})
+        response = self.client.post('/account/recovery/', {"email": self.user.email})
         self.assertIn('registered_user', response.context)
         self.assertIn('recovery_mail_status', response.context)
         self.assertEqual(response.context['recovery_mail_status'], 200)
