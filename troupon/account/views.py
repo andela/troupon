@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from account.forms import MySignupForm
+from account.forms import UserSignupForm
 from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.shortcuts import render_to_response
@@ -75,19 +75,10 @@ class UserSigninView(View):
                 data = {'msg': {
                             'content': self.cls_default_msgs['invalid_param']
                             }
-                'password1':request.POST.get('password1',''),
-                'password2': request.POST.get('password1',''),
-         'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken',''),                        }
+                        }
                 t_stub = Template('{{msg.content}}')
                 return HttpResponse(t_stub.render(Context(data)))
-        form_data = {'username':request.POST.get('username',''),
-                'email':request.POST.get('email',''),
-                'first_name':request.POST.get('first_name',''),
-                'last_name':request.POST.get('last_name',''),
-                'password1':request.POST.get('password1',''),
-                'password2':request.POST.get('password2',''),
-       'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
-                        }
+
     def get_referer_view(self, request, default=None):
         '''
         Return the referer view of the current request
@@ -101,10 +92,6 @@ class UserSigninView(View):
         referer = request.META.get('HTTP_REFERER')
         if not referer:
             return default
-        mysignupform = MySignupForm(form_data)
-        if mysignupform.is_valid():
-            print ('form is valid')
-            mysignupform.save()
 
         # remove the protocol and split the url at the slashes
         referer = re.sub('^https?:\/\/', '', referer).split('/')
@@ -232,11 +219,7 @@ class ResetPasswordView(View):
             'email_form': reset_password_form, 
         }
         context.update(csrf(request))
-        return render(request, 'account/forgot_password.html', context)
-
-    else:
-      return HttpResponseRedirect('/auth/signup/')
- 
+        return render(request, 'account/forgot_password.html', context) 
 class UserSignupView(View):
     
     template_name = 'account/signup.html'
