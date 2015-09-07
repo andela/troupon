@@ -94,7 +94,15 @@ class UserSigninView(View):
         referer = u'/' + u'/'.join(referer[1:])
         return referer
 
-class UserSignupRequest(View):
+class UserSignupView(View):
+    args = {}
+    args.update(csrf(request))
+
+    template_name = 'account/signup.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, args)
+
 
     def post(self,request):
         '''
@@ -116,22 +124,33 @@ class UserSignupRequest(View):
             return HttpResponseRedirect('/account/confirm/')
 
         else:
-          return HttpResponseRedirect('/account/signup/')
- 
+            args = {}
+            args.update(csrf(request))
+
+          return render(request, self.template_name, args)
+''' 
 class UserSignupView(TemplateView):
   template_name = 'account/signup.html'
 
   def get_context_data(self, **kwargs):
-    '''
-    Method used here to send csrf to html page when rendered.
-    '''
     auth_token = unicode(csrf(self.request)['csrf_token'])
     context = super(UserSignupView,self).get_context_data(**kwargs)
     context['csrf_token'] = auth_token
     return context
-
+'''
 class Userconfirm(TemplateView):
     template_name = 'account/confirm.html'
 
 
+'''
+    args['form'] = form
+
+    return render(request,'newquote.html',args)
+    args = {}
+    args.update(csrf(request))
+
+    args['form'] = form
+
+    return render(request,'newquote.html',args)
+'''
     
