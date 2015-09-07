@@ -14,11 +14,11 @@ class UserSigninTestCase(TestCase):
         self.user.save()
 
     def test_route_get_auth_signin(self):
-        response = self.client.get('/auth/signin/')
+        response = self.client.get('/account/signin/')
         self.assertEquals(response.status_code, 200)
 
     def test_route_post_auth_signin(self):
-        response = self.client.post('/auth/signin/',
+        response = self.client.post('/account/signin/',
                                     dict(email='johndoe@gmail.com',
                                          password='12345'))
         self.assertEquals(response.status_code, 302)
