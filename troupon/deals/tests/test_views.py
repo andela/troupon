@@ -20,6 +20,14 @@ class HomepageViewTests(unittest.TestCase):
         driver.get("http://127.0.0.1:8000/")
         self.assertIn("Troupon - Get Some!", driver.title)
 
+    def test_can_subscribe(self,):
+        """
+        Checks if newsletter form is present on homepage
+        """
+        driver = self.driver
+        driver.get("http://127.0.0.1:8000/")
+        self.assertTrue("driver.find_element_by_name('subscriber_email')")
+
     def tearDown(self,):
         """
         Close the browser window
