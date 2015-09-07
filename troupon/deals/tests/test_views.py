@@ -14,7 +14,7 @@ class HomepageViewTests(unittest.TestCase):
 
     def test_title(self,):
         """
-        Checks if the homepage title is correct
+        Checks homepage displays correct title
         """
         driver = self.driver
         driver.get("http://127.0.0.1:8000/")
