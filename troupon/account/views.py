@@ -17,6 +17,7 @@ from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
 from emails import Mailgunner
 
+
 import re
 
 # Create your views here.
@@ -101,7 +102,6 @@ class UserSigninView(View):
         # add the slash at the relative path's view and finished
         referer = u'/' + u'/'.join(referer[1:])
         return referer
-
 
 class ForgotPasswordView(View):
 
@@ -220,6 +220,7 @@ class ResetPasswordView(View):
         }
         context.update(csrf(request))
         return render(request, 'account/forgot_password.html', context) 
+
 class UserSignupView(View):
     
     template_name = 'account/signup.html'

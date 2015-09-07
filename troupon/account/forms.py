@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
-from django import forms 
 
 class EmailForm(forms.Form):
     
@@ -47,6 +46,7 @@ class UserSignupForm(UserCreationForm):
     def save(self):
         '''
         Save method used by the AbstractUser object.
+
         Subclassed by the User object to save data to database and called by UserSignupRequest
         class in accounts/views.py.
         '''
