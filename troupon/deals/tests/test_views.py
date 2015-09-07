@@ -28,6 +28,14 @@ class HomepageViewTests(unittest.TestCase):
         driver.get("http://127.0.0.1:8000/")
         self.assertTrue("driver.find_element_by_name('subscriber_email')")
 
+    def test_about_us_present(self,):
+        """
+        Checks if the about us section is present in homepage
+        """
+        driver = self.driver
+        driver.get("http://127.0.0.1:8000/")
+        assert "About Troupon" in driver.page_source
+
     def tearDown(self,):
         """
         Close the browser window
