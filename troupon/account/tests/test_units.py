@@ -1,8 +1,9 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User as Account
+from django.contrib.auth.models import User
 
 from account.hashs import UserHasher as Hasher
 from account.emails import Mailgunner
+
 
 
 class AccountHashsTestCase(TestCase):
@@ -13,21 +14,25 @@ class AccountHashsTestCase(TestCase):
         # create a test client:
         self.client = Client()
         # register a sample user:
-        self.registered_user = Account.objects.create_user('SamuelJames', 'samuel.james@andela.com', 'Django1491')
-        self.registered_user.first_name = 'James'
-        self.registered_user.last_name = 'Samuel'
-        self.registered_user.save()
+        self.user = User (
+            username = 'JohnDoe', 
+            email = 'johndoe@somedomain.com',
+            first_name = 'John',
+            last_name = 'Doe'
+        )
+        self.user.set_password('notsosecret12345')
+        self.user.save()
 
 
     def test_gen_hash_returns_min_50_chars(self):
-        generated_hash = Hasher.gen_hash(self.registered_user)
+        generated_hash = Hasher.gen_hash(self.user)
         self.assertGreaterEqual(len(generated_hash), 50)
 
 
     def test_reverse_hash_returns_user_instance(self):
-        generated_hash = Hasher.gen_hash(self.registered_user)
+        generated_hash = Hasher.gen_hash(self.user)
         reversed_hash_result = Hasher.reverse_hash(generated_hash)
-        self.assertIsInstance(reversed_hash_result, Account)
+        self.assertIsInstance(reversed_hash_result, User)
 
 
     def test_reverse_hash_returns_None_for_Wrong_hash(self):
@@ -37,10 +42,9 @@ class AccountHashsTestCase(TestCase):
 
 
     def test_generated_hash_reverses_correctly(self):
-        generated_hash = Hasher.gen_hash(self.registered_user)
+        generated_hash = Hasher.gen_hash(self.user)
         reversed_hash_result = Hasher.reverse_hash(generated_hash)
-        self.assertEquals(self.registered_user.pk, reversed_hash_result.pk)
-
+        self.assertEquals(self.user.pk, reversed_hash_result.pk)
 
 
 class EmailTestCase(TestCase):
@@ -49,12 +53,13 @@ class EmailTestCase(TestCase):
         # compose test email:
         self.email =  Mailgunner.compose(
             sender = 'Troupon Tests <troupon@andela.com>',
-            reciepient = 'awillionaire@gmail',
+            reciepient = 'wizkid@felashrine.com',
             subject = 'Troupon Email Integaration With Mailgun (Tests)',
             html = "<h1>Troupon ---> Mailgun API ---> You</h1><p>Testing Mic: 1, 2</p>",
-            text = "Troupon ---> Mailgun API ---> You \n\nTesting Mic: 1, 2",
+            text = "Troupon ---> Mailgun API ---> You \n\nTesting Mic: 1, 2"
         )
     
     def test_send_email_returns_request_status(self):
-        response = Mailgunner.send(self.email)
-        self.assertGreaterEqual(response, 200)
+        status_code = Mailgunner.send(self.email)
+        # assert that there was an attempt to send the mail regardless of the response status
+        self.assertIsInstance(status_code, int) 
