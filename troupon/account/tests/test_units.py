@@ -53,7 +53,7 @@ class EmailTestCase(TestCase):
         # compose test email:
         self.email =  Mailgunner.compose(
             sender = 'Troupon Tests <troupon@andela.com>',
-            reciepient = 'wizkid@felashrine.com',
+            reciepient = 'johndoe@somedomain.com',
             subject = 'Troupon Email Integaration With Mailgun (Tests)',
             html = "<h1>Troupon ---> Mailgun API ---> You</h1><p>Testing Mic: 1, 2</p>",
             text = "Troupon ---> Mailgun API ---> You \n\nTesting Mic: 1, 2"
