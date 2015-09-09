@@ -2,7 +2,7 @@ from django.views.generic.base import View
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext, loader, Template, Context
-from django.contrib import messages, auth
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -55,10 +55,10 @@ class UserSigninView(View):
         else:
             email = self.request.POST.get('email', '')
             password = self.request.POST.get('password', '')
-            user = auth.authenticate(username=email, password=password)
+            user = authenticate(username=email, password=password)
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
-                auth.login(self.request, user)
+                login(self.request, user)
 
                 # Redirect to a success page.
                 referer_view = self.get_referer_view(self.request)
