@@ -1,4 +1,4 @@
-from django.views.generic.base import View
+
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext, loader, Template, Context
@@ -8,13 +8,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.template.context_processors import csrf
-
+from account.forms import UserSignupForm
+from django.views.generic.base import TemplateView
+from django.views.generic import View
+from django.shortcuts import render_to_response
+from django.core.context_processors import csrf
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
 from emails import Mailgunner
 
+
 import re
+
+# Create your views here.
 
 
 class UserSigninView(View):
@@ -96,7 +102,6 @@ class UserSigninView(View):
         # add the slash at the relative path's view and finished
         referer = u'/' + u'/'.join(referer[1:])
         return referer
-
 
 class ForgotPasswordView(View):
 
@@ -214,4 +219,42 @@ class ResetPasswordView(View):
             'email_form': reset_password_form, 
         }
         context.update(csrf(request))
-        return render(request, 'account/forgot_password.html', context)
+        return render(request, 'account/forgot_password.html', context) 
+
+class UserSignupView(View):
+    
+    template_name = 'account/signup.html'
+
+    def get(self, request, *args, **kwargs):
+        args = {}
+        args.update(csrf(request))
+        return render(request, self.template_name, args)
+
+
+    def post(self,request):
+        '''
+        Raw data posted from form is recieved here,bound to form 
+        as dictionary and sent to unrendered django form for validation.
+        ''' 
+        form_data = {'username':request.POST.get('username',''),
+                'email':request.POST.get('email',''),
+                'password1':request.POST.get('password1',''),
+                'password2':request.POST.get('password2',''),
+       'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
+                        }
+
+        usersignupform = UserSignupForm(form_data)
+        if usersignupform.is_valid():
+            print ('form is valid')
+            usersignupform.save()
+
+            return HttpResponseRedirect('/account/confirm/')
+
+        else:
+            args = {}
+            args.update(csrf(request))
+            return render(request, self.template_name, args)
+
+class Userconfirm(TemplateView):
+    template_name = 'account/confirm.html'
+

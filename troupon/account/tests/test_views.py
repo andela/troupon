@@ -60,3 +60,5 @@ class ForgotPasswordViewTestCase(TestCase):
         response = self.client.post('/account/recovery/', {"email":"unregistereduser@andela.com" })
         self.assertNotIn('registered_user', response.context)
         self.assertNotIn('recovery_mail_status', response.context)
+# -*- coding: utf-8 -*-
+

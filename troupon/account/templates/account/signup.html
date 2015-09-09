@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block signup %}
+<div class="container-fluid">
+    <section class="container">
+    <div class="container-page">        
+      <div class="col-md-6">
+        <h3 class="dark-grey">Registration</h3>
+
+        <form action = "/account/signup/" method = "post">
+        <div style="display:none">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+         </div>
+        <div class="form-group col-lg-12">
+          <label>Username</label>
+          <input type="text" name="username" class="form-control" id="" value="" placeholder="username">
+        </div>
+        
+        <div class="form-group col-lg-6">
+          <label>Password</label>
+          <input type="password" name="password1" class="form-control" id="" value="" placeholder="Enter Password">
+        </div>
+        
+        <div class="form-group col-lg-6">
+          <label>Repeat Password</label>
+          <input type="password" name="password2" class="form-control" id="" value="" placeholder="Confirm Password">
+        </div>
+                
+        <div class="form-group col-lg-6">
+          <label>Email Address</label>
+          <input type="" name="email" class="form-control" id="" value="" placeholder="Email address here">
+        </div>
+
+        <div class = "form-group col-lg-6">
+        <button type="submit" name = "submit" class="btn btn-primary">Register</button>
+        </div>
+        </form>
+
+
+      </div>
+    
+      <div class="col-md-6">
+        <h3 class="dark-grey">Facebook Sign-Up</h3>
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 
+        </p>
+
+        <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
+        <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
+
+        </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
