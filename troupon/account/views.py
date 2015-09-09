@@ -1,4 +1,4 @@
-from django.views.generic.base import View
+
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext, loader, Template, Context

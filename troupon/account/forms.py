@@ -17,10 +17,7 @@ class ResetPasswordForm(forms.Form):
             "class": "",
             "placeholder": ""
         }))
-    class meta:
-        model = User
-        fields = ('first_name','last_name','username','email','password1','password2')
-
+    
     password2 = forms.CharField(label='Confirm New Password', required=True, max_length=200, widget=forms.PasswordInput(attrs={
             "class": "",
             "placeholder": ""
