@@ -45,6 +45,14 @@ class HomepageViewTests(unittest.TestCase):
         assert "http://facebook.com/troupon/" in driver.page_source
         assert "http://twitter.com/troupon/" in driver.page_source
 
+    def test_deals_are_displayed(self,):
+        """
+        Checks if deals are displayed on the homepage
+        """
+        driver = self.driver
+        driver.get("http://127.0.0.1:8000/")
+        self.assertTrue("driver.find_elements_by_class_name('deal')")
+
     def tearDown(self,):
         """
         Close the browser window
