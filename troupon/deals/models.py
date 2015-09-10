@@ -51,6 +51,7 @@ class Deal(models.Model):
         title, deal_address, advertiser and category are required.
         Other fields are optional.
     """
+
     title = models.CharField(max_length=100,
                              null=False,
                              blank=False,
