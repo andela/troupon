@@ -4,7 +4,7 @@ from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
 
-
+from mock import patch
 
 class UserSignInViewTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
@@ -47,15 +47,21 @@ class ForgotPasswordViewTestCase(TestCase):
         self.user.set_password('notsosecret12345')
         self.user.save()
 
-    def test_recovery_email_sent_for_registered_user(self):
+    @patch('requests.post')
+    def test_recovery_email_sent_for_registered_user(self, post_request_mock):
         response = self.client.post('/account/recovery/', {"email": self.user.email})
+        # assert that there was an attempt to send the mail
+        self.assertEqual(post_request_mock.call_count, 1)
+        # assert that resulting context contains no mail vars:
         self.assertIn('registered_user', response.context)
         self.assertIn('recovery_mail_status', response.context)
-        self.assertIsInstance(response.context['recovery_mail_status'], int)
 
-    def test_recovery_email_not_sent_for_unregistered_user(self):
+    @patch('requests.post')
+    def test_recovery_email_not_sent_for_unregistered_user(self, post_request_mock):
         response = self.client.post('/account/recovery/', {"email":"unregistereduser@somedomain.com" })
+        # assert that there was no attempt to send the mail
+        self.assertEqual(post_request_mock.call_count, 0)
+        # assert that resulting context contains the mail vars:
         self.assertNotIn('registered_user', response.context)
-        self.assertNotIn('recovery_mail_status', response.context)
-# -*- coding: utf-8 -*-
+        self.assertNotIn('recovery_mail_status', response.context)# -*- coding: utf-8 -*-
 

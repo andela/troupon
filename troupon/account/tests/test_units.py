@@ -1,13 +1,15 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
+from mock import patch
+import requests
+
 from account.hashs import UserHasher as Hasher
 from account.emails import Mailgunner
 
 
-
 class AccountHashsTestCase(TestCase):
-    """ This class tests the user account hash generation and hash reversing functions defined in the 'account.hashs'module.
+    """ This class tests the user account hash generation and hash reversing functions defined in the 'account.hashs' module.
         It tests the round trip: generating a unique hash for a user and then testing it against results of the reverse process"""
     
     def setUp(self):
@@ -59,7 +61,10 @@ class EmailTestCase(TestCase):
             text = "Troupon ---> Mailgun API ---> You \n\nTesting Mic: 1, 2"
         )
     
-    def test_send_email_returns_request_status(self):
+    @patch('requests.post')
+    def test_mailgunner_sends_email_post_request(self, post_request_mock):
         status_code = Mailgunner.send(self.email)
-        # assert that there was an attempt to send the mail regardless of the response status
-        self.assertIsInstance(status_code, int) 
+        # assert that there was an attempt to send the mail
+        self.assertEqual(post_request_mock.call_count, 1)
+        # assert the mail was sent with the right params:
+        post_request_mock.assert_called_with(Mailgunner.url, auth=Mailgunner.auth, data=self.email)
