@@ -1,7 +1,6 @@
 machine:
-	python:
-		version: 2.7.5
-
+  python:
+    version: 2.7.5
 deployment:
   staging:
     branch: develop
