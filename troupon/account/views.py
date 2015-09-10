@@ -200,7 +200,7 @@ class ResetPasswordView(View):
                 user = User.objects.get(pk=recovery_user_pk)
 
                 # change the user's password to the new password:
-                new_password = reset_password_form.cleaned_data.get('password1')
+                new_password = reset_password_form.cleaned_data.get('password')
                 user.set_password(new_password)
                 user.save()
 
@@ -240,8 +240,8 @@ class UserSignupView(View):
         ''' 
         form_data = {'username':request.POST.get('username',''),
                 'email':request.POST.get('email',''),
-                'password1':request.POST.get('password1',''),
-                'password2':request.POST.get('password2',''),
+                'password':request.POST.get('password',''),
+                'password_conf':request.POST.get('password_conf',''),
        'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
                         }
 
