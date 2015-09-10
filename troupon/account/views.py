@@ -102,7 +102,7 @@ class UserSigninView(View):
         # add the slash at the relative path's view and finished
         referer = u'/' + u'/'.join(referer[1:])
         return referer
-        
+
 
 class ForgotPasswordView(View):
 
@@ -240,8 +240,8 @@ class UserSignupView(View):
         ''' 
         form_data = {'username':request.POST.get('username',''),
                 'email':request.POST.get('email',''),
-                'password':request.POST.get('password',''),
-                'password_conf':request.POST.get('password_conf',''),
+                'password1':request.POST.get('password1',''),
+                'password2':request.POST.get('password2',''),
        'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
                         }
 
