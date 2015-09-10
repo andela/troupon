@@ -6,6 +6,8 @@ from django.utils.datastructures import MultiValueDictKeyError
 
 from mock import patch
 
+
+
 class UserSignInViewTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
     """

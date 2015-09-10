@@ -55,6 +55,7 @@ class ResetPasswordRouteTestCase(TestCase):
         response = self.client.get('/account/recovery/ajkzfYba9847DgJ7wbkwAaSbkTjUdawGG998qo3HG8qae83')
         self.assertEqual(response.resolver_match.func.__name__, ResetPasswordView.as_view().__name__)
 
+
 class UserRegistrationViewTest(TestCase):
   '''
   Test class to user registration.
@@ -91,6 +92,7 @@ class UserRegistrationViewTest(TestCase):
 
     response = self.client_stub.get('/account/confirm/')
     self.assertEquals(response.status_code, 200)
+
 
 class UserSignInViewTestCase(TestCase):
     """Test that post and get requests to signin routes is successful

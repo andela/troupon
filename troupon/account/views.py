@@ -102,6 +102,7 @@ class UserSigninView(View):
         # add the slash at the relative path's view and finished
         referer = u'/' + u'/'.join(referer[1:])
         return referer
+        
 
 class ForgotPasswordView(View):
 
@@ -199,7 +200,7 @@ class ResetPasswordView(View):
                 user = User.objects.get(pk=recovery_user_pk)
 
                 # change the user's password to the new password:
-                new_password = reset_password_form.cleaned_data.get('password')
+                new_password = reset_password_form.cleaned_data.get('password1')
                 user.set_password(new_password)
                 user.save()
 
@@ -215,11 +216,12 @@ class ResetPasswordView(View):
                 return HttpResponse( 'Action not allowed!', status_code = 403 )
 
         context = {
-            'page_title': 'Forgot Password',
-            'email_form': reset_password_form, 
+            'page_title': 'Reset Password',
+            'reset_password_form': reset_password_form, 
         }
         context.update(csrf(request))
-        return render(request, 'account/forgot_password.html', context) 
+        return render(request, 'account/reset_password.html', context)
+
 
 class UserSignupView(View):
     
@@ -255,6 +257,6 @@ class UserSignupView(View):
             args.update(csrf(request))
             return render(request, self.template_name, args)
 
+
 class Userconfirm(TemplateView):
     template_name = 'account/confirm.html'
-

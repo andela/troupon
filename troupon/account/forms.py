@@ -13,17 +13,19 @@ class EmailForm(forms.Form):
 
 class ResetPasswordForm(forms.Form):
     
-    password = forms.CharField(label='New Password', required=True, max_length=200, widget=forms.PasswordInput(attrs={
-            "class": "",
-            "placeholder": ""
-        }))
-    
-    password2 = forms.CharField(label='Confirm New Password', required=True, max_length=200, widget=forms.PasswordInput(attrs={
-            "class": "",
-            "placeholder": ""
-        }))
+    password1 = forms.CharField(label='New Password', max_length=200, widget=forms.PasswordInput())
 
- 
+    password2 = forms.CharField(label='Confirm New Password', max_length=200, widget=forms.PasswordInput())
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2:
+            if password1 != password2:
+                self.add_error('password2', "Password fields must match.")
+        return password2
+
+
 class UserSignupForm(UserCreationForm):
     '''
     Field defined to override default field property.
