@@ -2,16 +2,55 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
-STATE_CHOICES = [(1, 'abia'),
-                 (2, 'adamawa'),
-                 (3, 'akwa-ibom'),
-                 (4, 'anambra'),
-                 (5, 'bauchi'),
-                 (14, 'lagos'),
-                 ]
+STATE_CHOICES = [
+                    (1, 'Abia'),
+                    (2, 'Abuja Capital Territory'),
+                    (3, 'Adamawa'),
+                    (4, 'Akwa Ibom'),
+                    (5, 'Anambra'),
+                    (6, 'Bauchi'),
+                    (7, 'Bayelsa'),
+                    (8, 'Benue'),
+                    (9, 'Borno'),
+                    (10, 'Cross River'),
+                    (11, 'Delta'),
+                    (12, 'Ebonyi'),
+                    (13, 'Edo'),
+                    (14, 'Ekiti'),
+                    (15, 'Enugu'),
+                    (16, 'Gombe'),
+                    (17, 'Imo'),
+                    (18, 'Jigawa'),
+                    (19, 'Kaduna'),
+                    (20, 'Kano'),
+                    (21, 'Katsina'),
+                    (22, 'Kebbi'),
+                    (23, 'Kogi'),
+                    (24, 'Kwara'),
+                    (25, 'Lagos'),
+                    (26, 'Nassarawa'),
+                    (27, 'Niger'),
+                    (28, 'Ogun'),
+                    (29, 'Ondo'),
+                    (30, 'Osun'),
+                    (31, 'Oyo'),
+                    (32, 'Plateau'),
+                    (33, 'Rivers'),
+                    (34, 'Sokoto'),
+                    (35, 'Taraba'),
+                    (36, 'Yobe'),
+                    (37, 'Zamfara'),
+              ]  # States in Nigeria
 
 
 class Deal(models.Model):
+    """
+        Deals within the troupon system are represented by this
+        model.
+
+        title, deal_address, advertiser and category are required.
+        Other fields are optional.
+    """
     title = models.CharField(max_length=100,
                              null=False,
                              blank=False,
@@ -36,12 +75,30 @@ class Deal(models.Model):
 
 
 class Advertiser(models.Model):
-    name = models.CharField(max_length=100, null=False, blank=False)
-    address = models.CharField(max_length=200)
-    state = models.SmallIntegerField(choices=STATE_CHOICES)
-    telephone = models.CharField(max_length=60)
-    email = models.EmailField()
+    """
+        Advertisers within the troupon system are represented by this
+        model.
+
+        name is required. Other fields are optional.
+    """
+    name = models.CharField(max_length=100,
+                            null=False,
+                            blank=False,
+                            default='')
+    address = models.CharField(max_length=200, default='')
+    state = models.SmallIntegerField(choices=STATE_CHOICES, default=14)
+    telephone = models.CharField(max_length=60, default='')
+    email = models.EmailField(default='')
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, null=False, blank=False)
+    """
+        Categories of deal within the troupon system are represented by
+        this model.
+
+        name is required.
+    """
+    name = models.CharField(max_length=100,
+                            null=False,
+                            blank=False,
+                            default='')
