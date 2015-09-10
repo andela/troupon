@@ -1,9 +1,10 @@
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from django.test import LiveServerTestCase
 
 
-class HomepageViewTests(unittest.TestCase):
+class HomepageViewTests(LiveServerTestCase):
     """runs functional tests for the homepage"""
 
     def setUp(self,):
@@ -11,13 +12,14 @@ class HomepageViewTests(unittest.TestCase):
         Setup the test driver
         """
         self.driver = webdriver.Firefox()
+        super(HomepageViewTests, self).setUp()
 
     def test_title(self,):
         """
         Checks homepage displays correct title
         """
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/")
+        driver.get("%s" %(self.live_server_url))
         self.assertIn("Troupon - Get Some!", driver.title)
 
     def test_can_subscribe(self,):
@@ -25,7 +27,7 @@ class HomepageViewTests(unittest.TestCase):
         Checks if newsletter form is present on homepage
         """
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/")
+        driver.get("%s" %(self.live_server_url))
         self.assertTrue("driver.find_element_by_name('subscriber_email')")
 
     def test_about_us_present(self,):
@@ -33,7 +35,7 @@ class HomepageViewTests(unittest.TestCase):
         Checks if the about us section is present in homepage
         """
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/")
+        driver.get("%s" %(self.live_server_url))
         assert "About Troupon" in driver.page_source
 
     def tearDown(self,):
@@ -41,6 +43,7 @@ class HomepageViewTests(unittest.TestCase):
         Close the browser window
         """
         self.driver.close()
+        super(HomepageViewTests, self).tearDown()
 
 if __name__ == "__main__":
     unittest.main()
