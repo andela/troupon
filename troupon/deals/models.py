@@ -99,9 +99,8 @@ class Advertiser(models.Model):
 
 
 class Category(models.Model):
-    """
-        Categories of deal within the troupon system are represented by
-        this model.
+    """Categories of deal within the troupon system are represented by
+       this model.
 
         name is required.
     """
