@@ -44,8 +44,7 @@ STATE_CHOICES = [
 
 
 class Deal(models.Model):
-    """
-        Deals within the troupon system are represented by this
+    """Deals within the troupon system are represented by this
         model.
 
         title, deal_address, advertiser and category are required.
