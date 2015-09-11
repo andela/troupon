@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from deals.models import Deal, Advertiser, Category
 
-class HomepageRouteTests(TestCase):
+class HomepageViewTestCase(TestCase):
     """docstring for HomepageRouteTests"""
 
     def test_homepage_returns_200(self,):
