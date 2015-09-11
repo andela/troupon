@@ -1,0 +1,8 @@
+machine:
+  python:
+    version: 2.7.5
+deployment:
+  staging:
+    branch: develop
+    heroku:
+      appname: troupon-staging
