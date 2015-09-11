@@ -73,6 +73,11 @@ class Deal(models.Model):
     date_last_modified = models.DateField(auto_now=True)
     date_end = models.DateField(default=timezone.now())
 
+    def __str__(self):
+        return "{0}, {1}, {2}".format(self.id,
+                                      self.title,
+                                      self.advertiser.name)
+
 
 class Advertiser(models.Model):
     """
@@ -89,6 +94,9 @@ class Advertiser(models.Model):
     state = models.SmallIntegerField(choices=STATE_CHOICES, default=14)
     telephone = models.CharField(max_length=60, default='')
     email = models.EmailField(default='')
+
+    def __str__(self):
+        return "{0}".format(self.name)
 
 
 class Category(models.Model):
