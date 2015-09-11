@@ -23,8 +23,7 @@ class HomepageViewTestCase(TestCase):
 
 
 class SingleDealViewTestCase(TestCase):
-    """
-        This contains tests to check that an HTTP GET
+    """This contains tests to check that a HTTP GET
         request for a deal is successful
     """
     def setUp(self):
