@@ -49,9 +49,9 @@ class SingleDealViewTestCase(TestCase):
                          longitude=250.015,
                          )
 
-    def test_single_deal_view(self):
+    def test_deal404_and_single_deal_view(self):
         response = self.client.get('/deals/1/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
 
         deal = Deal(**self.deal)
         deal.save()

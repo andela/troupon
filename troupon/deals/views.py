@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.views.generic import TemplateView, View
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from deals.models import Deal
 from django.template import Template, Context
 
@@ -17,9 +17,8 @@ class HomePage(TemplateView):
 
 
 class SingleDealView(View):
-    cls_default_msg = {
-                        "result": "We're still working on this deal for you.",
-                      }  # Default message display when deal's not found
+    """This handles request for each deal by id
+    """
 
     def get(self, *args, **kwargs):
         deal_id = self.kwargs.get('deal_id')
@@ -27,6 +26,6 @@ class SingleDealView(View):
             deal = Deal.objects.get(id=deal_id)
             result = {"result": deal}
         except Deal.DoesNotExist:
-            result = SingleDealView.cls_default_msg
+            raise Http404('Deal does not exist')
         template_stub = Template("{{result}}")
         return HttpResponse(template_stub.render(Context(result)))
