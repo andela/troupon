@@ -5,7 +5,8 @@ from deals.models import Deal, Advertiser, Category
 class DealModelTestCase(TestCase):
 
     def setUp(self):
-        advertiser, category = Advertiser(1), Category(1)
+        advertiser, category = Advertiser(name="XYZ Stores"), \
+                                Category(name="Books")
         advertiser.save()
         category.save()
         self.deal = dict(title="Deal #1",
@@ -31,19 +32,19 @@ class DealModelTestCase(TestCase):
         self.assertIsNotNone(deal.id, None)
 
         # test a deal record has been added
-        deal = Deal.objects.get(**self.deal)
+        deal = Deal.objects.get(id=deal.id)
         self.assertIsNotNone(deal.id)
 
         # update a deal record
         new_deal_title = 'Deal #2'
-        deal = Deal.objects.get(**self.deal)
+        deal = Deal.objects.get(id=deal.id)
         deal.title = new_deal_title
         deal.save()
         self.deal['title'] = new_deal_title  # Update deal title for next test
         self.assertEquals(deal.title, new_deal_title)
 
         # delete a deal record
-        deal = Deal.objects.get(**self.deal)
+        deal = Deal.objects.get(id=deal.id)
         Deal.delete(deal)
         with self.assertRaises(Deal.DoesNotExist) as context:
             Deal.objects.get(**self.deal)
