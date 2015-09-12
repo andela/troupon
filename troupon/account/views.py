@@ -25,11 +25,11 @@ import re
 class UserSigninView(View):
 
     """User can signin to his/her account with email and password"""
-    engine = Engine.get_default()
+    engine = Engine.get_default()  # get static reference to template engine
     cls_default_msgs = {'signed_in': 'User is already signed in',
                         'not_signed_in': 'User is not signed in',
                         'invalid_param': 'Invalid signin parameters',
-                        }
+                        }  # class default messages
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
