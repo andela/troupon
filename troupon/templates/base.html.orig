@@ -15,18 +15,18 @@
     
     {% block base_css %}
     <!-- Bootstrap Core -->
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}" media="screen" />
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700italic,700,300,400italic' rel='stylesheet' type='text/css'>
     <!-- FontAwesome -->
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}">
     <!-- Troupon base-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/base_styles.css' %}" />
     {% endblock base_css %}
 
 
     {% block extended_css %} 
-        {# override this block to add app/feature-specific css in extending templates #}
+    {# override this block to add app/feature-specific css in extending templates #}
     {% endblock extended_css %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -173,9 +173,10 @@
                 <div class="placeholder">
                     <p>View content goes here!</p>
                 </div>
+<<<<<<< HEAD
             {% endblock main %}
             </main>
-    </div>
+
             {% block footer %}
             <footer>
                 <div class="divider divider-1"></div>
@@ -208,6 +209,40 @@
                            <a class="logo" href="{% url 'homepage' %}"><img src="{% static 'img/logo-h-sm.png' %}" alt="Troupon logo"></a>
                         </div>
                     </div>
+=======
+                <!-- /.navbar-collapse -->
+            </div>
+        </div>
+    </nav>
+
+
+    {% block search_box %}
+    <!-- search_box begins -->
+
+    <!-- search_box ends -->
+    {% endblock search_box %}
+    {% block signup %} {% endblock %}
+    {% block confirmationpage %} {% endblock %}
+    <div class="main_container">
+
+    {% block main %}
+    {% endblock main %}
+    <!-- main ends -->
+    </div>
+    {% block footer %}
+        <!-- footer begins -->
+        <footer class="container">
+           <div class="row">
+                <div class="col-md-4">
+                    <h4>About Troupon</h4>
+                    <p>Team Troupon dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. </p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+>>>>>>> [#102839668] Feature: create signin.html that allows users to signin, signup and create accounts.
                 </div>
                 <div class="divider divider-2"></div>
                 <div class="copyright">
@@ -223,13 +258,145 @@
             <div class="container modals-container">
 
                 {% if not request.user.is_authenticated %}
-                {% include "sign_up_modal.html" %}
-                {% include "sign_in_modal.html" %}
-                {% include "forgot_password_modal.html" %}
+
+                <!--Sign up modal-->
+                <div class="modal-view" id="modal-sign-up">
+                    <div class="row">
+                        <div class="col-sm-5 hidden-xs brand-col">
+                            <div class="brand">
+                               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-5">
+                            <header class="row">
+                                <div class="col-lg-4">
+                                    <h2>Sign up</h2>
+                                </div>
+                                <div class="col-lg-8">
+                                    <p>Already have an account? <a href="" class="modal-toggle" data-modal-target="#modal-sign-in">Sign in</a></p>
+                                </div>
+                            </header>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="" action="" method="POST">
+                                        <div class="custom-form-group">
+                                            <label for="email">Email <span class="accent">*</span></label>
+                                            <div class="custom-input-group">
+                                                <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
+                                            </div>
+                                        </div>
+                                        <div class="custom-form-group">
+                                            <label for="username">Username <span class="accent">*</span></label>
+                                            <div class="custom-input-group">
+                                                <input type="text" name="username" id="username" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="custom-form-group">
+                                            <label for="password1">Password <span class="accent">*</span></label>
+                                            <div class="custom-input-group">
+                                                <input type="password" name="password1" id="password1" placeholder="At least 6 characters.">
+                                            </div>
+                                        </div>
+                                        <div class="custom-form-group">
+                                            <label for="password2">Confirm Password <span class="accent">*</span></label>
+                                            <div class="custom-input-group">
+                                                <input type="password" name="password2" id="password2" placeholder="Must match Password above.">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn-action btn-form-submit">Sign up</button>
+                                        <a href="">Sign up with Facebook</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Sign in modal-->
+                <div class="modal-view" id="modal-sign-in">
+                    <div class="row">
+                        <div class="col-sm-5 hidden-xs brand-col">
+                            <div class="brand">
+                               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-5">
+                            <header class="row">
+                                <div class="col-lg-4">
+                                    <h2>Sign in</h2>
+                                </div>
+                                <div class="col-lg-8">
+                                    <p>Don't have an account yet? <a href="" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></p>
+                                </div>
+                            </header>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="" action="" method="POST">
+                                        <div class="custom-form-group">
+                                            <label for="email">Email <span class="accent">*</span></label>
+                                            <div class="custom-input-group">
+                                                <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
+                                            </div>
+                                        </div>
+                                        <div class="custom-form-group">
+                                            <label for="password1">Password <span class="accent">*</span></label>
+                                            <div class="custom-input-group">
+                                                <input type="password" name="password1" id="password1" placeholder="At least 6 characters.">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p><a href="" class="modal-toggle" data-modal-target="#modal-forgot-password">Forgot your password?</a></p>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn-action btn-form-submit">Sign in</button>
+                                        <a href="">Sign in with Facebook</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Forgot-Password modal-->
+                <div class="modal-view" id="modal-forgot-password">
+                    <div class="row">
+                        <div class="col-sm-5 hidden-xs brand-col">
+                            <div class="brand">
+                               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-5">
+                            <header class="row">
+                                <div class="col-lg-8">
+                                    <h2>Recover Account</h2>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p><a href="" class="modal-toggle" data-modal-target="#modal-sign-in">Sign in</a> or <a href="" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></p>
+                                </div>
+                            </header>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>Enter the email for your registered account below. A recovery mail will be sent to your inbox. Follow the link in the mail to recover your account.</p>
+                                    <form action="" action="" method="POST">
+                                        <div class="custom-form-group">
+                                            <label for="email">Email <span class="accent">*</span></label>
+                                            <div class="custom-input-group">
+                                                <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn-action btn-form-submit">Send Recovery Mail</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {% endif %}
 
                 {% block extended_modals %}
-                    {# override this block to add app/feature-specific modals in extending templates #}
+
                 {% endblock extended_modals %}
 
             </div>
@@ -241,9 +408,9 @@
 
     {% block base_js %}
         <!-- jQuery -->
-        <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
         <!-- Bootstrap Core -->
-        <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <!-- Troupon base-->
         <script src="{% static 'js/base_scripts.js' %}"></script>
     {% endblock base_js %}

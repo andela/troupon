@@ -1,7 +1,11 @@
 
 from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
+<<<<<<< HEAD
+from django.template import RequestContext, loader, Template, Engine
+=======
 from django.template import RequestContext, loader, Template, Context, Engine
+>>>>>>> [#102839668] Feature: create signin.html that allows users to signin, signup and create accounts.
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -15,7 +19,7 @@ from django.core.context_processors import csrf
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
 from emails import Mailgunner
-from django.core.validators import validate_email, ValidationError
+
 
 import re
 
@@ -37,7 +41,11 @@ class UserSigninView(View):
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
+<<<<<<< HEAD
+            t = self.engine.from_string('{{msg.content}}')
+=======
             t = self.engine.get_template('account/signin.html')
+>>>>>>> [#102839668] Feature: create signin.html that allows users to signin, signup and create accounts.
             # Set result in RequestContext
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
@@ -46,7 +54,11 @@ class UserSigninView(View):
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
+<<<<<<< HEAD
+            t = self.engine.from_string('{{msg.content}}')
+=======
             t = self.engine.get_template('account/signin.html')
+>>>>>>> [#102839668] Feature: create signin.html that allows users to signin, signup and create accounts.
             # Set result in RequestContext
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
@@ -62,15 +74,9 @@ class UserSigninView(View):
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
         else:
-            username = self.request.POST.get('username', '')
+            email = self.request.POST.get('email', '')
             password = self.request.POST.get('password', '')
-            try:
-                validate_email(username)
-                user = User.objects.get(email=username.lower())
-                username = user.username
-            except ValidationError:
-                pass
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=email, password=password)
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
                 login(self.request, user)
