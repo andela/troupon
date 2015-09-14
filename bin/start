@@ -1,0 +1,2 @@
+chdir troupon
+gunicorn troupon.wsgi --log-file -
