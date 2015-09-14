@@ -173,9 +173,10 @@
                 <div class="placeholder">
                     <p>View content goes here!</p>
                 </div>
+<<<<<<< HEAD
             {% endblock main %}
             </main>
-    </div>
+
             {% block footer %}
             <footer>
                 <div class="divider divider-1"></div>
@@ -208,6 +209,40 @@
                            <a class="logo" href="{% url 'homepage' %}"><img src="{% static 'img/logo-h-sm.png' %}" alt="Troupon logo"></a>
                         </div>
                     </div>
+=======
+                <!-- /.navbar-collapse -->
+            </div>
+        </div>
+    </nav>
+
+
+    {% block search_box %}
+    <!-- search_box begins -->
+
+    <!-- search_box ends -->
+    {% endblock search_box %}
+    {% block signup %} {% endblock %}
+    {% block confirmationpage %} {% endblock %}
+    <div class="main_container">
+
+    {% block main %}
+    {% endblock main %}
+    <!-- main ends -->
+    </div>
+    {% block footer %}
+        <!-- footer begins -->
+        <footer class="container">
+           <div class="row">
+                <div class="col-md-4">
+                    <h4>About Troupon</h4>
+                    <p>Team Troupon dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. </p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+>>>>>>> [#102839668] Feature: create signin.html that allows users to signin, signup and create accounts.
                 </div>
                 <div class="divider divider-2"></div>
                 <div class="copyright">
