@@ -103,6 +103,7 @@ class UserSigninView(View):
         referer = u'/' + u'/'.join(referer[1:])
         return referer
 
+
 class ForgotPasswordView(View):
 
     def get(self, request, *args, **kwargs):
@@ -215,11 +216,12 @@ class ResetPasswordView(View):
                 return HttpResponse( 'Action not allowed!', status_code = 403 )
 
         context = {
-            'page_title': 'Forgot Password',
-            'email_form': reset_password_form, 
+            'page_title': 'Reset Password',
+            'reset_password_form': reset_password_form, 
         }
         context.update(csrf(request))
-        return render(request, 'account/forgot_password.html', context) 
+        return render(request, 'account/reset_password.html', context)
+
 
 class UserSignupView(View):
     
@@ -255,6 +257,6 @@ class UserSignupView(View):
             args.update(csrf(request))
             return render(request, self.template_name, args)
 
+
 class Userconfirm(TemplateView):
     template_name = 'account/confirm.html'
-

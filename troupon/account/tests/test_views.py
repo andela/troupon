@@ -1,7 +1,10 @@
+
 from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
+
+from mock import patch
 
 
 
@@ -37,28 +40,30 @@ class ForgotPasswordViewTestCase(TestCase):
         # create a test client:
         self.client = Client()
         # register a sample user:
-        self.user = User.objects.create_user('AwiliUzo', 'awillionaire@gmail.com', 'Young1491')
-        self.user.first_name = 'Uzo'
-        self.user.last_name = 'Awili'
+        self.user = User (
+            username = 'JohnDoe', 
+            email = 'johndoe@somedomain.com',
+            first_name = 'John',
+            last_name = 'Doe'
+        )
+        self.user.set_password('notsosecret12345')
         self.user.save()
 
-    def test_get_returns_200(self):
-        response = self.client.get('/account/recovery/')
-        self.assertEquals(response.status_code, 200)
-
-    def test_post_returns_200(self):
-        response = self.client.get('/account/recovery/')
-        self.assertEquals(response.status_code, 200)
-
-    def test_recovery_email_sent_for_registered_user(self):
+    @patch('requests.post')
+    def test_recovery_email_sent_for_registered_user(self, post_request_mock):
         response = self.client.post('/account/recovery/', {"email": self.user.email})
+        # assert that there was an attempt to send the mail
+        self.assertEqual(post_request_mock.call_count, 1)
+        # assert that resulting context contains no mail vars:
         self.assertIn('registered_user', response.context)
         self.assertIn('recovery_mail_status', response.context)
-        self.assertEqual(response.context['recovery_mail_status'], 200)
 
-    def test_recovery_email_not_sent_for_unregistered_user(self):
-        response = self.client.post('/account/recovery/', {"email":"unregistereduser@andela.com" })
+    @patch('requests.post')
+    def test_recovery_email_not_sent_for_unregistered_user(self, post_request_mock):
+        response = self.client.post('/account/recovery/', {"email":"unregistereduser@somedomain.com" })
+        # assert that there was no attempt to send the mail
+        self.assertEqual(post_request_mock.call_count, 0)
+        # assert that resulting context contains the mail vars:
         self.assertNotIn('registered_user', response.context)
-        self.assertNotIn('recovery_mail_status', response.context)
-# -*- coding: utf-8 -*-
+        self.assertNotIn('recovery_mail_status', response.context)# -*- coding: utf-8 -*-
 

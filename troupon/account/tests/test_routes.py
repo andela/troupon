@@ -6,6 +6,7 @@ from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from account.views import ForgotPasswordView, ResetPasswordView
 
+
 class UserSigninTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
     """
@@ -27,18 +28,33 @@ class UserSigninTestCase(TestCase):
         self.assertEquals(response.status_code, 302)
 
 
-class ForgotRecoverPasswordRoutesTestCase(TestCase):
+class ForgotPasswordRouteTestCase(TestCase):
 
     def setUp(self):
         self.client = Client()
+
+    def test_get_forgot_route_returns_200(self):
+        response = self.client.get('/account/recovery/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_post_forgot_route_returns_200(self):
+        response = self.client.post('/account/recovery/', {"email": "random@mail.com"})
+        self.assertEquals(response.status_code, 200)
 
     def test_forgot_route_resolves_to_correct_view(self):
         response = self.client.get('/account/recovery/')
         self.assertEqual(response.resolver_match.func.__name__, ForgotPasswordView.as_view().__name__)
 
+
+class ResetPasswordRouteTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
     def test_reset_route_resolves_to_correct_view(self):
         response = self.client.get('/account/recovery/ajkzfYba9847DgJ7wbkwAaSbkTjUdawGG998qo3HG8qae83')
         self.assertEqual(response.resolver_match.func.__name__, ResetPasswordView.as_view().__name__)
+
 
 class UserRegistrationViewTest(TestCase):
   '''
@@ -76,6 +92,7 @@ class UserRegistrationViewTest(TestCase):
 
     response = self.client_stub.get('/account/confirm/')
     self.assertEquals(response.status_code, 200)
+
 
 class UserSignInViewTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
