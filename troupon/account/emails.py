@@ -26,7 +26,7 @@ class Mailgunner:
     def send(email):
         """NOTE: email must be a dict"""
         try:
-            status_code = requests.post( Mailgunner.url, auth=Mailgunner.auth, data=email ).status_code
+            status_code = requests.post( Mailgunner.url, auth=Mailgunner.auth, data=email).status_code
         except:
             status_code = 520
         return status_code
