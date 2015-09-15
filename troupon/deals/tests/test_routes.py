@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from deals.models import Deal, Advertiser, Category
 
 
-class HomepageRouteTests(TestCase):
+class HomepageViewTestCase(TestCase):
     """docstring for HomepageRouteTests"""
 
     def test_homepage_returns_200(self,):
@@ -24,8 +24,7 @@ class HomepageRouteTests(TestCase):
 
 
 class SingleDealViewTestCase(TestCase):
-    """
-        This contains tests to check that an HTTP GET
+    """This contains tests to check that a HTTP GET
         request for a deal is successful
     """
     def setUp(self):
@@ -49,9 +48,9 @@ class SingleDealViewTestCase(TestCase):
                          longitude=250.015,
                          )
 
-    def test_single_deal_view(self):
+    def test_deal404_and_single_deal_view(self):
         response = self.client.get('/deals/1/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
 
         deal = Deal(**self.deal)
         deal.save()

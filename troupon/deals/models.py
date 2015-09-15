@@ -44,8 +44,7 @@ STATE_CHOICES = [
 
 
 class Deal(models.Model):
-    """
-        Deals within the troupon system are represented by this
+    """Deals within the troupon system are represented by this
         model.
 
         title, deal_address, advertiser and category are required.
@@ -61,7 +60,7 @@ class Deal(models.Model):
     advertiser = models.ForeignKey('Advertiser')
     deal_address = models.CharField(max_length=100, blank=False, default='')
     deal_state = models.SmallIntegerField(choices=STATE_CHOICES,
-                                          default=14)
+                                          default=25)
     category = models.ForeignKey('Category')
     original_price = models.IntegerField()
     deal_price = models.IntegerField()
@@ -81,8 +80,7 @@ class Deal(models.Model):
 
 
 class Advertiser(models.Model):
-    """
-        Advertisers within the troupon system are represented by this
+    """Advertisers within the troupon system are represented by this
         model.
 
         name is required. Other fields are optional.
@@ -92,7 +90,7 @@ class Advertiser(models.Model):
                             blank=False,
                             default='')
     address = models.CharField(max_length=200, default='')
-    state = models.SmallIntegerField(choices=STATE_CHOICES, default=14)
+    state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
     telephone = models.CharField(max_length=60, default='')
     email = models.EmailField(default='')
 
@@ -101,9 +99,8 @@ class Advertiser(models.Model):
 
 
 class Category(models.Model):
-    """
-        Categories of deal within the troupon system are represented by
-        this model.
+    """Categories of deal within the troupon system are represented by
+       this model.
 
         name is required.
     """
