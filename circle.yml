@@ -1,6 +1,9 @@
 machine:
   python:
     version: 2.7.10
+test:
+  override:
+    - python troupon/manage.py test
 deployment:
   staging:
     branch: develop

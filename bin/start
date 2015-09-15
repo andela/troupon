@@ -1,2 +1,2 @@
-chdir troupon
-gunicorn troupon.wsgi --log-file -
+export DJANGO_SETTINGS_MODULE=troupon.settings
+gunicorn troupon.wsgi --pythonpath=troupon --log-file -
