@@ -1,7 +1,6 @@
 from django.test import TestCase
 from deals.models import Deal, Advertiser, Category
 
-
 class DealModelTestCase(TestCase):
 
     def setUp(self):

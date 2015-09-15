@@ -1,5 +1,7 @@
 # Production specific settings
 import dj_database_url
+from .development import *
+
 DATABASES = {
     'default': dj_database_url.config()
 }

@@ -2,12 +2,10 @@ machine:
   python:
     version: 2.7.10
   environment:
-    DJANGO_SETTINGS_MODULE: troupon.settings
-    DATABASE_URL: postgres://qqktnfzrapcmcd:91OFOYWsc1MtT50VNB3gId7ka-@ec2-46-137-159-123.eu-west-1.compute.amazonaws.com:5432/d11pcgnfhar7ec
-    PYTHON_ENV: production
+    DJANGO_SETTINGS_MODULE: troupon.settings.test
 test:
   override:
-    - python troupon/manage.py test
+    - python troupon/manage.py test --settings=troupon.settings.test
 deployment:
   staging:
     branch: develop
