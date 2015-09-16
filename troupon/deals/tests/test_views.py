@@ -23,13 +23,6 @@ class HomepageViewTests(LiveServerTestCase):
         title = driver.find_element_by_tag_name('title')
         self.assertIn("Troupon - Get Some!", title.text)
 
-'''
-        self.browser = webdriver.Firefox()
-        self.browser.get(self.live_server_url + '/admin/')
-        body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Django administration', body.text)
-'''
-
 
     def test_can_subscribe(self,):
         """
