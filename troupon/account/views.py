@@ -1,7 +1,7 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
-from django.template import RequestContext, loader, Template, Context
+from django.template import RequestContext, loader, Template, Engine
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -11,7 +11,6 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from account.forms import UserSignupForm
 from django.views.generic.base import TemplateView
 from django.views.generic import View
-from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
@@ -26,38 +25,42 @@ import re
 class UserSigninView(View):
 
     """User can signin to his/her account with email and password"""
-
+    engine = Engine.get_default()  # get static reference to template engine
     cls_default_msgs = {'signed_in': 'User is already signed in',
                         'not_signed_in': 'User is not signed in',
                         'invalid_param': 'Invalid signin parameters',
-                        }
+                        }  # class default messages
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
             data = {'msg': {'content': self.cls_default_msgs['signed_in']}}
-
-            # Replace this template before deployment to test or production
-            t_stub = Template('{{msg.content}}')
-            # Replace this template before deployment to test or production
-
-            return HttpResponse(t_stub.render(Context(data)))
+            # Replace template object compiled from template code
+            # with an application template before push to production.
+            # Use self.engine.get_template(template_name)
+            t = self.engine.from_string('{{msg.content}}')
+            # Set result in RequestContext
+            c = RequestContext(self.request, data)
+            return HttpResponse(t.render(c))
         else:
             data = {'msg': {'content': self.cls_default_msgs['not_signed_in']}}
-
-            # Replace this template before deployment to test or production
-            t_stub = Template('{{msg.content}}')
-            # Replace this template before deployment to test or production
-
-            return HttpResponse(t_stub.render(Context(data)))
+            # Replace template object compiled from template code
+            # with an application template before push to production.
+            # Use self.engine.get_template(template_name)
+            t = self.engine.from_string('{{msg.content}}')
+            # Set result in RequestContext
+            c = RequestContext(self.request, data)
+            return HttpResponse(t.render(c))
 
     def post(self, *args, **kwargs):
         if self.request.user.is_authenticated():
             data = {'msg': {'content': self.cls_default_msgs['signed_in']}}
-
-            # Replace this template before deployment to test or production
-            t_stub = Template('{{msg.content}}')
-            # Replace this template before deployment to test or production
-            return HttpResponse(t_stub.render(Context(data)))
+            # Replace template object compiled from template code
+            # with an application template before push to production.
+            # Use self.engine.get_template(template_name)
+            t = self.engine.from_string('{{msg.content}}')
+            # Set result in RequestContext
+            c = RequestContext(self.request, data)
+            return HttpResponse(t.render(c))
         else:
             email = self.request.POST.get('email', '')
             password = self.request.POST.get('password', '')
@@ -72,13 +75,18 @@ class UserSigninView(View):
                 return HttpResponseRedirect(referer_view,
                                             'Redirect to /deals/ route')
             else:
-                # Show an error page
+                # Set error context
                 data = {'msg': {
                             'content': self.cls_default_msgs['invalid_param']
                             }
                         }
-                t_stub = Template('{{msg.content}}')
-                return HttpResponse(t_stub.render(Context(data)))
+                # Replace template object compiled from template code
+                # with an application template before push to production.
+                # Use self.engine.get_template(template_name)
+                t = self.engine.from_string('{{msg.content}}')
+                # Set result in RequestContext
+                c = RequestContext(self.request, data)
+                return HttpResponse(t.render(c))
 
     def get_referer_view(self, request, default=None):
         '''

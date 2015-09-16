@@ -11,7 +11,7 @@ class HomepageViewTests(LiveServerTestCase):
         """
         Setup the test driver
         """
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.PhantomJS()
         super(HomepageViewTests, self).setUp()
 
     def test_title(self,):
