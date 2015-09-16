@@ -19,8 +19,17 @@ class HomepageViewTests(LiveServerTestCase):
         Checks homepage displays correct title
         """
         driver = self.driver
-        driver.find_element_by_tag_name('title')
-        self.assertIn("Troupon", driver.title)
+        driver.get(self.live_server_url + '/')
+        title = driver.find_element_by_tag_name('title')
+        self.assertIn("Troupon - Get Some!", title.text)
+
+'''
+        self.browser = webdriver.Firefox()
+        self.browser.get(self.live_server_url + '/admin/')
+        body = self.browser.find_element_by_tag_name('body')
+        self.assertIn('Django administration', body.text)
+'''
+
 
     def test_can_subscribe(self,):
         """
@@ -34,9 +43,9 @@ class HomepageViewTests(LiveServerTestCase):
         """
         Checks if the about us section is present in homepage
         """
-        driver = self.driver
-        driver.find_element_by_tag_name('h4')
-        self.assertIn("About Troupon", driver.h4)
+        driver.get(self.live_server_url + '/')
+        h4 = driver.find_element_by_tag_name('h4')
+        self.assertIn("About Troupon", h4.text)
 
     def tearDown(self,):
         """
