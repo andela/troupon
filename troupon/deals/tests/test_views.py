@@ -19,8 +19,8 @@ class HomepageViewTests(LiveServerTestCase):
         Checks homepage displays correct title
         """
         driver = self.driver
-        driver.get("%s" %(self.live_server_url))
-        self.assertIn("Troupon - Get Some!", driver.title)
+        driver.find_element_by_tag_name('title')
+        self.assertIn("Troupon", driver.title)
 
     def test_can_subscribe(self,):
         """
@@ -35,8 +35,8 @@ class HomepageViewTests(LiveServerTestCase):
         Checks if the about us section is present in homepage
         """
         driver = self.driver
-        driver.get("%s" %(self.live_server_url))
-        assert "About Troupon" in driver.page_source
+        driver.find_element_by_tag_name('h4')
+        self.assertIn("About Troupon", driver.h4)
 
     def tearDown(self,):
         """
