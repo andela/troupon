@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 from account.views import ForgotPasswordView, ResetPasswordView
 from allaccess.views import OAuthRedirect,OAuthCallback
 
-from mock import patch
-
 
 class UserSigninTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
