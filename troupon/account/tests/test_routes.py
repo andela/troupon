@@ -5,6 +5,9 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from account.views import ForgotPasswordView, ResetPasswordView
+from allaccess.views import OAuthRedirect,OAuthCallback
+
+from mock import patch
 
 
 class UserSigninTestCase(TestCase):
@@ -75,6 +78,7 @@ class UserRegistrationViewTest(TestCase):
     '''
     User signup page is called.
     '''
+
     response = self.client_stub.get('/account/signup/')
     self.assertEquals(response.status_code, 200)
 
@@ -118,5 +122,21 @@ class UserSignInViewTestCase(TestCase):
         data = {'email': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/account/signin/', data)
         self.assertIn('deals', response.content)
+
+class FacebookSignupTestCase(TestCase):
+
+    def setUp(self):
+        self.client_stub = Client()
+
+
+    def test_user_signup_via_facebook(self):
+        response = self.client_stub.post('/accounts/login/facebook/')
+        self.assertEqual(response.resolver_match.func.__name__, OAuthRedirect.as_view().__name__)
+
+       
+    def test_user_redirected_after_facebook_signup(self):
+        response = self.client_stub.post('/accounts/callback/facebook/')
+        self.assertEqual(response.resolver_match.func.__name__, OAuthCallback.as_view().__name__)
+
 
 
