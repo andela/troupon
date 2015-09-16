@@ -19,7 +19,7 @@ class HomepageViewTests(LiveServerTestCase):
         Checks homepage displays correct title
         """
         self.driver.get(self.live_server_url + '/')
-        head = driver.find_element_by_tag_name('head')
+        head = self.driver.find_element_by_tag_name('head')
         self.assertIn("Troupon - Get Some!", head.text)
 
 
@@ -35,7 +35,7 @@ class HomepageViewTests(LiveServerTestCase):
         Checks if the about us section is present in homepage
         """
         self.driver.get(self.live_server_url + '/')
-        body = driver.find_element_by_tag_name('body')
+        body = self.driver.find_element_by_tag_name('body')
         self.assertIn("About Troupon", body.text)
 
     def tearDown(self,):
