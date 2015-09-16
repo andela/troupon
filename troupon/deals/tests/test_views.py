@@ -19,9 +19,7 @@ class HomepageViewTests(LiveServerTestCase):
         Checks homepage displays correct title
         """
         self.driver.get(self.live_server_url + '/')
-        head = self.driver.find_element_by_tag_name('head')
-        self.assertIn("Troupon - Get Some!", head.text)
-
+        self.assertIn("Troupon - Get Some", self.driver.title)
 
     def test_can_subscribe(self,):
         """
