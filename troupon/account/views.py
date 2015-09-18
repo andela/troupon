@@ -15,7 +15,7 @@ from django.core.context_processors import csrf
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
 from emails import Mailgunner
-
+from django.core.validators import validate_email, ValidationError
 
 import re
 
@@ -62,9 +62,15 @@ class UserSigninView(View):
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
         else:
-            email = self.request.POST.get('email', '')
+            username = self.request.POST.get('username', '')
             password = self.request.POST.get('password', '')
-            user = authenticate(username=email, password=password)
+            try:
+                validate_email(username)
+                user = User.objects.get(email=username.lower())
+                username = user.username
+            except ValidationError:
+                pass
+            user = authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
                 login(self.request, user)
