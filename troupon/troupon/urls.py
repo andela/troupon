@@ -4,6 +4,7 @@ import deals
 import account 
 
 urlpatterns = [
+    url(r'^search/', include('haystack.urls')),
     url(r'^accounts/', include('allaccess.urls')),
     url(r'^account/', include('account.urls')),
     url(r'^admin/', include(admin.site.urls)),
