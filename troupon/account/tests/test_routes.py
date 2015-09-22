@@ -6,7 +6,7 @@ from account.views import ForgotPasswordView, ResetPasswordView
 from allaccess.views import OAuthRedirect, OAuthCallback
 
 
-class UserSigninTestCase(TestCase):
+class UserSigninRouteTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
     """
 
@@ -24,6 +24,23 @@ class UserSigninTestCase(TestCase):
         response = self.client.post('/account/signin/',
                                     dict(username='johndoe@gmail.com',
                                          password='12345'))
+        self.assertEquals(response.status_code, 302)
+
+
+class UserSignoutRouteTestCase(TestCase):
+    """Test that user can signout of session.
+    """
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user('johndoe',
+                                             'johndoe@gmail.com',
+                                             '12345')
+
+    def test_route_get_auth_signout(self):
+        self.client.post('/account/signin',
+                         dict(username='johndoe@gmail.com',
+                              password='12345'))
+        response = self.client.get('/account/signout/')
         self.assertEquals(response.status_code, 302)
 
 
