@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
 from django.template import RequestContext, loader, Template, Engine
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -116,6 +116,16 @@ class UserSigninView(View):
         # add the slash at the relative path's view and finished
         referer = u'/' + u'/'.join(referer[1:])
         return referer
+
+
+class UserSignoutView(View):
+    """Logout user from session.
+    """
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return HttpResponseRedirect(
+            reverse('homepage'),
+            'Redirect to site index page')
 
 
 class ForgotPasswordView(View):
