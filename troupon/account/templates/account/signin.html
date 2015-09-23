@@ -5,13 +5,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 center-block">
-                <form name="signin_form" action="" method="post">
+                <form name="signin_form" action="{% url 'signin' %}" method="post">
                 {% csrf_token %}
                     <h4>Sign In</h4>
                     <hr />
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="username" name="username" placeholder="Email">
+                        <label for="exampleInputEmail1">Username/Email address</label>
+                        <input type="email" class="form-control" id="username" name="username" placeholder="Username/Email">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
@@ -45,25 +45,27 @@
                 <hr />
                 <div class="row center-block">
                     <div class="col-md-6">
-                        <form class="form" name="createUserForm" action="" method="post">
+                        <form class="form" name="createUserForm" action="{% url 'UserSignupView' %}" method="post">
+                        {% csrf_token %}
                           <div class="form-group">
                             <label for="createUsername">Username</label>
-                            <input type="text" class="form-control" id="createUsername" name="createUsername" placeholder="Username">
+                            <input type="text" class="form-control" id="createUsername" name="username" placeholder="Username">
                           </div>
                           <div class="form-group">
                             <label for="createEmail">Email address</label>
-                            <input type="email" class="form-control" id="createEmail" name="createEmail" placeholder="Email">
+                            <input type="email" class="form-control" id="createEmail" name="email" placeholder="Email">
                           </div>
                           <div class="form-group">
                             <label for="createPassword1">Password</label>
-                            <input type="password" class="form-control" id="createPassword1" name="createPassword1" placeholder="Password">
+                            <input type="password" class="form-control" id="createPassword1" name="password1" placeholder="Password">
                           </div>
                           <div class="form-group">
-                            <label for="createPassword2">Password</label>
-                            <input type="password" class="form-control" id="createPassword2" name="createPassword2" placeholder="Enter password again">
+                            <label for="createPassword2">Enter password again</label>
+                            <input type="password" class="form-control" id="createPassword2" name="password2" placeholder="Enter password again">
                           </div>
                           
                           <button type="submit" class="btn btn-default">Submit</button>
+                          
                         </form>
                     </div>
                 </div>              

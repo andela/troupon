@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
-from django.template import RequestContext, loader, Template, Context, Engine
+from django.template import RequestContext, loader, Template, Engine
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -37,7 +37,7 @@ class UserSigninView(View):
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
-            t = self.engine.get_template('account/signin.html')
+            t = self.engine.from_string('{{msg.content}}')
             # Set result in RequestContext
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
@@ -46,7 +46,7 @@ class UserSigninView(View):
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
-            t = self.engine.get_template('account/signin.html')
+            t = self.engine.from_string('{{msg.content}}')
             # Set result in RequestContext
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
@@ -239,7 +239,7 @@ class ResetPasswordView(View):
 
 class UserSignupView(View):
     
-    template_name = 'account/signup.html'
+    template_name = 'account/signin.html'
 
     def get(self, request, *args, **kwargs):
         args = {}
