@@ -18,25 +18,23 @@ class HomepageViewTests(LiveServerTestCase):
         """
         Checks homepage displays correct title
         """
-        driver = self.driver
-        driver.get("%s" %(self.live_server_url))
-        self.assertIn("Troupon - Get Some!", driver.title)
+        self.driver.get(self.live_server_url + '/')
+        self.assertIn("Troupon - Get Some", self.driver.title)
 
     def test_can_subscribe(self,):
         """
         Checks if newsletter form is present on homepage
         """
-        driver = self.driver
-        driver.get("%s" %(self.live_server_url))
+        self.driver.get("%s" %(self.live_server_url))
         self.assertTrue("driver.find_element_by_name('subscriber_email')")
 
     def test_about_us_present(self,):
         """
         Checks if the about us section is present in homepage
         """
-        driver = self.driver
-        driver.get("%s" %(self.live_server_url))
-        assert "About Troupon" in driver.page_source
+        self.driver.get(self.live_server_url + '/')
+        body = self.driver.find_element_by_tag_name('body')
+        self.assertIn("About Troupon", body.text)
 
     def tearDown(self,):
         """

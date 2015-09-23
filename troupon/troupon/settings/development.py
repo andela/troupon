@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'deals',
     'account',
+    'allaccess',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,6 +90,8 @@ DATABASES = {
 #Authentication backends
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
+         # Additional backend for allaccess
+        'allaccess.backends.AuthorizedServiceBackend',
     )
 
 # Internationalization
@@ -113,6 +116,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+LOGIN_REDIRECT_URL = '/account/confirm/'
+LOGIN_URL = '/account/signup/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
