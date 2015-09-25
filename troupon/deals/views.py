@@ -3,10 +3,6 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
 from deals.models import Deal, STATE_CHOICES
 from django.template import Engine, RequestContext
-<<<<<<< HEAD
-=======
-from django.db import Error
->>>>>>> [#102761572] implement view for creating deals
 import cloudinary
 
 
@@ -18,7 +14,7 @@ class HomePage(TemplateView):
     context_var = {
         'show_subscribe': False,
         'show_search': True,
-        'states': { 'choices': STATE_CHOICES,  'default': 25 }
+        'states': {'choices': STATE_CHOICES,  'default': 25}
     }
 
     def get(self, request):
