@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: oluwafemisule
+  api_key: '314613147452734'
+  api_secret: xDRqK0BdjG-moT7EHGW4Zoa5Yd4
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: oluwafemisule
+  api_key: '314613147452734'
+  api_secret: xDRqK0BdjG-moT7EHGW4Zoa5Yd4
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: oluwafemisule
+  api_key: '314613147452734'
+  api_secret: xDRqK0BdjG-moT7EHGW4Zoa5Yd4
+  enhance_image_tag: true
+  static_image_support: false
