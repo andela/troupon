@@ -1,0 +1,206 @@
+
+//==========================================================================
+//	Mixins for buttons, form controls, thumbnails, cards, etc.
+//==========================================================================
+
+// buttons
+
+@mixin custom-control-mixin ($size) {
+	appearance: none;
+	overflow: hidden;
+	border: 1px solid;
+	height: $size;
+}
+
+@mixin btn-action-mixin ($type, $size:50px) {
+	@include custom-control-mixin ($size);
+
+	display: inline-block;
+	border-radius: border-radius(btn-action);
+	padding: 5px 20px;
+	min-width: max-content;
+
+  	font-weight: font-weight(bold);
+  	text-align: center;
+
+    color: color(#{$type}-label);
+    background-color: color(#{$type}-bg);
+    border-color: color(#{$type}-border);
+
+    transition: all 0.3s;
+
+    @if $type == btn {
+		font-size: font-size(body);
+	} @else if $type == btn-alt {
+		font-size: font-size(label);
+		text-transform: uppercase;
+	}
+
+	&:hover {
+		color: color(#{$type}-hover-label);
+	    background-color: color(#{$type}-hover-bg);
+	    border-color: color(#{$type}-hover-border);
+	}
+	&:active {
+		color: color(#{$type}-active-label);
+	    background-color: color(#{$type}-active-bg);
+	    border-color: color(#{$type}-active-border);
+	}
+}
+
+@mixin btn-icon-mixin ($type, $size, $shape) {
+
+	overflow: hidden;
+	border: 1px solid;
+	position: relative;
+	display: inline-block;
+	
+	min-width: $size;
+	height: $size;
+	padding: 0px;
+  	font-weight: font-weight(regular);
+  	text-align: center;
+
+    color: color(#{$type}-label);
+    background-color: color(#{$type}-bg);
+    border-color: color(#{$type}-border);
+
+    transition: all 0.3s;
+
+	@if $shape == circle {
+		border-radius: $size/2;
+	} @else if $shape == rect {
+		border-radius: border-radius(btn-icon-rect);
+	}
+
+	&:hover {
+		color: color(#{$type}-hover-label);
+	    background-color: color(#{$type}-hover-bg);
+	    border-color: color(#{$type}-hover-border);
+	}
+	&:active {
+		color: color(#{$type}-active-label);
+	    background-color: color(#{$type}-active-bg);
+	    border-color: color(#{$type}-active-border);
+	}
+
+	span, i {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		@if $type == btn-icon {
+			font-size: $size;
+		} @else if $type == btn-icon-fill {
+			font-size: $size * 0.6;
+			line-height: $size * 0.6;
+		}
+	}
+}
+
+
+
+// form controls
+
+@mixin input-group-mixin($size:50px) {
+	@include fluid-width;
+	
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	min-width: 100px;
+	
+	transition: all 0.3s;
+
+	%control {
+		@include custom-control-mixin($size);
+
+		border-radius: border-radius(form-control);
+		padding: 5px 20px;
+		width: 100%;
+
+		font-weight: font-weight(regular);
+		font-size: font-size(input);
+
+		color: color(form-input-text);
+	    background-color: color(form-input-bg);
+	    border-color: color(form-input-border);
+
+		transition: all 0.15s;
+
+		&:focus {
+			background-color: color(form-input-focus-bg);
+		    border-color: color(form-input-focus-border);
+		}
+	}
+	input, select {
+		@extend %control;
+	}
+
+	
+	%icon {
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		min-width: 50px;
+		text-align: center;
+	
+		color: color(icon-light);
+
+		&:after, &:before {
+		    content: "";
+		    height: 30px;
+		    width: 1px;
+		    position: absolute;
+		    top: 50%;
+		    transform: translateY(-50%);
+		}
+	}
+	.left-icon {
+		@extend %icon;
+
+		left: 0px;
+
+		&:after {
+			border-right: 1px solid color(form-input-border);
+		    left: 45px;
+		}
+
+		& ~ %control {
+			padding-left: 60px;
+		}
+	}
+	.right-icon {
+		@extend %icon;
+		
+		right: 0px;
+
+		&:before {
+			border-left: 1px solid color(form-input-border);
+		    right: 45px;
+		}
+
+		& ~ %control {
+			padding-right: 50px;
+		}
+	}
+
+}
+
+@mixin form-group-mixin() {
+
+	label {
+		display: block;
+		margin: 0px;
+
+		font: {
+	    	weight: font-weight(bold);
+	        size: font-size(label);
+	    }
+	    text-transform: uppercase;
+	    //color: color(label);
+	}
+
+}
