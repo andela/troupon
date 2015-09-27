@@ -1,0 +1,175 @@
+
+//==========================================================================
+//	Variables
+//==========================================================================
+
+// Font Families/Weights
+$font-families: (
+	hairline: ("lato_hairline", sans-serif),
+	hairline-italic: ("lato_hairline_italic", sans-serif),
+	light: ("lato_light", sans-serif),
+	light-italic: ("lato_light_italic", sans-serif),
+	regular: ("lato_regular", sans-serif),
+	bold: ("lato_bold", sans-serif),
+	bold-italic: ("lato_bold_italic", sans-serif),
+	black: ("lato_black", sans-serif),
+);
+
+// Sizes
+$font-sizes: (
+	h2: 40px,
+	h2-xs: 30px,
+	h3: 20px,
+	h4: 16px,
+	body: 16px,
+	label: 12px,
+	input: 16px,
+	mini: 12px,
+	value: 20px,
+	value-lg: 30px,
+	value-lg-xs: 30px,
+);
+
+// Sizes
+$icon-sizes: (
+	xs: 16px,
+	sm: 20px,
+	md: 30px,
+	lg: 55px,
+	xl: 80px,
+);
+
+// Colours
+$colors: (
+	//global
+	accent: #E67E22,
+	body-bg: #F7F7F7,
+	modal-bg: rgba(240,240,240,0.5),
+
+	// Typography
+	body: #5E5E77,
+	label: #C9CAD1,
+	h2: #660066,
+	h3: #5E5E77,
+	h4: #5E5E77,
+
+	//links
+	a: #5E5E77,
+	a-hover: #E67E22,
+	a-active: #5E5E77,
+	a-focus: #E67E22,
+
+	// buttons
+	btn-label: #F7F7F7,
+	btn-bg: #660066,
+	btn-border: #660066,
+	btn-hover-label: #F7F7F7,
+	btn-hover-bg: #E67E22,
+	btn-hover-border: #E67E22,
+	btn-active-label: #F7F7F7,
+	btn-active-bg: #5E5E77,
+	btn-active-border: #5E5E77,
+
+	btn-alt-label: #5E5E77,
+	btn-alt-bg: #F7F7F7,
+	btn-alt-border: #C9CAD1,
+	btn-alt-hover-label: #F7F7F7,
+	btn-alt-hover-bg: #E67E22,
+	btn-alt-hover-border: #E67E22,
+	btn-alt-active-label: #F7F7F7,
+	btn-alt-active-bg: #5E5E77,
+	btn-alt-active-border: #5E5E77,
+
+	
+	btn-icon-label: #C9CAD1,
+	btn-icon-bg: rgba(0,0,0,0),
+	btn-icon-border: rgba(0,0,0,0),
+	btn-icon-hover-label: #E67E22,
+	btn-icon-hover-bg: rgba(0,0,0,0),
+	btn-icon-hover-border: rgba(0,0,0,0),
+	btn-icon-active-label: #5E5E77,
+	btn-icon-active-bg: rgba(0,0,0,0),
+	btn-icon-active-border: rgba(0,0,0,0),
+
+
+	btn-icon-fill-label: #F7F7F7,
+	btn-icon-fill-bg: #C9CAD1,
+	btn-icon-fill-border: #C9CAD1,
+	btn-icon-fill-hover-label: #F7F7F7,
+	btn-icon-fill-hover-bg: #E67E22,
+	btn-icon-fill-hover-border: #E67E22,
+	btn-icon-fill-active-label: #F7F7F7,
+	btn-icon-fill-active-bg: #5E5E77,
+	btn-icon-fill-active-border: #5E5E77,
+
+	// form controls
+	form-input-bg: #FFFFFF,
+	form-input-border: #DFDFD0,
+	form-input-label: #5E5E77,
+	form-input-text: #5E5E77,
+	form-input-placeholder: #C9CAD1,
+
+	form-input-focus-bg: #FFFFFF,
+	form-input-focus-border: #E67E22,
+
+	// Layout
+	section-light-bg: #F7F7F7,
+
+	shaded-bg: #EFEFF1,
+	shaded-border: #DFDFD0,
+
+	divider: #DFDFD0,
+
+
+	//components:
+	dropdown-bg: #FFFFFF,
+	dropdown-border: #DFDFD0,
+
+	thumbnail-bg: #FFFFFF,
+	thumbnail-border: #DFDFD0,
+
+	// badge
+	badge-text: #FFFFFF, 
+	badge-bg: #E67E22,
+
+	// icons
+	icon-light: #C9CAD1, 
+	icon-dark: #5E5E77,
+
+	// social:
+	facebook: #395997, 
+	twitter: #5FC9EE, 
+	google-plus: #B4101D, 
+	linkedin: #316598, 
+	email: #E44954,
+);
+
+// Layout
+$component-heights: (
+  custom-input: 55px,
+);
+
+// Layout
+$z-indices: (
+  bottomless-pit: -9999,
+  default: 1,
+  dropdown: 3000,
+  modal: 4001,
+);
+
+// border radii
+$border-radii: (
+  btn-action: 5px,
+  btn-icon-rect: 5px,
+  form-control: 0px,
+  card: 10px,
+);
+
+// box shadows
+$box-shadows: (
+  btn-action: 0px 0px 3px rgba(0,0,0,0.5),
+  card: 0px 0px 12px rgba(0, 0, 0, 0.176),
+);
+
+
+

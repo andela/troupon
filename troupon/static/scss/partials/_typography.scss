@@ -1,0 +1,34 @@
+
+/* ==========================================================================
+Typography
+========================================================================== */
+
+
+@each $tag, $font-family in (body: regular, h2: light, h3: bold, h4: bold) {
+	#{$tag} {
+		font: {
+			family: font-family(#{$font-family});
+			size: font-size(#{$tag});
+		}
+		color: color(#{$tag});
+	}
+}
+
+h2 {
+	letter-spacing: -2px;
+}
+
+.mini-text {
+  font-size: font-size(mini);
+}
+
+.section-label {
+	font: {
+		family: font-family(bold);
+		size: font-size(label);
+	}
+	color: color(label);
+	text-transform: uppercase;
+}
+
+
