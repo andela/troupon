@@ -13,7 +13,6 @@
   	@return null;
 }
 
-
 @function font-family($key) {
     @if map-has-key($font-families, $key) {
       @return map-get($font-families, $key);
@@ -21,7 +20,6 @@
     @warn "Unknown `#{$key}` in $font-families.";
     @return null;
 }
-
 
 @function font-weight($key) {
   	@if map-has-key($font-weights, $key) {
@@ -31,7 +29,6 @@
   	@return null;
 }
 
-
 @function font-style($key) {
     @if map-has-key($font-styles, $key) {
       @return map-get($font-styles, $key);
@@ -39,7 +36,6 @@
     @warn "Unknown `#{$key}` in $font-styles.";
     @return null;
 }
-
 
 @function font-size($key) {
   	@if map-has-key($font-sizes, $key) {
