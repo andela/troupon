@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
 from deals.models import Deal
@@ -46,3 +46,24 @@ class DealSearchView(View):
     def post(self,request):
         deals = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text', ''))
         return render(request, self.template_name, {'deals': deals})
+
+class DealSearchCityView(View):
+
+    template_name = '' #template for multiple deals with pagination comes here
+
+    def get(self,request):
+
+        city_list = Deal.objects.filter(title__contains=request.GET.get('title', '')).filter(deal_state__contains=request.GET.get('deal_state', ''))
+        paginator = Paginator(city_list, 4)
+
+        try:
+            page = int(request.GET.get('page','1'))
+        except:
+            page = 1
+        try:
+            cities = paginator.page(page)
+        except(EmptyPage, InvalidPage):
+            cities = paginator.page(paginator.num_pages)
+
+        return render_to_response(self.template_name, { 'cities' : cities }, context_instance=RequestContext(request))
+        #deal_state and title from html page......
