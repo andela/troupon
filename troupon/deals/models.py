@@ -79,9 +79,9 @@ class Deal(models.Model):
                                       self.advertiser.name)
 
     def get_absolute_url(self):
-        return "/deals/get/%i/" % self.id
+        return "/deals/%i/" % self.id
     
-    
+
 class Advertiser(models.Model):
     """Advertisers within the troupon system are represented by this
         model.
