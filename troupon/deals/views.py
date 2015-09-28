@@ -48,20 +48,18 @@ class HomePageView(DealListBaseView):
             'featured_deals': featured_deals,
             'rendered_deal_list': rendered_deal_list
         }
-        return render(request,'deals/index.html', context)
-
+        return render(request, 'deals/index.html', context)
 
 
 class DealsView(DealListBaseView):
-    """ View class that handles display of the deals page. 
-        Simply configures the options and makes use of the base methods 
+    """ View class that handles display of the deals page.
+        Simply configures the options and makes use of the base methods
         to render return latest deals listing.
     """
 
     deals = Deal.objects.filter(active=True).order_by('date_last_modified')
     title = "Latest Deals"
     description = "See all the hottest new deals from all your favourite brands:"
-
 
 
 class DealView(View):
@@ -92,7 +90,6 @@ class DealView(View):
         context = RequestContext(self.request, deal)
         return HttpResponse(template.render(context))
 
-
     def post(self, request):
         """This handles creation of deals
         """
@@ -104,7 +101,6 @@ class DealView(View):
             return redirect('/deals/{0}/'.format(deal.id))
         except:
             return redirect('/deals/')
-
 
     def upload(self, file, title):
         return cloudinary.uploader.upload(
