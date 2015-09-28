@@ -18,3 +18,4 @@ wheel==0.24.0
 SQLAlchemy==1.0.8
 whitenoise==2.0.3
 six==1.9.0
+django_envie==0.0.2
