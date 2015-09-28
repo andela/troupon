@@ -2,17 +2,13 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
-from django.template import Engine, RequestContext, loader
-from django.core.paginator import Paginator
-from django.core.context_processors import csrf
-from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES
+from deals.models import Category, Deal, STATE_CHOICES
 from deals.baseviews import DealListBaseView
 import cloudinary
-import datetime
 
 
 class HomePageView(DealListBaseView):
-    """ View class that handles display of the homepage. 
+    """ View class that handles display of the homepage.
         Overrides the base get method, but still uses the base render_deal_list method
         to get the rendered latest deals listing.
     """
