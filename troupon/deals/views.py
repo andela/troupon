@@ -4,6 +4,7 @@ from django.http import HttpResponse, Http404
 from deals.models import Deal
 from django.template import Engine, RequestContext
 from haystack.query import SearchQuerySet
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -49,7 +50,7 @@ class DealSearchView(View):
 
 class DealSearchCityView(View):
 
-    template_name = '' #template for multiple deals with pagination comes here
+    template_name = 'deals/searchresult.html' #template for multiple deals with pagination comes here
 
     def get(self,request):
 

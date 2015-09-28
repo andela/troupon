@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from .views import SingleDealView, DealSearchView 
+from .views import SingleDealView, DealSearchView, DealSearchCityView
 
 
 urlpatterns = [
