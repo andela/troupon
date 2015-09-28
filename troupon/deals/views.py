@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
 from deals.models import Deal
 from django.template import Engine, RequestContext
+from haystack.query import SearchQuerySet
 
 
 # Create your views here.
@@ -37,3 +38,11 @@ class SingleDealView(View):
         # set result in RequestContext
         c = RequestContext(self.request, result)
         return HttpResponse(t.render(c))
+
+class DealSearchView(View):
+
+    template_name = 'deals/ajax_search.html'
+
+    def post(self,request):
+        deals = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text', ''))
+        return render(request, self.template_name, {'deals': deals})

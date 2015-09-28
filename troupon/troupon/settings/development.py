@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'account',
     'allaccess',
     'haystack',
+    'whoosh',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,11 +95,12 @@ AUTHENTICATION_BACKENDS = (
          # Additional backend for allaccess
         'allaccess.backends.AuthorizedServiceBackend',
     )
+WHOOSH_INDEX = os.path.join(BASE_DIR, 'whoosh/')
 
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+        'PATH': WHOOSH_INDEX,
     },
 }
 # Internationalization
