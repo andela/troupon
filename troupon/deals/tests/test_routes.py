@@ -57,3 +57,35 @@ class SingleDealViewTestCase(TestCase):
 
         response = self.client.get('/deals/{0}/'.format(deal.id))
         self.assertIn(str(deal.id), response.content)
+
+
+class DealsByCategoryTestCase(TestCase):
+    """This contains tests to check that deals can be
+        viewed by category
+    """
+    def setUp(self):
+        advertiser, category = Advertiser(name="XYZ Stores"), \
+                                Category(name="Books")
+        advertiser.save()
+        category.save()
+        self.deal = dict(title="Deal #1",
+                         description="Deal some...deal all!",
+                         disclaimer="Deal at your own risk",
+                         advertiser=advertiser,
+                         deal_address="14, Alara Street",
+                         deal_state=14,
+                         category=category,
+                         original_price=1500,
+                         deal_price=750,
+                         deal_duration=15,
+                         deal_active=1,
+                         max_quantity_available=3,
+                         latitude=210.025,
+                         longitude=250.015,
+                         )
+        deal = Deal(**self.deal)
+        deal.save()
+
+    def test_can_view_deals_by_category(self):
+        response = self.client.get('/categories/2/books/')
+        self.assertEqual(response.status_code, 200)
