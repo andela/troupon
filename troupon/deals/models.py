@@ -79,7 +79,7 @@ class Deal(models.Model):
                                       self.advertiser.name)
 
     def get_absolute_url(self):
-        return "/deals/%i/" % self.id
+        return "/deals/{}/" .format(self.id)
     
 
 class Advertiser(models.Model):
