@@ -1,5 +1,5 @@
 from django.test import TestCase, Client, LiveServerTestCase
-from django.core.urlresolvers import resolve
+from django.core.urlresolvers import resolve, reverse
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
 from selenium import webdriver
@@ -78,21 +78,19 @@ class UserRegisterTestCase(LiveServerTestCase):
         """
         User.objects.create_superuser(
             'admin','admin@example.com','admin')
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.PhantomJS()
         super(UserRegisterTestCase, self).setUp()
 
     def test_signin_user(self,):
         """
         Checks if a user can sign in
         """
-        self.driver.get(
-            "%s%s" %(self.live_server_url, '/signin/'))
+        self.driver.get(reverse('signin'))
 
         # input login details and submit
         username = self.driver.find_element_by_id("username").send_keys('admin')
         password = self.driver.find_element_by_id("password").send_keys('admin')
         self.driver.find_element_by_xpath("//input[@value='Sign in']").click()
-        
         # assert that user is logged in by accessing admin area
         self.driver.get('%s%s' % (self.live_server_url, "/admin/auth/user/add/"))
         self.assertEqual(response.status_code, 200)
@@ -116,5 +114,5 @@ class UserRegisterTestCase(LiveServerTestCase):
         """
         Close the browser window
         """
-        self.driver.close()
+        self.driver.quit()
         super(UserRegisterTestCase, self).tearDown()
