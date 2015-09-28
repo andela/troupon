@@ -2,7 +2,6 @@ from django.shortcuts import render,render_to_response,redirect
 from django.views.generic import TemplateView, View
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
-from deals.models import Deal, STATE_CHOICES, Category
 from django.template import Engine, RequestContext, loader
 from haystack.query import SearchQuerySet
 from django.core.paginator import Paginator
@@ -89,20 +88,8 @@ class DealView(View):
         template = engine.get_template('deals/detail.html')
 
         # set result in RequestContext
-        context = RequestContext(self.request, deal)
-        return HttpResponse(template.render(context))
-
-    def post(self, request):
-        """This handles creation of deals
-        """
-        try:
-            deal = Deal(request.POST)
-            response = self.upload(request.FILES, request.POST.get('title'))
-            deal.photo_url = response.get('public_url')
-            deal.save()
-            return redirect('/deals/{0}/'.format(deal.id))
-        except:
-            return redirect('/deals/')
+        c = RequestContext(self.request, result)
+        return HttpResponse(t.render(c))
 
     def upload(self, file, title):
         return cloudinary.uploader.upload(
