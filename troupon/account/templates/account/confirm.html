@@ -1,8 +1,19 @@
 {% extends "base.html" %}
 
 {% block confirmationpage %}
+{% if activation_mail_status == 200 %}
 <div class="well">
-<p>You have successfully registered, and If you are seeing this page, know that you are tight...</p>
-<P>#TIA</P>
+
+    <h1>Activation mail sent!</h1>
+    <p>You have successfully registered. A mail has been sent to your email address {{ new_user.email }}. Follow the link in the mail to reset your password</p>
+    <br >
+    <P>Troupon Team</P>
 </div>
+{% else %}
+<div class="well">
+<h1>Account creation failed</h1>
+<P>Please Re-enter you signup details</P>
+</div>
+{% endif %}
+
 {% endblock %}
