@@ -41,11 +41,21 @@ class UserSignupForm(UserCreationForm):
 
 
 
-    def save(self):
+    def save(self, commit=True):
+        
+
         '''
         Save method used by the AbstractUser object.
         Subclassed by the User object to save data to database and called by UserSignupRequest
         class in accounts/views.py.
         '''
-        user = User.objects.create_user(username=self.cleaned_data['username'],email=self.cleaned_data['email'],password=self.cleaned_data['password1'])
+        user = super(UserSignupForm, self).save(commit=False)
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        user.is_staff = False
+        
+        if commit:
+            user.save()
         return user
+
+
