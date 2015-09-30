@@ -245,20 +245,44 @@ class UserSignupView(View):
         '''
         Raw data posted from form is recieved here,bound to form 
         as dictionary and sent to unrendered django form for validation.
-        ''' 
-        form_data = {'username':request.POST.get('username',''),
-                'email':request.POST.get('email',''),
-                'password1':request.POST.get('password1',''),
-                'password2':request.POST.get('password2',''),
-       'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
-                        }
+        '''         
 
-        usersignupform = UserSignupForm(form_data)
-        if usersignupform.is_valid():
+        usersignupform = UserSignupForm(request.POST)
+        if usersignupform.is_valid():          
             print ('form is valid')
             usersignupform.save()
 
-            return HttpResponseRedirect('/account/confirm/')
+            try:
+
+            #get the user email address
+            email = usersignupform.cleaned_data.get('email')
+            new_user = User.objects.get(email__exact=email)
+
+            #generate an activation hash url for new user account
+            activation_hash = Hasher.gen_hash(new_user)
+            activation_hash_url = request.build_absolute_uri(reverse('activate_account', kwargs={'activation_hash': activation_hash}))
+
+            #compose the email 
+            activation_email_context = RequestContext(request, {'activation_hash_url': activation_hash_url})
+            activation_email =  Mailgunner.compose(
+                sender = 'Troupon <Noreplytroupon@andela.com>',
+                reciepient = new_user.email,
+                subject = 'Troupon: ACTIVATE ACCOUNT',
+                html = loader.get_template('account/activate_account_email.html').render(activation_email_context),
+                text = loader.get_template('account/activate_account_email.txt').render(activation_email_context),
+                )
+                
+            #send mail to new_user
+            activation_status = Mailgunner.send(activation_email)
+
+            # inform the user of activation mail sent:
+                args = {
+                    'page_title': 'Activate account',
+                    'new_user':  new_user,
+                    'activation_mail_status': activation_status,
+                }
+
+            return render(request, 'account/confirm.html', args)
 
         else:
             args = {}
@@ -266,5 +290,9 @@ class UserSignupView(View):
             return render(request, self.template_name, args)
 
 
-class Userconfirm(TemplateView):
-    template_name = 'account/confirm.html'
+class ActivateAccountView(View):
+    pass
+
+
+
+
