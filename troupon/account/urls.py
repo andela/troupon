@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from account.views import UserSigninView, ForgotPasswordView, ResetPasswordView,UserSignupView,Userconfirm
+from account.views import UserSigninView, ForgotPasswordView, ResetPasswordView,UserSignupView,ActivateAccountView
 
 urlpatterns = [
     url(r'^signin/$', UserSigninView.as_view(), name='signin'),

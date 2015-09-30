@@ -252,8 +252,6 @@ class UserSignupView(View):
             print ('form is valid')
             usersignupform.save()
 
-            try:
-
             #get the user email address
             email = usersignupform.cleaned_data.get('email')
             new_user = User.objects.get(email__exact=email)
@@ -276,11 +274,11 @@ class UserSignupView(View):
             activation_status = Mailgunner.send(activation_email)
 
             # inform the user of activation mail sent:
-                args = {
-                    'page_title': 'Activate account',
-                    'new_user':  new_user,
-                    'activation_mail_status': activation_status,
-                }
+            args = {
+                'page_title': 'Activate account',
+                'new_user':  new_user,
+                'activation_mail_status': activation_status,
+            }
 
             return render(request, 'account/confirm.html', args)
 
