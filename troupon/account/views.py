@@ -289,7 +289,30 @@ class UserSignupView(View):
 
 
 class ActivateAccountView(View):
-    pass
+
+
+    def get(self, request, *args, **kwargs):
+
+        # get the activation_hash captured in url
+        activation_hash = kwargs['activation_hash']
+
+        # reverse the hash to get the user (auto-authentication)
+        user = Hasher.reverse_hash(activation_hash)
+
+        if user is not None:
+            user.is_active = False
+            user.save()
+            import pdb; pdb.set_trace()
+            if user.is_active:
+                return HttpResponseRedirect('/account/signin/')
+
+        else:
+            raise Http404("/User does not exist")
+
+
+
+
+
 
 
 

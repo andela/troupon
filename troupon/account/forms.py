@@ -52,7 +52,7 @@ class UserSignupForm(UserCreationForm):
         user = super(UserSignupForm, self).save(commit=False)
         user.username = self.cleaned_data['username']
         user.email = self.cleaned_data['email']
-        user.is_staff = False
+        user.is_active = False
         
         if commit:
             user.save()
