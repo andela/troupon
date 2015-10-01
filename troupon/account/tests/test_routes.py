@@ -17,9 +17,9 @@ class UserSigninTestCase(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User(username='johndoe@gmail.com')
-        self.user.set_password('12345')
-        self.user.save()
+        self.user = User.objects.create_user('johndoe',
+                                             'johndoe@gmail.com',
+                                             '12345')
 
     def test_route_get_auth_signin(self):
         response = self.client.get('/account/signin/')
@@ -27,7 +27,7 @@ class UserSigninTestCase(TestCase):
 
     def test_route_post_auth_signin(self):
         response = self.client.post('/account/signin/',
-                                    dict(email='johndoe@gmail.com',
+                                    dict(username='johndoe@gmail.com',
                                          password='12345'))
         self.assertEquals(response.status_code, 302)
 
@@ -113,9 +113,9 @@ class UserSignInViewTestCase(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User(username='johndoe@gmail.com')
-        self.user.set_password('12345')
-        self.user.save()
+        self.user = User.objects.create_user(username='johndoe',
+                                             email='johndoe@gmail.com',
+                                             password='12345')
 
     def test_view_get_auth_signin(self):
         """Test that user request for signin page binds to a view called
@@ -128,7 +128,7 @@ class UserSignInViewTestCase(TestCase):
     def test_view_post_auth_signin(self):
         """Test that user post to signin route has a session
         """
-        data = {'email': 'johndoe@gmail.com', 'password': '12345'}
+        data = {'username': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/account/signin/', data)
         self.assertIn('deals', response.content)
 

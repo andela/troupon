@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
                 ('longitude', models.FloatField()),
                 ('date_created', models.DateField(auto_now_add=True)),
                 ('date_last_modified', models.DateField(auto_now=True)),
-                ('date_end', models.DateField(default=datetime.datetime(2015, 9, 15, 11, 54, 33, 924321, tzinfo=utc))),
+                ('date_end', models.DateField(default=datetime.datetime(2015, 9, 18, 15, 3, 1, 722581, tzinfo=utc))),
                 ('advertiser', models.ForeignKey(to='deals.Advertiser')),
                 ('category', models.ForeignKey(to='deals.Category')),
             ],
