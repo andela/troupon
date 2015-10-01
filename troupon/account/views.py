@@ -233,12 +233,12 @@ class ResetPasswordView(View):
 
 class UserSignupView(View):
     
-    template_name = 'account/signup.html'
+    #template_name = 'account/signup.html'
 
     def get(self, request, *args, **kwargs):
         args = {}
         args.update(csrf(request))
-        return render(request, self.template_name, args)
+        return render(request, 'account/signup.html', args)
 
 
     def post(self,request):
@@ -273,19 +273,16 @@ class UserSignupView(View):
             #send mail to new_user
             activation_status = Mailgunner.send(activation_email)
 
-            # inform the user of activation mail sent:
-            args = {
-                'page_title': 'Activate account',
-                'new_user':  new_user,
-                'activation_mail_status': activation_status,
-            }
-
-            return render(request, 'account/confirm.html', args)
+            # inform the user of activation mail sent
+            if activation_status == 200:
+                new_user_email = new_user.email
+                messages.add_message(request, messages.INFO, new_user_email)
+            return HttpResponseRedirect('/account/confirm/')
 
         else:
             args = {}
             args.update(csrf(request))
-            return render(request, self.template_name, args)
+            return render(request, 'account/signup.html')
 
 
 class ActivateAccountView(View):
@@ -300,17 +297,21 @@ class ActivateAccountView(View):
         user = Hasher.reverse_hash(activation_hash)
 
         if user is not None:
-            user.is_active = False
-            user.save()
-            import pdb; pdb.set_trace()
-            if user.is_active:
-                return HttpResponseRedirect('/account/signin/')
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+                if user.is_active:
+                    return HttpResponseRedirect('/account/signin/')
 
         else:
             raise Http404("/User does not exist")
 
 
+class Userconfirm(TemplateView):
+    template_name = 'account/confirm.html'
 
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
 
 
