@@ -80,7 +80,6 @@ class UserSigninView(View):
 
                 return HttpResponseRedirect(referer_view,
                                             'Redirect to /deals/ route')
-                # return HttpResponse('You are now logged in.')
             else:
                 # Set error context
                 data = {'msg': {
