@@ -4,8 +4,11 @@ from django.test import TestCase, Client
 from django.core.context_processors import csrf
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
-from account.views import ForgotPasswordView, ResetPasswordView
+from account.views import ForgotPasswordView, ResetPasswordView, UserSignupView
 from allaccess.views import OAuthRedirect,OAuthCallback
+from deals.views import SingleDealView, DealSearchView, DealSearchCityView
+
+
 
 
 class UserSigninTestCase(TestCase):
@@ -58,42 +61,50 @@ class ResetPasswordRouteTestCase(TestCase):
 
 
 class UserRegistrationViewTest(TestCase):
-  '''
-  Test class to user registration.
-  '''
-  def setUp(self):
     '''
-    User sign's up with data.
+    Test class to user registration.
     '''
-    self.client_stub = Client()
-    self.form_data = dict(username="andela",
-                           password1="andela",
-                           password2="andela",
-                           email="andela@andela.com",
-                           )
+    def setUp(self):
+        '''
+        User sign's up with data.
+        '''
+        self.client_stub = Client()
+        self.form_data = dict(username="andela",
+                               password1="andela",
+                               password2="andela",
+                               email="samuel.james@andela.com",
+                               )
 
-  def test_view_signup_route(self):
-    '''
-    User signup page is called.
-    '''
+    def test_view_signup_route(self):
+        '''
+        User signup page is called.
+        '''
 
-    response = self.client_stub.get('/account/signup/')
-    self.assertEquals(response.status_code, 200)
+        response = self.client_stub.get('/account/signup/')
+        self.assertEquals(response.status_code, 200)
 
-  def test_view_reg_route(self):
-    '''
-    User is redirected after signup data is validated.
-    '''
-    response = self.client_stub.post('/account/signup/', self.form_data)
-    self.assertEquals(response.status_code, 302)
+    def test_data_posted(self):
+        '''
+        User is signup data is sent validated.
+        '''
+        response = self.client_stub.post('/account/signup/', self.form_data)
+        self.assertEquals(response.status_code, 302)
 
-  def test_view_reg_success_route(self):
-    '''
-    User gets to view confirmation page after signup.
-    '''
 
-    response = self.client_stub.get('/account/confirm/')
-    self.assertEquals(response.status_code, 200)
+    def test_view_reg_success_route(self):
+        '''
+        User gets to view confirmation page after signup.
+        '''
+
+        response = self.client_stub.get('/account/confirm/')
+        self.assertEquals(response.status_code, 200)
+
+
+    def test_user_signup_functioncalled(self):
+        ''' Test that signup binds to UserSignupview '''
+
+        response = resolve('/account/signup/')
+        self.assertEquals(response.func.__name__, 'UserSignupView')
 
 
 class UserSignInViewTestCase(TestCase):
@@ -119,7 +130,7 @@ class UserSignInViewTestCase(TestCase):
         """
         data = {'username': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/account/signin/', data)
-        self.assertIn('deals', response.content)
+        self.assertEquals(response.status_code, 302)
 
 class FacebookSignupTestCase(TestCase):
 
@@ -135,6 +146,20 @@ class FacebookSignupTestCase(TestCase):
     def test_user_redirected_after_facebook_signup(self):
         response = self.client_stub.post('/accounts/callback/facebook/')
         self.assertEqual(response.resolver_match.func.__name__, OAuthCallback.as_view().__name__)
+
+
+class DealSearchView(TestCase):
+    def setUp(self):
+        self.client_stub = Client()
+
+    def test_user_citydealfunctioncalled(self):
+        response = resolve('/deals/search/cities/')
+        self.assertEquals(response.func.__name__, 'DealSearchCityView')
+
+    def test_user_singleviewfunctioncalled(self):
+        response = resolve('/deals/search/entry/')
+        self.assertEquals(response.func.__name__, 'DealSearchView')
+
 
 
 

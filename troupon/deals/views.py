@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
 from deals.models import Deal, STATE_CHOICES
 from django.template import Engine, RequestContext
+from haystack.query import SearchQuerySet
+from django.core.paginator import Paginator
+from django.core.context_processors import csrf
 
 
 # Create your views here.
@@ -17,6 +20,7 @@ class HomePage(TemplateView):
     }
 
     def get(self, request):
+        self.context_var.update(csrf(request))
         return render(request, self.template_name, self.context_var)
 
 
@@ -41,3 +45,32 @@ class SingleDealView(View):
         # set result in RequestContext
         c = RequestContext(self.request, result)
         return HttpResponse(t.render(c))
+
+class DealSearchView(View):
+
+    template_name = 'deals/ajax_search.html'
+
+    def post(self,request):
+        deals = SearchQuerySet().autocomplete(content_auto=request.POST.get('q', ''))
+        return render(request, self.template_name, {'deals': deals})
+
+class DealSearchCityView(View):
+
+    template_name = 'deals/searchresult.html' #template for multiple deals with pagination comes here
+
+    def get(self,request):
+
+        city_list = Deal.objects.filter(title__contains=request.GET.get('q', '')).filter(deal_state__contains=request.GET.get('city', ''))
+        paginator = Paginator(city_list, 4)
+
+        try:
+            page = int(request.GET.get('page','1'))
+        except:
+            page = 1
+        try:
+            cities = paginator.page(page)
+        except(EmptyPage, InvalidPage):
+            cities = paginator.page(paginator.num_pages)
+
+        return render_to_response(self.template_name, { 'cities' : cities }, context_instance=RequestContext(request))
+        #deal_state and title from html page......

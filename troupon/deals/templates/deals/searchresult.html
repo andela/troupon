@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block main%}
+{% if cities %}
+    {% for city in cities.object_list %}
+        <a href="">{{ city.title }}</a>
+        <a href="">{{ city.description}}</a>
+
+    {% endfor %}
+    <div class="pagination">
+          {% if cities.has_previous %}
+              <a href="?page={{ cities.previous_page_number }}">Previous</a>
+          {% endif %}
+          {% for pg in cities.paginator.page_range %}
+              {% if cities.number == pg %}
+                  <p class="active"><a href="?page={{ pg }}">{{ pg }}</a></p>
+              {% else %}
+                  <a href="?page={{ pg }}">{{ pg }}</a>
+              {% endif %}
+          {% endfor %}
+          {% if cities.has_next %}
+              <a href="?page={{ cities.next_page_number }}">Next</a>
+          {% endif %}
+    </div>
+{% else %}
+    <p>No deals found for this search, please search for other deals!</p>
+{% endif %}
+{% endblock %}
+

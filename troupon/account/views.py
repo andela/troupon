@@ -64,9 +64,10 @@ class UserSigninView(View):
         else:
             username = self.request.POST.get('username', '')
             password = self.request.POST.get('password', '')
+            csrfmiddlewaretoken = self.request.POST.get('csrfmiddlewaretoken', '')
             try:
                 validate_email(username)
-                user = User.objects.get(email=username.lower())
+                user = User.objects.get(email=username)
                 username = user.username
             except ValidationError:
                 pass
@@ -78,8 +79,7 @@ class UserSigninView(View):
                 # Redirect to a success page.
                 referer_view = self.get_referer_view(self.request)
 
-                return HttpResponseRedirect(referer_view,
-                                            'Redirect to /deals/ route')
+                return redirect('/')
             else:
                 # Set error context
                 data = {'msg': {
@@ -239,38 +239,90 @@ class ResetPasswordView(View):
 
 class UserSignupView(View):
     
-    template_name = 'account/signup.html'
+    #template_name = 'account/signup.html'
 
     def get(self, request, *args, **kwargs):
         args = {}
         args.update(csrf(request))
-        return render(request, self.template_name, args)
+        return render(request, 'account/signup.html', args)
 
 
     def post(self,request):
         '''
         Raw data posted from form is recieved here,bound to form 
         as dictionary and sent to unrendered django form for validation.
-        ''' 
-        form_data = {'username':request.POST.get('username',''),
-                'email':request.POST.get('email',''),
-                'password1':request.POST.get('password1',''),
-                'password2':request.POST.get('password2',''),
-       'csrfmiddlewaretoken':request.POST.get('csrfmiddlewaretoken',''),
-                        }
+        '''         
 
-        usersignupform = UserSignupForm(form_data)
-        if usersignupform.is_valid():
+        usersignupform = UserSignupForm(request.POST)
+        if usersignupform.is_valid():          
             print ('form is valid')
             usersignupform.save()
 
+            #get the user email address
+            email = usersignupform.cleaned_data.get('email')
+            new_user = User.objects.get(email__exact=email)
+
+            #generate an activation hash url for new user account
+            activation_hash = Hasher.gen_hash(new_user)
+            activation_hash_url = request.build_absolute_uri(reverse('activate_account', kwargs={'activation_hash': activation_hash}))
+
+            #compose the email 
+            activation_email_context = RequestContext(request, {'activation_hash_url': activation_hash_url})
+            activation_email =  Mailgunner.compose(
+                sender = 'Troupon <Noreplytroupon@andela.com>',
+                reciepient = new_user.email,
+                subject = 'Troupon: ACTIVATE ACCOUNT',
+                html = loader.get_template('account/activate_account_email.html').render(activation_email_context),
+                text = loader.get_template('account/activate_account_email.txt').render(activation_email_context),
+                )
+                
+            #send mail to new_user
+            activation_status = Mailgunner.send(activation_email)
+
+            # inform the user of activation mail sent
+            if activation_status == 200:
+                new_user_email = new_user.email
+                messages.add_message(request, messages.INFO, new_user_email)
             return HttpResponseRedirect('/account/confirm/')
 
         else:
+            login = "Invalid username or password"
             args = {}
             args.update(csrf(request))
-            return render(request, self.template_name, args)
+            messages.add_message(request, messages.INFO,login )
+            return render(request, 'account/signup.html')
+
+
+class ActivateAccountView(View):
+
+
+    def get(self, request, *args, **kwargs):
+
+        # get the activation_hash captured in url
+        activation_hash = kwargs['activation_hash']
+
+        # reverse the hash to get the user (auto-authentication)
+        user = Hasher.reverse_hash(activation_hash)
+
+        if user is not None:
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+                if user.is_active:
+                    return HttpResponseRedirect('/account/signin/')
+
+        else:
+            raise Http404("/User does not exist")
 
 
 class Userconfirm(TemplateView):
     template_name = 'account/confirm.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+
+
+
+
