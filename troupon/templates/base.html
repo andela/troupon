@@ -16,6 +16,8 @@
     {% block base_css %}
     <!-- Bootstrap Core -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}" media="screen" />
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700italic,700,300,400italic' rel='stylesheet' type='text/css'>
     <!-- FontAwesome -->
     <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}">
     <!-- Troupon base-->
@@ -81,48 +83,48 @@
                         </div>
                         <!--<button type="button" class="menu-toggle visible-xs" data-toggle="" data-target=""><i class="fa fa-bars "></i></button>
                         <button type="button" class="search-toggle visible-xs" data-toggle="" data-target=""><i class="fa fa-search "></i></button>-->
-                        <button type="button" class="menu-toggle visible-xs"><i class="fa fa-bars"></i></button>
+                        <button type="button" class="menu-toggle visible-xs collapsed" data-toggle="collapse" data-target="#menu-bar"><i class="fa fa-bars"></i></button>
                         <button type="button" class="search-toggle visible-xs collapsed" data-toggle="collapse" data-target="#search-bar"><i class="fa fa-search"></i></button>
                     </div>
-                    <nav class="hidden-xs col-sm-5 col-md-6 col-lg-7">
-                        <ul class="nav-menu">
-                            <li><a href="" class="hidden-sm">Home</a></li>
-                            <li><a href="">Deals</a></li>
-                            <li><a href="">Categories</a></li>
-                            <li><a href="">Cities</a></li>
-                            <li><a href="" class="hidden-sm">Support</a></li>
-                        </ul>
-                    </nav>
-                    <div class="hidden-xs col-sm-3 col-md-3 col-lg-2">
-
-                        {% if request.user.is_authenticated %}
-                        <ul class="member-options">
-                            <li>
-                                <a href=""><span class="badge">7</span><i class="fa fa-shopping-cart fa-fw"></i></a>
-                            </li>
-                            <li class="divider-v"></li>
-                            <li class="dropdown">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-user fa-fw"></i> <span class="caret"></span></a>
-                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <li class="dropdown-header">Signed in as:</li>
-                                    <li><a href="">Oluwafemi Sule</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href=""><i class="fa fa-user fa-fw"></i> My Profile</a></li>
-                                    <li><a href=""><i class="fa fa-key fa-fw"></i> Change Password</a></li>
-                                    <li><a href=""><i class="fa fa-th-list fa-fw"></i> View History</a></li>
-                                    <li  class="divider"></li>
-                                    <li><a href=""><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        {% else %}
-                         <ul class="auth-options">
-                            <li><a href="" class="modal-toggle" data-modal-target="#modal-sign-in">Sign in</a></li>
-                            <li class="divider-v"></li>
-                            <li><a href="" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></li>
-                        </ul>
-                        {% endif %}
-
+                    <div class="navbar-collapse collapse" id="menu-bar">
+                        <nav class="col-xs-12 col-sm-5 col-md-6 col-lg-7">
+                            <ul class="nav-menu">
+                                <li><a href="" class="hidden-sm">Home</a></li>
+                                <li><a href="">Deals</a></li>
+                                <li><a href="">Categories</a></li>
+                                <li><a href="">Cities</a></li>
+                                <li><a href="" class="hidden-sm">Support</a></li>
+                            </ul>
+                        </nav>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+                            {% if request.user.is_authenticated %}
+                            <ul class="member-options">
+                                <li>
+                                    <a href=""><span class="badge">7</span><i class="fa fa-shopping-cart fa-fw"></i></a>
+                                </li>
+                                <li class="divider-v"></li>
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-user fa-fw"></i> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <li class="dropdown-header">Signed in as:</li>
+                                        <li><a href="">Oluwafemi Sule</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href=""><i class="fa fa-user fa-fw"></i> My Profile</a></li>
+                                        <li><a href=""><i class="fa fa-key fa-fw"></i> Change Password</a></li>
+                                        <li><a href=""><i class="fa fa-th-list fa-fw"></i> View History</a></li>
+                                        <li  class="divider"></li>
+                                        <li><a href=""><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            {% else %}
+                             <ul class="auth-options">
+                                <li><a href="" class="modal-toggle" data-modal-target="#modal-sign-in">Sign in</a></li>
+                                <li class="divider-v"></li>
+                                <li><a href="" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></li>
+                            </ul>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 <div class="divider"></div>
