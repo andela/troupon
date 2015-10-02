@@ -27,7 +27,7 @@ $(document).ready(function() {
 	}
 
 
-	var transitionEndEvent = whichTransitionEndEvent();
+	var transitionEndEvent = whichTransitionEndEvent(),
 		modalsWrapper = $('.modals-wrapper'),
 		modalsParent = $('.modals-parent'),
 		modalsCloseBtn = $('#modals-close'),
