@@ -37,7 +37,7 @@ class UserSigninView(View):
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
-            t = self.engine.from_string('{{msg.content}}')
+            t = self.engine.from_string('')
             # Set result in RequestContext
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
