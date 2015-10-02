@@ -7,4 +7,4 @@ urlpatterns = [
   url(r'^search/entry/$', DealSearchView.as_view(), name = 'dealsearch'),
   url(r'^(?P<deal_id>\d+)/$', SingleDealView.as_view(), name='single_deal'),
   url(r'^search/cities/$', DealSearchCityView.as_view(), name ='dealsearchcity')
-]
+  ]
