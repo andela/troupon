@@ -60,3 +60,6 @@ target/
 venv/
 .idea/
 
+# CSS preprocessor
+troupon/static/scss/
+troupon/prepros.cfg
