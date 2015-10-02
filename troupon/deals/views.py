@@ -22,15 +22,21 @@ class HomePage(TemplateView):
         return render(request, self.template_name, self.context_var)
 
 
-class SingleDealView(View):
+class DealView(View):
     """This handles request for each deal by id.
     """
 
     def get(self, *args, **kwargs):
         deal_id = self.kwargs.get('deal_id')  # get deal_id from request
+        if not deal_id:
+            deals = Deal.objects.all()
+            engine = Engine.get_default()
+            template = engine.get_template('deals/list.html')
+            context = RequestContext(self.request, {'deals': deals})
+            return HttpResponse(template.render(context))
         try:
             deal = Deal.objects.get(id=deal_id)
-            result = {"result": deal}
+            deal = {'deal': deal}
         except Deal.DoesNotExist:
             raise Http404('Deal does not exist')
 
@@ -38,14 +44,12 @@ class SingleDealView(View):
         # with an application template.
         # Use Engine.get_template(template_name)
         engine = Engine.get_default()
-        t = engine.get_template('deal/detail.html')
+        template = engine.get_template('deals/detail.html')
 
         # set result in RequestContext
-        c = RequestContext(self.request, result)
-        return HttpResponse(t.render(c))
+        context = RequestContext(self.request, deal)
+        return HttpResponse(template.render(context))
 
-
-class DealView(View):
     def post(self, request):
         """This handles creation of deals
         """
