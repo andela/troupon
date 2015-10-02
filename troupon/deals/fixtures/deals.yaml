@@ -1,0 +1,79 @@
+- model: deals.advertiser
+  pk: 1
+  fields:
+    name: Paul McCartney
+    state: 1
+    telephone: 111-111-11
+    email: paulmccartney@noho.com
+- model: deals.category
+  pk: 1
+  fields:
+    name: Books
+
+- model: deals.deal
+  pk: 1
+  fields:
+    title: Legendary Moustachios
+    advertiser: 1
+    category: 1
+    original_price: 100
+    deal_price: 80
+    deal_duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    deal_active: True
+    deal_address: Suite 212, Gatsby Road, Neverland
+
+- model: deals.deal
+  pk: 2
+  fields:
+    title: Making an Awesomeware
+    advertiser: 1
+    category: 1
+    original_price: 10000
+    deal_price: 9500
+    deal_duration: 10
+    max_quantity_available: 3
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    deal_active: True
+    deal_address: Suite 212, Gatsby Road, Neverland
+
+- model: deals.deal
+  pk: 3
+  fields:
+    title: Sedentary Lifers
+    advertiser: 1
+    category: 1
+    original_price: 1000
+    deal_price: 680
+    deal_duration: 8
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    deal_active: True
+    deal_address: Suite 212, Gatsby Road, Neverland
+
+- model: deals.deal
+  pk: 4
+  fields:
+    title: A Diary of the Walking Dead
+    advertiser: 1
+    category: 1
+    original_price: 1000
+    deal_price: 800
+    deal_duration: 8
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    deal_active: True
+    deal_address: Suite 212, Gatsby Road, Neverland
