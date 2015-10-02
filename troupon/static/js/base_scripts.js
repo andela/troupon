@@ -75,7 +75,7 @@ $(document).ready(function() {
 				modalsCloseBtn.removeClass('hidden');
 
 				// set modalsCloseBtn click listener:
-				modalsCloseBtn.one('click', function(event){
+				modalsCloseBtn.one('click', function(){
 					closeModal();
 				});
 				// set ESC keypress listener:
@@ -95,7 +95,9 @@ $(document).ready(function() {
 
 	function closeModal(){
 		// check for openedModal:
-		if(!openedModal) return;
+		if(!openedModal) {
+			return;
+		}
 
 		// reset modal wrapper and target:
 		modalsWrapper.removeClass('open');
