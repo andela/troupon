@@ -26,7 +26,7 @@ class HomepageViewTests(LiveServerTestCase):
         Checks if newsletter form is present on homepage
         """
         self.driver.get("%s" %(self.live_server_url))
-        self.assertTrue("driver.find_element_by_name('subscriber_email')")
+        self.assertTrue("driver.find_element_by_id('subscriberEmail')")
 
     def test_about_us_present(self,):
         """
@@ -34,7 +34,7 @@ class HomepageViewTests(LiveServerTestCase):
         """
         self.driver.get(self.live_server_url + '/')
         body = self.driver.find_element_by_tag_name('body')
-        self.assertIn("About Troupon", body.text)
+        self.assertIn("About", body.text)
 
     def tearDown(self,):
         """
