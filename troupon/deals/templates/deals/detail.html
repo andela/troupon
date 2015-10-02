@@ -1,2 +1,33 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block extended_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/deals.css" %}">
+{% endblock %}
+
+{% block main %}
+   <div class="main">
+    {% if deal %}
+    <div class="row deal-detail">
+        <div class="col-md-8">
+            <h3>{{deal.title}}</h3>
+            <span>{{deal.state}}</span>
+            <div class="fill">
+                <img src="{% static deal.photo_url %}">
+            </div>
+            <div class="address">
+                <address>{{ deal.deal_address }}</address>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h2>${{ deal.deal_price }}</h2>
+            <button class="btn btn-primary">Buy</button>
+        </div>
+    </div>
+    {% else %}
+        <div class="placeholder">
+            <p>Sorry, Deal couldn't find this deal.</p>
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}
