@@ -1,7 +1,11 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from deals.models import Deal, Advertiser, Category
-
+from django.core.files import File
+import mock
+import os
+import cloudinary
+from deals.views import DealView
 
 class HomepageViewTestCase(TestCase):
     """docstring for HomepageRouteTests"""
@@ -32,6 +36,7 @@ class SingleDealViewTestCase(TestCase):
                                 Category(name="Books")
         advertiser.save()
         category.save()
+
         self.deal = dict(title="Deal #1",
                          description="Deal some...deal all!",
                          disclaimer="Deal at your own risk",
@@ -57,3 +62,16 @@ class SingleDealViewTestCase(TestCase):
 
         response = self.client.get('/deals/{0}/'.format(deal.id))
         self.assertIn(str(deal.id), response.content)
+
+    @mock.patch('deals.views.DealView.upload', mock.MagicMock(name="upload"))
+    @mock.patch('deals.models.Deal.save', mock.MagicMock(name="save"))
+    def test_upload_to_cloudinary(self):
+        mock_file = mock.MagicMock(spec=File, name='FileMock')
+        mock_file.name = 'testimage.jpg'
+        self.deal['photo'] = mock_file
+        cloudinary.config = mock.MagicMock(name='cloudinary')
+        view = DealView.as_view()
+        request = RequestFactory().post('/deals', self.deal)
+        response = view(request)
+        self.assertTrue(DealView.upload.called)
+        self.assertEqual(response.status_code, 302)
