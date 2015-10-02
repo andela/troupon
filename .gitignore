@@ -64,3 +64,4 @@ venv/
 troupon/static/scss/
 *.scss
 troupon/prepros.cfg
+.DS_Store
