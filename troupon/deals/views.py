@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
 from deals.models import Deal, STATE_CHOICES
 from django.template import Engine, RequestContext
+from django.db import Error
+import cloudinary
 
 
 # Create your views here.
@@ -41,3 +43,23 @@ class SingleDealView(View):
         # set result in RequestContext
         c = RequestContext(self.request, result)
         return HttpResponse(t.render(c))
+
+
+class DealView(View):
+    def post(self, request):
+        """This handles creation of deals
+        """
+        try:
+            deal = Deal(request.POST)
+            response = self.upload(request.FILES, request.POST.get('title'))
+            deal.photo_url = response.get('public_url')
+            deal.save()
+            return redirect('/deals/{0}/'.format(deal.id))
+        except:
+            return redirect('/deals/')
+
+    def upload(self, file, title):
+        return cloudinary.uploader.upload(
+                file,
+                public_id=title
+            )
