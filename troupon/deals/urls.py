@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import SingleDealView, DealView
+from .views import SingleDealView
 
 
 urlpatterns = [
