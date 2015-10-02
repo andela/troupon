@@ -38,7 +38,7 @@ class SingleDealView(View):
         # with an application template.
         # Use Engine.get_template(template_name)
         engine = Engine.get_default()
-        t = engine.from_string('{{result}}')
+        t = engine.get_template('deal/detail.html')
 
         # set result in RequestContext
         c = RequestContext(self.request, result)
