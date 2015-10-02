@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
-from deals.models import Deal
+from deals.models import Deal, STATE_CHOICES
 from django.template import Engine, RequestContext
 
 
@@ -10,7 +10,11 @@ class HomePage(TemplateView):
     """class that handles display of the homepage"""
 
     template_name = "deals/index.html"
-    context_var = {'show_subscribe': True}
+    context_var = {
+        'show_subscribe': False,
+        'show_search': True,
+        'states': { 'choices': STATE_CHOICES,  'default': 25 }
+    }
 
     def get(self, request):
         return render(request, self.template_name, self.context_var)

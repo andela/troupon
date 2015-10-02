@@ -62,4 +62,5 @@ venv/
 
 # CSS preprocessor
 troupon/static/scss/
+*.scss
 troupon/prepros.cfg
