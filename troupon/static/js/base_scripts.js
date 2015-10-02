@@ -17,7 +17,7 @@ $(document).ready(function() {
 				'OTransition':'oTransitionEnd',
 				'MozTransition':'transitionend',
 				'WebkitTransition':'webkitTransitionEnd'
-		  	}
+		  	};
 
 	  	for(t in transitions){
 			if( el.style[t] !== undefined ){
@@ -38,15 +38,17 @@ $(document).ready(function() {
 	
 	function openModal(modalSelector){
 		// get the modal:
-		modal = $(modalSelector);
-		if(!modal.length) return;
+		var modal = $(modalSelector);
+		if(!modal.length) {
+			return;
+		}
 
 		// check for any already opened modal:
-		if(openedModal != null) {
+		if(openedModal !== null) {
 
 			//first close the openedModal:
 			openedModal.removeClass('open').addClass('close');
-			openedModal.one(transitionEndEvent, function(event) {
+			openedModal.one(transitionEndEvent, function() {
 			   	// reset openedModal:
 			   	openedModal.removeClass('close');
 			   	openedModal = null;
