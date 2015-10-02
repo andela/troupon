@@ -130,7 +130,7 @@ class UserSignInViewTestCase(TestCase):
         """
         data = {'username': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/account/signin/', data)
-        self.assertIn('deals', response.content)
+        self.assertEquals(response.status_code, 302)
 
 class FacebookSignupTestCase(TestCase):
 
