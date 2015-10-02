@@ -6,7 +6,7 @@ $(function(){
             type: "POST",
             url: "deals/search/entry",
             data: { 
-                'search_text' : $('#search').val(),
+                'q' : $('#search').val(),
                 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
             },
             success: searchSuccess,

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% block main%}
 {% if cities %}
     {% for city in cities.object_list %}
         <a href="">{{ city.title }}</a>
@@ -21,4 +22,8 @@
               <a href="?page={{ cities.next_page_number }}">Next</a>
           {% endif %}
     </div>
+{% else %}
+    <p>No deals found for this search, please search for other deals!</p>
 {% endif %}
+{% endblock %}
+

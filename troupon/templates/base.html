@@ -136,12 +136,12 @@
             {% if show_search %} {# does not show by default #}
             <!-- search bar-->
             <section id="search-bar" class="navbar-collapse collapse">
-                <form class="form-inline" action="{% url 'homepage' %}" method="GET">
+                <form class="form-inline" action="{% url 'dealsearchcity' %}" method="GET">
                     <div class="row">
                         <div class="col-sm-5 col-md-6 col-lg-6">
                             <div class="custom-input-group">
                                 <span class="left-icon"><i class="fa fa-search"></i></span>
-                                <input type="text" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query">
+                                <input type="text" id="search" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query">
                             </div>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4">
@@ -243,7 +243,10 @@
                             </header>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="" action="" method="POST">
+                                    <form action="{% url 'UserSignupView' %}"  method="post">
+                                    <div style="display:none">
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                    </div>
                                         <div class="custom-form-group">
                                             <label for="email">Email <span class="accent">*</span></label>
                                             <div class="custom-input-group">
@@ -296,17 +299,19 @@
                             </header>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="" action="" method="POST">
+                                    <form action="{% url 'signin' %}" method="post">
+                                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                    </div>
                                         <div class="custom-form-group">
                                             <label for="email">Email <span class="accent">*</span></label>
                                             <div class="custom-input-group">
-                                                <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
+                                                <input type="email" name="username" id="email" placeholder="lagbaja@somedomain.com">
                                             </div>
                                         </div>
                                         <div class="custom-form-group">
-                                            <label for="password1">Password <span class="accent">*</span></label>
+                                            <label for="password">Password <span class="accent">*</span></label>
                                             <div class="custom-input-group">
-                                                <input type="password" name="password1" id="password1" placeholder="At least 6 characters.">
+                                                <input type="password" name="password" id="password" placeholder="At least 6 characters.">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -343,7 +348,9 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <p>Enter the email for your registered account below. A recovery mail will be sent to your inbox. Follow the link in the mail to recover your account.</p>
-                                    <form action="" action="" method="POST">
+                                    <form action="" action="" method="post">
+                                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                    </div>
                                         <div class="custom-form-group">
                                             <label for="email">Email <span class="accent">*</span></label>
                                             <div class="custom-input-group">

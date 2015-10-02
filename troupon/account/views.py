@@ -64,6 +64,7 @@ class UserSigninView(View):
         else:
             username = self.request.POST.get('username', '')
             password = self.request.POST.get('password', '')
+            csrfmiddlewaretoken = self.request.POST.get('csrfmiddlewaretoken', '')
             try:
                 validate_email(username)
                 user = User.objects.get(email=username.lower())
@@ -286,8 +287,10 @@ class UserSignupView(View):
             return HttpResponseRedirect('/account/confirm/')
 
         else:
+            login = "Invalid username or password"
             args = {}
             args.update(csrf(request))
+            messages.add_message(request, messages.INFO,login )
             return render(request, 'account/signup.html')
 
 

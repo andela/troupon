@@ -5,6 +5,7 @@ from deals.models import Deal, STATE_CHOICES
 from django.template import Engine, RequestContext
 from haystack.query import SearchQuerySet
 from django.core.paginator import Paginator
+from django.core.context_processors import csrf
 
 
 # Create your views here.
@@ -19,6 +20,7 @@ class HomePage(TemplateView):
     }
 
     def get(self, request):
+        self.context_var.update(csrf(request))
         return render(request, self.template_name, self.context_var)
 
 
@@ -49,7 +51,7 @@ class DealSearchView(View):
     template_name = 'deals/ajax_search.html'
 
     def post(self,request):
-        deals = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text', ''))
+        deals = SearchQuerySet().autocomplete(content_auto=request.POST.get('q', ''))
         return render(request, self.template_name, {'deals': deals})
 
 class DealSearchCityView(View):
@@ -58,7 +60,7 @@ class DealSearchCityView(View):
 
     def get(self,request):
 
-        city_list = Deal.objects.filter(title__contains=request.GET.get('title', '')).filter(deal_state__contains=request.GET.get('deal_state', ''))
+        city_list = Deal.objects.filter(title__contains=request.GET.get('q', '')).filter(deal_state__contains=request.GET.get('city', ''))
         paginator = Paginator(city_list, 4)
 
         try:
