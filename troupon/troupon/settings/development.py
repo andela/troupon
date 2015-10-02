@@ -15,7 +15,11 @@ from django_envie.workroom import convertfiletovars
 convertfiletovars(fileext='yml')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+<<<<<<< HEAD
 #convertfiletovars()
+=======
+convertfiletovars()
+>>>>>>> 48f3484d558a597da53cc0f4ead13f007fda58c3
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
