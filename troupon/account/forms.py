@@ -6,7 +6,8 @@ from django.utils import timezone
 class EmailForm(forms.Form):
     
     email = forms.EmailField(label='Email', required=True, max_length=200, widget=forms.EmailInput(attrs={
-        "placeholder": "Enter your registered email address."
+        "placeholder": "Enter your registered email address.",
+        "class": "form-control"
     }))
 
 

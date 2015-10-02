@@ -1,6 +1,7 @@
 .main_container
 {
 	min-height: 500px;
+    padding-top: 150px;
 }
 
 i
@@ -11,4 +12,10 @@ i
 .subscriber_form
 {
 	text-align: center;
+}
+
+/* style for create user modal on signin.html*/
+.create_modal
+{
+    padding: 40px;
 }
