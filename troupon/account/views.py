@@ -67,7 +67,7 @@ class UserSigninView(View):
             csrfmiddlewaretoken = self.request.POST.get('csrfmiddlewaretoken', '')
             try:
                 validate_email(username)
-                user = User.objects.get(email=username.lower())
+                user = User.objects.get(email=username)
                 username = user.username
             except ValidationError:
                 pass
@@ -79,8 +79,7 @@ class UserSigninView(View):
                 # Redirect to a success page.
                 referer_view = self.get_referer_view(self.request)
 
-                return HttpResponseRedirect(referer_view,
-                                            'Redirect to /deals/ route')
+                return redirect('/')
             else:
                 # Set error context
                 data = {'msg': {
