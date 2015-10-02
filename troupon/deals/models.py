@@ -63,6 +63,7 @@ class Deal(models.Model):
                                           default=25)
     category = models.ForeignKey('Category')
     original_price = models.IntegerField()
+    photo_url = models.TextField(blank=True, default='')
     deal_price = models.IntegerField()
     deal_duration = models.IntegerField()
     deal_active = models.BooleanField(default=False)
