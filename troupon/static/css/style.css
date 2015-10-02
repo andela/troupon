@@ -1,0 +1,25 @@
+.container
+{
+    margin: 20px;
+}
+
+i
+{
+    padding: 5px 15px;
+}
+
+.subscriber_form
+{
+    text-align: center;
+}
+
+/* style for create user modal on signin.html*/
+.create_modal
+{
+    padding: 40px;
+}
+
+.create_modal img
+{
+    margin-left: 70px;
+}
