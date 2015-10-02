@@ -72,5 +72,14 @@ class DealSearchCityView(View):
         except(EmptyPage, InvalidPage):
             cities = paginator.page(paginator.num_pages)
 
-        return render_to_response(self.template_name, { 'cities' : cities }, context_instance=RequestContext(request))
+        stitle=request.GET.get('q', '')
+
+        args = {
+        'show_search': True,
+        'states': { 'choices': STATE_CHOICES,  'default': 25 },
+        'cities':cities,
+        'stitle':stitle
+    }
+
+        return render_to_response(self.template_name, args, context_instance=RequestContext(request))
         #deal_state and title from html page......

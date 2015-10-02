@@ -23,7 +23,14 @@
           {% endif %}
     </div>
 {% else %}
-    <p>No deals found for this search, please search for other deals!</p>
+    <p>Your search - {{ stitle }}. - did not match any deals.</p>
+
+    <p>Suggestions:</p>
+    <ul>
+    <li>Make sure that all words are spelled correctly.</li>
+    <li>Try different keywords.</li>
+    <li>Try more general keywords.</li>
+    </ul>
 {% endif %}
 {% endblock %}
 
