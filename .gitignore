@@ -70,3 +70,6 @@ troupon/prepros.cfg
 
 # bower
 troupon/static/bower_components/
+
+# Mac OS Desktop Store
+.DS_Store
