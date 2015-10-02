@@ -43,7 +43,6 @@ class SingleDealViewTestCase(TestCase):
                          advertiser=advertiser,
                          deal_address="14, Alara Street",
                          deal_state=14,
-                         photo_url="img/photo_default.png",
                          category=category,
                          original_price=1500,
                          deal_price=750,
