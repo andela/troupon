@@ -20,5 +20,9 @@ $(function(){
 function searchSuccess(data, textStatus, jqXHR)
 {
     $('#search-results').html(data);
+
+    $('#search-results').mouseleave(function(){
+        $(this).fadeOut('slow');
+        });
 }
 
