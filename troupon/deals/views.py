@@ -3,7 +3,6 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
 from deals.models import Deal, STATE_CHOICES
 from django.template import Engine, RequestContext
-from django.db import Error
 import cloudinary
 
 
