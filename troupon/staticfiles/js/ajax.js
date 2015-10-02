@@ -3,11 +3,11 @@ $(function(){
     $('#search').keyup(function() {
 
         $.ajax({
-            type: "POST",
-            url: "deals/search/entry",
+            type: 'POST',
+            url: 'deals/search/entry',
             data: { 
                 'q' : $('#search').val(),
-                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
             },
             success: searchSuccess,
             dataType: 'html'
