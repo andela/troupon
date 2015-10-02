@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import cloudinary
 from django_envie.workroom import convertfiletovars
+convertfiletovars(fileext='yml')
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 convertfiletovars()
@@ -125,3 +129,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+cloudinary.config(cloud_name=os.getenv('cloudinary_cloud_name'),
+                  api_key=os.getenv('cloudinary_api_key'),
+                  api_secret=os.getenv('cloudinary_api_secret'))
