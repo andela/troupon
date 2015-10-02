@@ -66,6 +66,7 @@ class Deal(models.Model):
     photo_url = models.TextField(blank=True, default='')
     deal_price = models.IntegerField()
     deal_duration = models.IntegerField()
+    photo_url = models.TextField(blank=True, default="img/photo_default.png")
     deal_active = models.BooleanField(default=False)
     max_quantity_available = models.IntegerField()
     latitude = models.FloatField()
