@@ -54,9 +54,10 @@ class DealSearchView(View):
         deals = SearchQuerySet().autocomplete(content_auto=request.POST.get('q', ''))
         return render(request, self.template_name, {'deals': deals})
 
+
 class DealSearchCityView(View):
 
-    template_name = 'deals/searchresult.html' #template for multiple deals with pagination comes here
+    template_name = 'deals/searchresult.html' 
 
     def get(self,request):
 
@@ -82,4 +83,4 @@ class DealSearchCityView(View):
     }
 
         return render_to_response(self.template_name, args, context_instance=RequestContext(request))
-        #deal_state and title from html page......
+        
