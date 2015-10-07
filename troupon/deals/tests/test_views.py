@@ -40,7 +40,7 @@ class HomepageViewTests(LiveServerTestCase):
         """
         Close the browser window
         """
-        self.driver.close()
+        self.driver.quit()
         super(HomepageViewTests, self).tearDown()
 
 if __name__ == "__main__":
