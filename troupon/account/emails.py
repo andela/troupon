@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from django.template import RequestContext, loader
 import requests
+import os
 
 class Mailgunner:
     """ This class is used to send emails using the requests module to the mailgun message api.
         NOTE: This class has the Python-Requests package as a dependency. 
         Run 'pip install requirements.txt' to install on your environment. """
 
-    url = "https://api.mailgun.net/v3/mailgun.mcbella.com.ng/messages"
-    auth = ("api", "key-e75e2753c478e22772ab5d30dc4171c4")
+    url = os.getenv('MAILGUN_URL')
+    auth = (os.getenv('MAILGUN_USERNAME'), os.getenv('MAILGUN_PASSWORD'))
 
     @staticmethod
     def compose(sender, reciepient, subject, text="", html="None"):
