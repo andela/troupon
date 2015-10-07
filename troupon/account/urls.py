@@ -7,7 +7,5 @@ urlpatterns = [
     url(r'^recovery/(?P<recovery_hash>([a-z0-9A-Z])+)$', ResetPasswordView.as_view(), name='account_reset_password'),
     url(r'^signup/$',UserSignupView.as_view(),name = 'UserSignupView'),
     url(r'^confirm/$',Userconfirm.as_view(),name = 'Userconfirm'),
-
-
 ]
 

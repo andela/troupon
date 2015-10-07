@@ -61,6 +61,12 @@ venv/
 .idea/
 
 # CSS preprocessor
-troupon/static/scss/
 *.scss
+troupon/static/scss/
 troupon/prepros.cfg
+
+# bower
+troupon/static/bower_components/
+
+# staticfiles
+troupon/staticfiles/
