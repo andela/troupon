@@ -10,6 +10,5 @@ urlpatterns = [
     url(r'^confirm/$',Userconfirm.as_view(),name = 'Userconfirm'),
     
 
-
 ]
 
