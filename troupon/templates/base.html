@@ -224,7 +224,6 @@
             <div class="container modals-container">
 
                 {% if not request.user.is_authenticated %}
-<<<<<<< HEAD
 
                 <!--Sign up modal-->
                 <div class="modal-view" id="modal-sign-up">
@@ -368,11 +367,10 @@
                     </div>
                 </div>
 
-=======
                 {% include "sign_up_modal.html" %}
                 {% include "sign_in_modal.html" %}
                 {% include "forgot_password_modal.html" %}
->>>>>>> develop
+                
                 {% endif %}
 
                 {% block extended_modals %}
