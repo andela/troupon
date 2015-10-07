@@ -60,6 +60,9 @@ target/
 venv/
 .idea/
 
+# environment files
+.env.py
+
 # CSS preprocessor
 troupon/static/scss/
 *.scss
