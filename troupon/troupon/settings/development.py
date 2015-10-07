@@ -140,5 +140,6 @@ BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap',
     'fontawesome',
-    'slick-carousel',
+    'flickity',
+    'packery',
 )
