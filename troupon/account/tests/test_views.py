@@ -66,3 +66,24 @@ class ForgotPasswordViewTestCase(TestCase):
         self.assertNotIn('registered_user', response.context)
         self.assertNotIn('recovery_mail_status', response.context)# -*- coding: utf-8 -*-
 
+
+class ActivateAccountTestCase(TestCase):
+
+
+    def setUp(self):
+        self.client_stub = Client()
+        self.form_data = dict(username="andela",
+                               password1="andela",
+                               password2="andela",
+                               email="samuel.james@andela.com",
+                               )
+
+    @patch('requests.post')
+    def test_activation_mail_sent(self,post_request_mock):
+        response = self.client_stub.post('/account/signup/', self.form_data)
+        self.assertEqual(post_request_mock.call_count, 1)
+        self.assertEqual(response.status_code, 302)
+
+
+    
+
