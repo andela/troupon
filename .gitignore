@@ -72,4 +72,4 @@ troupon/prepros.cfg
 troupon/static/bower_components/
 
 # staticfiles
-troupon/staticfiles/
+#troupon/staticfiles/
