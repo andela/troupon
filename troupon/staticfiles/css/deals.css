@@ -1,5 +1,35 @@
-.deal-item > div > img{
-    height: 200px;
-    width: 200px;
-    display: block;
+.deal-item {
+    padding: 18px;
+}
+.deal-item .fill {
+    height: 250px;
+    width: 250px;
+    background-color: #ECDDB6;
+    float: left;
+    overflow: hidden;
+    margin: 20px;
+}
+
+.deal-item .fill img {
+    min-width:100%;
+    height:auto;
+    text-align: center;
+    padding: 50px;
+}
+
+.deal-detail .fill img {
+    min-width: 100%;
+    height:auto;
+    text-align: center;
+    padding: 50px;
+}
+
+.deal-detail {
+    padding: 10px;
+}
+
+.deal-detail .fill {
+    height: 450px;
+    width: 600px;
+    background-color: #ECDDB6;
 }
