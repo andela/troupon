@@ -74,4 +74,5 @@ troupon/static/bower_components/
 # staticfiles
 troupon/staticfiles/
 
+# Mac OS desktop store
 .DS_Store
