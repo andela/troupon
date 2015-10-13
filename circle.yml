@@ -20,4 +20,3 @@ deployment:
       - heroku run python troupon/manage.py migrate --app troupon-staging
       - heroku run python troupon/manage.py bower install --app troupon-staging
       - heroku run python troupon/manage.py collectstatic --app troupon-staging
-      
