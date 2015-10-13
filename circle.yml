@@ -10,6 +10,8 @@ dependencies:
     - npm install -g bower
 test:
   override:
+    - python troupon/manage.py bower install
+    - python troupon/manage.py collectstatic
     - python troupon/manage.py test troupon --settings=troupon.settings.test
 deployment:
   staging:
