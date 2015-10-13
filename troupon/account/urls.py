@@ -8,4 +8,3 @@ urlpatterns = [
     url(r'^signup/$',UserSignupView.as_view(),name = 'UserSignupView'),
     url(r'^confirm/$',Userconfirm.as_view(),name = 'Userconfirm'),
 ]
-
