@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extended_css %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+{% endblock extended_css %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 center-block">
+                <form name="signin_form" action="{% url 'signin' %}" method="post">
+                {% csrf_token %}
+                    <h4>Sign In</h4>
+                    <hr />
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username/Email address</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username/Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+                    <input type="submit" class="btn btn-default" value="Sign in" />
+                </form>
+                <br />
+                <p>
+                    <a href="{% url 'account_forgot_password' %}"><i class="fa fa-key"></i>Forgot your password? click here to recover it</a>
+                </p>
+            </div>
+            <div class="col-md-6 center-block">
+                <h4>Sign In Using Facebook</h4>
+                <hr />
+                <a href="/accounts/login/facebook/"><button id="btn-fbsignup" type="button" class="btn btn-lg btn-primary"><i class="fa fa-facebook fa-2x"></i>  Sign Up with Facebook</button></a>
+                <br />
+                <br />
+                <p>
+                    <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus-square"></i>Don't have an account? click here to sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Sign Up Modal Begins -->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content create_modal">          
+                <h4>Sign Up</h4>
+                <hr />
+                <div class="row center-block">
+                    <div class="col-md-6">
+                        <form class="form" name="createUserForm" action="{% url 'UserSignupView' %}" method="post">
+                        {% csrf_token %}
+                          <div class="form-group">
+                            <label for="createUsername">Username</label>
+                            <input type="text" class="form-control" id="createUsername" name="username" placeholder="Username">
+                          </div>
+                          <div class="form-group">
+                            <label for="createEmail">Email address</label>
+                            <input type="email" class="form-control" id="createEmail" name="email" placeholder="Email">
+                          </div>
+                          <div class="form-group">
+                            <label for="createPassword1">Password</label>
+                            <input type="password" class="form-control" id="createPassword1" name="password1" placeholder="Password">
+                          </div>
+                          <div class="form-group">
+                            <label for="createPassword2">Enter password again</label>
+                            <input type="password" class="form-control" id="createPassword2" name="password2" placeholder="Enter password again">
+                          </div>
+                          
+                          <button type="submit" class="btn btn-default">Submit</button>
+                          
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <img class="create_modal_img" src="{% static 'img/logo-v-lg.png' %}" />
+                    </div>
+                </div>              
+        </div>
+      </div>
+    </div>
+    <!-- User Sign Up Modal Ends -->
+{% endblock main %}
