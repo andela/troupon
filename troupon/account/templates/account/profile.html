@@ -1,25 +1,35 @@
-{% extends base.html %}
+{% extends "base.html" %}
 
 {% block main %}
+
 {% for field in form %}
  {{ field.form }}
 {% endfor %}
+ 
+{% if messages %}
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
 
 <div>
     <h1 style="color:pink;">My Account</h1>
-    <hr>
     <p>Manage account settings and profile information</p>
 </div>
 
 <div class = "row">
-    <div class = "col-md-4">
-        <a href = "">Profile</a><br>
+    <div class="col-md-2">
+        <a href = "{% url 'userprofile' %}">Profile</a><br>
         <a href = "">Change Password</a><br>
         <a href = "">History</a><br>
 
     </div>
 
-    <div = "col-md-6">
+    <div class="col-md-6">
         <form action = " " method = "post" >{% csrf_token %}
 
         <div class="form-group col-lg-12">
@@ -49,16 +59,16 @@
 
         <hr>
 
-        <div class="form-group col-lg-8">
+        <div class="form-group col-lg-12">
         <label>Interest</label>
         <input type="text" name="interest" class="form-control" id="" value="" placeholder="Interest">
+        </div><br>
+        
+        <div class="form-group btn-lg col-lg-1">
+        <input type = "submit", value = "Save Changes" align="left" />
         </div>
-
-
-
-        <input type = "submit", value = "Save Changes" />
-
         </form>
+
     </div>
 
 </div>

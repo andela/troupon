@@ -16,6 +16,10 @@ from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
 from emails import Mailgunner
 from django.core.validators import validate_email, ValidationError
+from account.models import UserProfile, STATE_CHOICES
+from account.forms import UserProfileForm
+
+
 
 import re
 
@@ -322,6 +326,44 @@ class Userconfirm(TemplateView):
         return render(request, self.template_name)
 
 
+class Userprofileview(TemplateView):
+    """class that handles display of the homepage"""
+
+    template_name = "account/profile.html"
+    context_var = {
+        'show_subscribe': False,
+        'show_search': False,
+        'states': { 'choices': STATE_CHOICES,  'default': 25 }
+    }
+
+    def get(self, request):
+        self.context_var.update(csrf(request))
+        return render(request, self.template_name, self.context_var)
+
+    def post(self,request):
+        
+        userprofileform = UserProfileForm(request.POST, instance=request.user.profile)
+        if userprofileform.errors:
+            context_var = {
+                'show_subscribe': False,
+                'show_search': False,
+                'states': { 'choices': STATE_CHOICES,  'default': 25 }
+            }
+            context_var.update(csrf(request))
+            empty = "form should not be submitted empty"
+            messages.add_message(request, messages.INFO,empty )
+            return render(request, 'account/profile.html', context_var)
+
+
+        if userprofileform.is_valid():
+            userprofileform.save()
+            return HttpResponseRedirect('/') 
+            #redirect route needs to be reviewed.....
+
+        else:
+            user = request.user
+            profile = user.profile
+            form = UserProfileForm(instance=profile)
 
 
 

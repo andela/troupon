@@ -2,6 +2,14 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
+from account.models import UserProfile
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'user_state', 'interest')
+
 
 class EmailForm(forms.Form):
     
