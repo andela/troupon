@@ -61,7 +61,7 @@ venv/
 .idea/
 
 # environment files
-.env.py
+.env.*
 
 # CSS preprocessor
 *.scss
