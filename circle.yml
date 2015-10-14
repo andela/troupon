@@ -12,6 +12,8 @@ test:
   override:
     - python troupon/manage.py bower install
     - python troupon/manage.py collectstatic --noinput
+    - python troupon/manage.py makemigrations --app troupon-staging
+    - python troupon/manage.py migrate --app troupon-staging
     - python troupon/manage.py test --settings=troupon.settings.test
 deployment:
   staging:
