@@ -3,5 +3,5 @@ from .views import DealView
 
 
 urlpatterns = [
-    url(r'^$', DealView.as_view(), name='deal'),
+    url(r'^(?P<deal_id>[0-9]+)?$', DealView.as_view(), name='deal'),
 ]
