@@ -23,4 +23,3 @@ deployment:
       - heroku run python troupon/manage.py collectstatic --noinput --app troupon-staging
       - heroku run python troupon/manage.py makemigrations --app troupon-staging
       - heroku run python troupon/manage.py migrate --app troupon-staging
->>>>>>> [#105570056] fix-production-settings: Added CircleCI and Heroku directives to install bower, collectstatic and run migrations
