@@ -12,15 +12,15 @@
 			<div class="col-sm-12 col-md-4 deal-item">
             <a href="{% url 'deal' deal.id %}">
 				<div class="col-xs-12 fill">
-					<img alt="{{ deal.title }}"/>
+					<img alt="{{ deal.title }}" src="{{ deal.image.url }}" />
 				</div>
                 <div class="heading col-md-7">{{ deal.title}}</div>
 			    <div class="prices col-md-5">
                     <span><strike>${{ deal.original_price }}</strike></span>
-				    <span>${{ deal.deal_price }}</span>
+				    <span>${{ deal.price }}</span>
 			    </div>
                 <div class="col-sm-12">
-                    <address><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{ deal.deal_address }}</address>
+                    <address><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{ deal.state }}</address>
                 </div>
             </a>
 			</div>
