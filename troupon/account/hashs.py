@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from hashids import Hashids
 from time import time
 
-from troupon.settings import SECRET_KEY as secret_key
+
 
 
 class UserHasher:
@@ -15,6 +15,7 @@ class UserHasher:
     pkhash_min_length = 20
     alphabet = 'abcdefghijklmnopqrstuvwyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     delim = "x"
+    secret_key = os.getenv('SECRET_KEY')
 
     @staticmethod
     def gen_hash(registered_user):
@@ -24,7 +25,7 @@ class UserHasher:
         timestamp = int(time() * 1000)
 
         # encode the timestamp with secret_key:
-        hashids = Hashids(salt=secret_key, min_length=UserHasher.timehash_min_length, alphabet=UserHasher.alphabet)
+        hashids = Hashids(salt=UserHasher.secret_key, min_length=UserHasher.timehash_min_length, alphabet=UserHasher.alphabet)
         timestamp_hash = hashids.encode(timestamp)
 
         # encode the user's pk with timestamp:
@@ -49,7 +50,7 @@ class UserHasher:
 
         try:
             # decode the timestamp_hash (i.e hashs[0] ) with the app secret key:
-            hashids = Hashids(salt=secret_key, min_length=UserHasher.timehash_min_length, alphabet=UserHasher.alphabet)
+            hashids = Hashids(salt=UserHasher.secret_key, min_length=UserHasher.timehash_min_length, alphabet=UserHasher.alphabet)
             timestamp = hashids.decode(hashs[0])[0]
 
             # decode the pk_hash (i.e hashs[1] ) with the timestamp:
