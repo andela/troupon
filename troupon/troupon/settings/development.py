@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'haystack',
     'whoosh',
     'djangobower',
+    'userprofile',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,6 +100,8 @@ AUTHENTICATION_BACKENDS = (
         'allaccess.backends.AuthorizedServiceBackend',
     )
 WHOOSH_INDEX = os.path.join(BASE_DIR, 'whoosh/')
+
+AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 
 HAYSTACK_CONNECTIONS = {
     'default': {
