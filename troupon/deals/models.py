@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 STATE_CHOICES = [
@@ -58,16 +59,15 @@ class Deal(models.Model):
     description = models.TextField(blank=True, default='')
     disclaimer = models.TextField(blank=True, default='')
     advertiser = models.ForeignKey('Advertiser')
-    deal_address = models.CharField(max_length=100, blank=False, default='')
-    deal_state = models.SmallIntegerField(choices=STATE_CHOICES,
+    address = models.CharField(max_length=100, blank=False, default='')
+    state = models.SmallIntegerField(choices=STATE_CHOICES,
                                           default=25)
     category = models.ForeignKey('Category')
     original_price = models.IntegerField()
-    photo_url = models.TextField(blank=True, default='')
-    deal_price = models.IntegerField()
-    deal_duration = models.IntegerField()
-    photo_url = models.TextField(blank=True, default="img/photo_default.png")
-    deal_active = models.BooleanField(default=False)
+    price = models.IntegerField()
+    duration = models.IntegerField()
+    image = CloudinaryField(blank=True, default="img/photo_default.png")
+    active = models.BooleanField(default=False)
     max_quantity_available = models.IntegerField()
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -110,3 +110,6 @@ class Category(models.Model):
                             null=False,
                             blank=False,
                             default='')
+
+    def __str__(self):
+        return "{0}".format(self.name)
