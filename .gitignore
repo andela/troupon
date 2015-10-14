@@ -72,3 +72,7 @@ troupon/prepros.cfg
 troupon/static/bower_components/
 
 # Mac OS Desktop Store
+.DStore
+
+# database migrations
+troupon/*/migrations/*
