@@ -70,6 +70,3 @@ troupon/prepros.cfg
 
 # bower
 troupon/static/bower_components/
-
-# staticfiles
-# troupon/staticfiles/
