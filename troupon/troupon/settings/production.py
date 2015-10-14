@@ -1,6 +1,12 @@
-# Production specific settings
+"""
+Production specific settings for troupon project.
+"""
+
+from .base import *
 import dj_database_url
-from .development import *
+
+
+DEBUG = False
 
 DATABASES = {
     'default': dj_database_url.config()

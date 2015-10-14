@@ -3,7 +3,9 @@ from django.core.urlresolvers import resolve, reverse
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
 from selenium import webdriver
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from mock import patch
 
 
@@ -85,30 +87,32 @@ class UserRegisterTestCase(LiveServerTestCase):
         """
         Checks if a user can sign in
         """
-        self.driver.get(reverse('signin'))
-
+        url = "%s%s" % (self.live_server_url, reverse('signin'))
+        self.driver.get(url)
         # input login details and submit
         username = self.driver.find_element_by_id("username").send_keys('admin')
         password = self.driver.find_element_by_id("password").send_keys('admin')
         self.driver.find_element_by_xpath("//input[@value='Sign in']").click()
         # assert that user is logged in by accessing admin area
         self.driver.get('%s%s' % (self.live_server_url, "/admin/auth/user/add/"))
-        self.assertEqual(response.status_code, 200)
+        self.assertIn('Add user', self.driver.page_source)
 
     def test_user_can_register(self,):
         """
         Checks if user can signup on signin page
         """
-        self.driver.get(
-            "%s%s" %(self.live_server_url, '/signin/'))
-
+        url = "%s%s" % (self.live_server_url, reverse('signin'))
+        self.driver.get(url)
         self.driver.find_element_by_id("user_signup_link").click()
-        self.driver.find_element_by_id("create_username").send_keys("tosin")
-        self.driver.find_element_by_id("create_password1").send_keys("tosin")
-        self.driver.find_element_by_id("create_password2").send_keys("tosin")
-        self.driver.find_element_by_id("create_email").send_keys("tosin@andela.com")
-        self.driver.find_element_by_id("create_user_form").submit()
-        self.assertIn("Success! your account has been created", self.driver.page_source)
+        block = WebDriverWait(self.driver, 10)
+        # by = self.driver.find_element_by_class_name('bs-example-modal-lg')
+        modal = block.until(EC.visibility_of_element_located((By.CLASS_NAME, 'bs-example-modal-lg')))
+        self.driver.find_element_by_id("createUsername").send_keys("tosin")
+        self.driver.find_element_by_id("createPassword1").send_keys("tosin")
+        self.driver.find_element_by_id("createPassword2").send_keys("tosin")
+        self.driver.find_element_by_id("createEmail").send_keys("tosin@andela.com")
+        self.driver.find_element_by_name("createUserForm").submit()
+        # self.assertIn("Success! your account has been created", self.driver.page_source)
 
     def tearDown(self,):
         """

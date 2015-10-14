@@ -61,7 +61,7 @@ venv/
 .idea/
 
 # environment files
-.env.py
+.env.*
 
 # CSS preprocessor
 *.scss
@@ -70,6 +70,3 @@ troupon/prepros.cfg
 
 # bower
 troupon/static/bower_components/
-
-# staticfiles
-# troupon/staticfiles/

@@ -1,5 +1,9 @@
-# Test specific settings
-from .development import *
+"""
+Test specific settings for troupon project.
+"""
+
+from .base import *
+
 
 DATABASES = {
     'default': {
