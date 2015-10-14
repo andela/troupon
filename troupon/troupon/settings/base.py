@@ -13,14 +13,9 @@ Defines settings that are common across deploys.
 """
 
 import os
-from django_envie.workroom import convertfiletovars
-
-
-# load and set environment variables from '.env.yml' or '.env.py' files with django_envie
-convertfiletovars()
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = "dskfhbjlmascsacaszchbkmansjkanaljkacsnak"  #os.getenv('SECRET_KEY')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
