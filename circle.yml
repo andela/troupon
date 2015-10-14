@@ -19,6 +19,7 @@ deployment:
   staging:
     branch: develop
     commands:
+      - heroku buildpacks:set https://github.com/ddollar/heroku-buildpack-multi.git
       - git push -f git@heroku.com:troupon-staging.git $CIRCLE_SHA1:master
       - heroku run npm install -g bower --app troupon-staging
       - heroku run python troupon/manage.py bower install --app troupon-staging
