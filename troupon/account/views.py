@@ -262,7 +262,6 @@ class UserSignupView(View):
 
         usersignupform = UserSignupForm(form_data)
         if usersignupform.is_valid():
-            print ('form is valid')
             usersignupform.save()
 
             return HttpResponseRedirect('/account/confirm/')
