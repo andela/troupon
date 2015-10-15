@@ -14,7 +14,7 @@ Defines settings that are common across deploys.
 
 import os
 # from django_envie.workroom import convertfiletovars
-
+import cloudinary
 
 # load and set environment variables from '.env.yml' or '.env.py' files with django_envie
 # convertfiletovars()
