@@ -131,3 +131,8 @@ BOWER_INSTALLED_APPS = (
     'flickity',
     'packery',
 )
+
+# Cloudinary configuration handshake
+cloudinary.config(cloud_name=os.getenv('cloudinary_cloud_name'),
+                  api_key=os.getenv('cloudinary_api_key'),
+                  api_secret=os.getenv('cloudinary_api_secret'))
