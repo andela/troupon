@@ -43,6 +43,10 @@ STATE_CHOICES = [
                     (36, 'Yobe'),
                     (37, 'Zamfara'),
               ]  # States in Nigeria
+CURRENCY_CHOICES = [
+    (1, 'N')
+    (2, '$')
+]
 
 
 class Deal(models.Model):
@@ -64,6 +68,9 @@ class Deal(models.Model):
     state = models.SmallIntegerField(
         choices=STATE_CHOICES,
         default=25)
+    currency = models.SmallIntegerField(
+        choices=CURRENCY_CHOICES,
+        default=1)
     category = models.ForeignKey('Category')
     original_price = models.IntegerField()
     price = models.IntegerField()
