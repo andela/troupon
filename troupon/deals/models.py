@@ -3,46 +3,24 @@ from django.utils import timezone
 from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
 
-# Create your models here.
+# States in Nigeria
 STATE_CHOICES = [
-                    (1, 'Abia'),
-                    (2, 'Abuja Capital Territory'),
-                    (3, 'Adamawa'),
-                    (4, 'Akwa Ibom'),
-                    (5, 'Anambra'),
-                    (6, 'Bauchi'),
-                    (7, 'Bayelsa'),
-                    (8, 'Benue'),
-                    (9, 'Borno'),
-                    (10, 'Cross River'),
-                    (11, 'Delta'),
-                    (12, 'Ebonyi'),
-                    (13, 'Edo'),
-                    (14, 'Ekiti'),
-                    (15, 'Enugu'),
-                    (16, 'Gombe'),
-                    (17, 'Imo'),
-                    (18, 'Jigawa'),
-                    (19, 'Kaduna'),
-                    (20, 'Kano'),
-                    (21, 'Katsina'),
-                    (22, 'Kebbi'),
-                    (23, 'Kogi'),
-                    (24, 'Kwara'),
-                    (25, 'Lagos'),
-                    (26, 'Nassarawa'),
-                    (27, 'Niger'),
-                    (28, 'Ogun'),
-                    (29, 'Ondo'),
-                    (30, 'Osun'),
-                    (31, 'Oyo'),
-                    (32, 'Plateau'),
-                    (33, 'Rivers'),
-                    (34, 'Sokoto'),
-                    (35, 'Taraba'),
-                    (36, 'Yobe'),
-                    (37, 'Zamfara'),
-              ]  # States in Nigeria
+    (1, 'Abia'), (2, 'Abuja Capital Territory'), (3, 'Adamawa'),
+    (4, 'Akwa Ibom'), (5, 'Anambra'), (6, 'Bauchi'),
+    (7, 'Bayelsa'), (8, 'Benue'), (9, 'Borno'),
+    (10, 'Cross River'), (11, 'Delta'), (12, 'Ebonyi'),
+    (13, 'Edo'), (14, 'Ekiti'), (15, 'Enugu'),
+    (16, 'Gombe'), (17, 'Imo'), (18, 'Jigawa'),
+    (19, 'Kaduna'), (20, 'Kano'), (21, 'Katsina'),
+    (22, 'Kebbi'), (23, 'Kogi'), (24, 'Kwara'),
+    (25, 'Lagos'), (26, 'Nassarawa'), (27, 'Niger'),
+    (28, 'Ogun'), (29, 'Ondo'), (30, 'Osun'),
+    (31, 'Oyo'), (32, 'Plateau'), (33, 'Rivers'),
+    (34, 'Sokoto'), (35, 'Taraba'), (36, 'Yobe'),
+    (37, 'Zamfara'),
+]
+
+# Available site-wide currencies
 CURRENCY_CHOICES = [
     (1, 'N'),
     (2, '$'),
@@ -90,8 +68,8 @@ class Deal(models.Model):
         return self.image.url(
             width=SITE_IMAGES['thumbnail_image_width'],
             height=SITE_IMAGES['thumbnail_image_height'],
-            crop="scale"
-            )
+            crop="fill"
+        )
 
     def slideshow_image_url(self):
         """Returns a slide image URL
@@ -99,8 +77,8 @@ class Deal(models.Model):
         return self.image.url(
             width=SITE_IMAGES['slideshow_image_width'],
             height=SITE_IMAGES['slideshow_image_height'],
-            crop="scale"
-            )
+            crop="fill"
+        )
 
     def __str__(self):
         return "{0}, {1}, {2}".format(self.id,
@@ -114,10 +92,12 @@ class Advertiser(models.Model):
 
         name is required. Other fields are optional.
     """
-    name = models.CharField(max_length=100,
-                            null=False,
-                            blank=False,
-                            default='')
+    name = models.CharField(
+        max_length=100,
+        null=False,
+        blank=False,
+        default=''
+    )
     address = models.CharField(max_length=200, default='')
     state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
     telephone = models.CharField(max_length=60, default='')
