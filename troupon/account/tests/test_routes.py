@@ -4,7 +4,6 @@ from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from account.views import ForgotPasswordView, ResetPasswordView
 from allaccess.views import OAuthRedirect, OAuthCallback
-import mock
 
 
 class UserSigninTestCase(TestCase):
