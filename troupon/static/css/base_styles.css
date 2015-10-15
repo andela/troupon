@@ -55,6 +55,7 @@ ul, ol {
 }
 
 .dropdown .dropdown-menu {
+  position: relative;
   z-index: 3000;
 }
 
