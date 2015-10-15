@@ -37,10 +37,11 @@ class UserSignoutRouteTestCase(TestCase):
                                              '12345')
 
     def test_route_get_auth_signout(self):
-        self.client.post('/account/signin',
+        r = self.client.post('/account/signin',
                          dict(username='johndoe@gmail.com',
                               password='12345'))
         response = self.client.get('/account/signout/')
+        self.assertIsNone(response.context)
         self.assertEquals(response.status_code, 302)
 
 
