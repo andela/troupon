@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
+from troupon.settings.base import SITE_IMAGES
 
 # Create your models here.
 STATE_CHOICES = [
@@ -60,8 +61,9 @@ class Deal(models.Model):
     disclaimer = models.TextField(blank=True, default='')
     advertiser = models.ForeignKey('Advertiser')
     address = models.CharField(max_length=100, blank=False, default='')
-    state = models.SmallIntegerField(choices=STATE_CHOICES,
-                                          default=25)
+    state = models.SmallIntegerField(
+        choices=STATE_CHOICES,
+        default=25)
     category = models.ForeignKey('Category')
     original_price = models.IntegerField()
     price = models.IntegerField()
@@ -74,6 +76,24 @@ class Deal(models.Model):
     date_created = models.DateField(auto_now_add=True)
     date_last_modified = models.DateField(auto_now=True)
     date_end = models.DateField(default=timezone.now())
+
+    def thumbnail_image_url(self):
+        """Returns a thumbnail image URL
+        """
+        return self.image.url(
+            width=SITE_IMAGES['thumbnail_image_width'],
+            height=SITE_IMAGES['thumbnail_image_height'],
+            crop="scale"
+            )
+
+    def slideshow_image_url(self):
+        """Returns a slide image URL
+        """
+        return self.image.url(
+            width=SITE_IMAGES['slideshow_image_width'],
+            height=SITE_IMAGES['slideshow_image_height'],
+            crop="scale"
+            )
 
     def __str__(self):
         return "{0}, {1}, {2}".format(self.id,

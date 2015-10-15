@@ -136,3 +136,11 @@ BOWER_INSTALLED_APPS = (
 cloudinary.config(cloud_name=os.getenv('cloudinary_cloud_name'),
                   api_key=os.getenv('cloudinary_api_key'),
                   api_secret=os.getenv('cloudinary_api_secret'))
+
+# Image dimensions
+SITE_IMAGES = {
+    'slideshow_image_width': 1100,
+    'slideshow_image_height': 500,
+    'thumbnail_image_width': 350,
+    'thumbnail_image_height': 350
+}
