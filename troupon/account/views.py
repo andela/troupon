@@ -125,7 +125,7 @@ class UserSignoutView(View):
         logout(request)
         return HttpResponseRedirect(
             reverse('homepage'),
-            'Redirect to site index page')
+            'Redirect to home page')
 
 
 class ForgotPasswordView(View):
