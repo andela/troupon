@@ -44,8 +44,8 @@ STATE_CHOICES = [
                     (37, 'Zamfara'),
               ]  # States in Nigeria
 CURRENCY_CHOICES = [
-    (1, 'N')
-    (2, '$')
+    (1, 'N'),
+    (2, '$'),
 ]
 
 
