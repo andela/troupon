@@ -2,10 +2,10 @@
   "name": "troupon-staging",
   "description": "Troupon staging goes live",
   "version": "1.0.0",
-  "dependencies": {
-    "npm": "1.x"
-  },
   "engines": {
-    "node": "4.1.1"
+    "npm": "2.1.x",
+  },
+  "scripts": {
+    "postinstall": "npm install -g bower"
   }
 }
