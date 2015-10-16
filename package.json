@@ -1,12 +1,8 @@
 {
   "name": "troupon-staging",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "npm": "1.x"
-     }
-  },
-  "engines": {
-    "node": "4.2.x",
+  "description": "Troupon staging goes live",
+  "version": "1.0.0",
+  "dependencies": {
+    "npm": "1.x"
   }
 }
