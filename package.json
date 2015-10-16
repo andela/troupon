@@ -1,0 +1,14 @@
+{
+  "name": "troupon-staging",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+      "express": "~2.5.8",
+      "ejs": "~0.7.1",
+      "socket.io": "~0.9.6"
+  },
+  "engines": {
+    "node": "4.2.x",
+    "npm": "1.x"
+  }
+}
