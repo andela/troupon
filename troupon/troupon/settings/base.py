@@ -14,7 +14,7 @@ Defines settings that are common across deploys.
 
 import os
 # from django_envie.workroom import convertfiletovars
-
+import cloudinary
 
 # load and set environment variables from '.env.yml' or '.env.py' files with django_envie
 # convertfiletovars()
@@ -131,3 +131,16 @@ BOWER_INSTALLED_APPS = (
     'flickity',
     'packery',
 )
+
+# Cloudinary configuration handshake
+cloudinary.config(cloud_name=os.getenv('cloudinary_cloud_name'),
+                  api_key=os.getenv('cloudinary_api_key'),
+                  api_secret=os.getenv('cloudinary_api_secret'))
+
+# Image dimensions
+SITE_IMAGES = {
+    'slideshow_image_width': 1300,
+    'slideshow_image_height': 500,
+    'thumbnail_image_width': 350,
+    'thumbnail_image_height': 350
+}

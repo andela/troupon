@@ -12,4 +12,3 @@ if not os.getenv('CI') and not os.getenv('HEROKU'):
     convertfiletovars()
 
     from development import *
-    

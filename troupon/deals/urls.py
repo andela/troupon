@@ -1,7 +1,7 @@
 from django.conf.urls import url
-from .views import SingleDealView
+from .views import DealView
 
 
 urlpatterns = [
-    url(r'^(?P<deal_id>\d+)/$', SingleDealView.as_view(), name='single_deal')
+    url(r'^(?P<deal_id>[0-9]+)?$', DealView.as_view(), name='deal'),
 ]
