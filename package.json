@@ -1,11 +1,11 @@
 {
-  "name": "troupon-staging",
-  "description": "Troupon staging goes live",
-  "version": "1.0.0",
-  "engines": {
-    "npm": "2.1.x",
-  },
-  "scripts": {
-    "postinstall": "npm install -g bower"
-  }
+    "name": "troupon-staging",
+    "description": "Troupon staging goes live",
+    "version": "1.0.0",
+    "engines": {
+        "npm": "2.1.x"
+    },
+    "scripts": {
+        "postinstall": "npm install -g bower"
+    }
 }
