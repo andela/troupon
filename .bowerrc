@@ -2,11 +2,5 @@
   "directory": "/app/troupon/static/bower_components/",
   "analytics": false,
   "timeout": 120000,
-  "interactive": false,
-  "registry": {
-    "search": [
-      "http://localhost:8000",
-      "https://bower.herokuapp.com"
-    ]
-  }
+  "interactive": false
 }
