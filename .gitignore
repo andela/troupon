@@ -73,6 +73,7 @@ troupon/static/bower_components/
 
 # Mac OS Desktop Store
 */.DS_Store
+.DS_Store
 
 # database migrations
 troupon/*/migrations/*
