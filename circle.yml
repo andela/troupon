@@ -20,7 +20,8 @@ deployment:
     branch: develop
     commands:
       - git push -f git@heroku.com:troupon-staging.git $CIRCLE_SHA1:master
-      - heroku run python troupon/manage.py bower install --app troupon-staging
-      - heroku run python troupon/manage.py collectstatic --noinput --app troupon-staging
-      - heroku run python troupon/manage.py makemigrations --app troupon-staging
-      - heroku run python troupon/manage.py migrate --app troupon-staging
+      - heroku run python troupon/manage.py bower install --settings=troupon.settings.production --app troupon-staging
+      - heroku run python troupon/manage.py collectstatic --noinput --settings=troupon.settings.production --app troupon-staging
+      - heroku run python troupon/manage.py makemigrations --settings=troupon.settings.production --app troupon-staging
+      - heroku run python troupon/manage.py migrate --app --settings=troupon.settings.production troupon-staging
+      - heroku ps:scale web=1 --app troupon-staging
