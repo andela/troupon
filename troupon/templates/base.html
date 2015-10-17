@@ -17,7 +17,7 @@
     <!-- Bootstrap Core -->
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
     <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700italic,700,300,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:900,700italic,700,400italic,400,300' rel='stylesheet' type='text/css'>
     <!-- FontAwesome -->
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
     <!-- Troupon base-->
@@ -45,7 +45,7 @@
         <div class="container page-container modals-parent"> <!-- page container (contains page content)-->
 
             {% block subscribe %}
-            {% if show_subscribe %} {# does not show by default #}
+            {% if show_subscribe %} {# hides by default, pass 'show_subscribe: True' in the context to show #}
             <!-- subscribe bar -->
             <section class="collapse in" id="subscribe-bar">
                 <form action="" action="" method="POST">
@@ -72,8 +72,8 @@
             {% endif %}
             {% endblock subscribe %}
 
-
             {% block header %}
+            {% if not hide_header %} {# shows by default, pass 'hide_header: True' in the context to hide #}
             <!-- header bar-->
             <header id="header-bar">
                 <div class="row">
@@ -130,6 +130,7 @@
                 </div>
                 <div class="divider"></div>
             </header>
+            {% endif %}
             {% endblock header %}
 
             {% block search %}
@@ -177,6 +178,7 @@
             </main>
     
             {% block footer %}
+            {% if not hide_footer %} {# shows by default, pass 'hide_footer: True' in the context to hide #}
             <footer>
                 <div class="divider divider-1"></div>
                 <div class="row">
@@ -214,6 +216,7 @@
                     <p>Copyright ©2015 Troupon Loyalties Ltd.</p>
                 </div>
             </footer>
+            {% endif %}
             {% endblock footer %}
 
         </div> <!-- ends page container -->
