@@ -68,9 +68,6 @@ venv/
 troupon/static/scss/
 troupon/prepros.cfg
 
-# bower
-troupon/static/bower_components/
-
 # Mac OS Desktop Store
 */.DS_Store
 .DS_Store
