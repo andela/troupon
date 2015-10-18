@@ -17,7 +17,7 @@ $(document).ready(function() {
 				'OTransition':'oTransitionEnd',
 				'MozTransition':'transitionend',
 				'WebkitTransition':'webkitTransitionEnd'
-		  	}
+		  	};
 
 	  	for(t in transitions){
 			if( el.style[t] !== undefined ){
@@ -27,7 +27,7 @@ $(document).ready(function() {
 	}
 
 
-	var transitionEndEvent = whichTransitionEndEvent();
+	var transitionEndEvent = whichTransitionEndEvent(),
 		modalsWrapper = $('.modals-wrapper'),
 		modalsParent = $('.modals-parent'),
 		modalsCloseBtn = $('#modals-close'),
@@ -38,15 +38,17 @@ $(document).ready(function() {
 	
 	function openModal(modalSelector){
 		// get the modal:
-		modal = $(modalSelector);
-		if(!modal.length) return;
+		var modal = $(modalSelector);
+		if(!modal.length) {
+			return;
+		}
 
 		// check for any already opened modal:
-		if(openedModal != null) {
+		if(openedModal !== null) {
 
 			//first close the openedModal:
 			openedModal.removeClass('open').addClass('close');
-			openedModal.one(transitionEndEvent, function(event) {
+			openedModal.one(transitionEndEvent, function() {
 			   	// reset openedModal:
 			   	openedModal.removeClass('close');
 			   	openedModal = null;
@@ -73,7 +75,7 @@ $(document).ready(function() {
 				modalsCloseBtn.removeClass('hidden');
 
 				// set modalsCloseBtn click listener:
-				modalsCloseBtn.one('click', function(event){
+				modalsCloseBtn.one('click', function(){
 					closeModal();
 				});
 				// set ESC keypress listener:
@@ -93,7 +95,9 @@ $(document).ready(function() {
 
 	function closeModal(){
 		// check for openedModal:
-		if(!openedModal) return;
+		if(!openedModal) {
+			return;
+		}
 
 		// reset modal wrapper and target:
 		modalsWrapper.removeClass('open');

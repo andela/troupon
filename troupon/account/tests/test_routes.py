@@ -4,7 +4,7 @@ from django.test import TestCase, Client
 from django.core.context_processors import csrf
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
-from account.views import ForgotPasswordView, ResetPasswordView, UserSignupView
+from account.views import ForgotPasswordView, ResetPasswordView, UserSignupView, ActivateAccountView
 from allaccess.views import OAuthRedirect,OAuthCallback
 from deals.views import SingleDealView, DealSearchView, DealSearchCityView
 
@@ -85,7 +85,7 @@ class UserRegistrationViewTest(TestCase):
 
     def test_data_posted(self):
         '''
-        User is signup data is sent validated.
+        User signup data sent is validated.
         '''
         response = self.client_stub.post('/account/signup/', self.form_data)
         self.assertEquals(response.status_code, 302)
@@ -161,5 +161,13 @@ class DealSearchView(TestCase):
         self.assertEquals(response.func.__name__, 'DealSearchView')
 
 
+class ActivateAccountRoute(TestCase):
+
+    def Setup(self):
+        self.client_stub = Client()
+
+    def test_activation_link_calls_actual_view_class(self):
+        response = self.client.get('/account/activation/ajkzfYba9847DgJ7wbkwAaSbkTjUdawGG998qo3HG8qae83')
+        self.assertEqual(response.resolver_match.func.__name__, ActivateAccountView.as_view().__name__)
 
 

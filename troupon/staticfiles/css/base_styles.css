@@ -1,39 +1,4 @@
 /* ==========================================================================
-Font Faces 
-========================================================================== */
-@font-face {
-  font-family: 'lato_light';
-  src: url("../fonts/lato-light-webfont.eot");
-  src: url("../fonts/lato-light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lato-light-webfont.woff2") format("woff2"), url("../fonts/lato-light-webfont.woff") format("woff"), url("../fonts/lato-light-webfont.ttf") format("truetype"), url("../fonts/lato-light-webfont.svg#latolight") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'lato_regular';
-  src: url("../fonts/lato-regular-webfont.eot");
-  src: url("../fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lato-regular-webfont.woff2") format("woff2"), url("../fonts/lato-regular-webfont.woff") format("woff"), url("../fonts/lato-regular-webfont.ttf") format("truetype"), url("../fonts/lato-regular-webfont.svg#latoregular") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'lato_bold';
-  src: url("../fonts/lato-bold-webfont.eot");
-  src: url("../fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lato-bold-webfont.woff2") format("woff2"), url("../fonts/lato-bold-webfont.woff") format("woff"), url("../fonts/lato-bold-webfont.ttf") format("truetype"), url("../fonts/lato-bold-webfont.svg#latobold") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'lato_bold_italic';
-  src: url("../fonts/lato-bolditalic-webfont.eot");
-  src: url("../fonts/lato-bolditalic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lato-bolditalic-webfont.woff2") format("woff2"), url("../fonts/lato-bolditalic-webfont.woff") format("woff"), url("../fonts/lato-bolditalic-webfont.ttf") format("truetype"), url("../fonts/lato-bolditalic-webfont.svg#latobold_italic") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* ==========================================================================
 Resets (overrides for Bootstrap and browser-defaults)
 ========================================================================== */
 body {
@@ -97,25 +62,29 @@ ul, ol {
 Typography
 ========================================================================== */
 body {
-  font-family: "lato_regular", sans-serif;
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  font-weight: 400;
   font-size: 16px;
   color: #5E5E77;
 }
 
 h2 {
-  font-family: "lato_light", sans-serif;
+  font-weight: 300;
   font-size: 40px;
   color: #660066;
 }
 
 h3 {
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
   font-size: 20px;
   color: #5E5E77;
 }
 
 h4 {
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
   font-size: 16px;
   color: #5E5E77;
 }
@@ -129,7 +98,7 @@ h2 {
 }
 
 .section-label {
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
   font-size: 12px;
   color: #C9CAD1;
   text-transform: uppercase;
@@ -157,7 +126,7 @@ a:focus, .dropdown .dropdown-menu li > a:focus, .menu-link:focus, .label-link:fo
 }
 
 .menu-link, .label-link, #header-bar .auth-options > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #header-bar .nav-menu > li > a, #header-bar .dropdown .dropdown-menu .nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .member-options > li > a, #header-bar .dropdown .dropdown-menu .member-options > li > a, #header-bar .member-options > li > .menu-link, footer .quick-links > li > a, footer .dropdown .dropdown-menu .quick-links > li > a, .dropdown .dropdown-menu footer .quick-links > li > a, footer .quick-links > li > .menu-link {
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
 }
 
 .label-link, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #modal-sign-in header p > .label-link, #modal-sign-up header p > .label-link, #modal-forgot-password header p > .label-link {
@@ -181,7 +150,7 @@ Buttons
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
   text-align: center;
   color: #F7F7F7;
   background-color: #660066;
@@ -217,7 +186,7 @@ Buttons
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
   text-align: center;
   color: #5E5E77;
   background-color: #F7F7F7;
@@ -276,7 +245,7 @@ Forms Controls
   border-radius: 0px;
   padding: 5px 20px;
   width: 100%;
-  font-family: "lato_regular", sans-serif;
+  font-weight: 400;
   font-size: 16px;
   color: #5E5E77;
   background-color: #FFFFFF;
@@ -346,7 +315,7 @@ Forms Controls
 .custom-form-group label {
   display: block;
   margin: 0px;
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -382,7 +351,6 @@ body {
 }
 
 #subscribe-bar .tag-line span {
-  font-family: "lato_bold_italic", sans-serif;
   color: #E67E22;
 }
 
@@ -394,7 +362,7 @@ body {
   min-width: 30px;
   height: 30px;
   padding: 0px;
-  font-family: "lato_regular", sans-serif;
+  font-weight: 400;
   text-align: center;
   color: #C9CAD1;
   background-color: transparent;
@@ -456,7 +424,7 @@ body {
     min-width: 30px;
     height: 30px;
     padding: 0px;
-    font-family: "lato_regular", sans-serif;
+    font-weight: 400;
     text-align: center;
     color: #C9CAD1;
     background-color: transparent;
@@ -507,7 +475,7 @@ body {
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
   text-align: center;
   color: #5E5E77;
   background-color: #F7F7F7;
@@ -584,12 +552,6 @@ body {
   #header-bar {
     margin-top: 20px;
   }
-  #header-bar .dropdown .dropdown-menu .nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .nav-menu > li > .label-link, #header-bar .nav-menu > li > a, #header-bar footer .quick-links.nav-menu > li > a, #header-bar .dropdown .dropdown-menu .member-options > li > a, #header-bar .member-options > li > .menu-link, #header-bar .member-options > li > .label-link, #header-bar .member-options > li > a, #header-bar footer .quick-links.member-options > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a {
-    width: 100%;
-  }
-  #header-bar .nav-menu .divider-v, #header-bar .member-options .divider-v, #header-bar .auth-options .divider-v {
-    display: none;
-  }
 }
 
 #search-bar {
@@ -615,7 +577,7 @@ main .placeholder p {
   -webkit-transform: translateY(60px);
       -ms-transform: translateY(60px);
           transform: translateY(60px);
-  font-family: "lato_light", sans-serif;
+  font-weight: 300;
   font-size: 40px;
   color: #C9CAD1;
   letter-spacing: -3px;
@@ -683,7 +645,7 @@ footer .social-links > li > a, footer .dropdown .dropdown-menu .social-links > l
   min-width: 20px;
   height: 20px;
   padding: 0px;
-  font-family: "lato_regular", sans-serif;
+  font-weight: 400;
   text-align: center;
   color: #F7F7F7;
   background-color: #C9CAD1;
@@ -770,7 +732,7 @@ footer .copyright p {
   min-width: 55px;
   height: 55px;
   padding: 0px;
-  font-family: "lato_regular", sans-serif;
+  font-weight: 400;
   text-align: center;
   color: #C9CAD1;
   background-color: transparent;
@@ -813,7 +775,7 @@ footer .copyright p {
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  font-family: "lato_bold", sans-serif;
+  font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
 }

@@ -5,6 +5,7 @@ Django==1.8.3
 django-all-access==0.7.2
 django-envie==0.0.4
 django-haystack==2.4.0
+django-bower==5.0.4
 django-postgrespool==0.3.0
 docopt==0.6.2
 funcsigs==0.4

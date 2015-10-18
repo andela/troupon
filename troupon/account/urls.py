@@ -8,8 +8,6 @@ urlpatterns = [
     url(r'^signup/$',UserSignupView.as_view(),name = 'UserSignupView'),
     url(r'^activation/(?P<activation_hash>([a-z0-9A-Z])+)$', ActivateAccountView.as_view(), name='activate_account'),
     url(r'^confirm/$',Userconfirm.as_view(),name = 'Userconfirm'),
-    
-
 
 ]
 

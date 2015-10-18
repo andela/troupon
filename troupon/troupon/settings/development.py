@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'allaccess',
     'haystack',
     'whoosh',
+    'djangobower',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -135,3 +136,20 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+)
+
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'static')
+
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'bootstrap',
+    'fontawesome',
+    'flickity',
+    'packery',
+)
