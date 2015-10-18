@@ -51,7 +51,7 @@ class DealSearchView(View):
     template_name = 'deals/ajax_search.html'
 
     def post(self,request):
-        deals = SearchQuerySet().autocomplete(content_auto=request.POST.get('q', ''))
+        deals = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))
         return render(request, self.template_name, {'deals': deals})
 
 
