@@ -20,7 +20,6 @@ deployment:
     branch: develop
     commands:
       - git push -f git@heroku.com:troupon-staging.git $CIRCLE_SHA1:master
-      - heroku run python troupon/manage.py bower install --settings=troupon.settings --app troupon-staging
       - heroku run python troupon/manage.py collectstatic --noinput --settings=troupon.settings --app troupon-staging
       - heroku run python troupon/manage.py makemigrations --settings=troupon.settings --app troupon-staging
       - heroku run python troupon/manage.py migrate auth --noinput --settings=troupon.settings --app troupon-staging
