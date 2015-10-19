@@ -8,7 +8,7 @@ import os
 
 APPLICATION_DIR = os.path.dirname(globals()['__file__'])
 
-DEBUG = True
+DEBUG = False
 
 DATABASES = {
     'default': dj_database_url.config()
