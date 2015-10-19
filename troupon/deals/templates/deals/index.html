@@ -24,19 +24,7 @@
         <!-- featured deals -->
         <div class="col-sm-9 col-lg-10">
             <h4 class="section-label hidden-xs">Featured Deals</h4>
-            <div class="gallery-wrapper card">
-                <div class="gallery">
-                    {% for deal in featured_deals %}
-                        <div class="gallery-cell">
-                            <a class="gallery-image-wrapper" href="{% url 'homepage' %}">
-                            {# <a href="{% url 'deal' deal_id=deal.pk %}"> #}
-                                <img data-flickity-lazyload="{{ deal.slide_image_url }}">
-                            </a>
-                        </div>
-                    {% endfor %}
-                    
-                </div>
-            </div>
+            {% include "snippet_deal_gallery.html" with deals=featured_deals %}
         </div>
 
         <div class="col-xs-12">
@@ -44,10 +32,18 @@
         </div>
 
     </section>
+
+    <!-- latest deals section -->
+    <section class="row" id="latest-section">
+
+        {% include "snippet_deal_listing.html" with listing=deals_listing %}
+
+    </section>
+
 {% endblock main %}
 
 {% block extended_js %} 
     <script src="{% static 'bower_components/flickity/dist/flickity.pkgd.min.js' %}"></script>
-    <script src="{% static 'bower_components/color-thief/dist/color-thief.min.js' %}"></script>
+    <script src="{% static 'bower_components/packery/dist/packery.pkgd.min.js' %}"></script>
     <script src="{% static 'js/homepage_scripts.js' %}"></script>
 {% endblock extended_js %}

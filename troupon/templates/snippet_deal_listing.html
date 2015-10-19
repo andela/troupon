@@ -1,0 +1,13 @@
+
+<!-- listing header -->
+{% include "snippet_section_heading.html" with title=listing.title date_filter=listing.date_filter description=listing.description %}
+
+<!-- deal listing -->
+<div class="col-xs-12">
+    {% include "snippet_deal_grid.html" with deals=listing.deals_page %}
+</div>
+
+<!-- deal pagination -->
+<div class="col-xs-12">
+    {% include "snippet_pagination.html" with page=listing.deals_page base_url=listing.base_url %}
+</div>
