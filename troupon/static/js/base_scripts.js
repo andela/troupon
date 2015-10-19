@@ -102,7 +102,7 @@ $(document).ready(function() {
 
 		// reset the opened modal:
 		openedModal.removeClass('open').addClass('close');
-		openedModal.one(transitionEndEvent, function(event) {
+		openedModal.one(transitionEndEvent, function() {
 			openedModal.removeClass('close');
 			// reset the openedModal pointer:
 		   	openedModal = null;
