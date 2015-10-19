@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block extended_css %} 
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/flickity/dist/flickity.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/homepage_styles.css' %}" />
 {% endblock extended_css %}
 
@@ -41,9 +40,3 @@
     </section>
 
 {% endblock main %}
-
-{% block extended_js %} 
-    <script src="{% static 'bower_components/flickity/dist/flickity.pkgd.min.js' %}"></script>
-    <script src="{% static 'bower_components/packery/dist/packery.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/homepage_scripts.js' %}"></script>
-{% endblock extended_js %}
