@@ -83,9 +83,6 @@
                         </div>
                         
                         <button type="button" class="menu-toggle visible-xs collapsed" data-toggle="collapse" data-target="#menu-bar"><i class="fa fa-bars"></i></button>
-                        {% if show_search %}
-                        <button type="button" class="search-toggle visible-xs collapsed" data-toggle="collapse" data-target="#search-bar"><i class="fa fa-search"></i></button>
-                        {% endif %}
                     </div>
                     <div class="navbar-collapse collapse" id="menu-bar">
                         <nav class="col-xs-12 col-sm-5 col-md-6 col-lg-7">
@@ -134,9 +131,9 @@
             {% endblock header %}
 
             {% block search %}
-            {% if show_search %} {# does not show by default #}
+            {% if not hide_search %} {# show by default, pass 'hide_search: True' in the context to hide #}
             <!-- search bar-->
-            <section id="search-bar" class="navbar-collapse collapse">
+            <section id="search-bar">
                 <form class="form-inline" action="{% url 'homepage' %}" method="GET">
                     <div class="row">
                         <div class="col-sm-5 col-md-6 col-lg-6">
@@ -226,9 +223,9 @@
             <div class="container modals-container">
 
                 {% if not request.user.is_authenticated %}
-                {% include "sign_up_modal.html" %}
-                {% include "sign_in_modal.html" %}
-                {% include "forgot_password_modal.html" %}
+                {% include "modal_sign_up.html" %}
+                {% include "modal_sign_in.html" %}
+                {% include "modal_forgot_password.html" %}
                 {% endif %}
 
                 {% block extended_modals %}

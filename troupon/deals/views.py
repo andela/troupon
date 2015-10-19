@@ -1,91 +1,71 @@
 from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
-from deals.models import Deal, STATE_CHOICES
 from django.template import Engine, RequestContext
+from django.core.paginator import Paginator
+from django.core.context_processors import csrf
+
+from deals.models import Deal, STATE_CHOICES
+
 import cloudinary
 
 
 # Create your views here.
-class HomePage(TemplateView):
+class HomePage(View):
     """class that handles display of the homepage"""
 
-    template_name = "deals/index.html"
-    context_var = {
-        'show_subscribe': True,
-        'show_search': True,                      
-        'states': { 'choices': STATE_CHOICES,  'default': 25 },
-        'popular_categories': [
-            'Get Aways',
-            'Fashion & Lifestyle',
-            'Electronics',
-            'Food',
-            'Travel & Get Aways',
-            'Fashion',
-            'Electronics',
-            'Food',
-            'Travel',
-            'Fashion',
-            'Electronics',
-            'Food',
-            'Travel',
-            'Fashion',
-            'Electronics',
-        ],
-        'featured_deals': [
-            {
-                'pk': 1,
-                'title': 'Fashion-holics Give Away',
-                'advertiser': {
-                    'name': 'DressToKill Boutique',
-                    'address': 'Ikeja Shopping Mall, Ikeja.',
-                },
-                'price': '12800',
-                'original_price': '25300',
-                'slide_image_url': 'http://res.cloudinary.com/awiliuzo/image/upload/w_1600,h_700,c_fill/v1445000537/troupon0.jpg',
-                'thumbnail_image_url': 'http://res.cloudinary.com/awiliuzo/image/upload/w_350,h_350,c_fill/v1445000537/troupon0.jpg',
-            },
-            {
-                'pk': 2,
-                'title': 'Fashion-holics Give Away',
-                'advertiser': {
-                    'name': 'DressToKill Boutique',
-                    'address': 'No.23, Saint James Street, Ikeja Shopping Mall, Ikeja, Ikeja Shopping Mall, Ikeja, Lagos.',
-                },
-                'price': '12800',
-                'original_price': '25300',
-                'slide_image_url': 'http://res.cloudinary.com/awiliuzo/image/upload/w_1300,h_500,c_fill/v1445000562/troupon1.jpg',
-                'thumbnail_image_url': 'http://res.cloudinary.com/awiliuzo/image/upload/w_350,h_350,c_fill/v1445000562/troupon1.jpg',
-            },
-            {
-                'pk': 3,
-                'title': 'Fashion-holics Give Away',
-                'advertiser': {
-                    'name': 'DressToKill Boutique',
-                    'address': 'Ikeja Shopping Mall, Ikeja.',
-                },
-                'price': '12800',
-                'original_price': '25300',
-                'slide_image_url': 'http://res.cloudinary.com/awiliuzo/image/upload/w_1300,h_500,c_fill/v1445001720/troupon2.jpg',
-                'thumbnail_image_url': 'http://res.cloudinary.com/awiliuzo/image/upload/w_350,h_350,c_fill/v1445001720/troupon2.jpg',
-            },
-            {
-                'pk': 4,
-                'title': 'Fashion-holics Give Away',
-                'advertiser': {
-                    'name': 'DressToKill Boutique',
-                    'address': 'No.23, Saint James Street, Ikeja Shopping Mall, Ikeja, Ikeja Shopping Mall, Ikeja, Lagos.',
-                },
-                'price': '12800',
-                'original_price': '25300',
-                'slide_image_url': 'http://res.cloudinary.com/awiliuzo/image/upload/v1445000552/troupon3.jpg',
-                'thumbnail_image_url': 'http://res.cloudinary.com/awiliuzo/image/upload/v1445000552/troupon3.jpg',
-            },
-        ],
-    }
+    def get(self, request, *args, **kwargs):
 
-    def get(self, request):
-        return render(request, self.template_name, self.context_var)
+        featured_deals = []
+
+        latest_deals = []
+
+        deals_page = Paginator(latest_deals, 10, orphans=2).page(1)
+        
+        description = "Check out the newest and hottest deals from all your favourite brands:"
+        if not deals_page.paginator.count:
+            description = "Sorry, no deals found!"
+
+        deals_listing =  {
+            'deals_page': deals_page,
+            'date_filter': { 
+                'choices': [
+                    (7, "Last 7 Days"),
+                    (14, "2 Weeks"),
+                    (30, "1 Month"),
+                    (0, "Show All"),
+                ],
+                'default': 0
+            },
+            'title': "latest deals",
+            'description': description,
+            'base_url': reverse('homepage'),
+        }
+
+        context = {
+            # 'show_subscribe': True,
+            'states': { 'choices': STATE_CHOICES,  'default': 25 },
+            'popular_categories': [
+                'Get Aways',
+                'Fashion & Lifestyle',
+                'Electronics',
+                'Food',
+                'Travel & Get Aways',
+                'Fashion',
+                'Electronics',
+                'Food',
+                'Travel',
+                'Fashion',
+                'Electronics',
+                'Food',
+            ],
+            'featured_deals': featured_deals,
+            'deals_listing': deals_listing,
+        }
+
+        context.update(csrf(request))
+        return render(request, 'deals/index.html', context)
 
 
 class DealView(View):
