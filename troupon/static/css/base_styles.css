@@ -55,7 +55,7 @@ ul, ol {
 }
 
 .dropdown .dropdown-menu {
-  position: relative;
+  position: absolute;
   z-index: 10000;
 }
 
@@ -486,7 +486,7 @@ Other components.
 }
 
 .packery-grid .grid-item {
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   overflow: hidden;
 }
 
@@ -560,6 +560,9 @@ Other components.
   }
   .packery-grid .gutter-sizer {
     width: 0%;
+  }
+  .packery-grid .grid-item {
+    margin-bottom: 20px;
   }
 }
 
@@ -815,6 +818,10 @@ body {
 
 #header-bar .nav-menu .divider-v, #header-bar .member-options .divider-v, #header-bar .auth-options .divider-v {
   height: 23px;
+}
+
+#header-bar .member-options {
+  z-index: 10000;
 }
 
 #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a {
