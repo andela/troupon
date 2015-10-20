@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static%}
 
 {% block main %}
 
@@ -22,55 +23,86 @@
 </div>
 
 <div class = "row">
+    
     <div class="col-md-2">
-        <a href = "{% url 'userprofile' %}">Profile</a><br>
-        <a href = "">Change Password</a><br>
+        <a href = "#">Profile</a><br>
+        <a href = "{% url 'userprofile' %}">Edit Profile</a><br>
+        <a href = "#" id="changepassword" class="change">Change Password</a><br>
         <a href = "">History</a><br>
-
     </div>
 
     <div class="col-md-6">
-        <form action = " " method = "post" >{% csrf_token %}
 
-        <div class="form-group col-lg-12">
-        <label>Email</label>
-        <input type="text" name="email" class="form-control" id="" value="" placeholder="Email address here">
-        </div>
 
-        <div class="form-group col-lg-12">
-        <select name="user_state" placeholder="Ikeja.Lagos">
-        {% for choice in states.choices %}
-            <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
-                {{ choice.1 }}
-            </option>
-        {% endfor %}
-        </select>
-        </div>
-        
-        <div class="form-group col-lg-6">
-        <label>First Name</label>
-        <input type="text" name="first_name" class="form-control" id="" value="" placeholder="username">
-        </div>
+        <div class="container">
+            <p>Email: {{ request.user.email }}</p>
+            <p> Username: {{ request.user.username }}</p>
 
-        <div class="form-group col-lg-6">
-        <label>Last Name</label>
-        <input type="text" name="last_name" class="form-control" id="" value="" placeholder="username">
+            <p> Firstname: {{ profile.first_name}}</p>
+            <p> Lastname:  {{ profile.last_name }} </p>
         </div>
+        <form action="{% url 'userprofile' %}" method="" id="profile-section">{% csrf_token %}
+            <div class="form-group col-lg-12">
+                <label>Location: </label>
+                <select name="user_state" placeholder="Ikeja.Lagos">
+                {% for choice in states.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
+                        {{ choice.1 }}
+                    </option>
+                {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group col-lg-6">
+                <label>First Name</label>
+                <input type="text" name="firstname" class="form-control" id="" value="" placeholder="username">
+            </div>
 
-        <hr>
+            <div class="form-group col-lg-6">
+                <label>Last Name</label>
+                <input type="text" name="lastname" class="form-control" id="" value="" placeholder="username">
+            </div>
 
-        <div class="form-group col-lg-12">
-        <label>Interest</label>
-        <input type="text" name="interest" class="form-control" id="" value="" placeholder="Interest">
-        </div><br>
-        
-        <div class="form-group btn-lg col-lg-1">
-        <input type = "submit", value = "Save Changes" align="left" />
-        </div>
+            <hr>
+
+            <div class="form-group col-lg-12">
+                <label>Interest</label>
+                <input type="text" name="interest" class="form-control" id="" value="" placeholder="Interest">
+            </div><br>
+            
+            <div class="form-group btn-lg col-lg-1">
+                <input type = "submit", value = "Save Changes" align="left" />
+            </div>
         </form>
 
-    </div>
+        <div class="col-xs-12 col-sm-12" id="changepassword-section">
+            <h1>Change Password</h1>
+            <form method="POST" action="" class="">{% csrf_token %}
 
+                <p>Enter and confirm your new password in the fields below:</p>
+                {% if reset_password_form %}{% endif %}
+                <div class="form-group">
+                    <label for="{{ reset_password_form.password.id_for_label }}">
+                        {{ reset_password_form.password.label }}: {% if reset_password_form.password.field.required %}<span class="alt-color">*</span>{% endif %}
+                    </label>
+                    {{ reset_password_form.password }}
+                    {{ reset_password_form.password.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ reset_password_form.password_conf.id_for_label }}">
+                        {{ reset_password_form.password_conf.label }}: {% if reset_password_form.password_conf.field.required %}<span class="alt-color">*</span>{% endif %}
+                    </label>
+                    {{ reset_password_form.password_conf }}
+                    {{ reset_password_form.password_conf.errors }}
+                </div>
+                <input type="submit" value="Reset Password" class="btn btn-default"></input>
+            </form>
+        </div>
+    </div>           
 </div>
 
 {% endblock %}
+
+{% block extended_js %} 
+   <script src="{% static 'js/profile_scripts.js' %}"></script>
+{% endblock extended_js %}

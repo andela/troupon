@@ -333,7 +333,8 @@ class Userprofileview(TemplateView):
     context_var = {
         'show_subscribe': False,
         'show_search': False,
-        'states': { 'choices': STATE_CHOICES,  'default': 25 }
+        'states': { 'choices': STATE_CHOICES,  'default': 25 },
+        'reset_password_form': ResetPasswordForm(auto_id=True)
     }
 
     def get(self, request):
@@ -347,7 +348,8 @@ class Userprofileview(TemplateView):
             context_var = {
                 'show_subscribe': False,
                 'show_search': False,
-                'states': { 'choices': STATE_CHOICES,  'default': 25 }
+                'states': { 'choices': STATE_CHOICES,  'default': 25 },
+                'reset_password_form': ResetPasswordForm(auto_id=True)
             }
             context_var.update(csrf(request))
             empty = "form should not be submitted empty"
