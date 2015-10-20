@@ -1,11 +1,12 @@
-from django.test import TestCase, RequestFactory,Client
+from django.test import TestCase, RequestFactory, Client
 from django.core.urlresolvers import reverse
 from deals.models import Deal, Advertiser, Category
 from django.core.files import File
-import mock
-import os
-import cloudinary
 from deals.views import HomePageView, DealsView, DealView
+import os
+import mock
+import cloudinary
+
 
 
 class HomepageViewTestCase(TestCase):
@@ -62,13 +63,14 @@ class DealsRouteTestCase(TestCase):
         )
 
 
-class SingleDealViewTestCase(TestCase):
+class DealViewTestCase(TestCase):
+
     """This contains tests to check that a HTTP GET
         request for a deal is successful
     """
     def setUp(self):
         advertiser, category = Advertiser(name="XYZ Stores"), \
-                                Category(name="Books")
+                                Category(name="Books", slug="books")
         advertiser.save()
         category.save()
 
@@ -110,3 +112,51 @@ class SingleDealViewTestCase(TestCase):
         response = view(request)
         self.assertTrue(DealView.upload.called)
         self.assertEqual(response.status_code, 302)
+
+
+class DealSlugViewTestCase(TestCase):
+
+    def setUp(self):
+        category, advertiser = Category(name="books", slug="books"), \
+            Advertiser(name="XYZ Stores")
+        category.save()
+        advertiser.save()
+        self.deal = dict(
+            title="deal", description="Deal some...deal all!",
+            disclaimer="Deal at your own risk", advertiser=advertiser,
+            address="14, Alara Street", state=14, category=category,
+            original_price=1500, price=750, duration=15,
+            active=1, max_quantity_available=3, latitude=210.025,
+            longitude=250.015, slug="deal"
+        )
+
+    def test_can_view_deal_by_slug(self):
+        deal = Deal(**self.deal)
+        deal.save()
+        response = self.client.get(
+            "/deals/{0}/{1}/".format(deal.id, deal.slug)
+        )
+        self.assertEqual(response.status_code, 200)
+
+
+class DealCategoryViewTestCase(TestCase):
+
+    def setUp(self):
+        category, advertiser = Category(name="books", slug="books"), \
+            Advertiser(name="XYZ Stores")
+        category.save()
+        advertiser.save()
+        self.deal = dict(
+            title="Deal #1", description="Deal some...deal all!",
+            disclaimer="Deal at your own risk", advertiser=advertiser,
+            address="14, Alara Street", state=14, category=category,
+            original_price=1500, price=750, duration=15,
+            active=1, max_quantity_available=3, latitude=210.025,
+            longitude=250.015,
+        )
+
+    def test_can_view_deals_by_category(self):
+        deal = Deal(**self.deal)
+        deal.save()
+        response = self.client.get("/deals/listings/?category=books")
+        self.assertEqual(response.status_code, 200)
