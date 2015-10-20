@@ -141,7 +141,7 @@ cloudinary.config(cloud_name=os.getenv('cloudinary_cloud_name'),
 # Image dimensions
 SITE_IMAGES = {
     'slideshow_image_width': 1000,
-    'slideshow_image_height': 800,
-    'thumbnail_image_width': 350,
-    'thumbnail_image_height': 250
+    'slideshow_image_height': 1000,
+    'thumbnail_image_width': 500,
+    'thumbnail_image_height': 500
 }
