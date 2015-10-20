@@ -2,7 +2,7 @@ from django.shortcuts import render,render_to_response,redirect
 from django.views.generic import TemplateView, View
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
-from deals.models import Deal, STATE_CHOICES
+from deals.models import Deal, STATE_CHOICES, Category
 from django.template import Engine, RequestContext, loader
 from haystack.query import SearchQuerySet
 from django.core.paginator import Paginator
