@@ -113,7 +113,7 @@ class DealView(View):
             )
 
 
-class DealWithSlugView(View):
+class DealSlugView(View):
     """ Respond to routes to deal url using slug
     """
     def get(self, *args, **kwargs):
@@ -136,7 +136,7 @@ class DealWithSlugView(View):
             deal = Deal.objects.get(id=self.deal_id)
         except Deal.DoesNotExist:
             return False
-        return deal.slug is deal.deal_slug
+        return deal.slug == self.deal_slug
 
 
 class DealCategoryView(View):
@@ -154,5 +154,5 @@ class DealCategoryView(View):
 
         engine = Engine.get_default()
         template = engine.get_template('deals/list.html')
-        context = RequestContext(self.request, {'deal': deals})
+        context = RequestContext(self.request, {'deals': deals})
         return HttpResponse(template.render(context))
