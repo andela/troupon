@@ -147,15 +147,23 @@ $(document).ready(function() {
     //  Packery grids:
     //----------------------------------------
     
-    //initialize Packery on the grids:
-    $('.packery-grid').packery({
+    // initialize Packery on the grids:
+    $grid = $('.packery-grid')
+
+    $grid.packery({
 
         'itemSelector': '.grid-item',
         'columnWidth': '.grid-sizer',
         'gutter': '.gutter-sizer',
-        'percentPosition': true
+        'percentPosition': true,
+        'isResizeBound': true
 
     });
+    // call packery layout everytime an item's image loads or window resizes:
+    $grid.find('.item-image-wrapper img').load(function( event ) {
+    	console.log(event.currentTarget)
+      	$grid.packery();
+	});
 
 	
 

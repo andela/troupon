@@ -1,7 +1,7 @@
 <div class="pagination">
     {% if page.paginator.count %}
     
-    <span class="info">Showing {{ page.start_index }} - {{ page.end_index }} of {{ page.paginator.count }} items</span>
+    <span class="info">Showing {{ page.start_index }} - {{ page.end_index }} of {{ page.paginator.count }} {% if page.paginator.count > 1 %}items{% else %}item{% endif %}</span>
     
     <span class="links">
         Page: 
