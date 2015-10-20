@@ -69,7 +69,7 @@ class Deal(models.Model):
     longitude = models.FloatField()
     date_created = models.DateField(auto_now_add=True)
     date_last_modified = models.DateField(auto_now=True)
-    date_end = models.DateField(default=timezone.now())
+    date_end = models.DateField(blank=True)
     featured = models.BooleanField(default=False)
 
     def currency_symbol(self):

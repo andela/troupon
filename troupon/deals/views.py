@@ -21,13 +21,13 @@ class HomePage(View):
         popular_categories = Category.objects.all()[:12]
 
         # get the featured deals:
-        featured_deals = Deal.objects.filter(featured=True)
+        featured_deals = Deal.objects.filter(featured=True).order_by('pk')[:5]
 
-        # get the latest deals i.e. sorted by date descending:
-        latest_deals = Deal.objects.all().order_by('-date_last_modified')
+        # get the latest deals i.e. sorted by latest date:
+        latest_deals = Deal.objects.all().order_by('date_last_modified')
 
         # paginate latest_deals and get the first page:
-        deals_page = Paginator(latest_deals, 10, orphans=2).page(1)
+        deals_page = Paginator(latest_deals, 15, orphans=2).page(1)
         
         # set the description to be used in the section header:
         description = "Check out the newest and hottest deals from all your favourite brands:"
