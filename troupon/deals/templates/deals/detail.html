@@ -10,17 +10,17 @@
     {% if deal %}
     <div class="row deal-detail">
         <div class="col-md-8">
-            <h3>{{deal.title}}</h3>
-            <span>{{deal.state}}</span>
+            <h3>{{ deal.title }}</h3>
+            <span>{{ deal.state }}</span>
             <div class="fill">
-                <img src="{% static deal.image.url %}">
+                <img src="{{ deal.image.url }}">
             </div>
             <div class="address">
-                <address>{{ deal.deal_address }}</address>
+                <address>{{ deal.address }}</address>
             </div>
         </div>
         <div class="col-md-4">
-            <h2>${{ deal.deal_price }}</h2>
+            <h2>${{ deal.price }}</h2>
             <button class="btn btn-primary">Buy</button>
         </div>
     </div>
