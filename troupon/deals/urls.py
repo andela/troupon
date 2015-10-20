@@ -14,11 +14,11 @@ urlpatterns = [
     url(r'^(?P<deal_id>[0-9]+)/(?P<deal_slug>[\w-]+)/$',
         DealSlugView.as_view(),
         name='deal-with-slug'),
-    url(r'^listings/$',
+    # /listings?category=nameless-books
+    url(r'^listings$',
         DealCategoryView.as_view(),
         name='deal-category-with-slug'),
     url(r'^categories/$',
         CategoryView.as_view(),
         name='deal-categories'),
-    url(r'^categories/$', DealSlugView.as_view(), name='deal-categories'),
 ]
