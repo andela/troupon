@@ -3,9 +3,8 @@
     <div class="flickity-gallery">
         {% for deal in deals %}
             <div class="gallery-cell">
-                <a class="cell-image-wrapper" href="{% url 'homepage' %}">
-                {# <a class="gallery-image-wrapper" href="{% url 'deal' deal_id=deal.pk %}"> #}
-                    <img src="{{ deal.slide_image_url }}">
+                <a class="cell-image-wrapper" href="{% url 'deal' deal_id=deal.pk %}">
+                    <img src="{{ deal.slideshow_image_url }}">
                 </a>
             </div>
         {% endfor %}
