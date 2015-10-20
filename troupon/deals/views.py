@@ -6,7 +6,7 @@ from django.template import Engine, RequestContext
 from django.core.paginator import Paginator
 from django.core.context_processors import csrf
 
-from deals.models import Deal, STATE_CHOICES
+from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES
 
 import cloudinary
 
@@ -17,54 +17,45 @@ class HomePage(View):
 
     def get(self, request, *args, **kwargs):
 
-        featured_deals = []
+        # get the popular categories:
+        popular_categories = Category.objects.all()[:12]
 
-        latest_deals = []
+        # get the featured deals:
+        featured_deals = Deal.objects.filter(featured=True)
 
+        # get the latest deals i.e. sorted by date descending:
+        latest_deals = Deal.objects.all().order_by('-date_last_modified')
+
+        # paginate latest_deals and get the first page:
         deals_page = Paginator(latest_deals, 10, orphans=2).page(1)
         
+        # set the description to be used in the section header:
         description = "Check out the newest and hottest deals from all your favourite brands:"
         if not deals_page.paginator.count:
             description = "Sorry, no deals found!"
 
+        # combine them into listing dictionary:
         deals_listing =  {
             'deals_page': deals_page,
-            'date_filter': { 
-                'choices': [
-                    (7, "Last 7 Days"),
-                    (14, "2 Weeks"),
-                    (30, "1 Month"),
-                    (0, "Show All"),
-                ],
-                'default': 0
-            },
+            'date_filter': { 'choices': EPOCH_CHOICES, 'default': 0 },
             'title': "latest deals",
             'description': description,
             'base_url': reverse('homepage'),
         }
 
+        # set the context:
         context = {
             # 'show_subscribe': True,
             'states': { 'choices': STATE_CHOICES,  'default': 25 },
-            'popular_categories': [
-                'Get Aways',
-                'Fashion & Lifestyle',
-                'Electronics',
-                'Food',
-                'Travel & Get Aways',
-                'Fashion',
-                'Electronics',
-                'Food',
-                'Travel',
-                'Fashion',
-                'Electronics',
-                'Food',
-            ],
+            'popular_categories': popular_categories,
             'featured_deals': featured_deals,
             'deals_listing': deals_listing,
         }
 
+        # add csrf token to context:
         context.update(csrf(request))
+
+        # render template with the context:
         return render(request, 'deals/index.html', context)
 
 

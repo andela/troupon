@@ -1,79 +1,455 @@
-- model: deals.advertiser
-  pk: 1
-  fields:
-    name: Paul McCartney
-    state: 1
-    telephone: 111-111-11
-    email: paulmccartney@noho.com
 - model: deals.category
   pk: 1
   fields:
-    name: Books
+    name: Travel n Hotels
 
+- model: deals.category
+  pk: 2
+  fields:
+    name: Electronics
+
+- model: deals.category
+  pk: 3
+  fields:
+    name: Fashion
+
+- model: deals.category
+  pk: 4
+  fields:
+    name: Foods
+
+- model: deals.category
+  pk: 5
+  fields:
+    name: Getaways
+
+- model: deals.category
+  pk: 6
+  fields:
+    name: Shopping
+
+- model: deals.category
+  pk: 7
+  fields:
+    name: Automobiles
+
+- model: deals.category
+  pk: 8
+  fields:
+    name: Hotels
+
+- model: deals.category
+  pk: 9
+  fields:
+    name: Event Tickets
+
+- model: deals.category
+  pk: 10
+  fields:
+    name: Kerosene
+
+- model: deals.category
+  pk: 11
+  fields:
+    name: Beauty Treatments
+
+- model: deals.category
+  pk: 12
+  fields:
+    name: Akara and Pap
+
+
+
+
+
+- model: deals.advertiser
+  pk: 1
+  fields:
+    name: Shoprite Ikeja
+    state: 1
+    telephone: 111-111-11
+    email: paulmccartney@noho.com
+    address: "234, Agege-Somolu, Victoria Island, Lagos, Nigeria."
+
+
+
+
+    
 - model: deals.deal
   pk: 1
   fields:
-    title: Legendary Moustachios
+    title: Infinix Hot 2 GiveAway
     advertiser: 1
     category: 1
-    original_price: 100
-    deal_price: 80
-    deal_duration: 10
+    original_price: 15600
+    price: 34500
+    duration: 10
     max_quantity_available: 5
     latitude: 13.000
     longitude: 15.000
     date_created: 2016-05-18
     date_last_modified: 2016-05-18
-    deal_active: True
-    deal_address: Suite 212, Gatsby Road, Neverland
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: True
+
 
 - model: deals.deal
   pk: 2
   fields:
-    title: Making an Awesomeware
+    title: Hairless Armpits
     advertiser: 1
     category: 1
-    original_price: 10000
-    deal_price: 9500
-    deal_duration: 10
-    max_quantity_available: 3
+    original_price: 30000
+    price: 23500
+    duration: 10
+    max_quantity_available: 5
     latitude: 13.000
     longitude: 15.000
     date_created: 2016-05-18
     date_last_modified: 2016-05-18
-    deal_active: True
-    deal_address: Suite 212, Gatsby Road, Neverland
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: True
+
 
 - model: deals.deal
   pk: 3
   fields:
-    title: Sedentary Lifers
+    title: Infinix Hot 2 GiveAway
     advertiser: 1
     category: 1
-    original_price: 1000
-    deal_price: 680
-    deal_duration: 8
+    original_price: 15600
+    price: 34500
+    duration: 10
     max_quantity_available: 5
     latitude: 13.000
     longitude: 15.000
     date_created: 2016-05-18
     date_last_modified: 2016-05-18
-    deal_active: True
-    deal_address: Suite 212, Gatsby Road, Neverland
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: True
+
 
 - model: deals.deal
   pk: 4
   fields:
-    title: A Diary of the Walking Dead
+    title: Legendary Moustachios
     advertiser: 1
     category: 1
-    original_price: 1000
-    deal_price: 800
-    deal_duration: 8
+    original_price: 30000
+    price: 23500
+    duration: 10
     max_quantity_available: 5
     latitude: 13.000
     longitude: 15.000
     date_created: 2016-05-18
     date_last_modified: 2016-05-18
-    deal_active: True
-    deal_address: Suite 212, Gatsby Road, Neverland
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: True
+
+
+- model: deals.deal
+  pk: 5
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: True
+
+
+- model: deals.deal
+  pk: 6
+  fields:
+    title: Hairless Armpits
+    advertiser: 1
+    category: 1
+    original_price: 30000
+    price: 23500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: True
+
+
+- model: deals.deal
+  pk: 7
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: True
+
+
+- model: deals.deal
+  pk: 8
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: True
+
+
+- model: deals.deal
+  pk: 9
+  fields:
+    title: Hairless Armpits
+    advertiser: 1
+    category: 1
+    original_price: 30000
+    price: 23500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: True
+
+
+- model: deals.deal
+  pk: 10
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: True
+
+
+- model: deals.deal
+  pk: 11
+  fields:
+    title: Legendary Moustachios
+    advertiser: 1
+    category: 1
+    original_price: 30000
+    price: 23500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: True
+
+
+- model: deals.deal
+  pk: 12
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: False
+
+
+- model: deals.deal
+  pk: 13
+  fields:
+    title: Hairless Armpits
+    advertiser: 1
+    category: 1
+    original_price: 30000
+    price: 23500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: False
+
+
+- model: deals.deal
+  pk: 14
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: False
+
+
+- model: deals.deal
+  pk: 15
+  fields:
+    title: Hairless Armpits
+    advertiser: 1
+    category: 1
+    original_price: 30000
+    price: 23500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: False
+
+
+- model: deals.deal
+  pk: 16
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: False
+
+
+- model: deals.deal
+  pk: 17
+  fields:
+    title: Legendary Moustachios
+    advertiser: 1
+    category: 1
+    original_price: 30000
+    price: 23500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: False
+
+
+- model: deals.deal
+  pk: 18
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: False
+
+
+- model: deals.deal
+  pk: 19
+  fields:
+    title: Hairless Armpits
+    advertiser: 1
+    category: 1
+    original_price: 30000
+    price: 23500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "Suite 212, Gatsby Road, Neverland"
+    featured: False
+
+
+- model: deals.deal
+  pk: 20
+  fields:
+    title: Infinix Hot 2 GiveAway
+    advertiser: 1
+    category: 1
+    original_price: 15600
+    price: 34500
+    duration: 10
+    max_quantity_available: 5
+    latitude: 13.000
+    longitude: 15.000
+    date_created: 2016-05-18
+    date_last_modified: 2016-05-18
+    active: True
+    address: "314, Herbert Macauley Road, Sabo-Yaba, Lagos."
+    featured: False
