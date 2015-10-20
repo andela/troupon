@@ -5,11 +5,10 @@ from django.http import HttpResponse, Http404
 from django.template import Engine, RequestContext, loader
 from django.core.paginator import Paginator
 from django.core.context_processors import csrf
-import datetime
-import cloudinary
-
 from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES
 from deals.baseviews import DealListBaseView
+import cloudinary
+import datetime
 
 
 class HomePageView(DealListBaseView):
@@ -112,3 +111,48 @@ class DealView(View):
                 file,
                 public_id=title
             )
+
+
+class DealWithSlugView(View):
+    """ Respond to routes to deal url using slug
+    """
+    def get(self, *args, **kwargs):
+        self.deal_id = self.kwargs.get('deal_id')
+        self.deal_slug = self.kwargs.get('deal_slug')
+        if not self.is_valid_slug():
+            raise Http404('Deal not found!')
+
+        deal = Deal.objects.get(id=self.deal_id)
+        engine = Engine.get_default()
+        template = engine.get_template('deals/detail.html')
+        context = RequestContext(self.request, {'deal': deal})
+
+        return HttpResponse(template.render(context))
+
+    def is_valid_slug(self):
+        """ Check is the deal slug is valid
+        """
+        try:
+            deal = Deal.objects.get(id=self.deal_id)
+        except Deal.DoesNotExist:
+            return False
+        return deal.slug is deal.deal_slug
+
+
+class DealCategoryView(View):
+    """ Respond to routes to deal categories using slug
+    """
+    def get(self, *args, **kwargs):
+        category_slug = self.request.GET.get('category')
+        try:
+            category = Category.objects.get(slug=category_slug)
+
+        except Category.DoesNotExist:
+            raise Http404('Category not found!')
+
+        deals = Deal.objects.filter(id=category.id)
+
+        engine = Engine.get_default()
+        template = engine.get_template('deals/list.html')
+        context = RequestContext(self.request, {'deal': deals})
+        return HttpResponse(template.render(context))
