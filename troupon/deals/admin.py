@@ -5,3 +5,7 @@ from .models import Deal, Advertiser, Category
 admin.site.register(Deal)
 admin.site.register(Advertiser)
 admin.site.register(Category)
+
+
+class DealAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
