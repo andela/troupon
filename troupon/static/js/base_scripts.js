@@ -26,7 +26,6 @@ $(document).ready(function() {
 	  	}
 	}
 
-
 	var transitionEndEvent = whichTransitionEndEvent(),
 		modalsWrapper = $('.modals-wrapper'),
 		modalsParent = $('.modals-parent'),
@@ -89,8 +88,6 @@ $(document).ready(function() {
 			// assign the modal as the current openedModal:
 			openedModal = modal;
 		}
-
-		
 	}
 
 	function closeModal(){
@@ -105,15 +102,13 @@ $(document).ready(function() {
 
 		// reset the opened modal:
 		openedModal.removeClass('open').addClass('close');
-		openedModal.one(transitionEndEvent, function(event) {
+		openedModal.one(transitionEndEvent, function() {
 			openedModal.removeClass('close');
 			// reset the openedModal pointer:
 		   	openedModal = null;
 		});
 	}
 
-
-	
 	// set listeners for modal-toggle elements:
 	$('.modal-toggle').each(function(){
 		$(this).click(function(event){
@@ -124,9 +119,50 @@ $(document).ready(function() {
 
 
 
-	//-------------------------------------
-	// navigation:
-	//-------------------------------------
+	//----------------------------------------
+    //  Flickity galleries:
+    //----------------------------------------
+
+    //initialize Flickity on the galleries:
+    $('.flickity-gallery').flickity({
+    
+        cellSelector: '.gallery-cell',
+        setGallerySize: false,
+        freeScroll: true,
+        wrapAround: true,
+        autoPlay: true,
+        imagesLoaded: true,
+
+        arrowShape: { 
+            x0: 10,
+            x1: 60, y1: 50,
+            x2: 60, y2: 40,
+            x3: 20
+        }
+
+    });
+
+
+    //----------------------------------------
+    //  Packery grids:
+    //----------------------------------------
+    
+    // initialize Packery on the grids:
+    var $grid = $('.packery-grid')
+
+    $grid.packery({
+
+        'itemSelector': '.grid-item',
+        'columnWidth': '.grid-sizer',
+        'gutter': '.gutter-sizer',
+        'percentPosition': true,
+        'isResizeBound': true
+
+    });
+    // call packery layout everytime an item's image loads or window resizes:
+    $grid.find('.item-image-wrapper img').load(function( event ) {
+    	$grid.packery();
+	});
 
 	
 

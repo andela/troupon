@@ -55,7 +55,8 @@ ul, ol {
 }
 
 .dropdown .dropdown-menu {
-  z-index: 3000;
+  position: absolute;
+  z-index: 10000;
 }
 
 /* ==========================================================================
@@ -65,16 +66,16 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-body {
-  font-weight: 400;
-  font-size: 16px;
-  color: #5E5E77;
-}
-
 h2 {
   font-weight: 300;
   font-size: 40px;
   color: #660066;
+}
+
+body {
+  font-weight: 400;
+  font-size: 16px;
+  color: #5E5E77;
 }
 
 h3 {
@@ -98,7 +99,7 @@ h2 {
 }
 
 .section-label {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 12px;
   color: #C9CAD1;
   text-transform: uppercase;
@@ -107,29 +108,29 @@ h2 {
 /* ==========================================================================
 links
 ========================================================================== */
-a, .dropdown .dropdown-menu li > a, .menu-link, .label-link, #header-bar .auth-options > li > a, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #header-bar .nav-menu > li > a, #header-bar .member-options > li > a, footer .quick-links > li > a {
+a, .dropdown .dropdown-menu li > a, .menu-link, .label-link, .label-link-list > li > a, #header-bar .auth-options > li > a, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #header-bar .nav-menu > li > a, #header-bar .member-options > li > a, footer .quick-links > li > a {
   color: #5E5E77;
   text-decoration: none;
 }
 
-a:hover, .dropdown .dropdown-menu li > a:hover, .dropdown .dropdown-menu li > a:active, .dropdown .dropdown-menu li > a:focus, a:active, .menu-link:active, .label-link:active, #header-bar .auth-options > li > a:active, #modal-sign-in header p > a:active, #modal-sign-up header p > a:active, #modal-forgot-password header p > a:active, #header-bar .nav-menu > li > a:active, #header-bar .member-options > li > a:active, footer .quick-links > li > a:active, a:focus, .menu-link:focus, .label-link:focus, #header-bar .auth-options > li > a:focus, #modal-sign-in header p > a:focus, #modal-sign-up header p > a:focus, #modal-forgot-password header p > a:focus, #header-bar .nav-menu > li > a:focus, #header-bar .member-options > li > a:focus, footer .quick-links > li > a:focus, .menu-link:hover, .label-link:hover, #header-bar .auth-options > li > a:hover, #modal-sign-in header p > a:hover, #modal-sign-up header p > a:hover, #modal-forgot-password header p > a:hover, #header-bar .nav-menu > li > a:hover, #header-bar .member-options > li > a:hover, footer .quick-links > li > a:hover {
+a:hover, .dropdown .dropdown-menu li > a:hover, .dropdown .dropdown-menu li > a:active, .dropdown .dropdown-menu li > a:focus, a:active, .menu-link:active, .label-link:active, .label-link-list > li > a:active, #header-bar .auth-options > li > a:active, #modal-sign-in header p > a:active, #modal-sign-up header p > a:active, #modal-forgot-password header p > a:active, #header-bar .nav-menu > li > a:active, #header-bar .member-options > li > a:active, footer .quick-links > li > a:active, a:focus, .menu-link:focus, .label-link:focus, .label-link-list > li > a:focus, #header-bar .auth-options > li > a:focus, #modal-sign-in header p > a:focus, #modal-sign-up header p > a:focus, #modal-forgot-password header p > a:focus, #header-bar .nav-menu > li > a:focus, #header-bar .member-options > li > a:focus, footer .quick-links > li > a:focus, .menu-link:hover, .label-link:hover, .label-link-list > li > a:hover, #header-bar .auth-options > li > a:hover, #modal-sign-in header p > a:hover, #modal-sign-up header p > a:hover, #modal-forgot-password header p > a:hover, #header-bar .nav-menu > li > a:hover, #header-bar .member-options > li > a:hover, footer .quick-links > li > a:hover {
   color: #E67E22;
   text-decoration: none;
 }
 
-a:active, .dropdown .dropdown-menu li > a:active, .menu-link:active, .label-link:active, #header-bar .auth-options > li > a:active, #modal-sign-in header p > a:active, #modal-sign-up header p > a:active, #modal-forgot-password header p > a:active, #header-bar .nav-menu > li > a:active, #header-bar .member-options > li > a:active, footer .quick-links > li > a:active {
+a:active, .dropdown .dropdown-menu li > a:active, .menu-link:active, .label-link:active, .label-link-list > li > a:active, #header-bar .auth-options > li > a:active, #modal-sign-in header p > a:active, #modal-sign-up header p > a:active, #modal-forgot-password header p > a:active, #header-bar .nav-menu > li > a:active, #header-bar .member-options > li > a:active, footer .quick-links > li > a:active {
   color: #5E5E77;
 }
 
-a:focus, .dropdown .dropdown-menu li > a:focus, .menu-link:focus, .label-link:focus, #header-bar .auth-options > li > a:focus, #modal-sign-in header p > a:focus, #modal-sign-up header p > a:focus, #modal-forgot-password header p > a:focus, #header-bar .nav-menu > li > a:focus, #header-bar .member-options > li > a:focus, footer .quick-links > li > a:focus {
+a:focus, .dropdown .dropdown-menu li > a:focus, .menu-link:focus, .label-link:focus, .label-link-list > li > a:focus, #header-bar .auth-options > li > a:focus, #modal-sign-in header p > a:focus, #modal-sign-up header p > a:focus, #modal-forgot-password header p > a:focus, #header-bar .nav-menu > li > a:focus, #header-bar .member-options > li > a:focus, footer .quick-links > li > a:focus {
   color: #E67E22;
 }
 
-.menu-link, .label-link, #header-bar .auth-options > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #header-bar .nav-menu > li > a, #header-bar .dropdown .dropdown-menu .nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .member-options > li > a, #header-bar .dropdown .dropdown-menu .member-options > li > a, #header-bar .member-options > li > .menu-link, footer .quick-links > li > a, footer .dropdown .dropdown-menu .quick-links > li > a, .dropdown .dropdown-menu footer .quick-links > li > a, footer .quick-links > li > .menu-link {
+.menu-link, .label-link, .label-link-list > li > a, .dropdown .dropdown-menu .label-link-list > li > a, .label-link-list > li > .menu-link, #header-bar .auth-options > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #header-bar .nav-menu > li > a, #header-bar .dropdown .dropdown-menu .nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .member-options > li > a, #header-bar .dropdown .dropdown-menu .member-options > li > a, #header-bar .member-options > li > .menu-link, footer .quick-links > li > a, footer .dropdown .dropdown-menu .quick-links > li > a, .dropdown .dropdown-menu footer .quick-links > li > a, footer .quick-links > li > .menu-link {
   font-weight: 700;
 }
 
-.label-link, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #modal-sign-in header p > .label-link, #modal-sign-up header p > .label-link, #modal-forgot-password header p > .label-link {
+.label-link, .label-link-list > li > a, .dropdown .dropdown-menu .label-link-list > li > a, .label-link-list > li > .menu-link, .label-link-list > li > .label-link, #header-bar .nav-menu.label-link-list > li > a, #header-bar .member-options.label-link-list > li > a, footer .quick-links.label-link-list > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #modal-sign-in header p > .label-link, #modal-sign-up header p > .label-link, #modal-forgot-password header p > .label-link {
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -320,12 +321,290 @@ Forms Controls
   text-transform: uppercase;
 }
 
+.label-asterik {
+  color: #E67E22;
+  font-size: 16px;
+}
+
+/* ==========================================================================
+Lists
+========================================================================== */
+.label-link-list {
+  list-style: none outside none;
+  padding: 0px 0px;
+}
+
+.label-link-list > li {
+  margin: 8px auto;
+}
+
 /* ==========================================================================
 Other components.
 ========================================================================== */
-.accent {
+.card {
+  padding: 1px;
+  border: 1px solid #DFDFD0;
+  border-radius: 6px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.section-heading .row, .section-heading [class*='col-'] {
+  padding: 0px;
+}
+
+.section-heading .row > [class*='col-'] {
+  position: relative;
+  display: inline-block;
+  min-height: 60px;
+}
+
+.section-heading .row > [class*='col-'] > * {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.section-heading .title, .section-heading .custom-input-group {
+  margin: 0px;
+}
+
+.section-heading .custom-input-group {
+  margin-top: -10px;
+}
+
+.section-heading .description {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .section-heading .title, .section-heading .custom-input-group {
+    margin: 0px;
+  }
+}
+
+.flickity-gallery {
+  width: 100%;
+  height: 100%;
+}
+
+.flickity-gallery .gallery-cell {
+  width: auto;
+  height: 100%;
+  background-color: #EFEFF1;
+  overflow: hidden;
+}
+
+.flickity-gallery .gallery-cell * {
+  -webkit-transition: all 0.4s ease-in-out;
+          transition: all 0.4s ease-in-out;
+}
+
+.flickity-gallery .gallery-cell .cell-image-wrapper {
+  position: relative;
+  display: block;
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flickity-gallery .gallery-cell .cell-image-wrapper img {
+  display: block;
+  width: auto;
+  height: 100%;
+  -webkit-transform: scale(1.03);
+      -ms-transform: scale(1.03);
+          transform: scale(1.03);
+}
+
+.flickity-gallery .gallery-cell:hover .cell-image-wrapper img {
+  -webkit-transform: scale(1.06);
+      -ms-transform: scale(1.06);
+          transform: scale(1.06);
+}
+
+.flickity-gallery .flickity-viewport {
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.flickity-gallery .flickity-page-dots .dot {
+  width: 12px;
+  height: 12px;
+  margin: 0px 4px;
+  opacity: 1;
+  background: #EFEFF1;
+  border: 1px solid #DFDFD0;
+}
+
+.flickity-gallery .flickity-page-dots .dot.is-selected {
+  background: #E67E22;
+  border: 1px solid transparent;
+}
+
+.flickity-gallery .flickity-prev-next-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.flickity-gallery .flickity-prev-next-button:hover {
+  background: #E67E22;
+}
+
+.flickity-gallery .flickity-prev-next-button .arrow {
+  fill: #F7F7F7;
+}
+
+.flickity-gallery .flickity-prev-next-button.no-svg {
+  color: #F7F7F7;
+}
+
+.flickity-gallery .flickity-prev-next-button.previous {
+  left: 40px;
+}
+
+.flickity-gallery .flickity-prev-next-button.next {
+  right: 40px;
+}
+
+.packery-grid {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.packery-grid .grid-sizer, .packery-grid .grid-item {
+  width: 32%;
+}
+
+.packery-grid .gutter-sizer {
+  width: 2%;
+}
+
+.packery-grid .grid-item {
+  margin-bottom: 0px;
+  overflow: hidden;
+}
+
+.packery-grid .grid-item, .packery-grid .grid-item * {
+  -webkit-transition: all 0.4s ease-in-out;
+          transition: all 0.4s ease-in-out;
+}
+
+.packery-grid .grid-item .item-image-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  background-color: #EFEFF1;
+  border-radius: 5px;
+}
+
+.packery-grid .grid-item .item-image-wrapper img {
+  display: block;
+  width: 100%;
+}
+
+.packery-grid .grid-item .item-info {
+  padding: 30px 25px;
+  text-align: center;
+}
+
+.packery-grid .grid-item .item-info .advertiser {
+  margin-bottom: 10px;
+}
+
+.packery-grid .grid-item .item-info .advertiser p, .packery-grid .grid-item .item-info .advertiser address {
+  margin: 0px;
+}
+
+.packery-grid .grid-item .item-info .advertiser i {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.packery-grid .grid-item .item-info .prices * {
+  display: inline-block;
+  margin: auto 5px;
+}
+
+.packery-grid .grid-item .item-info .prices .original {
+  text-decoration: line-through;
+}
+
+.packery-grid .grid-item .item-info .prices .current {
+  font-weight: 700;
+}
+
+.packery-grid .grid-item:hover {
+  border-color: #E67E22;
+}
+
+.packery-grid .grid-item:hover .title, .packery-grid .grid-item:hover .current {
   color: #E67E22;
-  font-size: 16px;
+}
+
+.packery-grid .grid-item:hover .item-image-wrapper img {
+  -webkit-transform: scale(1.03);
+      -ms-transform: scale(1.03);
+          transform: scale(1.03);
+}
+
+@media (max-width: 480px) {
+  .packery-grid .grid-sizer, .packery-grid .grid-item {
+    width: 100%;
+  }
+  .packery-grid .gutter-sizer {
+    width: 0%;
+  }
+  .packery-grid .grid-item {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 992px) {
+  .packery-grid .grid-sizer, .packery-grid .grid-item {
+    width: 48%;
+  }
+  .packery-grid .gutter-sizer {
+    width: 4%;
+  }
+}
+
+.pagination {
+  text-align: right;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.pagination .info {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.pagination .links {
+  display: inline-block;
+}
+
+.pagination .links ol {
+  list-style: none outside none;
+  padding: 0px 0px;
+  display: inline-block;
+}
+
+.pagination .links ol li {
+  display: inline-block;
+}
+
+.pagination .links ol li {
+  margin: 0px 15px;
+}
+
+.pagination .links ol .current-page-num {
+  color: #E67E22;
 }
 
 /* ==========================================================================
@@ -540,6 +819,10 @@ body {
   height: 23px;
 }
 
+#header-bar .member-options {
+  z-index: 10000;
+}
+
 #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a {
   padding: 5px;
 }
@@ -710,7 +993,7 @@ footer .copyright p {
   left: 0;
   z-index: 4001;
   overflow: scroll;
-  background-color: rgba(240, 240, 240, 0.5);
+  background-color: rgba(240, 240, 240, 0.7);
   opacity: 0;
   visibility: hidden;
   -webkit-transition: opacity 0.5s, visibility 0s 0.5s;

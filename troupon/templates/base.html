@@ -17,9 +17,11 @@
     <!-- Bootstrap Core -->
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
     <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700italic,700,300,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:900,700italic,700,400italic,400,300' rel='stylesheet' type='text/css'>
     <!-- FontAwesome -->
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Flickity -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/flickity/dist/flickity.min.css' %}">
     <!-- Troupon base-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/base_styles.css' %}" />
     {% endblock base_css %}
@@ -45,7 +47,7 @@
         <div class="container page-container modals-parent"> <!-- page container (contains page content)-->
 
             {% block subscribe %}
-            {% if show_subscribe %} {# does not show by default #}
+            {% if show_subscribe %} {# hides by default, pass 'show_subscribe: True' in the context to show #}
             <!-- subscribe bar -->
             <section class="collapse in" id="subscribe-bar">
                 <form action="" action="" method="POST">
@@ -72,8 +74,8 @@
             {% endif %}
             {% endblock subscribe %}
 
-
             {% block header %}
+            {% if not hide_header %} {# shows by default, pass 'hide_header: True' in the context to hide #}
             <!-- header bar-->
             <header id="header-bar">
                 <div class="row">
@@ -83,15 +85,12 @@
                         </div>
                         
                         <button type="button" class="menu-toggle visible-xs collapsed" data-toggle="collapse" data-target="#menu-bar"><i class="fa fa-bars"></i></button>
-                        {% if show_search %}
-                        <button type="button" class="search-toggle visible-xs collapsed" data-toggle="collapse" data-target="#search-bar"><i class="fa fa-search"></i></button>
-                        {% endif %}
                     </div>
                     <div class="navbar-collapse collapse" id="menu-bar">
                         <nav class="col-xs-12 col-sm-5 col-md-6 col-lg-7">
                             <ul class="nav-menu">
                                 <li><a href="{% url 'homepage' %}" class="hidden-sm">Home</a></li>
-                                <li><a href="{% url 'deal' %}">Deals</a></li>
+                                <li><a href="{% url 'deals' %}">Deals</a></li>
                                 <li><a href="">Categories</a></li>
                                 <li><a href="">Cities</a></li>
                                 <li><a href="" class="hidden-sm">Support</a></li>
@@ -108,7 +107,7 @@
                                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-user fa-fw"></i> <span class="caret"></span></a>
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                         <li class="dropdown-header">Signed in as:</li>
-                                        <li><a href="">Oluwafemi Sule</a></li>
+                                        <li><a href="">{{ request.user }}</a></li>
                                         <li class="divider"></li>
                                         <li><a href=""><i class="fa fa-user fa-fw"></i> My Profile</a></li>
                                         <li><a href=""><i class="fa fa-key fa-fw"></i> Change Password</a></li>
@@ -130,18 +129,19 @@
                 </div>
                 <div class="divider"></div>
             </header>
+            {% endif %}
             {% endblock header %}
 
             {% block search %}
-            {% if show_search %} {# does not show by default #}
+            {% if search_options %} {# hides by default, pass the 'search_options' dictionary in the context to show #}
             <!-- search bar-->
-            <section id="search-bar" class="navbar-collapse collapse">
+            <section id="search-bar">
                 <form class="form-inline" action="{% url 'homepage' %}" method="GET">
                     <div class="row">
                         <div class="col-sm-5 col-md-6 col-lg-6">
                             <div class="custom-input-group">
                                 <span class="left-icon"><i class="fa fa-search"></i></span>
-                                <input type="text" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query">
+                                <input type="text" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query" value="{{ search_options.query }}">
                             </div>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4">
@@ -149,7 +149,7 @@
                                 <span class="left-icon"><i class="fa fa-map-marker"></i></span>
                                 <span class="right-icon"><i class="fa fa-angle-down"></i></span>
                                 <select name="city" placeholder="Select City">
-                                    {% for choice in states.choices %}
+                                    {% for choice in search_options.states.choices %}
                                         <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
                                             {{ choice.1 }}
                                         </option>
@@ -177,6 +177,7 @@
             </main>
     
             {% block footer %}
+            {% if not hide_footer %} {# shows by default, pass 'hide_footer: True' in the context to hide #}
             <footer>
                 <div class="divider divider-1"></div>
                 <div class="row">
@@ -214,6 +215,7 @@
                     <p>Copyright ©2015 Troupon Loyalties Ltd.</p>
                 </div>
             </footer>
+            {% endif %}
             {% endblock footer %}
 
         </div> <!-- ends page container -->
@@ -223,9 +225,9 @@
             <div class="container modals-container">
 
                 {% if not request.user.is_authenticated %}
-                {% include "sign_up_modal.html" %}
-                {% include "sign_in_modal.html" %}
-                {% include "forgot_password_modal.html" %}
+                {% include "modal_sign_up.html" %}
+                {% include "modal_sign_in.html" %}
+                {% include "modal_forgot_password.html" %}
                 {% endif %}
 
                 {% block extended_modals %}
@@ -244,6 +246,10 @@
         <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
         <!-- Bootstrap Core -->
         <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <!-- Flickity -->
+        <script src="{% static 'bower_components/flickity/dist/flickity.pkgd.min.js' %}"></script>
+        <!-- Packery -->
+        <script src="{% static 'bower_components/packery/dist/packery.pkgd.min.js' %}"></script>
         <!-- Troupon base-->
         <script src="{% static 'js/base_scripts.js' %}"></script>
     {% endblock base_js %}
