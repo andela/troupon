@@ -15,15 +15,37 @@ from django.core.context_processors import csrf
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
 from emails import Mailgunner
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.validators import validate_email, ValidationError
 from account.models import UserProfile, STATE_CHOICES
 from account.forms import UserProfileForm
+from django.views.decorators.csrf import csrf_exempt
 
 
 
 import re
 
 # Create your views here.
+
+class LoginRequiredMixin(object):
+
+    '''View mixin which requires that the user is authenticated.'''
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(
+            request, *args, **kwargs)
+
+class CsrfExemptClassMixin(object):
+
+    ''' ViewMixing which is silent to csrf_token '''
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CsrfExemptClassMixin, self).dispatch(
+            request, *args, **kwargs)
+
 
 
 class UserSigninView(View):
@@ -326,46 +348,104 @@ class Userconfirm(TemplateView):
         return render(request, self.template_name)
 
 
-class Userprofileview(TemplateView):
+class Userprofileview(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView):
     """class that handles display of the homepage"""
-
+    form_class = UserProfileForm
     template_name = "account/profile.html"
-    context_var = {
+
+    def get_context_data(self, **kwargs):
+        context_var = super(Userprofileview, self).get_context_data(**kwargs)
+        username = kwargs['username']
+        if self.request.user.username == username:
+            user = self.request.user
+        else:
+            pass
+        
+        context_var = {
         'show_subscribe': False,
         'show_search': False,
         'states': { 'choices': STATE_CHOICES,  'default': 25 },
-        'reset_password_form': ResetPasswordForm(auto_id=True)
-    }
+                    'profile': user.profile
+                }
+        return context_var
 
-    def get(self, request):
-        self.context_var.update(csrf(request))
-        return render(request, self.template_name, self.context_var)
+    def post(self, request, **kwargs):
 
-    def post(self,request):
+        form = self.form_class(
+            request.POST, instance=request.user.profile)
         
-        userprofileform = UserProfileForm(request.POST, instance=request.user.profile)
-        if userprofileform.errors:
+        if form.errors:
             context_var = {
                 'show_subscribe': False,
                 'show_search': False,
                 'states': { 'choices': STATE_CHOICES,  'default': 25 },
-                'reset_password_form': ResetPasswordForm(auto_id=True)
             }
-            context_var.update(csrf(request))
             empty = "form should not be submitted empty"
             messages.add_message(request, messages.INFO,empty )
             return render(request, 'account/profile.html', context_var)
 
 
-        if userprofileform.is_valid():
-            userprofileform.save()
-            return HttpResponseRedirect('/') 
-            #redirect route needs to be reviewed.....
+        if form.is_valid():
+            form.save()
+            messages.add_message(
+                request, messages.SUCCESS, 'Profile Updated!')
+            return redirect(
+                '/account/profile/user/' + kwargs['username'],
+                context_instance=RequestContext(request)
+            )
 
-        else:
-            user = request.user
-            profile = user.profile
-            form = UserProfileForm(instance=profile)
+class UserChangePassword(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView):
+
+    template_name = "account/profile.html"
+
+    def post(self, request, **kwargs):
+
+        username = self.kwargs.get('username')
+        password1 = request.POST.get('password1','')
+        password2 = request.POST.get('password2','')
+
+
+        if not password1 and not password2:
+            context_var = {
+                'show_subscribe': False,
+                'show_search': False,
+                'states': { 'choices': STATE_CHOICES,  'default': 25 },
+                }
+
+            context_var.update(csrf(request))
+            empty = "Passwords should match or field should not be left empyt"
+            messages.add_message(request, messages.INFO,empty )
+            return render(request, self.template_name, context_var)
+
+
+        if not password1 or not password2:
+            context_var = {
+                'show_subscribe': False,
+                'show_search': False,
+                'states': { 'choices': STATE_CHOICES,  'default': 25 },
+                }
+
+            context_var.update(csrf(request))
+            empty = "Passwords should match or field should not be left empyt"
+            messages.add_message(request, messages.INFO,empty )
+            return render(request, self.template_name, context_var)
+
+        if password1 == password2:
+            user = User.objects.get(username=username)
+            user.set_password('password1')
+            user.save()
+            return HttpResponseRedirect('/')
+
+
+
+
+
+
+
+
+
+
+
 
 
 

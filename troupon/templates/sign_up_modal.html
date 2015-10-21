@@ -18,7 +18,7 @@
                             </header>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="" action="" method="POST">
+                                    <form action="{% url 'UserSignupView' %}" method="POST">{{ csrf_token }}
                                         <div class="custom-form-group">
                                             <label for="email">Email <span class="accent">*</span></label>
                                             <div class="custom-input-group">
