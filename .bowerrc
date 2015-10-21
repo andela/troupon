@@ -1,0 +1,6 @@
+{
+  "directory": "./bower_components",
+  "analytics": false,
+  "timeout": 120000,
+  "interactive": false
+}
