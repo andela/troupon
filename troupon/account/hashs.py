@@ -7,7 +7,6 @@ from time import time
 import os
 
 
-
 class UserHasher:
     """ NOTE: This class has the Hashids package as a dependency.
         Run 'pip install requirements.txt' to install on your environment. """
