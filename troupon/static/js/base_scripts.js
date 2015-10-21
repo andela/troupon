@@ -148,7 +148,7 @@ $(document).ready(function() {
     //----------------------------------------
     
     // initialize Packery on the grids:
-    $grid = $('.packery-grid')
+    var $grid = $('.packery-grid')
 
     $grid.packery({
 
@@ -161,8 +161,7 @@ $(document).ready(function() {
     });
     // call packery layout everytime an item's image loads or window resizes:
     $grid.find('.item-image-wrapper img').load(function( event ) {
-    	console.log(event.currentTarget)
-      	$grid.packery();
+    	$grid.packery();
 	});
 
 	
