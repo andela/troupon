@@ -90,7 +90,7 @@
                         <nav class="col-xs-12 col-sm-5 col-md-6 col-lg-7">
                             <ul class="nav-menu">
                                 <li><a href="{% url 'homepage' %}" class="hidden-sm">Home</a></li>
-                                <li><a href="{% url 'deal' %}">Deals</a></li>
+                                <li><a href="{% url 'deals' %}">Deals</a></li>
                                 <li><a href="">Categories</a></li>
                                 <li><a href="">Cities</a></li>
                                 <li><a href="" class="hidden-sm">Support</a></li>
@@ -133,7 +133,7 @@
             {% endblock header %}
 
             {% block search %}
-            {% if not hide_search %} {# show by default, pass 'hide_search: True' in the context to hide #}
+            {% if search_options %} {# hides by default, pass the 'search_options' dictionary in the context to show #}
             <!-- search bar-->
             <section id="search-bar">
                 <form class="form-inline" action="{% url 'homepage' %}" method="GET">
@@ -141,7 +141,7 @@
                         <div class="col-sm-5 col-md-6 col-lg-6">
                             <div class="custom-input-group">
                                 <span class="left-icon"><i class="fa fa-search"></i></span>
-                                <input type="text" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query">
+                                <input type="text" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query" value="{{ search_options.query }}">
                             </div>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4">
@@ -149,7 +149,7 @@
                                 <span class="left-icon"><i class="fa fa-map-marker"></i></span>
                                 <span class="right-icon"><i class="fa fa-angle-down"></i></span>
                                 <select name="city" placeholder="Select City">
-                                    {% for choice in states.choices %}
+                                    {% for choice in search_options.states.choices %}
                                         <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
                                             {{ choice.1 }}
                                         </option>
