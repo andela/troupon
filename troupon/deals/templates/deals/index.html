@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extended_css %} 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage_styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" />
 {% endblock extended_css %}
 
 {% block main %}
@@ -34,9 +34,9 @@
 
     <!-- latest deals section -->
     <section class="row" id="latest-section">
-
-        {% include "snippet_deal_listing.html" with listing=deals_listing %}
-
+        {% autoescape off %}
+            {{ rendered_deal_list }}
+        {% endautoescape %}
     </section>
 
 {% endblock main %}

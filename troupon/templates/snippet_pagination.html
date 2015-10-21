@@ -7,13 +7,13 @@
         Page: 
         <ol>
             {% if page.has_previous %}
-                <li><a href="{{ base_url }}?pg={{ page.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                <li><a href="{{ pagination_base_url }}?pg={{ page.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
             {% endif %}
 
             {% for page_number in page.paginator.page_range %}
 
                 {% if page_number != page.number %}
-                    <li><a href="{{ base_url }}?pg={{ page_number }}">{{ page_number }}</a></li>
+                    <li><a href="{{ pagination_base_url }}?pg={{ page_number }}">{{ page_number }}</a></li>
                 {% else %}
                     <li><span class="current-page-num">{{ page_number }}</span></li>
                 {% endif %}  
@@ -21,7 +21,7 @@
             {% endfor %}
 
             {% if page.has_next %}
-                <li><a href="{{ base_url }}?pg={{ page.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                <li><a href="{{ pagination_base_url }}?pg={{ page.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
             {% endif %}
         </ol>
     </span>
