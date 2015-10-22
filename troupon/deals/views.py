@@ -156,3 +156,14 @@ class DealCategoryView(View):
         template = engine.get_template('deals/list.html')
         context = RequestContext(self.request, {'deals': deals})
         return HttpResponse(template.render(context))
+
+
+class CategoryView(TemplateView):
+    """ List all categories
+    """
+    template_name = "deals/categories.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
