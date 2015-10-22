@@ -12,8 +12,19 @@ import cloudinary
 
 
 class DealListBaseView(View):
-    
-    deals = []
+    """ Base class for other Deal listing views.
+        It implements a default get method allowing subclassing views to 
+        render fully functional deal listings by simply overriding the 
+        default class level options.
+
+        Subclassing views can still override and implement their own get or post
+        methods. However these methods can call the base 'render_deal_list' method
+        which returns the rendered deal list as a string.
+    """
+
+    # default deal list options as class level vars:
+
+    deals = [] # can be a list or queryset of Deal instances e.g Deal.objects.all()
     title = "Deals"
     description = ""
     zero_items_message = "Sorry, no deals found!"
@@ -91,7 +102,10 @@ class DealListBaseView(View):
 
 
 class HomePageView(DealListBaseView):
-    """class that handles display of the homepage"""
+    """ View class that handles display of the homepage. 
+        Overrides the base get method, but still uses the base render_deal_list method
+        to get the rendered latest deals listing.
+    """
 
     def get(self, request, *args, **kwargs):
 
@@ -102,7 +116,7 @@ class HomePageView(DealListBaseView):
         featured_deals = Deal.objects.filter(featured=True).order_by('pk')[:5]
 
         # get the latest deals i.e. sorted by latest date:
-        latest_deals = Deal.objects.all().order_by('date_last_modified')
+        latest_deals = Deal.objects.filter(active=True).order_by('date_last_modified')
         list_title = "Latest Deals"
         list_description = "Checkout the hottest new deals from all your favourite brands:"
 
@@ -129,11 +143,14 @@ class HomePageView(DealListBaseView):
 
 
 class DealsView(DealListBaseView):
+    """ View class that handles display of the deals page. 
+        Simply configures the options and makes use of the base methods 
+        to render return latest deals listing.
+    """
 
-    deals = Deal.objects.all().order_by('date_last_modified')
+    deals = Deal.objects.filter(active=True).order_by('date_last_modified')
     title = "Latest Deals"
     description = "See all the hottest new deals from all your favourite brands:"
-    num_page_items = 10
 
 
 

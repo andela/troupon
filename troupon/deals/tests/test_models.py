@@ -23,6 +23,7 @@ class DealModelTestCase(TestCase):
                          max_quantity_available=3,
                          latitude=210.025,
                          longitude=250.015,
+                         featured=True,
                          )
 
     def test_can_create_read_update_delete_deal(self):

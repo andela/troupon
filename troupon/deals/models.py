@@ -57,6 +57,7 @@ class Deal(models.Model):
     original_price = models.IntegerField()
     price = models.IntegerField()
     duration = models.IntegerField()
+    quorum = models.IntegerField(blank=True, null=True)
     image = CloudinaryField(
         resource_type='image',
         type='upload',
