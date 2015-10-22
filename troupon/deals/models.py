@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
+from django.core import signals
+from datetime import date
 
 # States in Nigeria
 STATE_CHOICES = [
@@ -140,3 +142,12 @@ class Category(models.Model):
 
     def __str__(self):
         return "{0}".format(self.name)
+
+
+def set_deal_inactive(**kwargs):
+    """Set deal to inactive if the end date set is present date
+    """
+    date_today = date.today()
+    Deal.objects.filter(date_end=date_today.isoformat()).update(active=False)
+
+signals.request_started.connect(set_deal_inactive)
