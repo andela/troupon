@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from .views import DealView, DealWithSlugView, DealCategoryView, DealsView
+from .views import DealView, DealSlugView, DealCategoryView,\
+    CategoryView, DealsView
 
 
 urlpatterns = [
@@ -13,4 +14,7 @@ urlpatterns = [
     url(r'^listings/$',
         DealCategoryView.as_view(),
         name='deal-category-with-slug'),
+    url(r'^categories/$',
+        CategoryView.as_view(),
+        name='deal-categories'),
 ]
