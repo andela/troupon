@@ -3,10 +3,11 @@ from django.core.urlresolvers import reverse
 from deals.models import Deal, Advertiser, Category
 from django.core.files import File
 from deals.views import HomePageView, DealsView, DealView
+from faker import Faker
+import mock
 import os
 import mock
 import cloudinary
-
 
 
 class HomepageViewTestCase(TestCase):
@@ -159,4 +160,20 @@ class DealCategoryViewTestCase(TestCase):
         deal = Deal(**self.deal)
         deal.save()
         response = self.client.get("/deals/listings/?category=books")
+        self.assertEqual(response.status_code, 200)
+
+
+class CategoriesViewTestCase(TestCase):
+
+    def setUp(self):
+        fake = Faker()
+        for _ in range(0, 10):
+            fake_word = fake.word()
+            category = Category(
+                name=str(fake_word),
+                slug=str(fake.slug(unicode(fake_word))))
+            category.save()
+
+    def test_can_view_categories(self):
+        response = self.client.get('/deals/categories/')
         self.assertEqual(response.status_code, 200)
