@@ -5,10 +5,10 @@ from django.http import HttpResponse, Http404
 from django.template import Engine, RequestContext, loader
 from django.core.paginator import Paginator
 from django.core.context_processors import csrf
+import datetime
+import cloudinary
 
 from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES
-
-import cloudinary
 
 
 class DealListBaseView(View):
@@ -24,7 +24,7 @@ class DealListBaseView(View):
 
     # default deal list options as class level vars:
 
-    deals = [] # can be a list or queryset of Deal instances e.g Deal.objects.all()
+    deals = Deal.objects.all()  # can any queryset of Deal instances
     title = "Deals"
     description = ""
     zero_items_message = "Sorry, no deals found!"
@@ -32,10 +32,10 @@ class DealListBaseView(View):
     min_orphan_items = 2
     show_page_num = 1
     pagination_base_url = ""
-    date_filter = { 'choices': EPOCH_CHOICES, 'default': 0 }
+    date_filter = { 'choices': EPOCH_CHOICES, 'default': -1 }
 
         
-    def render_deal_list(self, request, deals, **kwargs):
+    def render_deal_list(self, request, **kwargs):
 
         # update the default options with any specified as kwargs:
         for arg_name in kwargs:
@@ -44,9 +44,12 @@ class DealListBaseView(View):
             except:
                 pass
 
+        # use date filter parameter to filter deals if specified:
+        self.filter_deals_from_params(request)
+
         # paginate deals and get the specified page:
         paginator = Paginator(
-            deals, 
+            self.deals, 
             self.num_page_items,
             self.min_orphan_items,
         )
@@ -87,10 +90,37 @@ class DealListBaseView(View):
         return rendered_template
 
 
-    def get(self, request, *args, **kwargs):
+    def filter_deals_from_params(self, request):
+        """ uses any date filter parameter specified in the query string to filter deals.
+        """
 
+        date_filter_param = request.GET.get('dtf')
+        if not date_filter_param:
+            return
+
+        try:
+            date_filter_param = int(date_filter_param)
+        except:
+            return
+
+        choices = self.date_filter.get('choices', [])
+        if date_filter_param < 0 or date_filter_param >= len(choices):
+            return
+
+        date_filter_delta = choices[date_filter_param][0]
+        if date_filter_delta != -1:
+            filter_date = datetime.date.today() - datetime.timedelta(days=date_filter_delta)
+            self.deals = self.deals.filter(date_last_modified__gt=filter_date)
+        
+        self.date_filter['default'] = date_filter_delta
+
+
+    def get(self, request, *args, **kwargs):
+        """ returns a full featured deals-listing page s2howing
+            the deals set in 'deals' class variable.
+        """
         context = {
-            'rendered_deal_list': self.render_deal_list(request, self.deals),
+            'rendered_deal_list': self.render_deal_list(request),
             'search_options': {
                 'query': "",
                 'states': { 'choices': STATE_CHOICES, 'default': 25 },
@@ -121,9 +151,10 @@ class HomePageView(DealListBaseView):
         list_description = "Checkout the hottest new deals from all your favourite brands:"
 
         # get the rendered list of deals
+
         rendered_deal_list = self.render_deal_list(
-            request, 
-            latest_deals, 
+            request,
+            deals=latest_deals,
             title=list_title, 
             description=list_description,
             pagination_base_url=reverse('deals'),
@@ -183,6 +214,7 @@ class DealView(View):
         context = RequestContext(self.request, deal)
         return HttpResponse(template.render(context))
 
+
     def post(self, request):
         """This handles creation of deals
         """
@@ -194,6 +226,7 @@ class DealView(View):
             return redirect('/deals/{0}/'.format(deal.id))
         except:
             return redirect('/deals/')
+
 
     def upload(self, file, title):
         return cloudinary.uploader.upload(

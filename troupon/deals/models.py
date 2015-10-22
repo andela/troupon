@@ -28,10 +28,11 @@ CURRENCY_CHOICES = [
 
 # date sorting epochs:
 EPOCH_CHOICES = [
+    (1, "1 day"),
     (7, "Last 7 Days"),
-    (14, "2 Weeks"),
+    (14, "Last 2 Weeks"),
     (30, "1 Month"),
-    (0, "Show All"),
+    (-1, "Show All"),
 ]
 
 
@@ -95,8 +96,6 @@ class Deal(models.Model):
             crop="fit",
         )
         return image_url
-    
-
     
 
     def __str__(self):
