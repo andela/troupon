@@ -2,6 +2,7 @@ from django.test import TestCase, RequestFactory, Client
 from django.core.urlresolvers import reverse
 from deals.models import Deal, Advertiser, Category
 from django.core.files import File
+from django.template.defaultfilters import slugify
 from deals.views import HomePageView, DealsView, DealView
 from faker import Faker
 import mock
@@ -81,14 +82,13 @@ class DealViewTestCase(TestCase):
                          advertiser=advertiser,
                          address="14, Alara Street",
                          state=14,
+                         slug=slugify("Deal #1"),
                          category=category,
                          original_price=1500,
                          price=750,
                          duration=15,
                          active=1,
                          max_quantity_available=3,
-                         latitude=210.025,
-                         longitude=250.015,
                          )
 
     def test_deal404_and_single_deal_view(self):
@@ -127,13 +127,13 @@ class DealSlugViewTestCase(TestCase):
             disclaimer="Deal at your own risk", advertiser=advertiser,
             address="14, Alara Street", state=14, category=category,
             original_price=1500, price=750, duration=15,
-            active=1, max_quantity_available=3, latitude=210.025,
-            longitude=250.015, slug="deal"
+            active=1, max_quantity_available=3,
         )
 
     def test_can_view_deal_by_slug(self):
         deal = Deal(**self.deal)
         deal.save()
+        import pdb; pdb.set_trace()
         response = self.client.get(
             "/deals/{0}/{1}/".format(deal.id, deal.slug)
         )
@@ -152,8 +152,7 @@ class DealCategoryViewTestCase(TestCase):
             disclaimer="Deal at your own risk", advertiser=advertiser,
             address="14, Alara Street", state=14, category=category,
             original_price=1500, price=750, duration=15,
-            active=1, max_quantity_available=3, latitude=210.025,
-            longitude=250.015,
+            active=1, max_quantity_available=3,
         )
 
     def test_can_view_deals_by_category(self):

@@ -50,7 +50,7 @@ class Deal(models.Model):
                              null=False,
                              blank=False,
                              default='')
-    slug = models.SlugField()
+    slug = models.SlugField(null=True, default='')
     description = models.TextField(blank=True, default='')
     disclaimer = models.TextField(blank=True, default='')
     advertiser = models.ForeignKey('Advertiser')
@@ -65,13 +65,11 @@ class Deal(models.Model):
     image = CloudinaryField(
         resource_type='image',
         type='upload',
-        blank=True, 
+        blank=True,
         default="img/photo_default.png"
     )
     active = models.BooleanField(default=False)
     max_quantity_available = models.IntegerField()
-    latitude = models.FloatField()
-    longitude = models.FloatField()
     date_created = models.DateField(auto_now_add=True)
     date_last_modified = models.DateField(auto_now=True)
     date_end = models.DateField(blank=True, null=True)
@@ -99,7 +97,6 @@ class Deal(models.Model):
             crop="fit",
         )
         return image_url
-    
 
     def __str__(self):
         return "{0}, {1}, {2}".format(self.id,

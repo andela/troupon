@@ -21,8 +21,6 @@ class DealModelTestCase(TestCase):
                          duration=15,
                          active=1,
                          max_quantity_available=3,
-                         latitude=210.025,
-                         longitude=250.015,
                          featured=True,
                          )
 
