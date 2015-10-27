@@ -58,3 +58,19 @@ target/
 
 # virtualenv
 venv/
+.idea/
+
+# environment files
+.env.py
+
+# CSS preprocessor
+*.scss
+troupon/static/scss/
+troupon/prepros.cfg
+
+# bower
+troupon/static/bower_components/
+
+# staticfiles
+#troupon/staticfiles/
+troupon/staticfiles/

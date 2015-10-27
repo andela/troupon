@@ -1,0 +1,17 @@
+machine:
+  python:
+    version: 2.7.5
+  environment:
+    DJANGO_SETTINGS_MODULE: troupon.settings.test
+dependencies:
+  pre:
+    - pip install --upgrade pip
+    - pip install --upgrade virtualenv
+test:
+  override:
+    - python troupon/manage.py test troupon --settings=troupon.settings.test
+deployment:
+  staging:
+    branch: develop
+    heroku:
+      appname: troupon-staging
