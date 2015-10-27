@@ -4,6 +4,7 @@ from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
 from django.core import signals
 from datetime import date
+from random import randint
 
 # States in Nigeria
 STATE_CHOICES = [
@@ -88,6 +89,11 @@ class Deal(models.Model):
         )
         return image_url
 
+    def state_name(self):
+        """Returns the state name
+        """
+        return dict(STATE_CHOICES).get(self.state)
+
     def slideshow_image_url(self):
         """Returns a slide image URL
         """
@@ -139,6 +145,12 @@ class Category(models.Model):
 
     def __str__(self):
         return "{0}".format(self.name)
+
+    def rand_photo(self):
+        """Retrieve random photo of deal under this category
+        """
+        deals = Deal.objects.filter(category=self.id)
+        return deals[randint(0, len(deals)-1)].image
 
 
 def set_deal_inactive(**kwargs):
