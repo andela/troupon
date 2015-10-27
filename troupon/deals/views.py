@@ -131,7 +131,7 @@ class DealSlugView(View):
         return deal.slug == self.deal_slug
 
 
-class DealCategoryView(View):
+class DealCategoryView(DealListBaseView):
     """ Respond to routes to deal categories using slug
     """
     def get(self, *args, **kwargs):
@@ -145,17 +145,14 @@ class DealCategoryView(View):
         deals = Deal.objects.filter(id=category.id)
 
         engine = Engine.get_default()
-        template = engine.get_template('deals/list.html')
+        template = engine.get_template('deals/deal_list_base.html')
         context = RequestContext(self.request, {'deals': deals})
         return HttpResponse(template.render(context))
 
 
-class CategoryView(TemplateView):
+class CategoryView(DealListBaseView):
     """ List all categories
     """
-    template_name = "deals/categories.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(CategoryView, self).get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
+    deals = Category.objects.all()
+    title = "Category Listing for All Available Deals"
