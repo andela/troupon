@@ -11,6 +11,7 @@
     <div class="row">
         {% for category in categories %}
             <div class="col-sm-4">
+                <img src="{{ category.rand_photo.url }}" />
                 <a href="{% url 'deal-category-with-slug' %}?category={{ category.slug }}">{{ category.name }}</a>
             </div>
         {% endfor %}
