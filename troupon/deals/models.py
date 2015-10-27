@@ -94,6 +94,11 @@ class Deal(models.Model):
         """
         return dict(STATE_CHOICES).get(self.state)
 
+    def state_name(self):
+        """Returns the state name
+        """
+        return dict(STATE_CHOICES).get(self.state)
+
     def slideshow_image_url(self):
         """Returns a slide image URL
         """
