@@ -91,9 +91,10 @@ class UserSigninView(View):
             username = self.request.POST.get('username', '')
             password = self.request.POST.get('password', '')
             csrfmiddlewaretoken = self.request.POST.get('csrfmiddlewaretoken', '')
+            #import pdb; pdb.set_trace()
             try:
                 validate_email(username)
-                user = User.objects.get(email=username)
+                user = User.objects.get(email__exact=username)
                 username = user.username
             except ValidationError:
                 pass
@@ -401,8 +402,16 @@ class UserChangePassword(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView)
     def post(self, request, **kwargs):
 
         username = self.kwargs.get('username')
+        #import pdb; pdb.set_trace()
         password1 = request.POST.get('password1','')
         password2 = request.POST.get('password2','')
+
+        if password1 and password2:
+            if password1 == password2:
+                user = User.objects.get(username__exact=username)
+                user.set_password(password1)
+                user.save()
+                return HttpResponseRedirect('/')
 
 
         if not password1 and not password2:
@@ -429,12 +438,6 @@ class UserChangePassword(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView)
             empty = "Passwords should match or field should not be left empyt"
             messages.add_message(request, messages.INFO,empty )
             return render(request, self.template_name, context_var)
-
-        if password1 == password2:
-            user = User.objects.get(username=username)
-            user.set_password('password1')
-            user.save()
-            return HttpResponseRedirect('/')
 
 
 

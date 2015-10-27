@@ -25,10 +25,11 @@
 <div class = "row">
     
     <div class="col-md-2">
-        <a href = "#">Profile</a><br>
+        <a href = "#" id ="profile">Profile</a><br>
         <a href = "#">Edit Profile</a><br>
-        <a href="#modal-changepassword" data-toggle="modal">Change Password</a><br>
         <a href = "">History</a><br>
+
+        <a href="#" class="modal-toggle" data-modal-target="#modal-change-password">Change Password</a><br>
     </div>
 
     <div class="col-md-6">
@@ -42,7 +43,7 @@
             <p> Interest:  {{ profile.interest }} </p>
         </div>
 
-        <form action="/account/profile/user/{{ request.user.username }}" method="POST" id="profile-section">{% csrf_token %}
+        <form action="/account/profile/user/{{ request.user.username }}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
             <div class="form-group col-lg-12">
                 <label>Location: </label>
                 <select name="user_state" placeholder="Ikeja.Lagos">
@@ -71,30 +72,11 @@
             </div>
         </form>
         
-        <div class="modal fade" id="modal-changepassword" role="dialog" >
-            <div class="modal-dialog" role="document" >
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <div class="col-xs-12 col-sm-12" id="changepassword-section">
-                        <h1>Change Password</h1>
-
-                        <form method="POST" action="/account/changepassword/{{ request.user.username }}" >{{ csrf_token }}
-                        <p>Password:  <input type="password" name="password1"></p>
-                        <p>Confirm Password: <input type="password" name="password2"></p>
-                        <p><input type="submit" value = 
-                        'Change Password'></p>
-                        </form>
-
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>           
 </div>
 
 {% endblock %}
 
-{% block extended_js %} 
-   <script src="{% static 'js/profile_scripts.js' %}"></script>
-{% endblock extended_js %}
+{% block extended_modals %}
+        {% include "account/modal_change_password.html" %}
+{% endblock extended_modals %}
