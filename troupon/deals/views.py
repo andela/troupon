@@ -38,7 +38,7 @@ class HomePageView(DealListBaseView):
             deals=latest_deals,
             title=list_title, 
             description=list_description,
-            pagination_base_url=reverse('deals'),
+            pagination_base_url=reverse('deals')
         )
         context = {
             'search_options': {
@@ -49,7 +49,7 @@ class HomePageView(DealListBaseView):
             'featured_deals': featured_deals,
             'rendered_deal_list': rendered_deal_list
         }
-        return render(request, 'deals/index.html', context)
+        return render(request,'deals/index.html', context)
 
 
 

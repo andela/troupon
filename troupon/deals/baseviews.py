@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import render
 from django.views.generic import View
 from django.template import RequestContext, loader
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from deals.models import Deal, STATE_CHOICES, EPOCH_CHOICES
 
@@ -33,6 +33,8 @@ class DealListBaseView(View):
 
         
     def render_deal_list(self, request, **kwargs):
+        """ Takes a queryset of of deal
+        """
 
         # update the default options with any specified as kwargs:
         for arg_name in kwargs:
@@ -113,7 +115,7 @@ class DealListBaseView(View):
 
 
     def get(self, request, *args, **kwargs):
-        """ returns a full featured deals-listing page s2howing
+        """ returns a full featured deals-listing page showing
             the deals set in 'deals' class variable.
         """
         context = {
