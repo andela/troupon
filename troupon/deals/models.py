@@ -146,7 +146,7 @@ class Category(models.Model):
     def __str__(self):
         return "{0}".format(self.name)
 
-    def rand_photo(self):
+    def image(self):
         """Retrieve random photo of deal under this category
         """
         deals = Deal.objects.filter(category=self.id)
