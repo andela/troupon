@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'account',
     'allaccess',
     'djangobower',
+    'django_nose',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -145,3 +146,5 @@ SITE_IMAGES = {
     'thumbnail_image_width': 500,
     'thumbnail_image_height': 500
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
