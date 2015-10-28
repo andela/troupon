@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^account/', include('account.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^deals/', include('deals.urls')),
-    url(r'^$', deals.views.HomePage.as_view(), name='homepage'),
+    url(r'^$', deals.views.HomePageView.as_view(), name='homepage'),
 ]

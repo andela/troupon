@@ -1,16 +1,17 @@
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory,Client
 from django.core.urlresolvers import reverse
 from deals.models import Deal, Advertiser, Category
 from django.core.files import File
 import mock
 import os
 import cloudinary
-from deals.views import DealView
+from deals.views import HomePageView, DealsView, DealView
+
 
 class HomepageViewTestCase(TestCase):
     """docstring for HomepageRouteTests"""
 
-    def test_homepage_returns_200(self,):
+    def test_homepage_returns_200(self):
         """
         The homepage should return a code of 200
         """
@@ -25,6 +26,40 @@ class HomepageViewTestCase(TestCase):
 
         response = self.client.get(reverse('homepage'))
         self.assertEqual(response.status_code, 200)
+
+
+class HomepageRouteTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_get_homepage_route_returns_200(self):
+        response = self.client.get(reverse('homepage'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_homepage_route_resolves_to_correct_view(self):
+        response = self.client.get(reverse('homepage'))
+        self.assertEqual(
+            response.resolver_match.func.__name__,
+            HomePageView.as_view().__name__
+        )
+
+
+class DealsRouteTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_get_deals_route_returns_200(self):
+        response = self.client.get(reverse('deals'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_deals_route_resolves_to_correct_view(self):
+        response = self.client.get(reverse('deals'))
+        self.assertEqual(
+            response.resolver_match.func.__name__,
+            DealsView.as_view().__name__
+        )
 
 
 class SingleDealViewTestCase(TestCase):

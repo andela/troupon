@@ -1,0 +1,53 @@
+/* ==========================================================================
+Homepage styles:
+========================================================================== */
+main > section.row {
+  padding: 30px 0px 0px;
+}
+
+main > section.row > [class*='col-'] {
+  padding: 0px;
+}
+
+main #banner-section .gallery-wrapper {
+  margin: 20px 0px;
+  width: 100%;
+  height: 350px;
+}
+
+main #banner-section .flickity-gallery .gallery-cell {
+  width: auto;
+  margin: 0 0.5px;
+}
+
+main #banner-section .flickity-gallery .flickity-page-dots {
+  position: absolute;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: 21px;
+  top: -35px;
+  right: 0px;
+}
+
+@media (max-width: 768px) {
+  main #banner-section .gallery-wrapper {
+    margin-top: -20px;
+    margin-bottom: 40px;
+    height: 300px;
+  }
+  main #banner-section .flickity-gallery .flickity-page-dots {
+    top: 104%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 992px) {
+  main #banner-section .flickity-gallery .gallery-cell {
+    width: auto;
+    margin: 0 0.5px;
+  }
+}

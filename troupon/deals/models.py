@@ -26,6 +26,15 @@ CURRENCY_CHOICES = [
     (2, '$'),
 ]
 
+# date sorting epochs:
+EPOCH_CHOICES = [
+    (1, "1 day"),
+    (7, "Last 7 Days"),
+    (14, "Last 2 Weeks"),
+    (30, "1 Month"),
+    (-1, "Show All"),
+]
+
 
 class Deal(models.Model):
     """Deals within the troupon system are represented by this
@@ -43,42 +52,51 @@ class Deal(models.Model):
     disclaimer = models.TextField(blank=True, default='')
     advertiser = models.ForeignKey('Advertiser')
     address = models.CharField(max_length=100, blank=False, default='')
-    state = models.SmallIntegerField(
-        choices=STATE_CHOICES,
-        default=25)
-    currency = models.SmallIntegerField(
-        choices=CURRENCY_CHOICES,
-        default=1)
+    state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
+    currency = models.SmallIntegerField(choices=CURRENCY_CHOICES, default=1)
     category = models.ForeignKey('Category')
     original_price = models.IntegerField()
     price = models.IntegerField()
     duration = models.IntegerField()
-    image = CloudinaryField(blank=True, default="img/photo_default.png")
+    quorum = models.IntegerField(blank=True, null=True)
+    image = CloudinaryField(
+        resource_type='image',
+        type='upload',
+        blank=True, 
+        default="img/photo_default.png"
+    )
     active = models.BooleanField(default=False)
     max_quantity_available = models.IntegerField()
     latitude = models.FloatField()
     longitude = models.FloatField()
     date_created = models.DateField(auto_now_add=True)
     date_last_modified = models.DateField(auto_now=True)
-    date_end = models.DateField(default=timezone.now())
+    date_end = models.DateField(blank=True, null=True)
+    featured = models.BooleanField(default=False)
+
+    def currency_symbol(self):
+        return CURRENCY_CHOICES[self.currency - 1][1]
 
     def thumbnail_image_url(self):
         """Returns a thumbnail image URL
         """
-        return self.image.url(
+        image_url = self.image.build_url(
             width=SITE_IMAGES['thumbnail_image_width'],
             height=SITE_IMAGES['thumbnail_image_height'],
-            crop="fill"
+            crop="fit",
         )
+        return image_url
 
     def slideshow_image_url(self):
         """Returns a slide image URL
         """
-        return self.image.url(
+        image_url = self.image.build_url(
             width=SITE_IMAGES['slideshow_image_width'],
             height=SITE_IMAGES['slideshow_image_height'],
-            crop="fill"
+            crop="fit",
         )
+        return image_url
+    
 
     def __str__(self):
         return "{0}, {1}, {2}".format(self.id,

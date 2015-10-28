@@ -1,24 +1,68 @@
 from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
-from deals.models import Deal, STATE_CHOICES
-from django.template import Engine, RequestContext
+from django.template import Engine, RequestContext, loader
+from django.core.paginator import Paginator
+from django.core.context_processors import csrf
+import datetime
 import cloudinary
 
+from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES
+from deals.baseviews import DealListBaseView
 
-# Create your views here.
-class HomePage(TemplateView):
-    """class that handles display of the homepage"""
 
-    template_name = "deals/index.html"
-    context_var = {
-        'show_subscribe': False,
-        'show_search': True,
-        'states': {'choices': STATE_CHOICES,  'default': 25}
-    }
+class HomePageView(DealListBaseView):
+    """ View class that handles display of the homepage. 
+        Overrides the base get method, but still uses the base render_deal_list method
+        to get the rendered latest deals listing.
+    """
 
-    def get(self, request):
-        return render(request, self.template_name, self.context_var)
+    def get(self, request, *args, **kwargs):
+
+        # get the popular categories:
+        popular_categories = Category.objects.all()[:12]
+
+        # get the featured deals:
+        featured_deals = Deal.objects.filter(featured=True).order_by('pk')[:5]
+
+        # get the latest deals i.e. sorted by latest date:
+        latest_deals = Deal.objects.filter(active=True).order_by('date_last_modified')
+        list_title = "Latest Deals"
+        list_description = "Checkout the hottest new deals from all your favourite brands:"
+
+        # get the rendered list of deals
+
+        rendered_deal_list = self.render_deal_list(
+            request,
+            deals=latest_deals,
+            title=list_title, 
+            description=list_description,
+            pagination_base_url=reverse('deals')
+        )
+        context = {
+            'search_options': {
+                'query': "",
+                'states': { 'choices': STATE_CHOICES, 'default': 25 },
+            },
+            'popular_categories': popular_categories,
+            'featured_deals': featured_deals,
+            'rendered_deal_list': rendered_deal_list
+        }
+        return render(request,'deals/index.html', context)
+
+
+
+class DealsView(DealListBaseView):
+    """ View class that handles display of the deals page. 
+        Simply configures the options and makes use of the base methods 
+        to render return latest deals listing.
+    """
+
+    deals = Deal.objects.filter(active=True).order_by('date_last_modified')
+    title = "Latest Deals"
+    description = "See all the hottest new deals from all your favourite brands:"
+
 
 
 class DealView(View):
@@ -49,6 +93,7 @@ class DealView(View):
         context = RequestContext(self.request, deal)
         return HttpResponse(template.render(context))
 
+
     def post(self, request):
         """This handles creation of deals
         """
@@ -60,6 +105,7 @@ class DealView(View):
             return redirect('/deals/{0}/'.format(deal.id))
         except:
             return redirect('/deals/')
+
 
     def upload(self, file, title):
         return cloudinary.uploader.upload(
