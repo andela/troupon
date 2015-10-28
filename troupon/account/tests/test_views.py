@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from mock import patch
+import socket
 
 
 class UserSignInViewTestCase(TestCase):
@@ -93,6 +94,13 @@ class UserRegisterTestCase(LiveServerTestCase):
     '''
     End to End testing of user registration and signin pages
     '''
+    @classmethod
+    def setUpClass(cls):
+        """
+        Setup the test driver
+        """
+        cls.driver = webdriver.PhantomJS()
+        super(UserRegisterTestCase, cls).setUpClass()
 
     def setUp(self,):
         """
@@ -100,8 +108,10 @@ class UserRegisterTestCase(LiveServerTestCase):
         """
         User.objects.create_superuser(
             'admin', 'admin@example.com', 'admin')
-        self.driver = webdriver.PhantomJS()
+        self.driver = UserRegisterTestCase.driver
         super(UserRegisterTestCase, self).setUp()
+
+        # socket.setdefaulttimeout(10)
 
     def test_signin_user(self,):
         """
@@ -125,7 +135,7 @@ class UserRegisterTestCase(LiveServerTestCase):
         url = "%s%s" % (self.live_server_url, reverse('signin'))
         self.driver.get(url)
         self.driver.find_element_by_id("user_signup_link").click()
-        block = WebDriverWait(self.driver, 10)
+        block = WebDriverWait(self.driver, 60)
         # by = self.driver.find_element_by_class_name('bs-example-modal-lg')
         block.until(
             EC.visibility_of_element_located(
@@ -145,5 +155,9 @@ class UserRegisterTestCase(LiveServerTestCase):
         """
         Close the browser window
         """
-        self.driver.quit()
         super(UserRegisterTestCase, self).tearDown()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super(UserRegisterTestCase, cls).tearDownClass()
