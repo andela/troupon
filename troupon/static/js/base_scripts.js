@@ -32,7 +32,7 @@ $(document).ready(function() {
         modalsCloseBtn = $('#modals-close'),
         openedModal = null;
 
-    const ESC = '27';
+    var ESC = '27';
 
     
     function openModal(modalSelector){
@@ -148,7 +148,7 @@ $(document).ready(function() {
     //----------------------------------------
     
     // initialize Packery on the grids:
-    var $grid = $('.packery-grid')
+    var $grid = $('.packery-grid');
 
     $grid.packery({
 
@@ -171,7 +171,7 @@ $(document).ready(function() {
 
     var $dateFilterSelect = $('.section-heading .date-filter-select');
     $dateFilterSelect.change(function(event){
-        window.location.search = "?" +  "dtf=" + event.currentTarget.selectedIndex + "&pg=1";
+        window.location.search = '?dtf=' + event.currentTarget.selectedIndex + '&pg=1';
     });
 
 });
