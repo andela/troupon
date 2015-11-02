@@ -61,16 +61,19 @@ venv/
 .idea/
 
 # environment files
-.env.py
+.env.*
 
 # CSS preprocessor
 *.scss
 troupon/static/scss/
 troupon/prepros.cfg
 
-# bower
-troupon/static/bower_components/
+# Mac OS Desktop Store
+*/.DS_Store
+.DS_Store
 
 # staticfiles
 #troupon/staticfiles/
 troupon/staticfiles/
+# database migrations
+troupon/*/migrations/*

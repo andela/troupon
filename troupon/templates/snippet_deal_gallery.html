@@ -1,0 +1,12 @@
+
+<div class="gallery-wrapper card">
+    <div class="flickity-gallery">
+        {% for deal in deals %}
+            <div class="gallery-cell">
+                <a class="cell-image-wrapper" href="{% url 'deal' deal_id=deal.pk %}">
+                    <img src="{{ deal.slideshow_image_url }}">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

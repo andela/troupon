@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
 from django.template import RequestContext, loader, Template, Engine
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -63,7 +63,7 @@ class UserSigninView(View):
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
-            t = self.engine.from_string('{{msg.content}}')
+            t = self.engine.get_template('account/signin.html')
             # Set result in RequestContext
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
@@ -72,7 +72,7 @@ class UserSigninView(View):
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
-            t = self.engine.from_string('{{msg.content}}')
+            t = self.engine.get_template('account/signin.html')
             # Set result in RequestContext
             c = RequestContext(self.request, data)
             return HttpResponse(t.render(c))
@@ -121,7 +121,7 @@ class UserSigninView(View):
                 c = RequestContext(self.request, data)
                 return HttpResponse(t.render(c))
 
-    def get_referer_view(self, request, default=None):
+    def get_referer_view(self, request, default='/'):
         '''
         Return the referer view of the current request
         Example:
@@ -145,6 +145,16 @@ class UserSigninView(View):
         return referer
 
 
+class UserSignoutView(View):
+    """Logout user from session.
+    """
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return HttpResponseRedirect(
+            reverse('homepage'),
+            'Redirect to home page')
+
+
 class ForgotPasswordView(View):
 
     def get(self, request, *args, **kwargs):
@@ -156,7 +166,7 @@ class ForgotPasswordView(View):
         return render(request, 'account/forgot_password.html', context)
 
     def post(self, request, *args, **kwargs):
-        email_form = EmailForm(request.POST,auto_id=True)
+        email_form = EmailForm(request.POST, auto_id=True)
         if email_form.is_valid():
             try:
                 # get the account for that email if it exists:
@@ -165,16 +175,26 @@ class ForgotPasswordView(View):
 
                 # generate a recovery hash url for that account:
                 recovery_hash = Hasher.gen_hash(registered_user)
-                recovery_hash_url = request.build_absolute_uri(reverse('account_reset_password', kwargs={'recovery_hash': recovery_hash}))
-                
+                recovery_hash_url = request.build_absolute_uri(
+                    reverse(
+                        'account_reset_password',
+                        kwargs={'recovery_hash': recovery_hash}
+                    ))
+
                 # compose the email:
-                recovery_email_context = RequestContext(request, {'recovery_hash_url': recovery_hash_url})
-                recovery_email =  Mailgunner.compose(
-                    sender = 'Troupon <troupon@andela.com>',
-                    reciepient = registered_user.email,
-                    subject = 'Troupon: Password Recovery',
-                    html = loader.get_template('account/forgot_password_recovery_email.html').render(recovery_email_context),
-                    text = loader.get_template('account/forgot_password_recovery_email.txt').render(recovery_email_context),
+                recovery_email_context = RequestContext(
+                    request,
+                    {'recovery_hash_url': recovery_hash_url})
+                recovery_email = Mailgunner.compose(
+                    sender='Troupon <troupon@andela.com>',
+                    recipient=registered_user.email,
+                    subject='Troupon: Password Recovery',
+                    html=loader.get_template(
+                        'account/forgot_password_recovery_email.html'
+                        ).render(recovery_email_context),
+                    text=loader.get_template(
+                        'account/forgot_password_recovery_email.txt'
+                        ).render(recovery_email_context),
                 )
                 # send it and get the request status:
                 email_status = Mailgunner.send(recovery_email)
@@ -185,26 +205,32 @@ class ForgotPasswordView(View):
                     'registered_user':  registered_user,
                     'recovery_mail_status': email_status,
                 }
-                return render(request, 'account/forgot_password_recovery_status.html', context)
-            
+                return render(
+                    request,
+                    'account/forgot_password_recovery_status.html',
+                    context)
+
             except ObjectDoesNotExist:
                 # set an error message:
-                messages.add_message(request, messages.ERROR, 'The email you entered does not belong to a registered user!')
+                messages.add_message(
+                    request, messages.ERROR,
+                    'The email you entered does not \
+                    belong to a registered user!')
 
         context = {
             'page_title': 'Forgot Password',
-            'email_form': email_form, 
+            'email_form': email_form,
         }
         context.update(csrf(request))
         return render(request, 'account/forgot_password.html', context)
 
 
 class ResetPasswordView(View):
-    
+
     def get(self, request, *args, **kwargs):
         # get the recovery_hash captured in url
         recovery_hash = kwargs['recovery_hash']
-        
+
         # reverse the hash to get the user (auto-authentication)
         user = Hasher.reverse_hash(recovery_hash)
 
@@ -221,23 +247,27 @@ class ResetPasswordView(View):
                 context.update(csrf(request))
                 return render(request, 'account/reset_password.html', context)
             else:
-                # set an 'account not activated' error message and return forbidden response:
-                messages.add_message(request, messages.ERROR, 'Account not activated!')
+                # set an 'account not activated' error message
+                # and return forbidden response:
+                messages.add_message(
+                    request, messages.ERROR,
+                    'Account not activated!')
                 return HttpResponse(
                     'Account not activated!',
-                    status_code = 403,
-                    reason_phrase = 'You are not allowed to view this content because your account is not activated!'
+                    status_code=403,
+                    reason_phrase='You are not allowed to view this content \
+                    because your account is not activated!'
                 )
         else:
             # raise 404 when the hash doesn't return a user:
             raise Http404("/User does not exist")
 
     def post(self, request, *args, **kwargs):
-        reset_password_form = ResetPasswordForm(request.POST,auto_id=True)
+        reset_password_form = ResetPasswordForm(request.POST, auto_id=True)
         if reset_password_form.is_valid():
             try:
                 # get the recovery_user from the session:
-                recovery_user_pk = request.session['recovery_user_pk'] 
+                recovery_user_pk = request.session['recovery_user_pk']
                 user = User.objects.get(pk=recovery_user_pk)
 
                 # change the user's password to the new password:
@@ -246,43 +276,47 @@ class ResetPasswordView(View):
                 user.save()
 
                 # inform the user thru a flash message:
-                messages.add_message(request, messages.INFO, 'Your password was changed successfully!')
+                messages.add_message(
+                    request, messages.INFO,
+                    'Your password was changed successfully!')
 
                 # redirect the user to the sign in:
                 return redirect(reverse('signin'))
-            
+
             except ObjectDoesNotExist:
                 # set an error message:
-                messages.add_message(request, messages.ERROR, 'You are not allowed to perform this action!')
-                return HttpResponse( 'Action not allowed!', status_code = 403 )
+                messages.add_message(
+                    request, messages.ERROR,
+                    'You are not allowed to perform this action!')
+                return HttpResponse('Action not allowed!', status_code=403)
 
         context = {
             'page_title': 'Reset Password',
-            'reset_password_form': reset_password_form, 
+            'reset_password_form': reset_password_form,
         }
         context.update(csrf(request))
         return render(request, 'account/reset_password.html', context)
 
 
 class UserSignupView(View):
-    
-    #template_name = 'account/signup.html'
+
+    template_name = 'account/signup.html'
 
     def get(self, request, *args, **kwargs):
         args = {}
         args.update(csrf(request))
         return render(request, 'account/signup.html', args)
 
-
-    def post(self,request):
+    def post(self, request):
         '''
-        Raw data posted from form is recieved here,bound to form 
+        Raw data posted from form is recieved here,bound to form
         as dictionary and sent to unrendered django form for validation.
         '''         
 
         usersignupform = UserSignupForm(request.POST)
         if usersignupform.is_valid():          
             print ('form is valid')
+
             usersignupform.save()
 
             #get the user email address

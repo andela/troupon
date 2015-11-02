@@ -1,6 +1,7 @@
 from django.test import TestCase
 from deals.models import Deal, Advertiser, Category
 
+
 class DealModelTestCase(TestCase):
 
     def setUp(self):
@@ -12,16 +13,17 @@ class DealModelTestCase(TestCase):
                          description="Deal some...deal all!",
                          disclaimer="Deal at your own risk",
                          advertiser=advertiser,
-                         deal_address="14, Alara Street",
-                         deal_state=14,
+                         address="14, Alara Street",
+                         state=14,
                          category=category,
                          original_price=1500,
-                         deal_price=750,
-                         deal_duration=15,
-                         deal_active=1,
+                         price=750,
+                         duration=15,
+                         active=1,
                          max_quantity_available=3,
                          latitude=210.025,
                          longitude=250.015,
+                         featured=True,
                          )
 
     def test_can_create_read_update_delete_deal(self):

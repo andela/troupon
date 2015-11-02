@@ -7,11 +7,22 @@ dependencies:
   pre:
     - pip install --upgrade pip
     - pip install --upgrade virtualenv
+    - npm install bower
 test:
   override:
-    - python troupon/manage.py test troupon --settings=troupon.settings.test
+    - python troupon/manage.py bower install --settings=troupon.settings.test
+    - python troupon/manage.py collectstatic --noinput --settings=troupon.settings.test
+    - python troupon/manage.py makemigrations
+    - python troupon/manage.py migrate
+    - python troupon/manage.py test troupon --noinput --settings=troupon.settings.test
 deployment:
   staging:
     branch: develop
-    heroku:
-      appname: troupon-staging
+    commands:
+      - git push -f git@heroku.com:troupon-staging.git $CIRCLE_SHA1:master
+      - heroku run python troupon/manage.py collectstatic --noinput --settings=troupon.settings --app troupon-staging
+      - heroku run python troupon/manage.py makemigrations --settings=troupon.settings --app troupon-staging
+      - heroku run python troupon/manage.py migrate auth --noinput --settings=troupon.settings --app troupon-staging
+      - heroku run python troupon/manage.py migrate --settings=troupon.settings --app troupon-staging
+      - heroku run python troupon/manage.py syncdb --noinput --settings=troupon.settings --app troupon-staging
+      - heroku ps:scale web=1 --app troupon-staging

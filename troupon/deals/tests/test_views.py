@@ -7,11 +7,19 @@ from django.test import LiveServerTestCase
 class HomepageViewTests(LiveServerTestCase):
     """runs functional tests for the homepage"""
 
+    @classmethod
+    def setUpClass(cls):
+        """
+        Setup the test driver
+        """
+        cls.driver = webdriver.PhantomJS()
+        super(HomepageViewTests, cls).setUpClass()
+
     def setUp(self,):
         """
         Setup the test driver
         """
-        self.driver = webdriver.PhantomJS()
+        self.driver = HomepageViewTests.driver
         super(HomepageViewTests, self).setUp()
 
     def test_title(self,):
@@ -25,7 +33,7 @@ class HomepageViewTests(LiveServerTestCase):
         """
         Checks if newsletter form is present on homepage
         """
-        self.driver.get("%s" %(self.live_server_url))
+        self.driver.get("%s" % (self.live_server_url))
         self.assertTrue("driver.find_element_by_id('subscriberEmail')")
 
     def test_about_us_present(self,):
@@ -40,8 +48,13 @@ class HomepageViewTests(LiveServerTestCase):
         """
         Close the browser window
         """
-        self.driver.quit()
+        self.driver.quit() 
         super(HomepageViewTests, self).tearDown()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super(HomepageViewTests, cls).tearDownClass()
 
 if __name__ == "__main__":
     unittest.main()
