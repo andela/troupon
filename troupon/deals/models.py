@@ -51,7 +51,7 @@ class Deal(models.Model):
                              null=False,
                              blank=False,
                              default='')
-    slug = models.SlugField(null=True, default='')
+    slug = models.SlugField(blank=True)
     description = models.TextField(blank=True, default='')
     disclaimer = models.TextField(blank=True, default='')
     advertiser = models.ForeignKey('Advertiser')
@@ -141,7 +141,7 @@ class Category(models.Model):
                             null=False,
                             blank=False,
                             default='')
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True)
 
     def __str__(self):
         return "{0}".format(self.name)
