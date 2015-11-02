@@ -8,7 +8,7 @@
     width: 100%;
 }
 .infix {
-    padding: 25px 30px 15px 0px;
+    padding: 5px 30px 0px 0px;
     overflow: hidden;
 }
 
@@ -18,4 +18,16 @@
 
 .second.row{
     margin: 45px 0px;
+}
+.infix-on-top {
+    padding: 0px 30px 0px 0px;
+}
+.directions a {
+    text-decoration: underline;
+}
+.deal-price strike{
+    margin-top: 10px;
+    display: block;
+    font-size: 0.8em;
+    font-weight: 100;
 }
