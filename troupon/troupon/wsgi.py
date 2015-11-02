@@ -17,5 +17,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "troupon.settings")
 
 from whitenoise.django import DjangoWhiteNoise
 
+
 application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
