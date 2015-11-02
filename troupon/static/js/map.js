@@ -1,4 +1,3 @@
-<script type="text/javascript">
     $('document').ready(function(){
         MapMaker = {
             geocoder: '',
@@ -38,4 +37,3 @@
 
         MapMaker.initialize();
     });
-</script>
