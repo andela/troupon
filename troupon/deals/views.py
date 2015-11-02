@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, Http404
+from django.template import Engine, RequestContext
 from deals.models import Category, Deal, STATE_CHOICES
 from deals.baseviews import DealListBaseView
 import cloudinary
