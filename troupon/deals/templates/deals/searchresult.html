@@ -1,36 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block main%}
-{% if cities %}
-    {% for city in cities.object_list %}
-        <a href="">{{ city.title }}</a>
-        <a href="">{{ city.description}}</a>
+{% block extended_css %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" />
+{% endblock extended_css %}
 
-    {% endfor %}
-    <div class="pagination">
-          {% if cities.has_previous %}
-              <a href="?page={{ cities.previous_page_number }}">Previous</a>
-          {% endif %}
-          {% for pg in cities.paginator.page_range %}
-              {% if cities.number == pg %}
-                  <p class="active"><a href="?page={{ pg }}">{{ pg }}</a></p>
-              {% else %}
-                  <a href="?page={{ pg }}">{{ pg }}</a>
-              {% endif %}
-          {% endfor %}
-          {% if cities.has_next %}
-              <a href="?page={{ cities.next_page_number }}">Next</a>
-          {% endif %}
-    </div>
-{% else %}
-    <p>Your search - {{ stitle }}. - did not match any deals.</p>
+{% block main %}
+    <!-- search result deals section -->
+    <section class="row" id="listing-section">
+        {% autoescape off %}
+            {{ rendered_deal_list }}
+        {% endautoescape %}
+    </section>
 
-    <p>Suggestions:</p>
-    <ul>
-    <li>Make sure that all words are spelled correctly.</li>
-    <li>Try different keywords.</li>
-    <li>Try more general keywords.</li>
-    </ul>
-{% endif %}
-{% endblock %}
-
+{% endblock main %}

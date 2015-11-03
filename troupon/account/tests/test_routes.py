@@ -4,8 +4,7 @@ from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
 from account.views import ForgotPasswordView, ResetPasswordView, UserSignupView, ActivateAccountView
 from allaccess.views import OAuthRedirect,OAuthCallback
-from deals.views import SingleDealView, DealSearchView, DealSearchCityView
-
+from deals.views import DealView, DealsView, DealSearchView, DealSearchCityView
 
 class UserSigninRouteTestCase(TestCase):
     """Test that post and get requests to signin routes is successful

@@ -122,31 +122,64 @@ class DealSearchView(View):
         return render(request, self.template_name, {'deals': deals})
 
 
-class DealSearchCityView(View):
+class DealSearchCityView(DealListBaseView):
 
-    template_name = 'deals/searchresult.html' 
+    # template_name = 'deals/searchresult.html' 
 
-    def get(self,request):
+    # def get(self,request):
 
-        city_list = Deal.objects.filter(title__contains=request.GET.get('q', '')).filter(deal_state__contains=request.GET.get('city', ''))
-        paginator = Paginator(city_list, 4)
+    #     deals = Deal.objects.filter(title__contains=request.GET.get('q', '')).filter(state__contains=request.GET.get('city', ''))
+    #     paginator = Paginator(city_list, 4)
 
-        try:
-            page = int(request.GET.get('page','1'))
-        except:
-            page = 1
-        try:
-            cities = paginator.page(page)
-        except(EmptyPage, InvalidPage):
-            cities = paginator.page(paginator.num_pages)
+    #     try:
+    #         page = int(request.GET.get('page','1'))
+    #     except:
+    #         page = 1
+    #     try:
+    #         cities = paginator.page(page)
+    #     except(EmptyPage, InvalidPage):
+    #         cities = paginator.page(paginator.num_pages)
 
-        stitle=request.GET.get('q', '')
+    #     stitle=request.GET.get('q', '')
 
-        args = {
-        'show_search': True,
-        'states': { 'choices': STATE_CHOICES,  'default': 25 },
-        'cities':cities,
-        'stitle':stitle
-    }
+    #     args = {
+    #         'show_search': True,
+    #         'states': { 'choices': STATE_CHOICES,  'default': 25 },
+    #         'cities':cities,
+    #         'stitle':stitle
+    #     }
 
-        return render_to_response(self.template_name, args, context_instance=RequestContext(request))
+    #     return render_to_response(self.template_name, args, context_instance=RequestContext(request))
+
+
+
+
+
+
+     def get(self, request, *args, **kwargs):
+        value = request.GET.get('q', '')
+        cityquery = int(request.GET.get('city', '25'))
+        # get the deal results:
+        deals = Deal.objects.filter(title__icontains=value).filter(state__icontains=cityquery)
+
+        # get the rendered list of deals
+        rendered_deal_list = self.render_deal_list(
+            request,
+            deals=deals,
+            title="Search Results",
+            zero_items_message ='Your search - {} - in {} did not match any deals.'.format(value,STATE_CHOICES[cityquery-1][1]), 
+            description='{} deal(s) found for this search.' .format(len(deals))
+            #pagination_base_url=reverse('deals')
+        )
+        context = {
+            'search_options': {
+                'query': value,
+                'states': { 'choices': STATE_CHOICES, 'default': 25 },
+            },
+            'rendered_deal_list': rendered_deal_list
+        }
+        context.update(csrf(request))
+        return render(request,'deals/searchresult.html', context)
+
+
+

@@ -111,10 +111,10 @@
 
                                         <li class="divider"></li>
                                         <li><a href="/account/profile/user/{{ request.user.username }}"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
-                                        <li><a href=""><i class="fa fa-key fa-fw"></i> Change Password</a></li>
+                                        <li><a href="#" class="modal-toggle" data-modal-target="#modal-change-password"><i class="fa fa-key fa-fw"></i> Change Password</a></li>
                                         <li><a href=""><i class="fa fa-th-list fa-fw"></i> View History</a></li>
                                         <li  class="divider"></li>
-                                        <li><a href=""><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
+                                        <li><a href="{% url 'signout' %}"><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -152,7 +152,7 @@
                                 <span class="right-icon"><i class="fa fa-angle-down"></i></span>
                                 <select name="city" placeholder="Select City">
                                     {% for choice in search_options.states.choices %}
-                                        <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
+                                        <option value="{{ choice.0 }}" {% if choice.0 == search_options.states.default %}selected{% endif %} >
                                             {{ choice.1 }}
                                         </option>
                                     {% endfor %}

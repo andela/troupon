@@ -312,15 +312,21 @@ class UserSignupView(View):
         Raw data posted from form is recieved here,bound to form
         as dictionary and sent to unrendered django form for validation.
         '''         
-
         usersignupform = UserSignupForm(request.POST)
+        #get the user email address
+        email = request.POST.get('email')
+        signup_new_user = User.objects.filter(email__exact=email)
+
+        if signup_new_user:
+            args = {}
+            args.update(csrf(request))
+            mssg = "Email already taken please signup with another email"
+            messages.add_message(request, messages.INFO, mssg)
+            return render(request, 'account/signup.html', args)
+
         if usersignupform.is_valid():          
-            print ('form is valid')
-
+            
             usersignupform.save()
-
-            #get the user email address
-            email = usersignupform.cleaned_data.get('email')
             new_user = User.objects.get(email__exact=email)
 
             #generate an activation hash url for new user account
@@ -331,7 +337,7 @@ class UserSignupView(View):
             activation_email_context = RequestContext(request, {'activation_hash_url': activation_hash_url})
             activation_email =  Mailgunner.compose(
                 sender = 'Troupon <Noreplytroupon@andela.com>',
-                reciepient = new_user.email,
+                recipient = new_user.email,
                 subject = 'Troupon: ACTIVATE ACCOUNT',
                 html = loader.get_template('account/activate_account_email.html').render(activation_email_context),
                 text = loader.get_template('account/activate_account_email.txt').render(activation_email_context),
@@ -351,7 +357,7 @@ class UserSignupView(View):
             args = {}
             args.update(csrf(request))
             messages.add_message(request, messages.INFO,login )
-            return render(request, 'account/signup.html')
+            return render(request, 'account/signup.html', args)
 
 
 class ActivateAccountView(View):
@@ -456,7 +462,7 @@ class UserChangePassword(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView)
                 }
 
             context_var.update(csrf(request))
-            empty = "Passwords should match or field should not be left empyt"
+            empty = "Passwords should match or field should not be left empty"
             messages.add_message(request, messages.INFO,empty )
             return render(request, self.template_name, context_var)
 
@@ -469,7 +475,7 @@ class UserChangePassword(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView)
                 }
 
             context_var.update(csrf(request))
-            empty = "Passwords should match or field should not be left empyt"
+            empty = "Passwords should match or field should not be left empty"
             messages.add_message(request, messages.INFO,empty )
             return render(request, self.template_name, context_var)
 
