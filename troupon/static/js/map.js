@@ -1,5 +1,5 @@
     $('document').ready(function(){
-        MapMaker = {
+        var MapMaker = {
             geocoder: '',
             latlng: '',
             map: '',

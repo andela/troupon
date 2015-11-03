@@ -6,9 +6,26 @@ from django.template.defaultfilters import slugify
 from deals.views import HomePageView, DealsView, DealView
 from faker import Faker
 import mock
-import os
-import mock
 import cloudinary
+
+
+def set_advertiser_and_category():
+    """Sets the advertiser and category.
+    returns a deal dictionary"""
+    advertiser = Advertiser(name="XYZ Stores")
+    advertiser.save()
+    category = Category(name="Books", slug="books")
+    category.save()
+
+    return dict(
+        title="Deal #1", description="Deal some...deal all!",
+        disclaimer="Deal at your own risk", advertiser=advertiser,
+        address="14, Alara Street", state=14,
+        slug=slugify("Deal #1"), category=category,
+        original_price=1500, price=750,
+        duration=15, active=1,
+        max_quantity_available=3,
+    )
 
 
 class HomepageViewTestCase(TestCase):
@@ -71,25 +88,7 @@ class DealViewTestCase(TestCase):
         request for a deal is successful
     """
     def setUp(self):
-        advertiser, category = Advertiser(name="XYZ Stores"), \
-                                Category(name="Books", slug="books")
-        advertiser.save()
-        category.save()
-
-        self.deal = dict(title="Deal #1",
-                         description="Deal some...deal all!",
-                         disclaimer="Deal at your own risk",
-                         advertiser=advertiser,
-                         address="14, Alara Street",
-                         state=14,
-                         slug=slugify("Deal #1"),
-                         category=category,
-                         original_price=1500,
-                         price=750,
-                         duration=15,
-                         active=1,
-                         max_quantity_available=3,
-                         )
+        self.deal = set_advertiser_and_category()
 
     def test_deal404_and_single_deal_view(self):
         response = self.client.get('/deals/1/')
@@ -118,17 +117,7 @@ class DealViewTestCase(TestCase):
 class DealSlugViewTestCase(TestCase):
 
     def setUp(self):
-        category, advertiser = Category(name="books", slug="books"), \
-            Advertiser(name="XYZ Stores")
-        category.save()
-        advertiser.save()
-        self.deal = dict(
-            title="deal", description="Deal some...deal all!",
-            disclaimer="Deal at your own risk", advertiser=advertiser,
-            address="14, Alara Street", state=14, category=category,
-            original_price=1500, price=750, duration=15,
-            active=1, max_quantity_available=3, slug="deal"
-        )
+        self.deal = set_advertiser_and_category()
 
     def test_can_view_deal_by_slug(self):
         deal = Deal(**self.deal)
@@ -142,17 +131,7 @@ class DealSlugViewTestCase(TestCase):
 class DealCategoryViewTestCase(TestCase):
 
     def setUp(self):
-        category, advertiser = Category(name="books", slug="books"), \
-            Advertiser(name="XYZ Stores")
-        category.save()
-        advertiser.save()
-        self.deal = dict(
-            title="Deal #1", description="Deal some...deal all!",
-            disclaimer="Deal at your own risk", advertiser=advertiser,
-            address="14, Alara Street", state=14, category=category,
-            original_price=1500, price=750, duration=15,
-            active=1, max_quantity_available=3
-        )
+        self.deal = set_advertiser_and_category()
 
     def test_can_view_deals_by_category(self):
         deal = Deal(**self.deal)
