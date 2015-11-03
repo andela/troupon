@@ -26,30 +26,25 @@ class UserSigninView(View):
 
     """User can signin to his/her account with email and password"""
     engine = Engine.get_default()  # get static reference to template engine
-    cls_default_msgs = {'signed_in': 'User is already signed in',
+    cls_default_msgs = {
                         'not_signed_in': 'User is not signed in',
                         'invalid_param': 'Invalid signin parameters',
                         }  # class default messages
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
-            data = {'msg': {'content': self.cls_default_msgs['signed_in']}}
-            # Replace template object compiled from template code
-            # with an application template before push to production.
-            # Use self.engine.get_template(template_name)
-            t = self.engine.get_template('account/signin.html')
-            # Set result in RequestContext
-            c = RequestContext(self.request, data)
-            return HttpResponse(t.render(c))
+            # Obtain referring view
+            referer_view = self.get_referer_view(self.request)
+            return HttpResponseRedirect(referer_view)
         else:
             data = {'msg': {'content': self.cls_default_msgs['not_signed_in']}}
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
-            t = self.engine.get_template('account/signin.html')
+            template = self.engine.get_template('account/signin.html')
             # Set result in RequestContext
-            c = RequestContext(self.request, data)
-            return HttpResponse(t.render(c))
+            context = RequestContext(self.request, data)
+            return HttpResponse(template.render(context))
 
     def post(self, *args, **kwargs):
         if self.request.user.is_authenticated():
