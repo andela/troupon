@@ -128,7 +128,7 @@ class DealSearchCityView(DealListBaseView):
 
     ''' class to search for city via title and states'''
 
-     def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         value = request.GET.get('q', '')
         cityquery = int(request.GET.get('city', '25'))
         # get the deal results:

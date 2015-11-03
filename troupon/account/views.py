@@ -20,7 +20,7 @@ from django.utils.decorators import method_decorator
 from django.core.validators import validate_email, ValidationError
 from account.models import UserProfile, STATE_CHOICES
 from account.forms import UserProfileForm
-from django.views.decorators.csrf import csrf_exempt
+
 
 
 
@@ -36,17 +36,6 @@ class LoginRequiredMixin(object):
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(
             request, *args, **kwargs)
-
-class CsrfExemptClassMixin(object):
-
-    ''' ViewMixing which is silent to csrf_token '''
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CsrfExemptClassMixin, self).dispatch(
-            request, *args, **kwargs)
-
-
 
 class UserSigninView(View):
 
@@ -300,6 +289,8 @@ class ResetPasswordView(View):
 
 class UserSignupView(View):
 
+    ''' Class handles user signup. '''
+
     template_name = 'account/signup.html'
 
     def get(self, request, *args, **kwargs):
@@ -362,6 +353,7 @@ class UserSignupView(View):
 
 class ActivateAccountView(View):
 
+    ''' Class handles account activation.'''
 
     def get(self, request, *args, **kwargs):
 
@@ -383,13 +375,15 @@ class ActivateAccountView(View):
 
 
 class Userconfirm(TemplateView):
-    template_name = 'account/confirm.html'
 
+    ''' class handles account creation confirmation.'''
+
+    template_name = 'account/confirm.html'
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
 
 
-class Userprofileview(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView):
+class Userprofileview(LoginRequiredMixin, TemplateView):
     """class that handles display of the homepage"""
     form_class = UserProfileForm
     template_name = "account/profile.html"
@@ -435,7 +429,7 @@ class Userprofileview(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView):
                 context_instance=RequestContext(request)
             )
 
-class UserChangePassword(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView):
+class UserChangePassword(LoginRequiredMixin, TemplateView):
 
     template_name = "account/profile.html"
 
@@ -478,18 +472,4 @@ class UserChangePassword(CsrfExemptClassMixin, LoginRequiredMixin, TemplateView)
             empty = "Passwords should match or field should not be left empty"
             messages.add_message(request, messages.INFO,empty )
             return render(request, self.template_name, context_var)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            

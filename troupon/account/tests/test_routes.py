@@ -199,3 +199,81 @@ class ActivateAccountRoute(TestCase):
         response = self.client.get('/account/activation/ajkzfYba9847DgJ7wbkwAaSbkTjUdawGG998qo3HG8qae83')
         self.assertEqual(response.resolver_match.func.__name__, ActivateAccountView.as_view().__name__)
 
+class UserchangePasswordTestCase(TestCase):
+
+    '''Test that User can successfully change password.'''
+
+    def Setup(self):
+        self.client = Client()
+
+        self.user = User.objects.create_user(username='johndoe',
+        email='johndoe@gmail.com', password='12345')
+
+
+    def test_user_can_changepassword(self):
+
+        data = dict(password1="andela",password2="andela")
+        response = self.client.post("/account/changepassword/johndoe",data)
+        self.assertEqual(response.status_code, 302)
+
+class UsercBadChangePasswordTestCase(TestCase):
+
+    ''' Test that user error on change password is caught.'''
+
+    def Setup(self):
+        self.client = Client()
+
+        self.user = User.objects.create_user(username='johndoe',
+        email='johndoe@gmail.com', password='12345')
+
+
+    def test_user_error_changepassword(self):
+
+        data = dict(password1="andela",password2="")
+        response = self.client.post("/account/changepassword/johndoe",data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_no_data(self):
+
+        data = dict(password1="",password2="")
+        response = self.client.post("/account/changepassword/johndoe",data)
+        self.assertEqual(response.status_code, 302)
+
+
+class UserProfileTestCase(TestCase):
+
+    def setUp(self):
+        '''
+        User calls profile page.
+        '''
+        self.client_stub = Client()
+
+        self.user = User.objects.create_user(username='johndoe',
+        email='johndoe@gmail.com', password='12345')
+
+    def test_user_calls_profilepage(self):
+
+        response = self.client_stub.get("/account/profile/user/johndoe")
+        self.assertEquals(response.status_code, 302)
+
+    def test_user_update_profile(self):
+
+        data = dict(first_name='joe', last_name='doe', interest='Games')
+        response = self.client_stub.get("/account/profile/user/johndoe", data)
+        self.assertEquals(response.status_code, 302)
+
+    def test_update_errors(self):
+
+        data = dict(first_name='', last_name='', interest='')
+        response = self.client_stub.get("/account/profile/user/johndoe", data)
+        self.assertEquals(response.status_code, 302)
+
+
+
+
+
+
+
+        
+
+

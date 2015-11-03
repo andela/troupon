@@ -165,6 +165,7 @@ class UserRegisterTestCase(LiveServerTestCase):
 
 class ActivateAccountTestCase(TestCase):
 
+    '''Test that user acount is activated.'''
 
     def setUp(self):
         self.client_stub = Client()
@@ -173,11 +174,11 @@ class ActivateAccountTestCase(TestCase):
                                password2="andela",
                                email="samuel.james@andela.com",
                                )
-
     @patch('requests.post')
     def test_activation_mail_sent(self,post_request_mock):
         response = self.client_stub.post('/account/signup/', self.form_data)
         self.assertEqual(post_request_mock.call_count, 1)
         self.assertEqual(response.status_code, 302)
+
 
 
