@@ -1,0 +1,25 @@
+{% load humanize %}
+
+<div class="grid-item card">
+    <a class="item-image-wrapper" href="{% url 'deal' deal_id=deal.pk %}">
+        <img src="{{ deal.thumbnail_image_url }}"/>
+        <div class="overlay"></div>
+    </a>
+    <div class="item-info">
+        <h3>
+            <a class="title" href="{% url 'deal' deal_id=deal.pk %}">
+                {{ deal.title }}
+            </a>
+        </h3>
+        <div class="advertiser">
+            <p>{{ deal.advertiser.name }}</p>
+            <address>
+                <i class="fa fa-map-marker"></i> {{ deal.address|truncatechars:40 }}
+            </address>
+        </div>
+        <p class="prices">
+            <span class="original">{{ deal.currency_symbol }}{{ deal.original_price|intcomma }}</span>
+            <span class="current">{{ deal.currency_symbol  }}{{ deal.price|intcomma }}</span>
+        </p>
+    </div>
+</div>

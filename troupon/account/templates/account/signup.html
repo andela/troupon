@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extended_css %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+{% endblock extended_css %}
+
+{% block main %}
+
+{% if messages %}
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+    <div class="container">
+          <h4>Sign Up</h4>
+          <hr />
+          <div class="row center-block">
+              <div class="col-md-6">
+                  <form class="form" name="createUserForm" action="{% url 'UserSignupView' %}" method="post">
+                  {% csrf_token %}
+                    <div class="form-group">
+                      <label for="createUsername">Username</label>
+                      <input type="text" class="form-control" id="createUsername" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                      <label for="createEmail">Email address</label>
+                      <input type="email" class="form-control" id="createEmail" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                      <label for="createPassword1">Password</label>
+                      <input type="password" class="form-control" id="createPassword1" name="password1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                      <label for="createPassword2">Enter password again</label>
+                      <input type="password" class="form-control" id="createPassword2" name="password2" placeholder="Enter password again">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    
+                  </form>
+              </div>
+              <div class="col-md-6">
+                  <img class="create_modal_img" src="{% static 'img/logo-v-lg.png' %}" />
+              </div>
+          </div> 
+    </div>
+{% endblock main %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="well">
+            <h1>Activation mail sent!</h1>
+            <p>You have successfully registered. A mail has been sent to your email address {{ message }}. Follow the link in the mail to activate your account</p>
+            <br >
+            <P>Troupon Team</P>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="well">
+        <h1>Account creation failed</h1>
+        <P>Please Re-enter you signup details</P>
+    </div>
+{% endif %}
+
+{% endblock %}

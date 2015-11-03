@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extended_css %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" />
+{% endblock extended_css %}
+
+{% block main %}
+    <!-- search result deals section -->
+    <section class="row" id="listing-section">
+        {% autoescape off %}
+            {{ rendered_deal_list }}
+        {% endautoescape %}
+    </section>
+
+{% endblock main %}
