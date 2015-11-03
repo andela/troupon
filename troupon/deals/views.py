@@ -115,6 +115,8 @@ class DealView(View):
 
 class DealSearchView(View):
 
+    ''' Haystack seach class for auto complete.'''
+
     template_name = 'deals/ajax_search.html'
 
     def post(self,request):
@@ -124,37 +126,7 @@ class DealSearchView(View):
 
 class DealSearchCityView(DealListBaseView):
 
-    # template_name = 'deals/searchresult.html' 
-
-    # def get(self,request):
-
-    #     deals = Deal.objects.filter(title__contains=request.GET.get('q', '')).filter(state__contains=request.GET.get('city', ''))
-    #     paginator = Paginator(city_list, 4)
-
-    #     try:
-    #         page = int(request.GET.get('page','1'))
-    #     except:
-    #         page = 1
-    #     try:
-    #         cities = paginator.page(page)
-    #     except(EmptyPage, InvalidPage):
-    #         cities = paginator.page(paginator.num_pages)
-
-    #     stitle=request.GET.get('q', '')
-
-    #     args = {
-    #         'show_search': True,
-    #         'states': { 'choices': STATE_CHOICES,  'default': 25 },
-    #         'cities':cities,
-    #         'stitle':stitle
-    #     }
-
-    #     return render_to_response(self.template_name, args, context_instance=RequestContext(request))
-
-
-
-
-
+    ''' class to search for city via title and states'''
 
      def get(self, request, *args, **kwargs):
         value = request.GET.get('q', '')
