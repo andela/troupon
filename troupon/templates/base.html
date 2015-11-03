@@ -91,7 +91,7 @@
                             <ul class="nav-menu">
                                 <li><a href="{% url 'homepage' %}" class="hidden-sm">Home</a></li>
                                 <li><a href="{% url 'deals' %}">Deals</a></li>
-                                <li><a href="">Categories</a></li>
+                                <li><a href="{% url 'deal-categories' %}">Categories</a></li>
                                 <li><a href="">Cities</a></li>
                                 <li><a href="" class="hidden-sm">Support</a></li>
                             </ul>
@@ -251,7 +251,7 @@
         <!-- Packery -->
         <script src="{% static 'bower_components/packery/dist/packery.pkgd.min.js' %}"></script>
         <!-- Troupon base-->
-        <script src="{% static 'js/base_scripts.js' %}"></script>
+        <script src="{% static 'js/app.js' %}"></script>
     {% endblock base_js %}
 
     {% block extended_js %}
