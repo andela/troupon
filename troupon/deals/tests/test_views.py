@@ -48,7 +48,6 @@ class HomepageViewTests(LiveServerTestCase):
         """
         Close the browser window
         """
-        self.driver.quit() 
         super(HomepageViewTests, self).tearDown()
 
     @classmethod
