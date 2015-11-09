@@ -1,7 +1,6 @@
 
 from django.conf.urls import url, include
-from .views import DealSearchView, DealSearchCityView, DealView, DealsView, \
-        , CategoryView, DealCategoryView, DealSlugView
+from .views import DealSearchView, DealSearchCityView, DealView, DealsView, CategoryView, DealCategoryView, DealSlugView
 
 
 urlpatterns = [
