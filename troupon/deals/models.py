@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
+from django.core import signals
+from datetime import date
+from random import randint
 
 # States in Nigeria
 STATE_CHOICES = [
@@ -48,6 +51,7 @@ class Deal(models.Model):
                              null=False,
                              blank=False,
                              default='')
+    slug = models.SlugField(blank=True)
     description = models.TextField(blank=True, default='')
     disclaimer = models.TextField(blank=True, default='')
     advertiser = models.ForeignKey('Advertiser')
@@ -62,13 +66,11 @@ class Deal(models.Model):
     image = CloudinaryField(
         resource_type='image',
         type='upload',
-        blank=True, 
+        blank=True,
         default="img/photo_default.png"
     )
     active = models.BooleanField(default=False)
     max_quantity_available = models.IntegerField()
-    latitude = models.FloatField()
-    longitude = models.FloatField()
     date_created = models.DateField(auto_now_add=True)
     date_last_modified = models.DateField(auto_now=True)
     date_end = models.DateField(blank=True, null=True)
@@ -87,6 +89,11 @@ class Deal(models.Model):
         )
         return image_url
 
+    def state_name(self):
+        """Returns the state name
+        """
+        return dict(STATE_CHOICES).get(self.state)
+
     def slideshow_image_url(self):
         """Returns a slide image URL
         """
@@ -96,7 +103,6 @@ class Deal(models.Model):
             crop="fit",
         )
         return image_url
-    
 
     def __str__(self):
         return "{0}, {1}, {2}".format(self.id,
@@ -138,6 +144,22 @@ class Category(models.Model):
                             null=False,
                             blank=False,
                             default='')
+    slug = models.SlugField(blank=True)
 
     def __str__(self):
         return "{0}".format(self.name)
+
+    def image(self):
+        """Retrieve random photo of deal under this category
+        """
+        deals = Deal.objects.filter(category=self.id)
+        return deals[randint(0, len(deals)-1)].image
+
+
+def set_deal_inactive(**kwargs):
+    """Set deal to inactive if the end date set is present date
+    """
+    date_today = date.today()
+    Deal.objects.filter(date_end=date_today.isoformat()).update(active=False)
+
+signals.request_started.connect(set_deal_inactive)

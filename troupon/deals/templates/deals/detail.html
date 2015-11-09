@@ -8,20 +8,34 @@
 {% block main %}
    <div class="main">
     {% if deal %}
-    <div class="row deal-detail">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ deal.title }}</h2>
+            <p class="mini-text">{{ deal.state_name }}</p>
+        </div>
         <div class="col-md-8">
-            <h3>{{deal.title}}</h3>
-            <span>{{deal.state}}</span>
-            <div class="fill">
-                <img src="{% static deal.image.url %}">
+            <div class="infix">
+                <img src="{{ deal.image.url }}">
             </div>
-            <div class="address">
-                <address>{{ deal.deal_address }}</address>
+            <div class="description">
+                <p>{{ deal.description }}</p>
             </div>
         </div>
         <div class="col-md-4">
-            <h2>${{ deal.deal_price }}</h2>
-            <button class="btn btn-primary">Buy</button>
+            <h3 class="deal-price">{{deal.currency_symbol}}{{ deal.price }} <strike>{{deal.currency_symbol}}{{deal.original_price}}</strike></h3>
+            <button class="btn-action btn-form-submit">Buy</button>
+        </div>
+    </div>
+    <div class="second row">
+        <div class="col-md-8">
+             <div class="infix-on-top">
+                <div id="map" style="width:100%; height:450px"></div>
+            </div>
+        </div>
+        <div class="col-md-4 directions">
+            <h3>Location of Dealer</h3>
+            <address>{{ deal.address }}</address>
+            <a href="#">Get Directions</a>
         </div>
     </div>
     {% else %}
@@ -30,4 +44,9 @@
         </div>
     {% endif %}
     </div>
+{% endblock %}
+
+{% block extended_js %}
+     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA99nlAubrvHjAlDH3yRUrLLWQLpvDKg5c&libraries=places"></script>
+    <script src={% static 'js/map.js' %}></script>
 {% endblock %}

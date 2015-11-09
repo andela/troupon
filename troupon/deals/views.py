@@ -15,7 +15,7 @@ import cloudinary
 
 
 class HomePageView(DealListBaseView):
-    """ View class that handles display of the homepage. 
+    """ View class that handles display of the homepage.
         Overrides the base get method, but still uses the base render_deal_list method
         to get the rendered latest deals listing.
     """
@@ -53,10 +53,9 @@ class HomePageView(DealListBaseView):
         context.update(csrf(request))
         return render(request,'deals/index.html', context)
 
-
 class DealsView(DealListBaseView):
-    """ View class that handles display of the deals page. 
-        Simply configures the options and makes use of the base methods 
+    """ View class that handles display of the deals page.
+        Simply configures the options and makes use of the base methods
         to render return latest deals listing.
     """
 
@@ -93,7 +92,6 @@ class DealView(View):
         context = RequestContext(self.request, deal)
         return HttpResponse(template.render(context))
 
-
     def post(self, request):
         """This handles creation of deals
         """
@@ -111,7 +109,6 @@ class DealView(View):
                 file,
                 public_id=title
             )
-
 
 class DealSearchView(View):
 
@@ -154,4 +151,55 @@ class DealSearchCityView(DealListBaseView):
         return render(request,'deals/searchresult.html', context)
 
 
+class DealSlugView(View):
+    """ Respond to routes to deal url using slug
+    """
+    def get(self, *args, **kwargs):
+        self.deal_id = self.kwargs.get('deal_id')
+        self.deal_slug = self.kwargs.get('deal_slug')
+        if not self.is_valid_slug():
+            raise Http404('Deal not found!')
+
+        deal = Deal.objects.get(id=self.deal_id)
+        engine = Engine.get_default()
+        template = engine.get_template('deals/detail.html')
+        context = RequestContext(self.request, {'deal': deal})
+
+        return HttpResponse(template.render(context))
+
+    def is_valid_slug(self):
+        """ Check is the deal slug is valid
+        """
+        try:
+            deal = Deal.objects.get(id=self.deal_id)
+        except Deal.DoesNotExist:
+            return False
+        return deal.slug == self.deal_slug
+
+
+class DealCategoryView(DealListBaseView):
+    """ Respond to routes to deal categories using slug
+    """
+    def get(self, *args, **kwargs):
+        category_slug = self.request.GET.get('category')
+        try:
+            category = Category.objects.get(slug=category_slug)
+
+        except Category.DoesNotExist:
+            raise Http404('Category not found!')
+
+        deals = Deal.objects.filter(id=category.id)
+
+        engine = Engine.get_default()
+        template = engine.get_template('deals/deal_list_base.html')
+        context = RequestContext(self.request, {'deals': deals})
+        return HttpResponse(template.render(context))
+
+
+class CategoryView(DealListBaseView):
+    """ List all categories
+    """
+
+    deals = Category.objects.all()
+    title = "Category Listing for All Available Deals"
 
