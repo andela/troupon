@@ -203,3 +203,4 @@ class CategoryView(DealListBaseView):
     deals = Category.objects.all()
     title = "Category Listing for All Available Deals"
 
+
