@@ -1,10 +1,16 @@
-from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
+from django.shortcuts import render,render_to_response,redirect
 from django.views.generic import TemplateView, View
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
-from django.template import Engine, RequestContext
-from deals.models import Category, Deal, STATE_CHOICES
+from deals.models import Deal, STATE_CHOICES
+from django.template import Engine, RequestContext, loader
+from haystack.query import SearchQuerySet
+from django.core.paginator import Paginator
+from django.core.context_processors import csrf
+from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES
 from deals.baseviews import DealListBaseView
+
+import datetime
 import cloudinary
 
 
@@ -28,7 +34,6 @@ class HomePageView(DealListBaseView):
         list_description = "Checkout the hottest new deals from all your favourite brands:"
 
         # get the rendered list of deals
-
         rendered_deal_list = self.render_deal_list(
             request,
             deals=latest_deals,
@@ -45,8 +50,8 @@ class HomePageView(DealListBaseView):
             'featured_deals': featured_deals,
             'rendered_deal_list': rendered_deal_list
         }
-        return render(request, 'deals/index.html', context)
-
+        context.update(csrf(request))
+        return render(request,'deals/index.html', context)
 
 class DealsView(DealListBaseView):
     """ View class that handles display of the deals page.
@@ -105,6 +110,46 @@ class DealView(View):
                 public_id=title
             )
 
+class DealSearchView(View):
+
+    ''' Haystack seach class for auto complete.'''
+
+    template_name = 'deals/ajax_search.html'
+
+    def post(self,request):
+        deals = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))
+        return render(request, self.template_name, {'deals': deals})
+
+
+class DealSearchCityView(DealListBaseView):
+
+    ''' class to search for city via title and states'''
+
+    def get(self, request, *args, **kwargs):
+        value = request.GET.get('q', '')
+        cityquery = int(request.GET.get('city', '25'))
+        # get the deal results:
+        deals = Deal.objects.filter(title__icontains=value).filter(state__icontains=cityquery)
+
+        # get the rendered list of deals
+        rendered_deal_list = self.render_deal_list(
+            request,
+            deals=deals,
+            title="Search Results",
+            zero_items_message ='Your search - {} - in {} did not match any deals.'.format(value,STATE_CHOICES[cityquery-1][1]), 
+            description='{} deal(s) found for this search.' .format(len(deals))
+            #pagination_base_url=reverse('deals')
+        )
+        context = {
+            'search_options': {
+                'query': value,
+                'states': { 'choices': STATE_CHOICES, 'default': 25 },
+            },
+            'rendered_deal_list': rendered_deal_list
+        }
+        context.update(csrf(request))
+        return render(request,'deals/searchresult.html', context)
+
 
 class DealSlugView(View):
     """ Respond to routes to deal url using slug
@@ -157,3 +202,5 @@ class CategoryView(DealListBaseView):
 
     deals = Category.objects.all()
     title = "Category Listing for All Available Deals"
+
+

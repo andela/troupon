@@ -1,6 +1,15 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.utils import timezone
+from account.models import UserProfile
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'user_state', 'interest')
+
 
 
 class EmailForm(forms.Form):
@@ -53,14 +62,21 @@ class UserSignupForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
-    def save(self):
+    def save(self, commit=True):
+        
+
         '''
         Save method used by the AbstractUser object.
         Subclassed by the User object to save data to database and
         called by UserSignupRequest class in accounts/views.py.
         '''
-        user = User.objects.create_user(
-            username=self.cleaned_data['username'],
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password1'])
+        user = super(UserSignupForm, self).save(commit=False)
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        user.is_active = False
+        
+        if commit:
+            user.save()
         return user
+
+

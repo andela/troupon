@@ -37,3 +37,4 @@ class Mailgunner:
         except:
             status_code = 520
         return status_code
+

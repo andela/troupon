@@ -6,6 +6,16 @@
 {% endblock extended_css %}
 
 {% block main %}
+
+{% if messages %}
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
     <div class="container">
           <h4>Sign Up</h4>
           <hr />

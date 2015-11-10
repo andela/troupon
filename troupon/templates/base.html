@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static from staticfiles %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -107,10 +107,11 @@
                                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-user fa-fw"></i> <span class="caret"></span></a>
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                         <li class="dropdown-header">Signed in as:</li>
-                                        <li><a href="">{{ request.user }}</a></li>
+                                        <li><a href="">{{request.user.username }}</a></li>
+
                                         <li class="divider"></li>
-                                        <li><a href=""><i class="fa fa-user fa-fw"></i> My Profile</a></li>
-                                        <li><a href=""><i class="fa fa-key fa-fw"></i> Change Password</a></li>
+                                        <li><a href="/account/profile/user/{{ request.user.username }}"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
+                                        <li><a href="#" class="modal-toggle" data-modal-target="#modal-change-password"><i class="fa fa-key fa-fw"></i> Change Password</a></li>
                                         <li><a href=""><i class="fa fa-th-list fa-fw"></i> View History</a></li>
                                         <li  class="divider"></li>
                                         <li><a href="{% url 'signout' %}"><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
@@ -135,13 +136,14 @@
             {% block search %}
             {% if search_options %} {# hides by default, pass the 'search_options' dictionary in the context to show #}
             <!-- search bar-->
-            <section id="search-bar">
-                <form class="form-inline" action="{% url 'homepage' %}" method="GET">
+            <section id="search-bar" class="navbar-collapse collapse">
+                <form class="form-inline" action="{% url 'dealsearchcity' %}" method="GET">                
                     <div class="row">
                         <div class="col-sm-5 col-md-6 col-lg-6">
                             <div class="custom-input-group">
                                 <span class="left-icon"><i class="fa fa-search"></i></span>
-                                <input type="text" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query" value="{{ search_options.query }}">
+
+                                <input type="text" id="search" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query" value="{{ search_options.query }}">
                             </div>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4">
@@ -150,7 +152,7 @@
                                 <span class="right-icon"><i class="fa fa-angle-down"></i></span>
                                 <select name="city" placeholder="Select City">
                                     {% for choice in search_options.states.choices %}
-                                        <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
+                                        <option value="{{ choice.0 }}" {% if choice.0 == search_options.states.default %}selected{% endif %} >
                                             {{ choice.1 }}
                                         </option>
                                     {% endfor %}

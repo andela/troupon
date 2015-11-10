@@ -33,7 +33,7 @@ class UserSignInViewTestCase(TestCase):
         """
         data = {'username': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/account/signin/', data)
-        self.assertIn('deals', response.content)
+        self.assertEquals(response.status_code, 302)
 
 
 class UserSignoutRouteTestCase(TestCase):
@@ -157,7 +157,28 @@ class UserRegisterTestCase(LiveServerTestCase):
         """
         super(UserRegisterTestCase, self).tearDown()
 
+        
     @classmethod
     def tearDownClass(cls):
         cls.driver.quit()
         super(UserRegisterTestCase, cls).tearDownClass()
+
+class ActivateAccountTestCase(TestCase):
+
+    '''Test that user acount is activated.'''
+
+    def setUp(self):
+        self.client_stub = Client()
+        self.form_data = dict(username="andela",
+                               password1="andela",
+                               password2="andela",
+                               email="samuel.james@andela.com",
+                               )
+    @patch('requests.post')
+    def test_activation_mail_sent(self,post_request_mock):
+        response = self.client_stub.post('/account/signup/', self.form_data)
+        self.assertEqual(post_request_mock.call_count, 1)
+        self.assertEqual(response.status_code, 302)
+
+
+

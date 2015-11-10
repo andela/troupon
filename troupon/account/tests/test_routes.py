@@ -2,9 +2,9 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
-from account.views import ForgotPasswordView, ResetPasswordView
-from allaccess.views import OAuthRedirect, OAuthCallback
-
+from account.views import ForgotPasswordView, ResetPasswordView, UserSignupView, ActivateAccountView
+from allaccess.views import OAuthRedirect,OAuthCallback
+from deals.views import DealView, DealsView, DealSearchView, DealSearchCityView
 
 class UserSigninRouteTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
@@ -85,14 +85,17 @@ class ResetPasswordRouteTestCase(TestCase):
 
 
 class UserRegistrationViewTest(TestCase):
+
     '''
     Test class to user registration.
     '''
+
     def setUp(self):
         '''
         User sign's up with data.
         '''
         self.client_stub = Client()
+
         self.form_data = dict(
             username="andela",
             password1="andela",
@@ -124,6 +127,13 @@ class UserRegistrationViewTest(TestCase):
         self.assertEquals(response.status_code, 200)
 
 
+    def test_user_signup_functioncalled(self):
+        ''' Test that signup binds to UserSignupview '''
+
+        response = resolve('/account/signup/')
+        self.assertEquals(response.func.__name__, 'UserSignupView')
+
+
 class UserSignInViewTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
     """
@@ -147,7 +157,7 @@ class UserSignInViewTestCase(TestCase):
         """
         data = {'username': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/account/signin/', data)
-        self.assertIn('deals', response.content)
+        self.assertEquals(response.status_code, 302)
 
 
 class FacebookSignupTestCase(TestCase):
@@ -164,7 +174,106 @@ class FacebookSignupTestCase(TestCase):
 
     def test_user_redirected_after_facebook_signup(self):
         response = self.client_stub.post('/accounts/callback/facebook/')
-        self.assertEqual(
-            response.resolver_match.func.__name__,
-            OAuthCallback.as_view().__name__
-        )
+        self.assertEqual(response.resolver_match.func.__name__, OAuthCallback.as_view().__name__)
+
+
+class DealSearchView(TestCase):
+    def setUp(self):
+        self.client_stub = Client()
+
+    def test_user_citydealfunctioncalled(self):
+        response = resolve('/deals/search/cities/')
+        self.assertEquals(response.func.__name__, 'DealSearchCityView')
+
+    def test_user_singleviewfunctioncalled(self):
+        response = resolve('/deals/search/entry/')
+        self.assertEquals(response.func.__name__, 'DealSearchView')
+
+
+class ActivateAccountRoute(TestCase):
+
+    def Setup(self):
+        self.client_stub = Client()
+
+    def test_activation_link_calls_actual_view_class(self):
+        response = self.client.get('/account/activation/ajkzfYba9847DgJ7wbkwAaSbkTjUdawGG998qo3HG8qae83')
+        self.assertEqual(response.resolver_match.func.__name__, ActivateAccountView.as_view().__name__)
+
+class UserchangePasswordTestCase(TestCase):
+
+    '''Test that User can successfully change password.'''
+
+    def Setup(self):
+        self.client = Client()
+
+        self.user = User.objects.create_user(username='johndoe',
+        email='johndoe@gmail.com', password='12345')
+
+
+    def test_user_can_changepassword(self):
+
+        data = dict(password1="andela",password2="andela")
+        response = self.client.post("/account/changepassword/johndoe",data)
+        self.assertEqual(response.status_code, 302)
+
+class UsercBadChangePasswordTestCase(TestCase):
+
+    ''' Test that user error on change password is caught.'''
+
+    def Setup(self):
+        self.client = Client()
+
+        self.user = User.objects.create_user(username='johndoe',
+        email='johndoe@gmail.com', password='12345')
+
+
+    def test_user_error_changepassword(self):
+
+        data = dict(password1="andela",password2="")
+        response = self.client.post("/account/changepassword/johndoe",data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_no_data(self):
+
+        data = dict(password1="",password2="")
+        response = self.client.post("/account/changepassword/johndoe",data)
+        self.assertEqual(response.status_code, 302)
+
+
+class UserProfileTestCase(TestCase):
+
+    def setUp(self):
+        '''
+        User calls profile page.
+        '''
+        self.client_stub = Client()
+
+        self.user = User.objects.create_user(username='johndoe',
+        email='johndoe@gmail.com', password='12345')
+
+    def test_user_calls_profilepage(self):
+
+        response = self.client_stub.get("/account/profile/user/johndoe")
+        self.assertEquals(response.status_code, 302)
+
+    def test_user_update_profile(self):
+
+        data = dict(first_name='joe', last_name='doe', interest='Games')
+        response = self.client_stub.get("/account/profile/user/johndoe", data)
+        self.assertEquals(response.status_code, 302)
+
+    def test_update_errors(self):
+
+        data = dict(first_name='', last_name='', interest='')
+        response = self.client_stub.get("/account/profile/user/johndoe", data)
+        self.assertEquals(response.status_code, 302)
+
+
+
+
+
+
+
+        
+
+

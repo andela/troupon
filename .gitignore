@@ -72,5 +72,8 @@ troupon/prepros.cfg
 */.DS_Store
 .DS_Store
 
+# staticfiles
+troupon/staticfiles/
+
 # database migrations
 troupon/*/migrations/*

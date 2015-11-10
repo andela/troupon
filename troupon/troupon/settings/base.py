@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'deals',
     'account',
     'allaccess',
+    'haystack',
+    'whoosh',
     'djangobower',
     'django_nose',
 )
@@ -85,6 +87,15 @@ AUTHENTICATION_BACKENDS = (
     # Additional backend for allaccess
     'allaccess.backends.AuthorizedServiceBackend',
 )
+
+WHOOSH_INDEX = os.path.join(BASE_DIR, 'whoosh/')
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': WHOOSH_INDEX,
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

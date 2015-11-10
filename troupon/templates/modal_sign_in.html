@@ -18,17 +18,17 @@
                             </header>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="" action="" method="POST">
+                                    <form action="{% url 'signin' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                         <div class="custom-form-group">
                                             <label for="email">Email <span class="label-asterik">*</span></label>
                                             <div class="custom-input-group">
-                                                <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
+                                                <input type="email" name="username" id="email" placeholder="lagbaja@somedomain.com">
                                             </div>
                                         </div>
                                         <div class="custom-form-group">
-                                            <label for="password1">Password <span class="label-asterik">*</span></label>
+                                            <label for="password">Password <span class="label-asterik">*</span></label>
                                             <div class="custom-input-group">
-                                                <input type="password" name="password1" id="password1" placeholder="At least 6 characters.">
+                                                <input type="password" name="password" id="password" placeholder="At least 6 characters.">
                                             </div>
                                         </div>
                                         <div class="row">

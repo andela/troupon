@@ -15,12 +15,27 @@ from django.core.context_processors import csrf
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
 from emails import Mailgunner
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.validators import validate_email, ValidationError
+from account.models import UserProfile, STATE_CHOICES
+from account.forms import UserProfileForm
+
+
+
 
 import re
 
 # Create your views here.
 
+class LoginRequiredMixin(object):
+
+    '''View mixin which requires that the user is authenticated.'''
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(
+            request, *args, **kwargs)
 
 class UserSigninView(View):
 
@@ -59,9 +74,11 @@ class UserSigninView(View):
         else:
             username = self.request.POST.get('username', '')
             password = self.request.POST.get('password', '')
+            csrfmiddlewaretoken = self.request.POST.get('csrfmiddlewaretoken', '')
+            #import pdb; pdb.set_trace()
             try:
                 validate_email(username)
-                user = User.objects.get(email=username.lower())
+                user = User.objects.get(email__exact=username)
                 username = user.username
             except ValidationError:
                 pass
@@ -73,8 +90,7 @@ class UserSigninView(View):
                 # Redirect to a success page.
                 referer_view = self.get_referer_view(self.request)
 
-                return HttpResponseRedirect(referer_view,
-                                            'Redirect to /deals/ route')
+                return redirect('/')
             else:
                 # Set error context
                 data = {'msg': {
@@ -268,37 +284,187 @@ class ResetPasswordView(View):
 
 class UserSignupView(View):
 
+    ''' Class handles user signup. '''
+
     template_name = 'account/signup.html'
 
     def get(self, request, *args, **kwargs):
         args = {}
         args.update(csrf(request))
-        return render(request, self.template_name, args)
+        return render(request, 'account/signup.html', args)
 
     def post(self, request):
         '''
         Raw data posted from form is recieved here,bound to form
         as dictionary and sent to unrendered django form for validation.
-        '''
-        form_data = {
-            'username': request.POST.get('username', ''),
-            'email': request.POST.get('email', ''),
-            'password1': request.POST.get('password1', ''),
-            'password2': request.POST.get('password2', ''),
-            'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken', ''),
-        }
+        '''         
+        usersignupform = UserSignupForm(request.POST)
+        #get the user email address
+        email = request.POST.get('email')
+        signup_new_user = User.objects.filter(email__exact=email)
 
-        usersignupform = UserSignupForm(form_data)
-        if usersignupform.is_valid():
+        if signup_new_user:
+            args = {}
+            args.update(csrf(request))
+            mssg = "Email already taken please signup with another email"
+            messages.add_message(request, messages.INFO, mssg)
+            return render(request, 'account/signup.html', args)
+
+        if usersignupform.is_valid():          
+            
             usersignupform.save()
+            new_user = User.objects.get(email__exact=email)
 
+            #generate an activation hash url for new user account
+            activation_hash = Hasher.gen_hash(new_user)
+            activation_hash_url = request.build_absolute_uri(reverse('activate_account', kwargs={'activation_hash': activation_hash}))
+
+            #compose the email 
+            activation_email_context = RequestContext(request, {'activation_hash_url': activation_hash_url})
+            activation_email =  Mailgunner.compose(
+                sender = 'Troupon <Noreplytroupon@andela.com>',
+                recipient = new_user.email,
+                subject = 'Troupon: ACTIVATE ACCOUNT',
+                html = loader.get_template('account/activate_account_email.html').render(activation_email_context),
+                text = loader.get_template('account/activate_account_email.txt').render(activation_email_context),
+                )
+                
+            #send mail to new_user
+            activation_status = Mailgunner.send(activation_email)
+
+            # inform the user of activation mail sent
+            if activation_status == 200:
+                new_user_email = new_user.email
+                messages.add_message(request, messages.INFO, new_user_email)
             return HttpResponseRedirect('/account/confirm/')
 
         else:
+            login = "Invalid username or password"
             args = {}
             args.update(csrf(request))
-            return render(request, self.template_name, args)
+            messages.add_message(request, messages.INFO,login )
+            return render(request, 'account/signup.html', args)
+
+
+class ActivateAccountView(View):
+
+    ''' Class handles account activation.'''
+
+    def get(self, request, *args, **kwargs):
+
+        # get the activation_hash captured in url
+        activation_hash = kwargs['activation_hash']
+
+        # reverse the hash to get the user (auto-authentication)
+        user = Hasher.reverse_hash(activation_hash)
+
+        if user is not None:
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+                if user.is_active:
+                    return HttpResponseRedirect('/account/signin/')
+
+        else:
+            raise Http404("/User does not exist")
 
 
 class Userconfirm(TemplateView):
+
+    ''' class handles account creation confirmation.'''
+
     template_name = 'account/confirm.html'
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class Userprofileview(LoginRequiredMixin, TemplateView):
+    """class that handles display of the homepage"""
+    form_class = UserProfileForm
+    template_name = "account/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context_var = super(Userprofileview, self).get_context_data(**kwargs)
+        username = kwargs['username']
+        if self.request.user.username == username:
+            user = self.request.user
+        else:
+            pass
+        
+        context_var = {
+        'show_subscribe': False,
+        'show_search': False,
+        'states': { 'choices': STATE_CHOICES,  'default': 25 },
+                    'profile': user.profile
+                }
+        return context_var
+
+    def post(self, request, **kwargs):
+
+        form = self.form_class(
+            request.POST, instance=request.user.profile)
+        
+        if form.errors:
+            context_var = {
+                'show_subscribe': False,
+                'show_search': False,
+                'states': { 'choices': STATE_CHOICES,  'default': 25 },
+            }
+            empty = "form should not be submitted empty"
+            messages.add_message(request, messages.INFO,empty )
+            return render(request, 'account/profile.html', context_var)
+
+
+        if form.is_valid():
+            form.save()
+            messages.add_message(
+                request, messages.SUCCESS, 'Profile Updated!')
+            return redirect(
+                '/account/profile/user/' + kwargs['username'],
+                context_instance=RequestContext(request)
+            )
+
+class UserChangePassword(LoginRequiredMixin, TemplateView):
+
+    template_name = "account/profile.html"
+
+    def post(self, request, **kwargs):
+
+        username = self.kwargs.get('username')
+        #import pdb; pdb.set_trace()
+        password1 = request.POST.get('password1','')
+        password2 = request.POST.get('password2','')
+
+        if password1 and password2:
+            if password1 == password2:
+                user = User.objects.get(username__exact=username)
+                user.set_password(password1)
+                user.save()
+                return HttpResponseRedirect('/')
+
+
+        if not password1 and not password2:
+            context_var = {
+                'show_subscribe': False,
+                'show_search': False,
+                'states': { 'choices': STATE_CHOICES,  'default': 25 },
+                }
+
+            context_var.update(csrf(request))
+            empty = "Passwords should match or field should not be left empty"
+            messages.add_message(request, messages.INFO,empty )
+            return render(request, self.template_name, context_var)
+
+
+        if not password1 or not password2:
+            context_var = {
+                'show_subscribe': False,
+                'show_search': False,
+                'states': { 'choices': STATE_CHOICES,  'default': 25 },
+                }
+
+            context_var.update(csrf(request))
+            empty = "Passwords should match or field should not be left empty"
+            messages.add_message(request, messages.INFO,empty )
+            return render(request, self.template_name, context_var)
+            

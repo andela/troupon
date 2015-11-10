@@ -109,6 +109,9 @@ class Deal(models.Model):
                                       self.title,
                                       self.advertiser.name)
 
+    def get_absolute_url(self):
+        return "/deals/{}/" .format(self.id)
+    
 
 class Advertiser(models.Model):
     """Advertisers within the troupon system are represented by this
