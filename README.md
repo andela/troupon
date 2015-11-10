@@ -6,6 +6,7 @@
 2.  [Features](#features)
 3.  [Installation](#installation)
 4.  [Team](#team)
+5.  [Demo](#demo)
 
 # <a name="introduction"></a>Introduction
 Troupon is a Groupon clone. Users are able to buy products and services at a discounted price.
@@ -41,3 +42,5 @@ SECRET_KEY = "abcdefghijklmnop"
 - [Oluwafemi Sule](https://github.com/andela-osule)
 - [Awili Uzo](https://github.com/andela-uawili)
 
+# <a name="demo"></a>DEMO
+View our live demo on heroku at [http://troupon-staging.herokuapp.com/](http://troupon-staging.herokuapp.com/)
