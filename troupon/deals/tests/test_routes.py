@@ -91,7 +91,7 @@ class DealViewTestCase(TestCase):
         self.deal = set_advertiser_and_category()
 
     def test_deal404_and_single_deal_view(self):
-        response = self.client.get('/deals/1/')
+        response = self.client.get(reverse('deal', args=[1]))
         self.assertEqual(response.status_code, 404)
 
         deal = Deal(**self.deal)
