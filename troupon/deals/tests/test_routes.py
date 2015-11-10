@@ -123,7 +123,7 @@ class DealSlugViewTestCase(TestCase):
         deal = Deal(**self.deal)
         deal.save()
         response = self.client.get(
-            "/deals/{0}/{1}/".format(deal.id, deal.slug)
+            "/deals/{0}/".format(deal.slug)
         )
         self.assertEqual(response.status_code, 200)
 
@@ -136,7 +136,7 @@ class DealCategoryViewTestCase(TestCase):
     def test_can_view_deals_by_category(self):
         deal = Deal(**self.deal)
         deal.save()
-        response = self.client.get("/deals/listings/?category=books")
+        response = self.client.get("/deals/category/books/")
         self.assertEqual(response.status_code, 200)
 
 
