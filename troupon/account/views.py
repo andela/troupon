@@ -314,6 +314,7 @@ class UserSignupView(View):
             
             usersignupform.save()
             new_user = User.objects.get(email__exact=email)
+            #import pdb; pdb.set_trace()
 
             #generate an activation hash url for new user account
             activation_hash = Hasher.gen_hash(new_user)
@@ -336,7 +337,9 @@ class UserSignupView(View):
             if activation_status == 200:
                 new_user_email = new_user.email
                 messages.add_message(request, messages.INFO, new_user_email)
+                return HttpResponseRedirect('/account/confirm/')
             return HttpResponseRedirect('/account/confirm/')
+
 
         else:
             login = "Invalid username or password"
