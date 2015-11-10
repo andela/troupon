@@ -109,6 +109,11 @@ class Deal(models.Model):
         )
         return image_url
 
+    def discount(self):
+        """Returns deal discount"""
+        discount = 1 - (float(self.price) / self.original_price)
+        return "{0:.0%}".format(discount)
+
     def __str__(self):
         return "{0}, {1}, {2}".format(self.id,
                                       self.title,
@@ -158,7 +163,8 @@ class Category(models.Model):
         """Retrieve random photo of deal under this category
         """
         deals = Deal.objects.filter(category=self.id)
-        return deals[randint(0, len(deals)-1)].image
+        if len(deals) is not 0:
+            return deals[randint(0, len(deals)-1)].image.url
 
 
 def set_deal_inactive(**kwargs):
