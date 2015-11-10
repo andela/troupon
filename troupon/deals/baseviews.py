@@ -21,7 +21,7 @@ class DealListBaseView(View):
 
     # default deal list options as class level vars:
 
-    deals = Deal.objects.all()  # can any queryset of Deal instances
+    deals = Deal.objects.all()  # can be any queryset of Deal instances
     title = "Deals"
     description = ""
     zero_items_message = "Sorry, no deals found!"
