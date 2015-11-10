@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "deals/deal_list_base.html" %}
 {% load static %}
 
 {% block extended_css %}
@@ -8,12 +8,15 @@
 {% block main %}
    <div class="main">
     {% if deal %}
-    <div class="row">
+    <div class="detail row">
         <div class="col-md-12">
             <h2>{{ deal.title }}</h2>
-            <p class="mini-text">{{ deal.state_name }}</p>
+            <div class="divider"></div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
+            <p class="deal-location"><address>{{ deal.address }}</address></p>
+        </div>
+        <div class="col-md-9">
             <div class="infix">
                 <img src="{{ deal.image.url }}">
             </div>
@@ -21,21 +24,57 @@
                 <p>{{ deal.description }}</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <h3 class="deal-price">{{deal.currency_symbol}}{{ deal.price }} <strike>{{deal.currency_symbol}}{{deal.original_price}}</strike></h3>
-            <button class="btn-action btn-form-submit">Buy</button>
-        </div>
-    </div>
-    <div class="second row">
-        <div class="col-md-8">
-             <div class="infix-on-top">
-                <div id="map" style="width:100%; height:450px"></div>
+        <div class="col-md-3 text-center">
+            <div class="deal-price">
+                <strike>
+                    <span>{{deal.currency_symbol}}{{deal.original_price}}</span>
+                </strike>
+                <h3>{{deal.currency_symbol}}{{ deal.price }}</h3>
+            </div>
+            <!--Deal price specs-->
+            <ul class="deal-price-specs">
+                <li class="deal-price-specs-leaf">
+                    <span class="col-sm-6 ash text-left">Value</span>
+                    <span class="col-sm-6 text-right">{{deal.currency_symbol}} {{deal.original_price}}</span>
+                </li>
+                <li class="deal-price-specs-leaf">
+                    <span class="col-sm-6 ash text-left">Discount</span>
+                    <span class="col-sm-6 text-right">{{deal.discount}}</span>
+                </li>
+                <li class="deal-price-specs-leaf">
+                    <span class="col-sm-6 ash text-left">You Pay</span>
+                    <span class="col-sm-6 text-right">{{ deal.currency_symbol}} {{deal.price}}</span>
+                </li>
+                <li class="deal-price-specs-leaf">
+                    <span class="col-sm-6 ash text-left">Purchases</span>
+                    <span class="col-sm-6 text-right">{{deal.quorum|default:0}}|{{deal.max_quantity_available}}</span>
+                </li>
+            </ul>
+            <div>
+                <button id="buy-btn" class="btn-action btn-form-submit"><i class="glyphicon glyphicon-plus"></i>Buy Deal</button>
+            </div>
+            <div class="share-btn">
+                <p>Share this deal</p>
+                <button class="btn btn-default"><i class="fa fa-facebook"></i></button>
+                <button class="btn btn-default"><i class="fa fa-twitter"></i></button>
+                <button class="btn btn-default"><i class="fa fa-instagram"></i></button>
+                <button class="btn btn-default"><i class="fa fa-pinterest"></i></button>
+                <button class="btn btn-default"><i class="fa fa-envelope"></i></button>
             </div>
         </div>
-        <div class="col-md-4 directions">
-            <h3>Location of Dealer</h3>
-            <address>{{ deal.address }}</address>
-            <a href="#">Get Directions</a>
+        <div class="divider"></div>
+    </div>
+    <div class="second row description">
+        <div class="col-md-6">
+            <h3 class="text-uppercase"><i class="fa fa-list-alt"></i> Description</h3>
+            <h4>{{deal.address}}</h4>
+            <div class="description-text">{{deal.description|default:'<p>No description exists for this deal.</p>'}}</div>
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-uppercase"><i class="fa fa-map-marker"></i> Directions</h3>
+             <div>
+                <div id="map" style="width:100%; height:450px"></div>
+            </div>
         </div>
     </div>
     {% else %}
