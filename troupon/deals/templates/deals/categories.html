@@ -11,14 +11,15 @@
     <div class="row">
         {% for category in categories %}
             <div class="col-sm-4">
-                <img src="{{ category.rand_photo.url }}" />
-                <a href="{% url 'deal-category-with-slug' %}?category={{ category.slug }}">{{ category.name }}</a>
+            <a href="{% url 'deal-category-with-slug' category.slug %}" class="thumbnail">
+                <img src="{{ category.image }}" />
+                {{ category.name }}</a>
             </div>
         {% endfor %}
     </div>
     {% else %}
         <div class="placeholder">
-            <p>There is no deal categoryc for your location.</p>
+            <p>There is no deal category for your location.</p>
         </div>
     {% endif %}
     </div>
