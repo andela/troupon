@@ -469,5 +469,4 @@ class UserChangePassword(LoginRequiredMixin, TemplateView):
             context_var.update(csrf(request))
             empty = "Passwords should match or field should not be left empty"
             messages.add_message(request, messages.INFO,empty )
-            return render(request, self.template_name, context_var)
-            
+            return render(request, self.template_name, context_var)      
