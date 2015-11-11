@@ -314,7 +314,6 @@ class UserSignupView(View):
             
             usersignupform.save()
             new_user = User.objects.get(email__exact=email)
-            #import pdb; pdb.set_trace()
 
             #generate an activation hash url for new user account
             activation_hash = Hasher.gen_hash(new_user)
