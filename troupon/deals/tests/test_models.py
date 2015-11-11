@@ -48,3 +48,9 @@ class DealModelTestCase(TestCase):
         with self.assertRaises(Deal.DoesNotExist) as context:
             Deal.objects.get(**self.deal)
         self.assertTrue("does not exist" in context.exception.message)
+
+    def test_that_discount_calculated_is_right(self):
+        # test that the discount calculated is correct
+        deal = Deal(**self.deal)
+        deal.save()
+        self.assertEqual(deal.discount(), '50%')
