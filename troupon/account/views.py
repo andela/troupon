@@ -331,7 +331,7 @@ class UserSignupView(View):
                 
             #send mail to new_user
             activation_status = Mailgunner.send(activation_email)
-
+            print activation_status
             # inform the user of activation mail sent
             if activation_status == 200:
                 new_user_email = new_user.email
