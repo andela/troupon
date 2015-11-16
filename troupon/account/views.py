@@ -465,4 +465,3 @@ class UserChangePassword(LoginRequiredMixin, TemplateView):
             messages.add_message(request, messages.INFO,empty )
 
             return render(request, self.template_name, context_var)      
-
