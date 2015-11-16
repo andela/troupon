@@ -34,3 +34,5 @@ deployment:
       - heroku run python troupon/manage.py migrate --settings=troupon.settings --app troupon-staging
       - heroku run python troupon/manage.py syncdb --noinput --settings=troupon.settings --app troupon-staging
       - heroku ps:scale web=1 --app troupon-staging
+
+      
