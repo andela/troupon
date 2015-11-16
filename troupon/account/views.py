@@ -40,7 +40,9 @@ class UserSigninView(View):
     engine = Engine.get_default()  # get static reference to template engine
     cls_default_msgs = {
                         'not_signed_in': 'User is not signed in',
-                        'invalid_param': 'Invalid signin parameters',
+                        'invalid_param': 'Invalid signin parameters. \
+                        Possible causes might be: an incorrect username,\
+                        an incorrect password or inexistent user account',
                         }  # class default messages
 
     def get(self, *args, **kwargs):
@@ -77,7 +79,7 @@ class UserSigninView(View):
                 validate_email(username)
                 user = User.objects.get(email__exact=username)
                 username = user.username
-            except ValidationError:
+            except (ValidationError, User.DoesNotExist) as e:
                 pass
             user = authenticate(username=username, password=password)
             if user is not None and user.is_active:
@@ -90,17 +92,15 @@ class UserSigninView(View):
                 return redirect('/')
             else:
                 # Set error context
-                data = {'msg': {
-                            'content': self.cls_default_msgs['invalid_param']
-                            }
-                        }
-                # Replace template object compiled from template code
-                # with an application template before push to production.
-                # Use self.engine.get_template(template_name)
-                t = self.engine.from_string('{{msg.content}}')
+                error_msg = self.cls_default_msgs['invalid_param']
+                messages.add_message(self.request, messages.INFO, error_msg)
+                
+                # Set template
+                template = self.engine.get_template('account/signin.html')
+                
                 # Set result in RequestContext
-                c = RequestContext(self.request, data)
-                return HttpResponse(t.render(c))
+                context = RequestContext(self.request)
+                return HttpResponse(template.render(context))
 
     def get_referer_view(self, request, default='/'):
         '''
@@ -328,7 +328,6 @@ class UserSignupView(View):
                 
             #send mail to new_user
             activation_status = SendGrid.send(activation_email)
-
             # inform the user of activation mail sent
             if activation_status == 200:
                 new_user_email = new_user.email
@@ -464,4 +463,6 @@ class UserChangePassword(LoginRequiredMixin, TemplateView):
             context_var.update(csrf(request))
             empty = "Passwords should match or field should not be left empty"
             messages.add_message(request, messages.INFO,empty )
+
             return render(request, self.template_name, context_var)      
+

@@ -5,9 +5,7 @@ import os
 
 class SendGrid:
     """This class is used to send emails using the requests
-        module to the mailgun message api.
-    NOTE: This class has the Python-Requests package as a dependency.
-    Run 'pip install requirements.txt' to install on your environment.
+        module to the sendgrid message api.
     """
 
     sg = sendgrid.SendGridClient(os.getenv('sendgrid_apikey'),

@@ -1,25 +1,45 @@
-{% extends "base.html" %}
+{% extends "deals/deal_list_base.html" %}
 {% load static %}
 
 {% block extended_css %}
-    <link rel="stylesheet" type="text/css" href="{% static "css/deals.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deals.css' %}">
 {% endblock %}
 
 {% block main %}
-   <div class="main">
-    {% if categories %}
-    <div class="row">
-        {% for category in categories %}
-            <div class="col-sm-4">
-                <img src="{{ category.rand_photo.url }}" />
-                <a href="{% url 'deal-category-with-slug' %}?category={{ category.slug }}">{{ category.name }}</a>
+        <section class="row">
+            <div class="section-heading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="title">Available Categories</h2>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="divider"></div>
+                </div>
             </div>
-        {% endfor %}
-    </div>
-    {% else %}
-        <div class="placeholder">
-            <p>There is no deal categoryc for your location.</p>
-        </div>
-    {% endif %}
-    </div>
+            {% if categories_page %}
+            <div class="col-sm-12">
+                <div class="packery-grid">
+                    <div class="grid-sizer"></div>
+                    <div class="gutter-sizer"></div>
+                {% for category in categories_page %}
+                    <div class="grid-item card">
+                        <a  class="item-image-wrapper" href="{% url 'deal-category-with-slug' category.slug %}">
+                            <img src="{{ category.image|default:'http://res.cloudinary.com/awiliuzo/image/upload/v1447153952/default_myoi9r.png' }}" />
+                        </a>
+                        <div class="item-info">
+                            <h3><a href="{% url 'deal-category-with-slug' category.slug %}">{{ category.name }}</a></h3>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <div class="placeholder">
+                    <p>Oops! No deal category was found for your location.</p>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+        {% include 'snippet_pagination.html'  with page=categories_page pagination_base_url=pagination_base_url %}
 {% endblock %}
