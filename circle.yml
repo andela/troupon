@@ -15,13 +15,7 @@ test:
     - python troupon/manage.py makemigrations
     - python troupon/manage.py migrate
     - coverage run --source deals,account troupon/manage.py test troupon --noinput --settings=troupon.settings.test
-  machine:
-    environment:
-      COVERALLS_REPO_TOKEN: Z7J7N5DiUfSjSCk98ej6dVyc3HKlG4p3F
-      COVERALLS_PARALLEL: true
-  notify:
-    webhooks:
-      - url: https://coveralls.io/webhook?repo_token=Z7J7N5DiUfSjSCk98ej6dVyc3HKlG4p3F
+    - COVERALLS_REPO_TOKEN=Z7J7N5DiUfSjSCk98ej6dVyc3HKlG4p3F coveralls    
 
 deployment:
   staging:
@@ -35,4 +29,4 @@ deployment:
       - heroku run python troupon/manage.py syncdb --noinput --settings=troupon.settings --app troupon-staging
       - heroku ps:scale web=1 --app troupon-staging
 
-      
+
