@@ -25,7 +25,7 @@
                     <div class="gutter-sizer"></div>
                 {% for advertiser in collections_page %}
                     <div class="grid-item card">
-                        <a  class="item-image-wrapper" href="{% url 'deal-advertiser-with-slug' advertiser.slug %}">
+                        <a  class="item-image-wrapper" href="{% url 'deal-advertiser-with-slug' advertiser_slug=advertiser.slug %}">
                             <img src="{{ advertiser.image|default:'http://res.cloudinary.com/awiliuzo/image/upload/v1447153952/default_myoi9r.png' }}" />
                         </a>
                         <div class="item-info">
