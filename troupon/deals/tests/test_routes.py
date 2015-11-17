@@ -12,7 +12,7 @@ import cloudinary
 def set_advertiser_and_category():
     """Sets the advertiser and category.
     returns a deal dictionary"""
-    advertiser = Advertiser(name="XYZ Stores")
+    advertiser = Advertiser(name="XYZ Stores", slug="xyz-stores")
     advertiser.save()
     category = Category(name="Books", slug="books")
     category.save()
@@ -154,3 +154,23 @@ class CategoriesViewTestCase(TestCase):
     def test_can_view_categories(self):
         response = self.client.get('/deals/categories/')
         self.assertEqual(response.status_code, 200)
+
+
+class AdvertisersViewTestCase(TestCase):
+    
+    def setUp(self):
+        self.deal = set_advertiser_and_category()
+        deal = Deal(**self.deal)
+        deal.save()
+    
+    def test_can_view_advertisers(self):
+        response = self.client.get(reverse("deal-advertisers"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_can_view_deals_by_advertiser(self):
+        response = self.client.get(
+            "/deals/merchant/{0}/".format(slugify('XYZ Stores')))
+        self.assertEqual(response.status_code, 200)
+
+class StatesViewTestCase(TestCase):
+    pass

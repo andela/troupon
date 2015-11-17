@@ -1,6 +1,8 @@
 
 from django.conf.urls import url, include
-from .views import DealSearchView, DealSearchCityView, DealView, DealsView, CategoryView, DealCategoryView, DealSlugView
+from .views import DealSearchView, DealSearchCityView, DealView, DealsView, \
+    CategoryView, DealCategoryView, DealSlugView, AdvertiserView, \
+    DealAdvertiserView
 
 
 urlpatterns = [
@@ -15,6 +17,10 @@ urlpatterns = [
     url(r'^categories/$',
         CategoryView.as_view(),
         name='deal-categories'),
+    # /deals/advertisers/
+    url(r'^merchants/$',
+        AdvertiserView.as_view(),
+        name='deal-advertisers'),
     # /deals/:slug/
     url(r'^(?P<deal_slug>[\w-]+)/$',
         DealSlugView.as_view(),
@@ -23,4 +29,8 @@ urlpatterns = [
     url(r'^category/(?P<category_slug>[\w-]+)/$',
         DealCategoryView.as_view(),
         name='deal-category-with-slug'),
+    # /deals/advertiser/:slug/
+    url(r'^merchant/(?P<advertiser_slug>[\w-]+)/$',
+        DealAdvertiserView.as_view(),
+        name='deal-advertiser-with-slug'),
 ]
