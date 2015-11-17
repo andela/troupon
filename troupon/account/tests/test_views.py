@@ -121,13 +121,13 @@ class UserRegisterTestCase(LiveServerTestCase):
         url = "%s%s" % (self.live_server_url, reverse('signin'))
         self.driver.get(url)
         # input login details and submit
-        self.driver.find_element_by_id("username").send_keys('admin')
+        self.driver.find_element_by_id("email").send_keys('admin')
         self.driver.find_element_by_id("password").send_keys('admin')
-        self.driver.find_element_by_xpath("//input[@value='Sign in']").click()
-        # assert that user is logged in by accessing admin area
-        self.driver.get(
-            '%s%s' % (self.live_server_url, "/admin/auth/user/add/"))
-        self.assertIn('Add user', self.driver.page_source)
+        self.driver.find_element_by_id("signinBtn").click()
+
+        # assert user is signed in
+        self.driver.implicitly_wait(20)
+        self.assertIn("Signed in as:", self.driver.page_source)        
 
     def test_user_can_register(self,):
         """
@@ -136,21 +136,7 @@ class UserRegisterTestCase(LiveServerTestCase):
         url = "%s%s" % (self.live_server_url, reverse('signin'))
         self.driver.get(url)
         self.driver.find_element_by_id("user_signup_link").click()
-        block = WebDriverWait(self.driver, 60)
-        # by = self.driver.find_element_by_class_name('bs-example-modal-lg')
-        block.until(
-            EC.visibility_of_element_located(
-                (By.CLASS_NAME, 'bs-example-modal-lg')
-                )
-            )
-        self.driver.find_element_by_id("createUsername").send_keys("tosin")
-        self.driver.find_element_by_id("createPassword1").send_keys("tosin")
-        self.driver.find_element_by_id("createPassword2").send_keys("tosin")
-        self.driver.find_element_by_id(
-            "createEmail"
-            ).send_keys("tosin@andela.com")
-        self.driver.find_element_by_name("createUserForm").submit()
-        # self.assertIn("Success! your account has been created", self.driver.page_source)
+        self.assertIn("Sign up", self.driver.page_source)
 
     def tearDown(self,):
         """
@@ -158,11 +144,11 @@ class UserRegisterTestCase(LiveServerTestCase):
         """
         super(UserRegisterTestCase, self).tearDown()
 
-        
     @classmethod
     def tearDownClass(cls):
         cls.driver.quit()
         super(UserRegisterTestCase, cls).tearDownClass()
+
 
 class ActivateAccountTestCase(TestCase):
 
@@ -171,14 +157,13 @@ class ActivateAccountTestCase(TestCase):
     def setUp(self):
         self.client_stub = Client()
         self.form_data = dict(username="andela",
-                               password1="andela",
-                               password2="andela",
-                               email="samuel@andela.com",
-                               )
+                              password1="andela",
+                              password2="andela",
+                               email="samuel.james@andela.com",
+                              )
+
 
     def test_activation_mail_sent(self):
         
         response = self.client_stub.post('/account/signup/', self.form_data)
         self.assertEqual(302,response.status_code)
-
-
