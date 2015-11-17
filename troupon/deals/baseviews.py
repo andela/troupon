@@ -128,7 +128,7 @@ class DealListBaseView(View):
         return render(request, 'deals/deal_list_base.html', context)
 
 
-class CollectionBaseView(View):
+class CollectionsBaseView(View):
     """ Handles rendering of items in a collection
     """
     zero_items_message = "Sorry, no collection items found!"
@@ -158,13 +158,13 @@ class CollectionBaseView(View):
             show_page_num = self.request.GET.get('pg')
             if not show_page_num:
                 show_page_num = self.show_page_num
-            collection_page = paginator.page(show_page_num)
+            collections_page = paginator.page(show_page_num)
         except PageNotAnInteger:
             # if page is not an integer, deliver first page.
-            collection_page = paginator.page(1)
+            collections_page = paginator.page(1)
         except EmptyPage:
             # if page is out of range, deliver last page of results.
-            collection_page = paginator.page(paginator.num_pages)
+            collections_page = paginator.page(paginator.num_pages)
 
         # set the description to be used in the list header:
         if collection_page.paginator.count:
@@ -178,7 +178,7 @@ class CollectionBaseView(View):
                     'query': "",
                     'states': {'choices': STATE_CHOICES, 'default': 25},
                 },
-                'collection_page': collection_page,
+                'collections_page': collections_page,
                 'title': self.title,
                 'description': description,
                 'pagination_base_url': self.pagination_base_url,
