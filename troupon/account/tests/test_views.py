@@ -6,8 +6,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from mock import patch
+from mock import patch, MagicMock
 import socket
+from account import emails
+from account.emails import SendGrid
 
 
 class UserSignInViewTestCase(TestCase):
@@ -172,13 +174,12 @@ class ActivateAccountTestCase(TestCase):
         self.form_data = dict(username="andela",
                                password1="andela",
                                password2="andela",
-                               email="samuel.james@andela.com",
+                               email="samuel@andela.com",
                                )
-    @patch('requests.post')
-    def test_activation_mail_sent(self,post_request_mock):
-        response = self.client_stub.post('/account/signup/', self.form_data)
-        self.assertEqual(post_request_mock.call_count, 1)
-        self.assertEqual(response.status_code, 302)
 
+    def test_activation_mail_sent(self):
+        
+        response = self.client_stub.post('/account/signup/', self.form_data)
+        self.assertEqual(302,response.status_code)
 
 

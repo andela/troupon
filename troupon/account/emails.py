@@ -1,40 +1,41 @@
-import requests
+import sendgrid
+from sendgrid import SendGridError, SendGridClientError, SendGridServerError
 import os
 
 
-class Mailgunner:
+class SendGrid:
     """This class is used to send emails using the requests
-        module to the mailgun message api.
-    NOTE: This class has the Python-Requests package as a dependency.
-    Run 'pip install requirements.txt' to install on your environment.
+        module to the sendgrid message api.
     """
 
-    url = os.getenv('MAILGUN_URL')
-    auth = (os.getenv('MAILGUN_USERNAME'), os.getenv('MAILGUN_PASSWORD'))
+    sg = sendgrid.SendGridClient(os.getenv('sendgrid_apikey'),
+                         raise_errors=True)
+
 
     @staticmethod
     def compose(sender, recipient, subject, text="", html="None"):
         """RECOMMENDED: use this method to compose
-            the email dict to use with send
+            the email.
         """
-        email = {
-            "from": sender,
-            "to": [recipient, ],
-            "subject": subject,
-            "text": text,
-            "html": html
-        }
-        return email
+        message = sendgrid.Mail()
+        message.add_to(recipient)
+        message.set_subject(subject)
+        message.set_html(html)
+        message.set_text(text)
+        message.set_from(sender)
+
+        return message
+
 
     @staticmethod
-    def send(email):
-        """NOTE: email must be a dict"""
+    def send(message):
+        
         try:
-            status_code = requests.post(
-                Mailgunner.url,
-                auth=Mailgunner.auth,
-                data=email).status_code
-        except:
-            status_code = 520
-        return status_code
+            http_status_code, message = SendGrid.sg.send(message)
+        except SendGridClientError:
+            pass
+        except SendGridServerError:
+            pass
+            
+        return http_status_code
 

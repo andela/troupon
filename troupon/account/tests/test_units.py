@@ -1,8 +1,9 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from mock import patch
+from mock import patch, MagicMock
 from account.hashs import UserHasher as Hasher
-from account.emails import Mailgunner
+from account import emails 
+from account.emails import SendGrid
 
 
 class AccountHashsTestCase(TestCase):
@@ -49,22 +50,17 @@ class EmailTestCase(TestCase):
 
     def setUp(self):
         # compose test email:
-        self.email = Mailgunner.compose(
+        self.email = SendGrid.compose(
             sender='Troupon Tests <troupon@andela.com>',
             recipient='johndoe@somedomain.com',
-            subject='Troupon Email Integaration With Mailgun (Tests)',
-            html="<h1>Troupon ---> Mailgun API ---> You\
+            subject='Troupon Email Integaration With SendGrid (Tests)',
+            html="<h1>Troupon ---> SendGrid API ---> You\
             </h1><p>Testing Mic: 1, 2</p>",
-            text="Troupon ---> Mailgun API ---> You \n\nTesting Mic: 1, 2"
+            text="Troupon ---> SendGrid API ---> You \n\nTesting Mic: 1, 2"
         )
 
-    @patch('requests.post')
-    def test_mailgunner_sends_email_post_request(self, post_request_mock):
-        Mailgunner.send(self.email)
-        # assert that there was an attempt to send the mail
-        self.assertEqual(post_request_mock.call_count, 1)
-        # assert the mail was sent with the right params:
-        post_request_mock.assert_called_with(
-            Mailgunner.url,
-            auth=Mailgunner.auth,
-            data=self.email)
+    
+    def test_sendgrid_sends_email(self):
+        
+        response = SendGrid.send(self.email)
+        self.assertEquals(200, response)

@@ -14,15 +14,12 @@ from django.views.generic import View
 from django.core.context_processors import csrf
 from hashs import UserHasher as Hasher
 from forms import EmailForm, ResetPasswordForm
-from emails import Mailgunner
+from emails import SendGrid
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.validators import validate_email, ValidationError
 from account.models import UserProfile, STATE_CHOICES
 from account.forms import UserProfileForm
-
-
-
 
 import re
 
@@ -169,7 +166,7 @@ class ForgotPasswordView(View):
                 recovery_email_context = RequestContext(
                     request,
                     {'recovery_hash_url': recovery_hash_url})
-                recovery_email = Mailgunner.compose(
+                recovery_email = SendGrid.compose(
                     sender='Troupon <troupon@andela.com>',
                     recipient=registered_user.email,
                     subject='Troupon: Password Recovery',
@@ -181,7 +178,7 @@ class ForgotPasswordView(View):
                         ).render(recovery_email_context),
                 )
                 # send it and get the request status:
-                email_status = Mailgunner.send(recovery_email)
+                email_status = SendGrid.send(recovery_email)
 
                 # inform the user of the status of the recovery mail:
                 context = {
@@ -321,7 +318,7 @@ class UserSignupView(View):
 
             #compose the email 
             activation_email_context = RequestContext(request, {'activation_hash_url': activation_hash_url})
-            activation_email =  Mailgunner.compose(
+            activation_email =  SendGrid.compose(
                 sender = 'Troupon <Noreplytroupon@andela.com>',
                 recipient = new_user.email,
                 subject = 'Troupon: ACTIVATE ACCOUNT',
@@ -330,13 +327,13 @@ class UserSignupView(View):
                 )
                 
             #send mail to new_user
-            activation_status = Mailgunner.send(activation_email)
-            print activation_status
+            activation_status = SendGrid.send(activation_email)
             # inform the user of activation mail sent
             if activation_status == 200:
                 new_user_email = new_user.email
                 messages.add_message(request, messages.INFO, new_user_email)
             return HttpResponseRedirect('/account/confirm/')
+
 
         else:
             login = "Invalid username or password"
@@ -466,5 +463,5 @@ class UserChangePassword(LoginRequiredMixin, TemplateView):
             context_var.update(csrf(request))
             empty = "Passwords should match or field should not be left empty"
             messages.add_message(request, messages.INFO,empty )
-            return render(request, self.template_name, context_var)
-            
+
+            return render(request, self.template_name, context_var)      
