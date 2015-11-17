@@ -18,12 +18,12 @@
                     <div class="divider"></div>
                 </div>
             </div>
-            {% if categories_page %}
+            {% if collections_page %}
             <div class="col-sm-12">
                 <div class="packery-grid">
                     <div class="grid-sizer"></div>
                     <div class="gutter-sizer"></div>
-                {% for category in categories_page %}
+                {% for category in collections_page %}
                     <div class="grid-item card">
                         <a  class="item-image-wrapper" href="{% url 'deal-category-with-slug' category.slug %}">
                             <img src="{{ category.image|default:'http://res.cloudinary.com/awiliuzo/image/upload/v1447153952/default_myoi9r.png' }}" />
