@@ -186,3 +186,72 @@ class CollectionsBaseView(View):
             })
 
         return render(self.request, self.template, context)
+
+
+class DealCollectionItemsListBaseView(DealListBaseView):
+    """ Renders a list of collection items
+    """
+    title = ''
+    queryset = ''
+    slug_name = ''
+    model = ''
+    not_found = ''
+    template = ''
+    filter_field = ''
+
+    def get_queryset(self, slug):
+        """Returns query set
+        """
+        self.queryset = self.model.objects.get(slug=slug)
+        return self.queryset
+    
+    def get(self, *args, **kwargs):
+        """Attends to GET request
+        """
+        slug = self.kwargs.get(self.slug_name)
+        try:
+            self.get_queryset(slug)
+        except self.model.DoesNotExist:
+            raise Http404(self.not_found)
+        self.filter_deals(**kwargs)
+        self.set_title("some title")
+        self.set_description("some desc")
+        self.do_render()
+        
+    def set_context_data(self):
+        """Sets context for response
+        """
+        self.context = {
+            'search_options': {
+                'query': "",
+                'states': {'choices': STATE_CHOICES, 'default': 25},
+            },
+            'rendered_deal_list': self.rendered_deal_list
+        }
+
+    def set_description(self, desc):
+        """Sets description on list page
+        """
+        self.description = desc 
+    
+    def set_title(self, title):
+        """Sets title on list page
+        """
+        self.title = title
+    
+    def filter_deals(self, **filter):
+        """Applies filter to deal query set
+        """
+        self.deals = Deal.objects.filter(**filter)
+    
+    def do_render(self):
+        """Renders template
+        """
+        self.rendered_deal_list = self.render_deal_list(
+                self.request,
+                deals=self.deals,
+                title=self.title,
+                description=self.description
+            )
+        self.set_context_data()
+        return render(self.request, self.template, self.context)
