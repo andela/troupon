@@ -167,7 +167,7 @@ class CollectionsBaseView(View):
             collections_page = paginator.page(paginator.num_pages)
 
         # set the description to be used in the list header:
-        if collection_page.paginator.count:
+        if collections_page.paginator.count:
             description = self.description
         else:
             description = self.zero_items_message
