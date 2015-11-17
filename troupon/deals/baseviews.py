@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render
 from django.views.generic import View
-from django.template import RequestContext, loader
+from django.template import RequestContext, loader, Engine
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from deals.models import Deal, STATE_CHOICES, EPOCH_CHOICES
@@ -127,3 +127,62 @@ class DealListBaseView(View):
         }
         return render(request, 'deals/deal_list_base.html', context)
 
+
+class CollectionBaseView(View):
+    """ Handles rendering of items in a collection
+    """
+    zero_items_message = "Sorry, no collection items found!"
+    num_page_items = 9
+    min_orphan_items = 3
+    show_page_num = 1
+    pagination_base_url = ""
+    queryset = ""
+    title = "Collection listing"
+    description = "See all collection items"
+    template = ''
+
+    def get(self, *args, **kwargs):
+
+        engine = Engine.get_default()
+        template = engine.get_template(self.template)
+
+        # paginate deals and get the specified page:
+        paginator = Paginator(
+            self.queryset,
+            self.num_page_items,
+            self.min_orphan_items,
+        )
+
+        try:
+            # get the page number if present in request.GET
+            show_page_num = self.request.GET.get('pg')
+            if not show_page_num:
+                show_page_num = self.show_page_num
+            collection_page = paginator.page(show_page_num)
+        except PageNotAnInteger:
+            # if page is not an integer, deliver first page.
+            collection_page = paginator.page(1)
+        except EmptyPage:
+            # if page is out of range, deliver last page of results.
+            collection_page = paginator.page(paginator.num_pages)
+
+        # set the description to be used in the list header:
+        if collection_page.paginator.count:
+            description = self.description
+        else:
+            description = self.zero_items_message
+
+        context = RequestContext(
+                self.request,
+                {'search_options': {
+                    'query': "",
+                    'states': {'choices': STATE_CHOICES, 'default': 25},
+                },
+                'collection_page': collection_page,
+                'title': self.title,
+                'description': description,
+                'pagination_base_url': self.pagination_base_url,
+                'page': True,
+            })
+
+        return render(self.request, self.template, context)
