@@ -164,6 +164,7 @@ class AdvertisersViewTestCase(TestCase):
         deal.save()
     
     def test_can_view_advertisers(self):
+        print "-->>>>>{}".format(Advertiser.objects.all())
         response = self.client.get(reverse("deal-advertisers"))
         self.assertEqual(response.status_code, 200)
 
