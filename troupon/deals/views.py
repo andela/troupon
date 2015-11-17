@@ -6,8 +6,8 @@ from django.template import Engine, RequestContext, loader
 from haystack.query import SearchQuerySet
 from django.core.paginator import Paginator
 from django.core.context_processors import csrf
-from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES
-from deals.baseviews import DealListBaseView
+from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES, Advertiser
+from deals.baseviews import DealListBaseView, CollectionsBaseView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import datetime
@@ -213,60 +213,33 @@ class DealCategoryView(DealListBaseView):
         return render(self.request, 'deals/deal_list_base.html', context)
 
 
-class CategoryView(View):
+class CategoryView(CollectionsBaseView):
     """ List all categories
     """
-    zero_items_message = "Sorry, no deals found!"
+    zero_items_message = "Sorry, no categories found!"
     num_page_items = 9
     min_orphan_items = 3
     show_page_num = 1
     pagination_base_url = ""
-    categories = Category.objects.all()
+    queryset = Category.objects.all()
+    template = 'deals/categories.html'
     title = "Category Listing for All Available Deals"
     description = "See all categories to choose from"
 
-    def get(self, *args, **kwargs):
 
-        engine = Engine.get_default()
-        template = engine.get_template('deals/categories.html')
+class AdvertiserView(CollectionsBaseView):
+    """ List all merchants
+    """
+    zero_items_message = "Sorry, no merchants were found!"
+    num_page_items = 9
+    min_orphan_items = 3
+    show_page_num = 1
+    pagination_base_url = ""
+    queryset = Advertiser.objects.all()
+    template = 'deals/merchants.html'
+    title = "All Merchants with Deals for You"
+    description = "See all merchants with great deal offers"
 
-        # paginate deals and get the specified page:
-        paginator = Paginator(
-            self.categories,
-            self.num_page_items,
-            self.min_orphan_items,
-        )
 
-        try:
-            # get the page number if present in request.GET
-            show_page_num = self.request.GET.get('pg')
-            if not show_page_num:
-                show_page_num = self.show_page_num
-            categories_page = paginator.page(show_page_num)
-        except PageNotAnInteger:
-            # if page is not an integer, deliver first page.
-            categories_page = paginator.page(1)
-        except EmptyPage:
-            # if page is out of range, deliver last page of results.
-            categories_page = paginator.page(paginator.num_pages)
-
-        # set the description to be used in the list header:
-        if categories_page.paginator.count:
-            description = self.description
-        else:
-            description = self.zero_items_message
-
-        context = RequestContext(
-                self.request,
-                {'search_options': {
-                    'query': "",
-                    'states': {'choices': STATE_CHOICES, 'default': 25},
-                },
-                'categories_page': categories_page,
-                'title': self.title,
-                'description': description,
-                'pagination_base_url': self.pagination_base_url,
-                'page': True,
-            })
-
-        return HttpResponse(template.render(context))
+class DealAdvertiserView(DealListBaseView):
+    pass
