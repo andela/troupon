@@ -121,9 +121,21 @@ class Deal(models.Model):
 
     def get_absolute_url(self):
         return "/deals/{}/" .format(self.id)
-    
 
-class Advertiser(models.Model):
+    
+class ImageMixin(object):
+    """Mixes in an image property which is a random image selected from
+    all available deals
+    """
+    def image(self):
+        """Retrieve random photo of deal under this category
+        """
+        deals = Deal.objects.filter(category=self.id)
+        if len(deals) is not 0:
+            return deals[randint(0, len(deals)-1)].image.url
+
+
+class Advertiser(ImageMixin, models.Model):
     """Advertisers within the troupon system are represented by this
         model.
 
@@ -145,7 +157,7 @@ class Advertiser(models.Model):
         return "{0}".format(self.name)
 
 
-class Category(models.Model):
+class Category(ImageMixin, models.Model):
     """Categories of deal within the troupon system are represented by
        this model.
 
@@ -160,12 +172,6 @@ class Category(models.Model):
     def __str__(self):
         return "{0}".format(self.name)
 
-    def image(self):
-        """Retrieve random photo of deal under this category
-        """
-        deals = Deal.objects.filter(category=self.id)
-        if len(deals) is not 0:
-            return deals[randint(0, len(deals)-1)].image.url
 
 
 def set_deal_inactive(**kwargs):
