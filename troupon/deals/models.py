@@ -135,6 +135,7 @@ class Advertiser(models.Model):
         blank=False,
         default=''
     )
+    slug = models.SlugField(blank=True) 
     address = models.CharField(max_length=200, default='')
     state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
     telephone = models.CharField(max_length=60, default='')
