@@ -165,10 +165,13 @@ class AdvertisersViewTestCase(TestCase):
         deal.save()
     
     def test_can_view_advertisers(self):
-        response = self.client.get("/deals/advertisers/")
+        response = self.client.get(reverse("deal-advertisers"))
         self.assertEqual(response.status_code, 200)
 
     def test_can_view_deals_by_advertiser(self):
         response = self.client.get(
-            "/deals/advertiser/{0}".format(slugify('XYZ Stores')))
+            "/deals/merchant/{0}/".format(slugify('XYZ Stores')))
         self.assertEqual(response.status_code, 200)
+
+class StatesViewTestCase(TestCase):
+    pass
