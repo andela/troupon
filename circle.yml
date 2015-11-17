@@ -21,6 +21,7 @@ deployment:
   staging:
     branch: develop
     commands:
+      - git fetch origin --unshallow
       - git push -f git@heroku.com:troupon-staging.git $CIRCLE_SHA1:master
       - heroku run python troupon/manage.py collectstatic --noinput --settings=troupon.settings --app troupon-staging
       - heroku run python troupon/manage.py makemigrations --settings=troupon.settings --app troupon-staging
