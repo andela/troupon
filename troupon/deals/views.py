@@ -7,7 +7,8 @@ from haystack.query import SearchQuerySet
 from django.core.paginator import Paginator
 from django.core.context_processors import csrf
 from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES, Advertiser
-from deals.baseviews import DealListBaseView, CollectionsBaseView
+from deals.baseviews import DealListBaseView, CollectionsBaseView, \
+    DealCollectionItemsListBaseView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import datetime
@@ -179,42 +180,25 @@ class DealSlugView(View):
 
         return HttpResponse(template.render(context))
 
-
-class DealCategoryView(DealListBaseView):
+    
+class DealCategoryView(DealCollectionItemsListBaseView):
     """ Respond to routes to deal categories using slug
     """
+    slug_name = 'category_slug'
+    filter_field = 'category'
+    model = Category
+    not_found = 'Category not found!'
+    template = 'deals/deal_list_base.html'
+    
     def get(self, *args, **kwargs):
-        category_slug = self.kwargs.get('category_slug')
-        try:
-            category = Category.objects.get(slug=category_slug)
-
-        except Category.DoesNotExist:
-            raise Http404('Category not found!')
-
-        deals = Deal.objects.filter(category=category)
-        title = "Latest Deals in {}".format(category.name)
-        description = "See all the hottest new deals in {}"\
-            .format(category.name)
-
-        rendered_deal_list = self.render_deal_list(
-            self.request,
-            deals=deals,
-            title=title,
-            description=description,
-        )
-        context = {
-            'search_options': {
-                'query': "",
-                'states': {'choices': STATE_CHOICES, 'default': 25},
-            },
-            'rendered_deal_list': rendered_deal_list
-        }
-
-        return render(self.request, 'deals/deal_list_base.html', context)
+        self.filter_deals(**{self.filter_field: self.get_queryset(self.kwargs.get(self.slug_name))})
+        self.set_title('Latest Deals in {}'.format(self.queryset.name))
+        self.set_description('See all the hottest new deals in {}'.format(self.queryset.name))
+        return self.do_render()
 
 
 class CategoryView(CollectionsBaseView):
-    """ List all categories
+    """ Lists all categories
     """
     zero_items_message = "Sorry, no categories found!"
     num_page_items = 9
@@ -228,7 +212,7 @@ class CategoryView(CollectionsBaseView):
 
 
 class AdvertiserView(CollectionsBaseView):
-    """ List all merchants
+    """ Lists all merchants
     """
     zero_items_message = "Sorry, no merchants were found!"
     num_page_items = 9
@@ -241,5 +225,17 @@ class AdvertiserView(CollectionsBaseView):
     description = "See all merchants with great deal offers"
 
 
-class DealAdvertiserView(DealListBaseView):
-    pass
+class DealAdvertiserView(DealCollectionItemsListBaseView):
+    """ Renders list of deals by an advertiser
+    """
+    slug_name = 'advertiser_slug'
+    filter_field = 'advertiser'
+    model = Advertiser
+    not_found = 'Merchant not found!'
+    template = 'deals/deal_list_base.html'
+    
+    def get(self, *args, **kwargs):
+        self.filter_deals(**{self.filter_field: self.get_queryset(self.kwargs.get(self.slug_name))})
+        self.set_title('Latest Deals in {}'.format(self.queryset.name))
+        self.set_description('See all the hottest new deals in {}'.format(self.queryset.name))
+        return self.do_render()
