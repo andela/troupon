@@ -270,3 +270,23 @@ class CategoryView(View):
             })
 
         return HttpResponse(template.render(context))
+
+class AboutView(View):
+    '''displays about us page'''
+    def get(self, *args, **kwargs):
+        return render(self.request, 'deals/about.html')
+
+class InvestorView(View):
+    '''displays investor page'''
+    def get(self, *args, **kwargs):
+        return render(self.request, 'deals/investor.html')
+
+class TeamView(View):
+    '''displays team page'''
+    def get(self, *args, **kwargs):
+        return render(self.request, 'deals/team.html')
+
+class SupportView(View):
+    '''displays support page'''
+    def get(self, *args, **kwargs):
+        return render(self.request, 'deals/support.html')
