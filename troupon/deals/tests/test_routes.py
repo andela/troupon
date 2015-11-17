@@ -12,8 +12,7 @@ import cloudinary
 def set_advertiser_and_category():
     """Sets the advertiser and category.
     returns a deal dictionary"""
-    advertiser = Advertiser(name="XYZ Stores")
-    advertiser.slug = slugify(advertiser.name)
+    advertiser = Advertiser(name="XYZ Stores", slug="xyz-stores")
     advertiser.save()
     category = Category(name="Books", slug="books")
     category.save()
