@@ -13,6 +13,7 @@ def set_advertiser_and_category():
     """Sets the advertiser and category.
     returns a deal dictionary"""
     advertiser = Advertiser(name="XYZ Stores")
+    advertiser.slug = slugify(advertiser.name)
     advertiser.save()
     category = Category(name="Books", slug="books")
     category.save()
@@ -153,4 +154,21 @@ class CategoriesViewTestCase(TestCase):
 
     def test_can_view_categories(self):
         response = self.client.get('/deals/categories/')
+        self.assertEqual(response.status_code, 200)
+
+
+class AdvertisersViewTestCase(TestCase):
+    
+    def setUp(self):
+        self.deal = set_advertiser_and_category()
+        deal = Deal(**self.deal)
+        deal.save()
+    
+    def test_can_view_advertisers(self):
+        response = self.client.get("/deals/advertisers/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_can_view_deals_by_advertiser(self):
+        response = self.client.get(
+            "/deals/advertiser/{0}".format(slugify('XYZ Stores')))
         self.assertEqual(response.status_code, 200)
