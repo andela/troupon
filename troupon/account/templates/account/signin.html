@@ -2,82 +2,63 @@
 {% load static %}
 
 {% block extended_css %} 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" />
 {% endblock extended_css %}
 
-{% block main %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 center-block">
-                <form name="signin_form" action="{% url 'signin' %}" method="post">
-                {% csrf_token %}
-                    <h4>Sign In</h4>
-                    <hr />
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Username/Email address</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username/Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                    </div>
-                    <input type="submit" class="btn btn-default" value="Sign in" />
-                </form>
-                <br />
-                <p>
-                    <a href="{% url 'account_forgot_password' %}"><i class="fa fa-key"></i>Forgot your password? click here to recover it</a>
-                </p>
-            </div>
-            <div class="col-md-6 center-block">
-                <h4>Sign In Using Facebook</h4>
-                <hr />
-                <a href="/accounts/login/facebook/"><button id="btn-fbsignup" type="button" class="btn btn-lg btn-primary"><i class="fa fa-facebook fa-2x"></i>  Sign Up with Facebook</button></a>
-                <br />
-                <br />
-                <p>
-                    <a href="#" id="user_signup_link" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus-square"></i>Don't have an account? click here to sign up</a>
-                </p>
-            </div>
+{% if messages %}
+  <div class="col-sm-12 no-left">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            <a class="close" data-dismiss="alert">×</a>
+            {{ message|safe }}
         </div>
-    </div>
+    {% endfor %}
+  </div>
+{% endif %}
 
-    <!-- User Sign Up Modal Begins -->
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content create_modal">          
-                <h4>Sign Up</h4>
-                <hr />
-                <div class="row center-block">
-                    <div class="col-md-6">
-                        <form class="form" name="createUserForm" action="{% url 'UserSignupView' %}" method="post">
-                        {% csrf_token %}
-                          <div class="form-group">
-                            <label for="createUsername">Username</label>
-                            <input type="text" class="form-control" id="createUsername" name="username" placeholder="Username">
-                          </div>
-                          <div class="form-group">
-                            <label for="createEmail">Email address</label>
-                            <input type="email" class="form-control" id="createEmail" name="email" placeholder="Email">
-                          </div>
-                          <div class="form-group">
-                            <label for="createPassword1">Password</label>
-                            <input type="password" class="form-control" id="createPassword1" name="password1" placeholder="Password">
-                          </div>
-                          <div class="form-group">
-                            <label for="createPassword2">Enter password again</label>
-                            <input type="password" class="form-control" id="createPassword2" name="password2" placeholder="Enter password again">
-                          </div>
-                          
-                          <button type="submit" class="btn btn-default">Submit</button>
-                          
+{% block main %}
+    <div class="modal-view" id="modal-sign-in">
+        <div class="row">
+            <div class="col-sm-5 hidden-xs brand-col">
+                <div class="brand">
+                   <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+                </div>
+            </div>
+            <div class="col-xs-11 col-sm-5">
+                <header class="row">
+                    <div class="col-lg-4">
+                        <h2>Sign in</h2>
+                    </div>
+                    <div class="col-lg-8">
+                        <p>Don't have an account yet? <a id="user_signup_link" href="{% url 'UserSignupView' %}" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></p>
+                    </div>
+                </header>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="{% url 'signin' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <div class="custom-form-group">
+                                <label for="email">Email <span class="label-asterik">*</span></label>
+                                <div class="custom-input-group">
+                                    <input type="email" name="username" id="email" placeholder="lagbaja@somedomain.com">
+                                </div>
+                            </div>
+                            <div class="custom-form-group">
+                                <label for="password">Password <span class="label-asterik">*</span></label>
+                                <div class="custom-input-group">
+                                    <input type="password" name="password" id="password" placeholder="At least 6 characters.">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p><a href="" class="modal-toggle" data-modal-target="#modal-forgot-password">Forgot your password?</a></p>
+                                </div>
+                            </div>
+                            <input id="signinBtn" type="submit" class="btn-action btn-form-submit" value="Sign in" />
+                            <a href="">Sign in with Facebook</a>
                         </form>
                     </div>
-                    <div class="col-md-6">
-                        <img class="create_modal_img" src="{% static 'img/logo-v-lg.png' %}" />
-                    </div>
-                </div>              
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <!-- User Sign Up Modal Ends -->
 {% endblock main %}
