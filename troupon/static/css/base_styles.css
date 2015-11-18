@@ -7,7 +7,7 @@ body {
           appearance: none;
 }
 
-h2, h3, h4 {
+h1, h2, h3, h4 {
   margin: 0px 0px 10px 0px;
 }
 
@@ -66,16 +66,16 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-h2 {
+h1 {
   font-weight: 300;
   font-size: 40px;
   color: #660066;
 }
 
-body {
+h2 {
   font-weight: 400;
-  font-size: 16px;
-  color: #5E5E77;
+  font-size: 38px;
+  color: #E67E22;
 }
 
 h3 {
@@ -90,8 +90,14 @@ h4 {
   color: #5E5E77;
 }
 
-h2 {
-  letter-spacing: -2px;
+body {
+  font-weight: 400;
+  font-size: 16px;
+  color: #5E5E77;
+}
+
+h1 {
+  letter-spacing: -1px;
 }
 
 h2.spacer {
@@ -102,11 +108,18 @@ h2.spacer {
   font-size: 12px;
 }
 
-.section-label {
+.mini-label, .section-label {
   font-weight: 900;
   font-size: 12px;
-  color: #C9CAD1;
   text-transform: uppercase;
+}
+
+.section-label {
+  color: #C9CAD1;
+}
+
+.section-label i {
+  margin-right: 5px;
 }
 
 /* ==========================================================================
@@ -155,7 +168,7 @@ Buttons
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
   color: #F7F7F7;
   background-color: #660066;
@@ -178,6 +191,10 @@ Buttons
   border-color: #5E5E77;
 }
 
+.btn-action i {
+  margin: 0 5px;
+}
+
 .btn-action-alt {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -191,7 +208,7 @@ Buttons
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
   color: #5E5E77;
   background-color: #F7F7F7;
@@ -213,6 +230,10 @@ Buttons
   color: #F7F7F7;
   background-color: #5E5E77;
   border-color: #5E5E77;
+}
+
+.btn-action-alt i {
+  margin: 0 5px;
 }
 
 .btn-form-submit {
@@ -350,7 +371,7 @@ Other components.
   border: 1px solid #DFDFD0;
   border-radius: 6px;
   background: #FFFFFF;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .section-heading .row, .section-heading [class*='col-'] {
@@ -473,6 +494,34 @@ Other components.
 
 .flickity-gallery .flickity-prev-next-button.next {
   right: 40px;
+}
+
+.image-frame {
+  background-color: #EFEFF1;
+  overflow: hidden;
+}
+
+.image-frame .image-holder {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.image-frame .image-holder img {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-transition: all 0.4s ease-in-out;
+          transition: all 0.4s ease-in-out;
+}
+
+.image-frame:hover .image-holder img {
+  -webkit-transform: scale(1.01);
+      -ms-transform: scale(1.01);
+          transform: scale(1.01);
 }
 
 .packery-grid {
@@ -758,7 +807,7 @@ body {
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
   color: #5E5E77;
   background-color: #F7F7F7;
@@ -779,6 +828,10 @@ body {
   color: #F7F7F7;
   background-color: #5E5E77;
   border-color: #5E5E77;
+}
+
+#header-bar .menu-toggle i, #header-bar .search-toggle i {
+  margin: 0 5px;
 }
 
 #header-bar [class*='col-'] {
@@ -865,7 +918,7 @@ main .placeholder p {
       -ms-transform: translateY(60px);
           transform: translateY(60px);
   font-weight: 300;
-  font-size: 40px;
+  font-size: 38px;
   color: #C9CAD1;
   letter-spacing: -3px;
   text-align: center;
@@ -1102,7 +1155,6 @@ footer .copyright p {
 
 .modals-parent.open {
   height: 100%;
-  overflow: hidden;
   -webkit-filter: blur(20px);
           filter: blur(20px);
   -webkit-transition: all 0.5s;
@@ -1151,4 +1203,120 @@ footer .copyright p {
 
 #modal-forgot-password .brand-col {
   min-height: 300px;
+}
+
+/* =========================================================================
+page-related styles:
+========================================================================== */
+main > section.row {
+  padding: 30px 0px 0px;
+}
+
+main > section.row > [class*='col-'] {
+  padding: 0px;
+}
+
+main .flickity-gallery .gallery-cell {
+  width: auto;
+  margin: 0px 0.5px;
+}
+
+main .flickity-gallery .flickity-page-dots {
+  position: absolute;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: 21px;
+  top: -35px;
+  right: 0px;
+}
+
+main .gallery-wrapper, main .image-wrapper {
+  width: 100%;
+  height: 350px;
+  margin: 20px 0px;
+}
+
+@media (max-width: 768px) {
+  main .gallery-wrapper, main .image-wrapper {
+    height: 300px;
+    margin-top: -20px;
+    margin-bottom: 40px;
+  }
+}
+
+main .image-wrapper {
+  height: 410px;
+}
+
+main .deals-specs {
+  margin: 20px 0px;
+  padding: 0 0 0 20%;
+}
+
+main .deals-specs .prices {
+  text-align: center;
+}
+
+main .deals-specs .prices .original {
+  margin-bottom: 3px;
+  text-decoration: line-through;
+}
+
+main .deals-specs .price-specs {
+  margin-bottom: 15px;
+}
+
+main .deals-specs .price-specs p {
+  margin: 10px 0;
+}
+
+main .deals-specs #buy-btn {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+main .deals-specs .share-options {
+  text-align: center;
+  margin-top: 10px;
+}
+
+main .deals-specs .share-options ul.social-share-links {
+  list-style: none outside none;
+  padding: 0px 0px;
+}
+
+main .deals-specs .share-options ul.social-share-links li {
+  display: inline-block;
+}
+
+main .deals-specs .share-options ul.social-share-links li a, main .deals-specs .share-options ul.social-share-links li .menu-link, main .deals-specs .share-options ul.social-share-links li .label-link, main .deals-specs .share-options ul.social-share-links #header-bar .auth-options > li > a, #header-bar main .deals-specs .share-options ul.social-share-links .auth-options > li > a, main .deals-specs .share-options ul.social-share-links li #modal-sign-in header p > a, #modal-sign-in header main .deals-specs .share-options ul.social-share-links li p > a, main .deals-specs .share-options ul.social-share-links li #modal-sign-up header p > a, #modal-sign-up header main .deals-specs .share-options ul.social-share-links li p > a, main .deals-specs .share-options ul.social-share-links li #modal-forgot-password header p > a, #modal-forgot-password header main .deals-specs .share-options ul.social-share-links li p > a, main .deals-specs .share-options ul.social-share-links #header-bar .nav-menu > li > a, #header-bar main .deals-specs .share-options ul.social-share-links .nav-menu > li > a, main .deals-specs .share-options ul.social-share-links #header-bar .member-options > li > a, #header-bar main .deals-specs .share-options ul.social-share-links .member-options > li > a {
+  font-size: 24px;
+  line-height: 1rem;
+  padding: 0;
+  color: #C9CAD1;
+}
+
+main .deals-specs .share-options ul.social-share-links .btn-facebook:hover, main .deals-specs .share-options ul.social-share-links .btn-facebook:focus {
+  color: #395997;
+}
+
+main .deals-specs .share-options ul.social-share-links .btn-twitter:hover, main .deals-specs .share-options ul.social-share-links .btn-twitter:focus {
+  color: #5FC9EE;
+}
+
+main .deals-specs .share-options ul.social-share-links .btn-instagram:hover, main .deals-specs .share-options ul.social-share-links .btn-instagram:focus {
+  color: #316598;
+}
+
+main .deals-specs .share-options ul.social-share-links .btn-pinterest:hover, main .deals-specs .share-options ul.social-share-links .btn-pinterest:focus {
+  color: #B4101D;
+}
+
+main .deals-specs .share-options ul.social-share-links .btn-email:hover, main .deals-specs .share-options ul.social-share-links .btn-email:focus {
+  color: #E44954;
+}
+
+main .section-label {
+  margin-bottom: 15px;
 }

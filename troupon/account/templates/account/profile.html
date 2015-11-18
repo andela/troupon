@@ -2,74 +2,73 @@
 {% load static%}
 
 {% block main %}
+
+    <section class="row">
+        <!-- heading -->
+        {% include "snippet_section_heading.html" with title="My Account"  description="Manage account settings and profile information" %}
+    </section>
  
-{% if messages %}
-    <div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </div>
-{% endif %}
+    {% if messages %}
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
 
+    <section class = "row">
+        
+        <div class="col-md-2">
+            <a href = "#" id ="profile">Profile</a><br>
+            <a href = "#">Edit Profile</a><br>
+            <a href = "">History</a><br>
 
-<div>
-    <h1>My Account</h1>
-    <p>Manage account settings and profile information</p>
-</div>
-
-<div class = "row">
-    
-    <div class="col-md-2">
-        <a href = "#" id ="profile">Profile</a><br>
-        <a href = "#">Edit Profile</a><br>
-        <a href = "">History</a><br>
-
-        <a href="#" class="modal-toggle" data-modal-target="#modal-change-password">Change Password</a><br>
-    </div>
-
-    <div class="col-md-6">
-
-        <div class="container">
-            <p>Email: {{ request.user.email }}</p>
-            <p> Username: {{ request.user.username }}</p>
-
-            <p> Firstname: {{ profile.first_name}}</p>
-            <p> Lastname:  {{ profile.last_name }} 
-            <p> Interest:  {{ profile.interest }} </p>
+            <a href="#" class="modal-toggle" data-modal-target="#modal-change-password">Change Password</a><br>
         </div>
 
-        <form action="/account/profile/user/{{ request.user.username }}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-            <div class="form-group col-lg-12">
-                <label>Location: </label>
-                <select name="user_state" placeholder="Ikeja.Lagos">
-                {% for choice in states.choices %}
-                    <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
-                        {{ choice.1 }}
-                    </option>
-                {% endfor %}
-                </select>
-             </div>            
-            <div class="form-group col-lg-6">
-                <label>First Name</label>
-                <input type="text" name="first_name" class="form-control" id="" value="" placeholder="{{ profile.first_name }}">
+        <div class="col-md-6">
+
+            <div class="container">
+                <p>Email: {{ request.user.email }}</p>
+                <p> Username: {{ request.user.username }}</p>
+
+                <p> Firstname: {{ profile.first_name}}</p>
+                <p> Lastname:  {{ profile.last_name }} 
+                <p> Interest:  {{ profile.interest }} </p>
             </div>
-            <div class="form-group col-lg-6">
-                <label>Last Name</label>
-                <input type="text" name="last_name" class="form-control" id="" value="" placeholder="{{ profile.last_name }}">
-            </div>
-            <hr>
-            <div class="form-group col-lg-12">
-                <label>Interest</label>
-                <input type="text" name="interest" class="form-control" id="" value="" placeholder="{{ profile.interest }}">
-            </div><br>            
-            <div class="form-group btn-lg col-lg-1">
-                <input type = "submit", value = "Save Changes" align="left" />
-            </div>
-        </form>
-        
-    </div>           
-</div>
+
+            <form action="/account/profile/user/{{ request.user.username }}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <div class="form-group col-lg-12">
+                    <label>Location: </label>
+                    <select name="user_state" placeholder="Ikeja.Lagos">
+                    {% for choice in states.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
+                            {{ choice.1 }}
+                        </option>
+                    {% endfor %}
+                    </select>
+                 </div>            
+                <div class="form-group col-lg-6">
+                    <label>First Name</label>
+                    <input type="text" name="first_name" class="form-control" id="" value="" placeholder="{{ profile.first_name }}">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" class="form-control" id="" value="" placeholder="{{ profile.last_name }}">
+                </div>
+                <hr>
+                <div class="form-group col-lg-12">
+                    <label>Interest</label>
+                    <input type="text" name="interest" class="form-control" id="" value="" placeholder="{{ profile.interest }}">
+                </div><br>            
+                <div class="form-group btn-lg col-lg-1">
+                    <input type = "submit", value = "Save Changes" align="left" />
+                </div>
+            </form>
+            
+        </div>           
+    </section>
 
 {% endblock %}
 
