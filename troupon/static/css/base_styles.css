@@ -94,6 +94,10 @@ h2 {
   letter-spacing: -2px;
 }
 
+h2.spacer {
+  margin-top: 1em;
+}
+
 .mini-text {
   font-size: 12px;
 }
