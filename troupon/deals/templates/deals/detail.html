@@ -1,91 +1,132 @@
-{% extends "deals/deal_list_base.html" %}
+{% extends "base.html" %}
 {% load static %}
+{% load humanize %}
 
-{% block extended_css %}
-    <link rel="stylesheet" type="text/css" href="{% static "css/deals.css" %}">
-{% endblock %}
+
 
 {% block main %}
-   <div class="main">
+
     {% if deal %}
-    <div class="detail row">
-        <div class="col-md-12">
-            <h2>{{ deal.title }}</h2>
+
+    <!-- banner section -->
+    <section class="row" id="banner-section">
+
+        <!-- heading -->
+        {% with deal.advertiser.name|add:". "|add:deal.address as description %}
+        {% include "snippet_section_heading.html" with title=deal.title  description=description %}
+        {% endwith %}
+
+        <!-- deals image(s) -->
+        <div class="col-sm-8">
+            <div class="deal-image">
+                {% include "snippet_image_card.html" with url=deal.image.url %}
+            </div>
+        </div>
+
+        <!-- deal specs -->
+        <div class="col-sm-4">
+            <div class="deals-specs">
+
+                <!-- Prices -->
+                <div class="row prices">
+                    <div class="col-xs-12">
+                        <p class="original">{{ deal.currency_symbol }} {{ deal.original_price|intcomma }}</p>
+                        <h2 class="current">{{ deal.currency_symbol  }} {{ deal.price|intcomma }}</h2>
+                    </div>
+                </div>
+
+                <!-- Price specs-->
+                <div class="row price-specs">
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>Value</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>{{ deal.currency_symbol }} {{ deal.original_price|intcomma }}</p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>Discount</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>{{ deal.discount }}</p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>You Pay</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>{{ deal.currency_symbol  }} {{ deal.price|intcomma }}</p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>Purchases</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>{{ deal.quorum|default:0 }} | {{ deal.max_quantity_available }}</p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                </div>
+
+                <!-- Call to action --> 
+                <div class="row call-to-action">
+                    <div class="col-md-8 col-md-offset-2">
+                        <button id="buy-btn" class="btn-action"><i class="fa fa-shopping-cart"></i> Buy Deal</button>
+                    </div>
+                </div>
+
+                <!-- Sharing options --> 
+                <div class="row share-options">
+                    <div class="col-xs-12">
+                        <p class="mini-label">Share this deal</p>
+                    </div>
+                    <div class="col-xs-12">
+                        <ul class="social-share-links">
+                            <li><a href="" class="btn-facebook"><i class="fa fa-facebook-official fa-fw"></i></a></li>
+                            <li><a href="" class="btn-twitter"><i class="fa fa-twitter fa-fw"></i></a></li>
+                            <li><a href="" class="btn-instagram"><i class="fa fa-instagram fa-fw"></i></a></li>
+                            <li><a href="" class="btn-pinterest"><i class="fa fa-pinterest fa-fw"></i></a></li>
+                            <li><a href="" class="btn-email"><i class="fa fa-envelope fa-fw"></i></a></li>
+                        </ul> 
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </section>
+
+    <div class="row" id="banner-section">
+        <div class="col-xs-12">
             <div class="divider"></div>
         </div>
-        <div class="col-md-12">
-            <p class="deal-location"><address>{{ deal.address }}</address></p>
-        </div>
-        <div class="col-md-9">
-            <div class="infix">
-                <img src="{{ deal.image.url }}">
-            </div>
-            <div class="description">
-                <p>{{ deal.description }}</p>
-            </div>
-        </div>
-        <div class="col-md-3 text-center">
-            <div class="deal-price">
-                <strike>
-                    <span>{{deal.currency_symbol}}{{deal.original_price}}</span>
-                </strike>
-                <h3>{{deal.currency_symbol}}{{ deal.price }}</h3>
-            </div>
-            <!--Deal price specs-->
-            <ul class="deal-price-specs">
-                <li class="deal-price-specs-leaf">
-                    <span class="col-sm-6 ash text-left">Value</span>
-                    <span class="col-sm-6 text-right">{{deal.currency_symbol}} {{deal.original_price}}</span>
-                </li>
-                <li class="deal-price-specs-leaf">
-                    <span class="col-sm-6 ash text-left">Discount</span>
-                    <span class="col-sm-6 text-right">{{deal.discount}}</span>
-                </li>
-                <li class="deal-price-specs-leaf">
-                    <span class="col-sm-6 ash text-left">You Pay</span>
-                    <span class="col-sm-6 text-right">{{ deal.currency_symbol}} {{deal.price}}</span>
-                </li>
-                <li class="deal-price-specs-leaf">
-                    <span class="col-sm-6 ash text-left">Purchases</span>
-                    <span class="col-sm-6 text-right">{{deal.quorum|default:0}}|{{deal.max_quantity_available}}</span>
-                </li>
-            </ul>
-            <div>
-                <button id="buy-btn" class="btn-action btn-form-submit"><i class="glyphicon glyphicon-plus"></i>Buy Deal</button>
-            </div>
-            <div class="share-btn">
-                <p>Share this deal</p>
-                <button class="btn btn-default"><i class="fa fa-facebook"></i></button>
-                <button class="btn btn-default"><i class="fa fa-twitter"></i></button>
-                <button class="btn btn-default"><i class="fa fa-instagram"></i></button>
-                <button class="btn btn-default"><i class="fa fa-pinterest"></i></button>
-                <button class="btn btn-default"><i class="fa fa-envelope"></i></button>
-            </div>
-        </div>
-        <div class="divider"></div>
     </div>
-    <div class="second row description">
+
+    <section class="row details-section">
+        <!-- deal description -->
         <div class="col-md-6">
-            <h3 class="text-uppercase"><i class="fa fa-list-alt"></i> Description</h3>
-            <h4>{{deal.address}}</h4>
-            <div class="description-text">{{deal.description|default:'<p>No description exists for this deal.</p>'}}</div>
+            <h4 class="section-label"><i class="fa fa-list-alt"></i> Description</h4>
+            <div class="description-text">{{deal.description|default:'<p>No description given for this deal.</p>'}}</div>
         </div>
+        <!-- deal location/map -->
         <div class="col-md-6">
-            <h3 class="text-uppercase"><i class="fa fa-map-marker"></i> Directions</h3>
-             <div>
+            <h4 class="section-label"><i class="fa fa-map-marker"></i> Directions</h4>
+            <address id="map-ref-address" style="display:none;">{{ deal.address }}</address>
+            <div class="image-frame card">
                 <div id="map" style="width:100%; height:450px"></div>
             </div>
         </div>
-    </div>
+    </section>
+
     {% else %}
         <div class="placeholder">
             <p>Sorry, We couldn't find this deal.</p>
         </div>
     {% endif %}
-    </div>
-{% endblock %}
+
+{% endblock main%}
 
 {% block extended_js %}
-     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA99nlAubrvHjAlDH3yRUrLLWQLpvDKg5c&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA99nlAubrvHjAlDH3yRUrLLWQLpvDKg5c&libraries=places"></script>
     <script src={% static 'js/map.js' %}></script>
 {% endblock %}

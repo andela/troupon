@@ -4,7 +4,7 @@
             latlng: '',
             map: '',
             $mapCanvas: document.getElementById('map'),
-            $address: {'address': document.getElementsByTagName('address')[0].innerHTML},
+            $address: {'address': document.getElementById('map-ref-address').innerHTML},
             mapOptions: {zoom: 18},
             initialize: function() {
                 this.geocoder = new google.maps.Geocoder();

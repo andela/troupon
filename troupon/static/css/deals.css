@@ -60,12 +60,7 @@
     font-weight: 400;
     color: #F1C40F;
 }
-#buy-btn {
-    font-size: 0.85em;
-}
-#buy-btn i {
-    padding-right: 8px;
-}
+
 .deal-price-specs {
     position: static;
     list-style: none;
