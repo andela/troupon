@@ -38,7 +38,7 @@
                 <p> Interest:  {{ profile.interest }} </p>
             </div>
 
-            <form action="/userprofile/user/{{ request.user.username }}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <form action="{% url 'userprofile' username=request.user.username %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <div class="form-group col-lg-12">
                     <label>Location: </label>
                     <select name="user_state" placeholder="Ikeja.Lagos">

@@ -1,6 +1,6 @@
 ![bucketlist logo](http://s27.postimg.org/x0kjz2v33/logo_horizontal_small.png)
 
-[![Circle CI](https://circleci.com/gh/andela/troupon/tree/develop.svg?style=shield)](https://circleci.com/gh/andela/troupon/tree/develop) [![Coverage Status](https://coveralls.io/repos/andela/troupon/badge.svg?branch=feature-search&service=github)](https://coveralls.io/github/andela/troupon?branch=feature-search) [![Circle CI](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Circle CI](https://circleci.com/gh/andela/troupon/tree/develop.svg?style=shield)](https://circleci.com/gh/andela/troupon/tree/develop) [![Coverage Status](https://coveralls.io/repos/andela/troupon/badge.svg?branch=develop&service=github)](https://coveralls.io/github/andela/troupon?branch=develop) [![Circle CI](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
 # Table of Contents
 1.  [Introduction](#introduction)
 2.  [Features](#features)

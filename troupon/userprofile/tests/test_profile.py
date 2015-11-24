@@ -17,17 +17,17 @@ class UserProfileTestCase(TestCase):
 
     def test_user_calls_profilepage(self):
 
-        response = self.client_stub.get("/userprofile/user/johndoe")
+        response = self.client_stub.get("/userprofile/johndoe")
         self.assertEquals(response.status_code, 302)
 
     def test_user_update_profile(self):
 
         data = dict(first_name='joe', last_name='doe', interest='Games')
-        response = self.client_stub.get("/userprofile/user/johndoe", data)
+        response = self.client_stub.get("/userprofile/johndoe", data)
         self.assertEquals(response.status_code, 302)
 
     def test_update_errors(self):
 
         data = dict(first_name='', last_name='', interest='')
-        response = self.client_stub.get("/userprofile/user/johndoe", data)
+        response = self.client_stub.get("/userprofile/johndoe", data)
         self.assertEquals(response.status_code, 302)
