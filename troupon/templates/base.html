@@ -110,7 +110,7 @@
                                         <li><a href="">{{request.user.username }}</a></li>
 
                                         <li class="divider"></li>
-                                        <li><a href="/account/profile/user/{{ request.user.username }}"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
+                                        <li><a href="{% url 'userprofile' username=request.user.username %}"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
                                         <li><a href="#" class="modal-toggle" data-modal-target="#modal-change-password"><i class="fa fa-key fa-fw"></i> Change Password</a></li>
                                         <li><a href=""><i class="fa fa-th-list fa-fw"></i> View History</a></li>
                                         <li  class="divider"></li>

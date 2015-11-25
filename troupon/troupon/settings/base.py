@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'whoosh',
     'djangobower',
     'django_nose',
+    'userprofile',
 )
 
 MIDDLEWARE_CLASSES = (

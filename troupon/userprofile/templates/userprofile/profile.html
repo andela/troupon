@@ -38,7 +38,7 @@
                 <p> Interest:  {{ profile.interest }} </p>
             </div>
 
-            <form action="/account/profile/user/{{ request.user.username }}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <form action="{% url 'userprofile' username=request.user.username %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <div class="form-group col-lg-12">
                     <label>Location: </label>
                     <select name="user_state" placeholder="Ikeja.Lagos">
@@ -49,21 +49,27 @@
                     {% endfor %}
                     </select>
                  </div>            
-                <div class="form-group col-lg-6">
+                <div class="custom-form-group col-lg-6">
                     <label>First Name</label>
+                    <div class="custom-input-group">
                     <input type="text" name="first_name" class="form-control" id="" value="" placeholder="{{ profile.first_name }}">
+                    </div>
                 </div>
-                <div class="form-group col-lg-6">
+                <div class="custom-form-group col-lg-6">
                     <label>Last Name</label>
+                    <div class="custom-input-group">
                     <input type="text" name="last_name" class="form-control" id="" value="" placeholder="{{ profile.last_name }}">
+                    </div>
                 </div>
                 <hr>
-                <div class="form-group col-lg-12">
+                <div class="custom-form-group col-lg-12">
                     <label>Interest</label>
+                    <div class="custom-input-group">
                     <input type="text" name="interest" class="form-control" id="" value="" placeholder="{{ profile.interest }}">
+                    </div>
                 </div><br>            
-                <div class="form-group btn-lg col-lg-1">
-                    <input type = "submit", value = "Save Changes" align="left" />
+                <div class="custom-form-group btn-lg col-lg-1">
+                    <input type = "submit", value = "Save Changes" align="left" class="btn-action" />
                 </div>
             </form>
             
