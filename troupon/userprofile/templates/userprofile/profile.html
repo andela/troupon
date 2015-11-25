@@ -17,19 +17,23 @@
         </div>
     {% endif %}
 
+<div class="settings-page">
     <section class = "row">
-        
+    
         <div class="col-md-2">
-            <a href = "#" id ="profile">Profile</a><br>
-            <a href = "#">Edit Profile</a><br>
-            <a href = "">History</a><br>
-
-            <a href="#" class="modal-toggle" data-modal-target="#modal-change-password">Change Password</a><br>
+            <div style="padding-bottom: 10px">
+                <a href = "#" id ="#" class="show-profile">Profile</a><br>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="#" class="change-password">Change Password</a><br></div>
+            <div>
+                <a href = "#">History</a><br>
+            </div>
         </div>
 
         <div class="col-md-6">
 
-            <div class="container">
+            <div class="container profile-detail" id ="profile">
                 <p>Email: {{ request.user.email }}</p>
                 <p> Username: {{ request.user.username }}</p>
 
@@ -38,46 +42,79 @@
                 <p> Interest:  {{ profile.interest }} </p>
             </div>
 
-            <form action="{% url 'userprofile' username=request.user.username %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                <div class="form-group col-lg-12">
-                    <label>Location: </label>
-                    <select name="user_state" placeholder="Ikeja.Lagos">
-                    {% for choice in states.choices %}
-                        <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
-                            {{ choice.1 }}
-                        </option>
-                    {% endfor %}
-                    </select>
-                 </div>            
-                <div class="custom-form-group col-lg-6">
-                    <label>First Name</label>
-                    <div class="custom-input-group">
-                    <input type="text" name="first_name" class="form-control" id="" value="" placeholder="{{ profile.first_name }}">
+            <div class="password col-xs-12 col-sm-12" id="change-password-section">
+                <h1>Change Password</h1>
+
+                <form method="POST" action="/account/changepassword/{{ request.user.username }}">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <div class="form-group col-lg-12">
+                        <label>Paswword</label>
+                        <div class="custom-input-group">
+                            <input type="password" name="password1" class="form-control" id="" value="" placeholder="password">
+                        </div>
                     </div>
-                </div>
-                <div class="custom-form-group col-lg-6">
-                    <label>Last Name</label>
-                    <div class="custom-input-group">
-                    <input type="text" name="last_name" class="form-control" id="" value="" placeholder="{{ profile.last_name }}">
+
+                    <div class="form-group col-lg-12">
+                        <label> Confirm Paswword</label>
+                        <div class="custom-input-group">
+                            <input type="password" name="password2" class="form-control" id="" value="" placeholder="confirm password">
+                        </div>
                     </div>
-                </div>
-                <hr>
-                <div class="custom-form-group col-lg-12">
-                    <label>Interest</label>
-                    <div class="custom-input-group">
-                    <input type="text" name="interest" class="form-control" id="" value="" placeholder="{{ profile.interest }}">
+
+                    <div class="custom-form-group btn-lg col-lg-1">
+                        <input type = "submit", value = "Change Password" align="left" class="btn-action" />
                     </div>
-                </div><br>            
-                <div class="custom-form-group btn-lg col-lg-1">
-                    <input type = "submit", value = "Save Changes" align="left" class="btn-action" />
-                </div>
-            </form>
-            
+                </form>
+            </div>
+            <div>
+                <form action="{% url 'userprofile' username=request.user.username %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <div class="form-group col-lg-12">
+                        <label>Province/State <span class="label-asterik">*</span>
+                        </label>
+                        <div class="custom-input-group">
+                            <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+                            <select name="user_state" placeholder="Ikeja.Lagos">
+                            {% for choice in states.choices %}
+                                <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
+                                {{ choice.1 }}
+                                </option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="custom-form-group col-lg-6">
+                        <label>First Name</label>
+                        <div class="custom-input-group">
+                        <input type="text" name="first_name" class="form-control" id="" value="" placeholder="{{ profile.first_name }}">
+                        </div>
+                    </div>
+
+                    <div class="custom-form-group col-lg-6">
+                        <label>Last Name</label>
+                        <div class="custom-input-group">
+                        <input type="text" name="last_name" class="form-control" id="" value="" placeholder="{{ profile.last_name }}">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="custom-form-group col-lg-12">
+                        <label>Interest</label>
+                        <div class="custom-input-group">
+                        <input type="text" name="interest" class="form-control" id="" value="" placeholder="{{ profile.interest }}">
+                        </div>
+                    </div><br>            
+                    <div class="custom-form-group btn-lg col-lg-1">
+                        <input type = "submit", value = "Save Changes" align="left" class="btn-action" />
+                    </div>
+                </form>
+            </div>
         </div>           
     </section>
+</div>
+
+    {% block extended_js %}
+         <script src="{% static 'js/profile.js' %}"></script>
+    {% endblock extended_js %}
 
 {% endblock %}
 
-{% block extended_modals %}
-        {% include "account/modal_change_password.html" %}
-{% endblock extended_modals %}

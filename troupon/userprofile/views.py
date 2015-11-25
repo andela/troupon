@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from account.views import LoginRequiredMixin
+from django.template import RequestContext, loader, Template, Engine
 from django.views.generic.base import TemplateView
 from userprofile.forms import UserProfileForm
 from userprofile.models import UserProfile
@@ -41,7 +42,7 @@ class Userprofileview(LoginRequiredMixin, TemplateView):
             }
             empty = "form should not be submitted empty"
             messages.add_message(request, messages.INFO,empty )
-            return render(request, 'account/profile.html', context_var)
+            return render(request, 'userprofile/profile.html', context_var)
 
 
         if form.is_valid():
@@ -49,6 +50,6 @@ class Userprofileview(LoginRequiredMixin, TemplateView):
             messages.add_message(
                 request, messages.SUCCESS, 'Profile Updated!')
             return redirect(
-                '/account/profile/user/' + kwargs['username'],
+                '/userprofile/' + kwargs['username'],
                 context_instance=RequestContext(request)
             )
