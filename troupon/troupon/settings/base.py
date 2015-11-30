@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'djangobower',
     'django_nose',
     'userprofile',
+    'payments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -160,3 +161,34 @@ SITE_IMAGES = {
 }
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Stripe Integration
+STRIPE_SECRET_KEY = os.environ.get(
+    "STRIPE_SECRET_KEY",
+    "sk_test_s82TaVCUowXnYzVIxmnrbH0P"
+)
+STRIPE_PUBLIC_KEY = os.environ.get(
+    "STRIPE_PUBLIC_KEY",
+    "pk_test_c9WUOPI8shw6Lm7evSaSzzHu"
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = [
+    "payments.context_processors.payments_settings"
+]
+
+PAYMENTS_PLANS = {
+    "monthly": {
+        "stripe_plan_id": "pro-monthly",
+        "name": "Web App Pro ($25/month)",
+        "description": "The monthly subscription plan to WebApp",
+        "price": 25,
+        "interval": "month"
+    },
+    "yearly": {
+        "stripe_plan_id": "pro-yearly",
+        "name": "Web App Pro ($199/year)",
+        "description": "The annual subscription plan to WebApp",
+        "price": 199,
+        "interval": "year"
+    }
+}
