@@ -77,3 +77,8 @@ troupon/staticfiles/
 
 # database migrations
 troupon/*/migrations/*
+
+# eclipse IDE
+.settings
+.project
+.pydevproject
