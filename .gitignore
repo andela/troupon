@@ -63,10 +63,10 @@ venv/
 # environment files
 .env.*
 
-# CSS preprocessor
-*.scss
-troupon/static/scss/
+# Gulp-Sass preprocessing
 troupon/prepros.cfg
+node_modules/
+
 
 # Mac OS Desktop Store
 */.DS_Store

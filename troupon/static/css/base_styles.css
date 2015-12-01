@@ -100,10 +100,6 @@ h1 {
   letter-spacing: -1px;
 }
 
-h2.spacer {
-  margin-top: 1em;
-}
-
 .mini-text {
   font-size: 12px;
 }
@@ -174,7 +170,7 @@ Buttons
   background-color: #660066;
   border-color: #660066;
   -webkit-transition: all 0.3s;
-          transition: all 0.3s;
+  transition: all 0.3s;
   font-size: 16px;
   margin: 5px auto;
 }
@@ -214,7 +210,7 @@ Buttons
   background-color: #F7F7F7;
   border-color: #C9CAD1;
   -webkit-transition: all 0.3s;
-          transition: all 0.3s;
+  transition: all 0.3s;
   font-size: 12px;
   text-transform: uppercase;
   margin: 5px auto;
@@ -257,7 +253,7 @@ Forms Controls
   vertical-align: middle;
   min-width: 100px;
   -webkit-transition: all 0.3s;
-          transition: all 0.3s;
+  transition: all 0.3s;
   margin: 5px auto;
 }
 
@@ -277,7 +273,7 @@ Forms Controls
   background-color: #FFFFFF;
   border-color: #DFDFD0;
   -webkit-transition: all 0.15s;
-          transition: all 0.15s;
+  transition: all 0.15s;
 }
 
 .custom-input-group input:focus, .custom-input-group select:focus {
@@ -424,7 +420,7 @@ Other components.
 
 .flickity-gallery .gallery-cell * {
   -webkit-transition: all 0.4s ease-in-out;
-          transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .flickity-gallery .gallery-cell .cell-image-wrapper {
@@ -515,7 +511,7 @@ Other components.
   width: 100%;
   height: auto;
   -webkit-transition: all 0.4s ease-in-out;
-          transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .image-frame:hover .image-holder img {
@@ -544,7 +540,7 @@ Other components.
 
 .packery-grid .grid-item, .packery-grid .grid-item * {
   -webkit-transition: all 0.4s ease-in-out;
-          transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .packery-grid .grid-item .item-image-wrapper {
@@ -683,6 +679,7 @@ body {
 }
 
 #subscribe-bar .tag-line span {
+  font-weight: 400;
   color: #E67E22;
 }
 
@@ -700,7 +697,7 @@ body {
   background-color: transparent;
   border-color: transparent;
   -webkit-transition: all 0.3s;
-          transition: all 0.3s;
+  transition: all 0.3s;
   border-radius: 5px;
   position: absolute;
   top: 5px;
@@ -762,7 +759,7 @@ body {
     background-color: transparent;
     border-color: transparent;
     -webkit-transition: all 0.3s;
-            transition: all 0.3s;
+    transition: all 0.3s;
     border-radius: 5px;
     position: absolute;
     top: 15px;
@@ -813,7 +810,7 @@ body {
   background-color: #F7F7F7;
   border-color: #C9CAD1;
   -webkit-transition: all 0.3s;
-          transition: all 0.3s;
+  transition: all 0.3s;
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -991,7 +988,7 @@ footer .social-links > li > a, footer .dropdown .dropdown-menu .social-links > l
   background-color: #C9CAD1;
   border-color: #C9CAD1;
   -webkit-transition: all 0.3s;
-          transition: all 0.3s;
+  transition: all 0.3s;
   border-radius: 10px;
 }
 
@@ -1054,14 +1051,14 @@ footer .copyright p {
   opacity: 0;
   visibility: hidden;
   -webkit-transition: opacity 0.5s, visibility 0s 0.5s;
-          transition: opacity 0.5s, visibility 0s 0.5s;
+  transition: opacity 0.5s, visibility 0s 0.5s;
 }
 
 .modals-wrapper.open {
   opacity: 1;
   visibility: visible;
   -webkit-transition: opacity 0.5s;
-          transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 
 .modals-wrapper #modals-close {
@@ -1078,7 +1075,7 @@ footer .copyright p {
   background-color: transparent;
   border-color: transparent;
   -webkit-transition: all 0.3s;
-          transition: all 0.3s;
+  transition: all 0.3s;
   border-radius: 5px;
   position: fixed;
   overflow: visible;
@@ -1136,8 +1133,10 @@ footer .copyright p {
   visibility: hidden;
   -webkit-transform: translateY(-25%) rotateX(35deg);
           transform: translateY(-25%) rotateX(35deg);
-  -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
-          transition: transform 0.5s, opacity 0.5s;
+  -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+  transition: opacity 0.5s, -webkit-transform 0.5s;
+  transition: transform 0.5s, opacity 0.5s;
+  transition: transform 0.5s, opacity 0.5s, -webkit-transform 0.5s;
 }
 
 .modals-wrapper .modal-view.open {
@@ -1158,7 +1157,7 @@ footer .copyright p {
   -webkit-filter: blur(20px);
           filter: blur(20px);
   -webkit-transition: all 0.5s;
-          transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 #modal-sign-in .brand, #modal-sign-up .brand, #modal-forgot-password .brand {
