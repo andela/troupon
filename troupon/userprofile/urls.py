@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from userprofile.views import Userprofileview
+from userprofile import views 
 
 urlpatterns = [
-    url(r'^(?P<username>\w+)$', Userprofileview.as_view(), name = 'userprofile'),
+    url(r'^(?P<username>\w+)$', views.Userprofileview.as_view(), name = 'userprofile'),
+    url(r'^merchant/$', views.MerchantView.as_view(), name ='merchant')
 ]
