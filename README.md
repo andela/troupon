@@ -39,14 +39,14 @@ Troupon is a Groupon clone. Users are able to buy products and services at a dis
 - Run `$ python troupon/manage.py runserver` to start the server. 
 - With that you can view the project in your browser via `http://127.0.0.1:8000/`.
 
-#### Sass Setup
+##### Sass Setup
 The codebase also includes the Sass build files used to style/theme the application. These can be found in the `troupon/static/scss` folder. Follow the steps below to setup **gulp** and **gulp-sass** for automated pre-processing of the __scss__ files to __css__ stylesheets:   
 + Ensure npm is installed in your environment.
 + Run `$ npm install` in the project root folder. This installs **gulp**, **gulp-sass** and it's other dependencies into the project.
 + Run `$ gulp` command for the initial Sass build as well as to start the 'watch' task responsible for pre-processing subsequent changes the Sass __scss__ files.   
 
 
-To can extend this Sass build with your own Sass styles:   
+To extend this Sass build with your own Sass styles:   
 + Write them in a Sass partial (.scss file named starting with an underscore e.g `_merchants.scss`) and save it in the `troupon/static/scss/partials` folder.
 + Import the partial at the end the `base_styles.scss` file. e.g 
   
