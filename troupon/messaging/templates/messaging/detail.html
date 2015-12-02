@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block custom_css %}
+{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-sm-12">
+        <a href="{% url 'read_messages' %}">Back to Inbox</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="strip{% if mesg.is_unread %} unread{% endif %}">
+            <div><strong>{{ mesg.sender }}</strong> <span>{{ mesg.sent_at }}</span></div>
+            <h3><a href="{% url 'read_message' id=mesg.id slug=mesg.subject|slugify %}">{{ mesg.subject }}</a></h3>
+            <p>{{ mesg.body }}</p>
+            <div class="">
+                <a href="#" id="reply-btn">Reply <i class="fa fa-chevron-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Reply form -->
+        <div id="compose-form" class="col-sm-6 hidden">
+            <form action="{% url 'send_message' action="reply" %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="parent_msg" value="{{mesg.id}}" />
+                <input type="hidden" name="recipient" value="{{mesg.sender}}" />
+                <div class="custom-form-group">
+                    <textarea name="body" class="form-control" rows=8></textarea>
+                </div>
+                <button class="btn-action"><i class="fa fa-paper-plane"></i>Send Reply</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+
+        {% for letter in other_messages %}
+        <div class="row{% if letter.sender == request.user %} from-user{% endif %}">
+            <div class="col-sm-12">
+                <div class="strip{% if letter.is_unread %} unread{% endif %}">
+                    <div><strong>{{ letter.sender }}</strong> <span>{{ letter.sent_at }}</span></div>
+                    <p>{{ letter.body }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extended_js %}
+    <script type="text/javascript" src="{% static 'js/messaging.js' %}"></script>
+
+{% endblock %}
