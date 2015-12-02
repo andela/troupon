@@ -4,57 +4,57 @@ Resets (overrides for Bootstrap and browser-defaults)
 ========================================================================== */
 
 body {
-	appearance: none;
+  appearance: none;
 }
 
 h1, h2, h3, h4 {
-	margin: 0px 0px 10px 0px;
+  margin: 0px 0px 10px 0px;
 }
 
 ul, ol {
-	padding: 0px;
-	margin: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .row {
-	margin: 0px;
+  margin: 0px;
 }
 
 [class *='col-'] {
-	padding-left: 5px;
-	padding-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .divider {
-	@include divider;
+  @include divider;
 }
 
 .divider-v {
-	@include divider-v;
+  @include divider-v;
 }
 
 .badge {
-	@include badge;
+  @include badge;
 }
 
 
 
 .dropdown {
 
-	.caret {
-	    color: color(icon-light);
-	}
+  .caret {
+    color: color(icon-light);
+  }
 
-    .dropdown-menu {
-    	position: absolute;
-		z-index: z-index(dropdown);
+  .dropdown-menu {
+    position: absolute;
+    z-index: z-index(dropdown);
 
-		li > a {
-			@extend a;
-		}
+    li > a {
+      @extend a;
+    }
 
-		.divider {
-			@extend .divider;
-		}
-	}
+    .divider {
+      @extend .divider;
+    }
+  }
 }

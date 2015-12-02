@@ -5,33 +5,33 @@ links
 
 
 a {
-    color: color(a);
+  color: color(a);
+  text-decoration: none;
+  &:hover {
+    color: color(a-hover);
     text-decoration: none;
-    &:hover {
-        color: color(a-hover);
-        text-decoration: none;
-    }
-    &:active {
-        @extend a:hover;
-        color: color(a-active);
-    }
-    &:focus {
-        @extend a:hover;
-        color: color(a-focus);
-    }
+  }
+  &:active {
+    @extend a:hover;
+    color: color(a-active);
+  }
+  &:focus {
+    @extend a:hover;
+    color: color(a-focus);
+  }
 }
 .menu-link {
-    @extend a;
-    font: {
-        weight: font-weight(bold);
-    }
+  @extend a;
+  font: {
+    weight: font-weight(bold);
+  }
 }
 .label-link {
-    @extend .menu-link;
-    font: {
-        size: font-size(label);
-    }
-    text-transform: uppercase;
+  @extend .menu-link;
+  font: {
+    size: font-size(label);
+  }
+  text-transform: uppercase;
 }
 
 
@@ -41,19 +41,19 @@ Buttons
 ========================================================================== */
 
 .btn-action {
-    @include btn-action-mixin (btn, component-height(custom-input));
-    margin: 5px auto;
+  @include btn-action-mixin (btn, component-height(custom-input));
+  margin: 5px auto;
 }
 
 .btn-action-alt {
-    @include btn-action-mixin (btn-alt, component-height(custom-input));
-    margin: 5px auto;
+  @include btn-action-mixin (btn-alt, component-height(custom-input));
+  margin: 5px auto;
 }
 
 .btn-form-submit {
-    @include fluid-width-xs;
-    min-width: 150px;
-    margin: 15px auto;
+  @include fluid-width-xs;
+  min-width: 150px;
+  margin: 15px auto;
 }
 
 
@@ -63,18 +63,18 @@ Forms Controls
 ========================================================================== */
 
 .custom-input-group {
-    @include input-group-mixin(component-height(custom-input));
-    margin: 5px auto;
+  @include input-group-mixin(component-height(custom-input));
+  margin: 5px auto;
 }
 
 .custom-form-group {
-    @include form-group-mixin();
-    margin: 10px auto;
+  @include form-group-mixin();
+  margin: 10px auto;
 }
 
 .label-asterik {
-    color: color(accent);
-    font-size: font-size(body)
+  color: color(accent);
+  font-size: font-size(body)
 }
 
 
@@ -83,13 +83,13 @@ Lists
 ========================================================================== */
 
 .label-link-list {
-    @include unstyled-list-mixin();
-    & > li {
-        margin: 8px auto;
-    }
-    & > li > a {
-        @extend .label-link;
-    }
+  @include unstyled-list-mixin();
+  & > li {
+    margin: 8px auto;
+  }
+  & > li > a {
+    @extend .label-link;
+  }
 }
 
 /* ==========================================================================
@@ -97,269 +97,269 @@ Other components.
 ========================================================================== */
 
 .card {
-    padding: 1px;
-    border: 1px solid color(card-border);
-    border-radius: border-radius(card);
-    background: color(card-bg);
-    box-shadow: box-shadow(card);
+  padding: 1px;
+  border: 1px solid color(card-border);
+  border-radius: border-radius(card);
+  background: color(card-bg);
+  box-shadow: box-shadow(card);
 }
 
 .section-heading {
-    .row, [class *='col-'] {
-        padding: 0px;
-    }
-    .row > [class *='col-'] {
-        @include contents-v-middle(60px);
-    }
-    .title, .custom-input-group {
-        margin: 0px;
-    }
-    .custom-input-group {
-        margin-top: -10px;
-    }
-    .description {
-        margin-top: 10px;
-        // color: color(accent);
-    }
+  .row, [class *='col-'] {
+    padding: 0px;
+  }
+  .row > [class *='col-'] {
+    @include contents-v-middle(60px);
+  }
+  .title, .custom-input-group {
+    margin: 0px;
+  }
+  .custom-input-group {
+    margin-top: -10px;
+  }
+  .description {
+    margin-top: 10px;
+    // color: color(accent);
+  }
 
-    @media (max-width: 768px) {
-        .title, .custom-input-group {
-            margin: 0px;
-        }
+  @media (max-width: 768px) {
+    .title, .custom-input-group {
+      margin: 0px;
     }
+  }
 }
 
 .flickity-gallery {
-    width: 100%;
+  width: 100%;
+  height: 100%;
+
+  .gallery-cell {
+    width: auto;
     height: 100%;
-
-    .gallery-cell {
-        width: auto;
-        height: 100%;
-        background-color: color(shaded-bg);
-        overflow: hidden;
-
-        * {
-            transition: all 0.4s ease-in-out;
-        }
-
-        .cell-image-wrapper {
-            position: relative;
-            display: block;
-            width: auto;
-            height: 100%;
-            overflow: hidden;
-
-            img {
-                display: block;
-                width: auto;
-                height: 100%;
-                transform: scale(1.03);
-            }
-        }
-
-        &:hover {
-            .cell-image-wrapper img{
-                transform: scale(1.06);
-            }
-        }
-    }
-    
-    .flickity-viewport {
-        overflow: hidden;
-        border-radius: border-radius(card) - 1;
-    }
-
-    .flickity-page-dots .dot {
-        width: 12px;
-        height: 12px;
-        margin: 0px 4px;
-        opacity: 1;
-        background: color(shaded-bg);
-        border: 1px solid color(shaded-border);
-    }
-    .flickity-page-dots .dot.is-selected {
-        background: color(accent);
-        border: 1px solid rgba(0,0,0,0);
-    }
-
-    .flickity-prev-next-button {
-        width: 50px;
-        height: 50px;
-        border-radius: 25px;
-        background: rgba(255,255,255,0.3);
-    }
-    .flickity-prev-next-button:hover {
-        background: color(btn-icon-fill-hover-bg);
-    }
-
-    .flickity-prev-next-button .arrow {
-        fill: color(btn-icon-fill-label);
-    }
-    .flickity-prev-next-button.no-svg {
-        color: color(btn-icon-fill-label);
-    }
-
-    .flickity-prev-next-button.previous {
-        left: 40px;
-    }
-    .flickity-prev-next-button.next {
-        right: 40px;
-    }
-}
-
-.image-frame {
-    
     background-color: color(shaded-bg);
     overflow: hidden;
 
-    .image-holder {
-        position: relative;
+    * {
+      transition: all 0.4s ease-in-out;
+    }
+
+    .cell-image-wrapper {
+      position: relative;
+      display: block;
+      width: auto;
+      height: 100%;
+      overflow: hidden;
+
+      img {
         display: block;
-        width: 100%;
+        width: auto;
         height: 100%;
-        border-radius: border-radius(card) - 1;
-        overflow: hidden;
-
-        img {
-            display: block;
-            width: 100%;
-            height: auto;
-
-            transition: all 0.4s ease-in-out;
-        }
+        transform: scale(1.03);
+      }
     }
 
     &:hover {
-        .image-holder img{
-            transform: scale(1.01);
-        }
+      .cell-image-wrapper img{
+        transform: scale(1.06);
+      }
     }
+  }
+  
+  .flickity-viewport {
+    overflow: hidden;
+    border-radius: border-radius(card) - 1;
+  }
+
+  .flickity-page-dots .dot {
+    width: 12px;
+    height: 12px;
+    margin: 0px 4px;
+    opacity: 1;
+    background: color(shaded-bg);
+    border: 1px solid color(shaded-border);
+  }
+  .flickity-page-dots .dot.is-selected {
+    background: color(accent);
+    border: 1px solid rgba(0,0,0,0);
+  }
+
+  .flickity-prev-next-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.3);
+  }
+  .flickity-prev-next-button:hover {
+    background: color(btn-icon-fill-hover-bg);
+  }
+
+  .flickity-prev-next-button .arrow {
+    fill: color(btn-icon-fill-label);
+  }
+  .flickity-prev-next-button.no-svg {
+    color: color(btn-icon-fill-label);
+  }
+
+  .flickity-prev-next-button.previous {
+    left: 40px;
+  }
+  .flickity-prev-next-button.next {
+    right: 40px;
+  }
+}
+
+.image-frame {
+  
+  background-color: color(shaded-bg);
+  overflow: hidden;
+
+  .image-holder {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: border-radius(card) - 1;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+
+      transition: all 0.4s ease-in-out;
+    }
+  }
+
+  &:hover {
+    .image-holder img{
+      transform: scale(1.01);
+    }
+  }
 }
 
 .packery-grid {
-    width: 100%;
-    margin-top: 30px;
+  width: 100%;
+  margin-top: 30px;
 
-    .grid-sizer, .grid-item{
-        width: 32%;
+  .grid-sizer, .grid-item{
+    width: 32%;
+  }
+  .gutter-sizer{
+    width: 2%;
+  }
+  
+  .grid-item {
+    margin-bottom: 0px;
+    overflow: hidden;
+
+    &, * {
+      transition: all 0.4s ease-in-out;
     }
-    .gutter-sizer{
-        width: 2%;
+
+    .item-image-wrapper {
+      position: relative;
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      background-color: color(shaded-bg);
+      border-radius: border-radius(card) - 1;
+
+      img {
+        display: block;
+        width: 100%;
+      }
     }
-    
+
+    .item-info {
+      padding: 30px 25px;
+      text-align: center;
+
+      .advertiser {
+        margin-bottom: 10px;
+        p , address {
+          margin: 0px;
+        }
+        i {
+          display: inline-block;
+          margin-right: 5px;
+        }
+      }
+
+      .prices {
+        * {
+          display: inline-block;
+          margin:  auto 5px;
+        }
+        .original {
+          text-decoration: line-through;
+        }
+        .current {
+          font-weight: font-weight(bold);
+        }
+      }
+    }
+
+    &:hover {
+      border-color: color(accent);
+      .title, .current {
+        color: color(accent);
+      }
+
+      .item-image-wrapper img {
+        transform: scale(1.03);
+      }
+    }
+  }
+
+  
+
+  @media (max-width: 480px) {
+    .grid-sizer, .grid-item {
+      width: 100%;
+    }
+    .gutter-sizer {
+      width: 0%;
+    }
     .grid-item {
-        margin-bottom: 0px;
-        overflow: hidden;
-
-        &, * {
-            transition: all 0.4s ease-in-out;
-        }
-
-        .item-image-wrapper {
-            position: relative;
-            display: block;
-            width: 100%;
-            overflow: hidden;
-            background-color: color(shaded-bg);
-            border-radius: border-radius(card) - 1;
-
-            img {
-                display: block;
-                width: 100%;
-            }
-        }
-
-        .item-info {
-            padding: 30px 25px;
-            text-align: center;
-
-            .advertiser {
-                margin-bottom: 10px;
-                p , address {
-                    margin: 0px;
-                }
-                i {
-                    display: inline-block;
-                    margin-right: 5px;
-                }
-            }
-
-            .prices {
-                * {
-                    display: inline-block;
-                    margin:  auto 5px;
-                }
-                .original {
-                    text-decoration: line-through;
-                }
-                .current {
-                    font-weight: font-weight(bold);
-                }
-            }
-        }
-
-        &:hover {
-            border-color: color(accent);
-            .title, .current {
-                color: color(accent);
-            }
-
-            .item-image-wrapper img {
-                transform: scale(1.03);
-            }
-        }
+      margin-bottom: 20px;
     }
-
     
+  }
 
-    @media (max-width: 480px) {
-        .grid-sizer, .grid-item {
-            width: 100%;
-        }
-        .gutter-sizer {
-            width: 0%;
-        }
-        .grid-item {
-            margin-bottom: 20px;
-        }
-        
+  @media (min-width: 480px) and  (max-width: 992px) {
+    .grid-sizer, .grid-item {
+      width: 48%;
     }
-
-    @media (min-width: 480px) and  (max-width: 992px) {
-        .grid-sizer, .grid-item {
-            width: 48%;
-        }
-        .gutter-sizer {
-            width: 4%;
-        }
+    .gutter-sizer {
+      width: 4%;
     }
+  }
 }
 
 .pagination {
 
-    text-align: right;
-    width: 100%;
-    margin-top: 40px;
+  text-align: right;
+  width: 100%;
+  margin-top: 40px;
 
-    .info {
-        display: inline-block;
-        margin-right: 20px;
+  .info {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  .links {
+    display: inline-block;
+    ol {
+      @include unstyled-h-list-mixin;
+
+      display: inline-block;
+      li {
+        margin: 0px 15px;
+      }
+
+      .current-page-num {
+        color: color(accent);
+      }
     }
-
-    .links {
-        display: inline-block;
-        ol {
-            @include unstyled-h-list-mixin;
-
-            display: inline-block;
-            li {
-                margin: 0px 15px;
-            }
-
-            .current-page-num {
-                color: color(accent);
-            }
-        }
-    }
+  }
 }

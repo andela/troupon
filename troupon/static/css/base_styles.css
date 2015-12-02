@@ -28,7 +28,7 @@ ul, ol {
 .divider, .dropdown .dropdown-menu .divider {
   width: 100%;
   height: 1px;
-  margin: 0px 0px;
+  margin: 0;
   overflow: hidden;
   background-color: #DFDFD0;
 }
@@ -36,11 +36,11 @@ ul, ol {
 .divider-v {
   width: 100%;
   height: 1px;
-  margin: 0px 0px;
+  margin: 0;
   overflow: hidden;
   background-color: #DFDFD0;
   width: 1px;
-  margin: 0px;
+  margin: 0;
   vertical-align: middle;
 }
 
@@ -59,41 +59,38 @@ ul, ol {
   z-index: 10000;
 }
 
-/* ==========================================================================
-Typography
-========================================================================== */
 body {
   font-family: "Lato", sans-serif;
 }
 
 h1 {
-  font-weight: 300;
-  font-size: 40px;
   color: #660066;
+  font-size: 40px;
+  font-weight: 300;
 }
 
 h2 {
-  font-weight: 400;
-  font-size: 38px;
   color: #E67E22;
+  font-size: 38px;
+  font-weight: 400;
 }
 
 h3 {
-  font-weight: 700;
-  font-size: 20px;
   color: #5E5E77;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 h4 {
-  font-weight: 700;
-  font-size: 16px;
   color: #5E5E77;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 body {
-  font-weight: 400;
-  font-size: 16px;
   color: #5E5E77;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 h1 {
@@ -105,8 +102,8 @@ h1 {
 }
 
 .mini-label, .section-label {
-  font-weight: 900;
   font-size: 12px;
+  font-weight: 900;
   text-transform: uppercase;
 }
 
@@ -352,7 +349,7 @@ Lists
 ========================================================================== */
 .label-link-list {
   list-style: none outside none;
-  padding: 0px 0px;
+  padding: 0;
 }
 
 .label-link-list > li {
@@ -640,7 +637,7 @@ Other components.
 
 .pagination .links ol {
   list-style: none outside none;
-  padding: 0px 0px;
+  padding: 0;
   display: inline-block;
 }
 
@@ -675,7 +672,7 @@ body {
 }
 
 #subscribe-bar .tag-line {
-  margin: 0px 5px;
+  margin: 0 5px;
 }
 
 #subscribe-bar .tag-line span {
@@ -701,7 +698,7 @@ body {
   border-radius: 5px;
   position: absolute;
   top: 5px;
-  right: 0px;
+  right: 0;
 }
 
 #subscribe-bar .section-close:hover {
@@ -763,7 +760,7 @@ body {
     border-radius: 5px;
     position: absolute;
     top: 15px;
-    right: 0px;
+    right: 0;
   }
   #subscribe-bar .section-close:hover {
     color: #E67E22;
@@ -857,8 +854,8 @@ body {
 
 #header-bar .nav-menu, #header-bar .member-options, #header-bar .auth-options {
   list-style: none outside none;
-  padding: 0px 0px;
-  right: 0px;
+  padding: 0;
+  right: 0;
 }
 
 #header-bar .nav-menu li, #header-bar .member-options li, #header-bar .auth-options li {
@@ -954,7 +951,7 @@ footer p {
 
 footer .quick-links {
   list-style: none outside none;
-  padding: 0px 0px;
+  padding: 0;
 }
 
 footer .dropdown .dropdown-menu .quick-links > li > a, .dropdown .dropdown-menu footer .quick-links > li > a, footer .quick-links > li > .menu-link, footer .quick-links > li > .label-link, footer #header-bar .auth-options.quick-links > li > a, #header-bar footer .auth-options.quick-links > li > a, footer #header-bar .nav-menu.quick-links > li > a, #header-bar footer .nav-menu.quick-links > li > a, footer #header-bar .member-options.quick-links > li > a, #header-bar footer .member-options.quick-links > li > a, footer .quick-links > li > a {
@@ -963,7 +960,7 @@ footer .dropdown .dropdown-menu .quick-links > li > a, .dropdown .dropdown-menu 
 
 footer .social-links {
   list-style: none outside none;
-  padding: 0px 0px;
+  padding: 0;
 }
 
 footer .social-links li {
@@ -1282,7 +1279,7 @@ main .deals-specs .share-options {
 
 main .deals-specs .share-options ul.social-share-links {
   list-style: none outside none;
-  padding: 0px 0px;
+  padding: 0;
 }
 
 main .deals-specs .share-options ul.social-share-links li {

@@ -5,73 +5,73 @@
 
 
 @mixin fluid-width {
-    width: 100%;
+  width: 100%;
 }
 @mixin fluid-width-xs {
-    @media (max-width: 768px) {
-        @include fluid-width;
-    }
+  @media (max-width: 768px) {
+    @include fluid-width;
+  }
 }
 
 @mixin v-middle {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%); 
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); 
 }
 @mixin contents-v-middle ($min-height:55px) {
-    position: relative;
-    display: inline-block;
-    min-height: $min-height;
+  position: relative;
+  display: inline-block;
+  min-height: $min-height;
 
-    & > * {
-        @include v-middle;
-    }
+  & > * {
+    @include v-middle;
+  }
 }
 
 
 @mixin shaded {
-	background-color: color(shaded-bg);
+  background-color: color(shaded-bg);
 }
 @mixin shaded-border {
-	@include shaded;
+  @include shaded;
 
-	border-top: 1px solid color(shaded-border);
-    border-bottom: 1px solid color(shaded-border);
+  border-top: 1px solid color(shaded-border);
+  border-bottom: 1px solid color(shaded-border);
 }
 
 
 @mixin divider {
-    width: 100%;
-    height: 1px;
-    margin: 0px 0px;
-    overflow: hidden;
-    background-color: color(divider);
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  background-color: color(divider);
 }
 @mixin divider-v {
-    @include divider;
-    width: 1px;
-    margin: 0px;
-    vertical-align: middle;
+  @include divider;
+  width: 1px;
+  margin: 0;
+  vertical-align: middle;
 }
 
 @mixin badge {
-    padding: 5px 8px;
-    color: color(badge-text);
-    background-color: color(badge-bg);
+  padding: 5px 8px;
+  color: color(badge-text);
+  background-color: color(badge-bg);
 }
 
 
 
 @mixin unstyled-list-mixin {
-    list-style: none outside none;
-    padding: 0px 0px;
+  list-style: none outside none;
+  padding: 0;
 }
 
 @mixin unstyled-h-list-mixin {
-    @include unstyled-list-mixin;
+  @include unstyled-list-mixin;
 
-    li {
-        display: inline-block;
+  li {
+    display: inline-block;
 
-    }
+  }
 }

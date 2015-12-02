@@ -1,24 +1,24 @@
 
-/* ==========================================================================
-Typography
-========================================================================== */
+// ==========================================================================
+//  Typography
+// ==========================================================================
 
 body {
-	font-family: font-family(primary);
+  font-family: font-family(primary);
 }
 
 @each $tag, $font-weight in (h1: light, h2: regular, h3: bold, h4: bold, body: regular) {
-	#{$tag} {
-		font: {
-			weight: font-weight(#{$font-weight});
-			size: font-size(#{$tag});
-		}
-		color: color(#{$tag});
-	}
+  #{$tag} {
+    color: color(#{$tag});
+    font: {
+      size: font-size(#{$tag});
+      weight: font-weight(#{$font-weight});
+    }
+  }
 }
 
 h1 {
-	letter-spacing: -1px;
+  letter-spacing: -1px;
 }
 
 .mini-text {
@@ -27,21 +27,21 @@ h1 {
 
 
 .mini-label {
-	font: {
-		weight: font-weight(black);
-		size: font-size(label);
-	}
-	text-transform: uppercase;
+  font: {
+    size: font-size(label);
+    weight: font-weight(#000000);
+  }
+  text-transform: uppercase;
 }
 
 .section-label {
-	@extend .mini-label;
+  @extend .mini-label;
 
-	color: color(label);
+  color: color(label);
 
-	i {
-		margin-right: 5px;
-	}
+  i {
+    margin-right: 5px;
+  }
 }
 
 
