@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static%}
+
+{% block main %}
+
+<!--SECOND FORM STARTS HERE-->
+    <div id="otpform">
+        <form>
+            <div class="form-group col-lg-12">
+                <h4>Please Enter Your OTP token to verify phone number </h4>
+            </div>
+            <div class="form-group col-lg-6">
+                <label>Number</label>
+                <div class="custom-input-group">
+                    <input type="text" name="number" class="form-control" id="id_name" value="" placeholder="">
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

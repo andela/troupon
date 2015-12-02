@@ -18,6 +18,7 @@ $(document).ready(function(){
     
         $('#merchantform').on('submit', function(event) {
             var $form = $(this);
+            console.log($form)
 
             $.ajax({
                 type: $form.attr('method'),
@@ -27,8 +28,7 @@ $(document).ready(function(){
                 success: function(data) {
                 if (data == "success") {
 
-                    $('#form').hide();
-                    $('#otpform').show();
+                    location.href= "/userprofile/verify/";
                 }
             },
                 error: function(error) {

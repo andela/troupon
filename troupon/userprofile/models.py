@@ -19,7 +19,7 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return u'Profile of user: %s' % self.user.username
 
-class TrouponMerchant(Advertiser):
+class Merchant(Advertiser):
 
     user = models.OneToOneField(User)
 

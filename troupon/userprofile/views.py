@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from account.views import LoginRequiredMixin
 from django.template import RequestContext, loader, Template, Engine
 from django.views.generic.base import TemplateView
-from userprofile.forms import UserProfileForm, TrouponMerchantForm
-from userprofile.models import UserProfile
+from userprofile.forms import UserProfileForm
+from django.contrib.auth.models import User
+from userprofile.models import UserProfile, Merchant
 from deals.models import STATE_CHOICES
 from django.contrib import messages
 from django.http import HttpResponse
@@ -55,7 +56,7 @@ class Userprofileview(LoginRequiredMixin, TemplateView):
                 context_instance=RequestContext(request)
             )
 
-class MerchantView(TemplateView):
+class MerchantView(TemplateView, LoginRequiredMixin):
 
     template_name = "userprofile/merchant.html"
 
@@ -65,26 +66,44 @@ class MerchantView(TemplateView):
                 'show_search': False,
                 'states': { 'choices': STATE_CHOICES,  'default': 25 },
             }
-        #context['form']= TrouponMerchantForm()
         return self.render_to_response(context)
 
     def post(self, request, **kwargs):
 
-        merchantform = TrouponMerchantForm(request.POST)
+        name = request.POST.get('name')
+        state = request.POST.get('user_state')
+        telephone = request.POST.get('telephone')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        slug = request.POST.get('slug')
+        user = User.objects.get(id=request.user.id)
 
-        if merchantform.errors:
+        merchant = Merchant(name=name, state=state, telephone=telephone, email=email, address=address, slug=slug, user = user ) 
+
+
+        if merchant:
+
+            
+
+            merchant.save()
+            return HttpResponse("success", content_type="text/plain")
+        else:
             context = {
                 'show_subscribe': False,
                 'show_search': False,
                 'states': { 'choices': STATE_CHOICES,  'default': 25 },
             }
-            empty = "Please check that you have entered the correct form data"
-            messages.add_message(request, messages.INFO,empty )
-            return render(request, self.template_name, context)
-        
-        if merchantform.is_valid():
-            merchantform.save()
-            return HttpResponse("success", content_type="text/plain")
+        empty = "Please verify that you entered the correct information"
+        messages.add_message(request, messages.ERROR,empty )
+        return self.render_to_response(context)
+
+class VerificationView(TemplateView, LoginRequiredMixin):
+
+    template_name = 'userprofile/verify.html'
+
+
+
+
 
 
 
