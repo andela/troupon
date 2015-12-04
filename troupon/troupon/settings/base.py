@@ -66,6 +66,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'middleware.general.SharedContextMiddleware',
+    'messaging.middleware.UnreadMessageCount',
 )
 
 ROOT_URLCONF = 'troupon.urls'
