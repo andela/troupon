@@ -8,7 +8,7 @@ class Message(models.Model):
     """
     subject = models.CharField(max_length=256)
     body = models.TextField()
-    sender = models.OneToOneField(
+    sender = models.ForeignKey(
         User, related_name='sender', null=True, blank=True)
     recipient = models.ForeignKey(
         User, related_name='recipient', null=True, blank=True)
@@ -23,3 +23,6 @@ class Message(models.Model):
     replied_at = models.DateTimeField(null=True, blank=True)
     sender_deleted_at = models.DateTimeField(null=True, blank=True)
     recipient_deleted_at = models.DateTimeField(null=True, blank=True)
+
+    def is_unread(self):
+        return self.read_at is None
