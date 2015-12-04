@@ -49,63 +49,21 @@
     <div class="modals-parent">
       <div class="container page-container"> <!-- page container (contains page content)-->
 
-            {% block header %}
-            {% if not hide_header %} {# shows by default, pass 'hide_header: True' in the context to hide #}
-            <!-- header bar-->
-            <header id="header-bar">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                        <div class="brand">
-                           <a class="logo" href="{% url 'homepage' %}"><img src="{% static 'img/logo-h-sm.png' %}" alt="Troupon logo"></a>
-                        </div>
-                        
-                        <button type="button" class="menu-toggle visible-xs collapsed" data-toggle="collapse" data-target="#menu-bar"><i class="fa fa-bars"></i></button>
-                    </div>
-                    <div class="navbar-collapse collapse" id="menu-bar">
-                        <nav class="col-xs-12 col-sm-5 col-md-6 col-lg-7">
-                            <ul class="nav-menu">
-                                <li><a href="{% url 'homepage' %}" class="hidden-sm">Home</a></li>
-                                <li><a href="{% url 'deals' %}">Deals</a></li>
-                                <li><a href="{% url 'deal-categories' %}">Categories</a></li>
-                                <li><a href="">Cities</a></li>
-                                <li><a href="" class="hidden-sm">Merchants</a></li>
-                            </ul>
-                        </nav>
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
-                            {% if request.user.is_authenticated %}
-                            <ul class="member-options">
-                                <li>
-                                    <a href="{% url 'read_messages' %}">{% if unread_mesg_count %}<span class="badge">{{ unread_mesg_count }}</span>{% endif %}<i class="fa fa-inbox fa-fw"></i></a>
-                                </li>
-                                <li class="divider-v"></li>
-                                <li>
-                                    <a href=""><span class="badge">7</span><i class="fa fa-shopping-cart fa-fw"></i></a>
-                                </li>
-                                <li class="divider-v"></li>
-                                <li class="dropdown">
-                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-user fa-fw"></i> <span class="caret"></span></a>
-                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li class="dropdown-header">Signed in as:</li>
-                                        <li><a href="">{{request.user.username }}</a></li>
-
-                                        <li class="divider"></li>
-                                        <li><a href="{% url 'userprofile' username=request.user.username %}"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
-                                        <li><a href="#" class="modal-toggle" data-modal-target="#modal-change-password"><i class="fa fa-key fa-fw"></i> Change Password</a></li>
-                                        <li><a href=""><i class="fa fa-th-list fa-fw"></i> View History</a></li>
-                                        <li  class="divider"></li>
-                                        <li><a href="{% url 'signout' %}"><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            {% else %}
-                             <ul class="auth-options">
-                                <li><a href="{% url 'signin' %}" class="modal-toggle" data-modal-target="#modal-sign-in">Sign in</a></li>
-                                <li class="divider-v"></li>
-                                <li><a href="{% url 'UserSignupView' %}" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></li>
-                            </ul>
-                            {% endif %}
-                        </div>
-                    </div>
+        {% block newsletter_section %}
+        {% if show_newsletter_section %}
+        <!-- newsletter bar -->
+        <section class="collapse in" id="newsletter-bar">
+          <form action="" action="" method="POST">
+            <div class="row">
+              <div class="col-xs-11 col-sm-5">
+                <div class="tag-line">
+                  <span>Be the first to know! Subscribe to the Troupon Newsletter today!</span></p>
+                </div>
+              </div>
+              <div class="col-xs-9 col-sm-4 col-lg-5">
+                <div class="custom-input-group">
+                  <span class="left-icon"><i class="fa fa-envelope fa-fw"></i></span>
+                  <input type="email" name="email" id="subscriberEmail" placeholder="Your email" required>
                 </div>
               </div>
               <div class="col-xs-2 col-sm-2 col-lg-1">
@@ -131,7 +89,7 @@
               <button type="button" class="menu-toggle visible-xs collapsed" data-toggle="collapse" data-target="#menu-bar"><i class="fa fa-bars"></i></button>
             </div>
             <div class="navbar-collapse collapse" id="menu-bar">
-              <nav class="col-xs-12 col-sm-5 col-md-6 col-lg-7">
+              <nav class="col-xs-12 col-sm-5 col-md-6 col-lg-6">
                 <ul class="nav-menu">
                   <li><a href="{% url 'homepage' %}" class="hidden-sm">Home</a></li>
                   <li><a href="{% url 'deals' %}">Deals</a></li>
@@ -140,9 +98,13 @@
                   <li><a href="" class="modal-toggle hidden-sm" data-modal-target="#modal-merchants">Merchants</a></li>
                 </ul>
               </nav>
-              <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+              <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                 {% if request.user.is_authenticated %}
                 <ul class="member-options">
+                  <li>
+                    <a href="{% url 'read_messages' %}">{% if unread_mesg_count %}<span class="badge">{{ unread_mesg_count }}</span>{% endif %}<i class="fa fa-inbox fa-fw"></i></a>
+                  </li>
+                  <li class="divider-v"></li>
                   <li>
                     <a href=""><span class="badge">7</span><i class="fa fa-shopping-cart fa-fw"></i></a>
                   </li>

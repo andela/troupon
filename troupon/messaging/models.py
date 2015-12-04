@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Message(models.Model):
@@ -9,9 +9,11 @@ class Message(models.Model):
     subject = models.CharField(max_length=256)
     body = models.TextField()
     sender = models.ForeignKey(
-        User, related_name='sender', null=True, blank=True)
+        settings.AUTH_USER_MODEL, related_name='sender',
+        null=True, blank=True)
     recipient = models.ForeignKey(
-        User, related_name='recipient', null=True, blank=True)
+        settings.AUTH_USER_MODEL, related_name='recipient',
+        null=True, blank=True)
     parent_msg = models.ForeignKey(
         'self',
         related_name='parent_rel',
