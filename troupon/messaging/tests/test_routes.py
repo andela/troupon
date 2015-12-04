@@ -1,7 +1,9 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 from messaging.models import Message
+
 
 class MessagingRouteTestCase(TestCase):
 
@@ -14,6 +16,7 @@ class MessagingRouteTestCase(TestCase):
             'subject': 'Test subject',
             'body': 'Test body',
         }  # message stub
+        cls.subject_slug = slugify(cls.msg_stub['subject'])
         cls.admin = User.objects.create_user(
             username='testadmin', email='testadmin@test.com',
             password='password1')
@@ -36,10 +39,17 @@ class MessagingRouteTestCase(TestCase):
         response = self.client.post(
             reverse('send_message', kwargs={'action': 'new'}),
             self.msg_stub)
+
+        lastest_msg = Message.objects.latest('sent_at')
         self.assertRedirects(
-            response, reverse('read_message'), status_code=302,
-            target_status_code=200, fetch_redirect_response=True)
-        
+            response,
+            reverse(
+                'read_message',
+                kwargs={'id': lastest_msg.id, 'slug': self.subject_slug}
+            ),
+            status_code=302,
+        )
+
         # logout administrator
         response = self.client.get(reverse('signout'))
         self.assertRedirects(response, reverse('homepage'), status_code=302)
@@ -57,12 +67,21 @@ class MessagingRouteTestCase(TestCase):
         response = self.client.post(
             reverse('send_message', kwargs={'action': 'new'}),
             self.msg_stub)
-        self.assertRedirects(response, reverse('read_message'), status_code=302)
-        
+
+        lastest_msg = Message.objects.latest('sent_at')
+        self.assertRedirects(
+            response,
+            reverse(
+                'read_message',
+                kwargs={'id': lastest_msg.id, 'slug': self.subject_slug}
+            ),
+            status_code=302
+        )
+
         # logout merchant
         response = self.client.get(reverse('signout'))
         self.assertRedirects(response, reverse('homepage'), status_code=302)
-        
+
         # login administrator
         response = self.client.post(
             reverse('signin'),
@@ -71,11 +90,13 @@ class MessagingRouteTestCase(TestCase):
 
         # read messages
         response = self.client.get(
-            reverse('read_user_message', kwargs={'sender': self.merchant.username})
+            reverse(
+                'read_user_message', kwargs={'sender': self.merchant.username}
+            )
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.msg_stub['body'])
-        
+
         # logout administrator
         response = self.client.get(reverse('signout'))
         self.assertRedirects(response, reverse('homepage'), status_code=302)
@@ -94,10 +115,17 @@ class MessagingRouteTestCase(TestCase):
         response = self.client.post(
             reverse('send_message', kwargs={'action': 'new'}),
             self.msg_stub, follow=True)
+
+        lastest_msg = Message.objects.latest('sent_at')
         self.assertRedirects(
-            response, reverse('read_message'), status_code=302,
-            target_status_code=200, fetch_redirect_response=True)
-        
+            response,
+            reverse(
+                'read_message',
+                kwargs={'id': lastest_msg.id, 'slug': self.subject_slug}
+            ),
+            status_code=302,
+        )
+
         # logout merchant
         response = self.client.get(reverse('signout'))
         self.assertRedirects(response, reverse('homepage'), status_code=302)
@@ -110,30 +138,41 @@ class MessagingRouteTestCase(TestCase):
             reverse('signin'),
             {'username': self.admin.username, 'password': 'password1'})
         self.assertRedirects(response, reverse('homepage'), status_code=302)
-        
+
         # post message to merchant
         self.msg_stub['recipient'] = self.merchant.username
         response = self.client.post(
             reverse('send_message', kwargs={'action': 'new'}),
             self.msg_stub)
-        self.assertRedirects(response, reverse('read_message'), status_code=302)
-        
+
+        lastest_msg = Message.objects.latest('sent_at')
+        self.assertRedirects(
+            response,
+            reverse(
+                'read_message',
+                kwargs={'id': lastest_msg.id, 'slug': self.subject_slug}
+            ),
+            status_code=302
+        )
+
         # logout admin
         response = self.client.get(reverse('signout'))
         self.assertRedirects(response, reverse('homepage'), status_code=302)
-        
+
         # login merchant
         response = self.client.post(
             reverse('signin'),
             {'username': self.merchant.username, 'password': 'password2'})
         self.assertEqual(response.status_code, 302)
-        
+
         # read messages
         response = self.client.get(
-            reverse('read_user_message', kwargs={'sender': self.admin.username}))
+            reverse(
+                'read_user_message', kwargs={'sender': self.admin.username})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.msg_stub['body'])
-        
+
         # logout merchant
         response = self.client.get(reverse('signout'))
         self.assertRedirects(response, reverse('homepage'), status_code=302)
@@ -141,31 +180,40 @@ class MessagingRouteTestCase(TestCase):
     def test_merchant_can_reply_to_message_sent_by_admin(self):
         """Tests that a message can be replied to and as such spawning a conversation
         """
-        
+
         # login administrator
         response = self.client.post(
             reverse('signin'),
             {'username': self.admin.username, 'password': 'password1'})
         self.assertRedirects(response, reverse('homepage'), status_code=302)
-        
+
         # post message to merchant
         self.msg_stub['recipient'] = self.merchant.username
         response = self.client.post(
             reverse('send_message', kwargs={'action': 'new'}),
             self.msg_stub)
-        self.assertRedirects(response, reverse('read_message'), status_code=302)
-        
+
+        lastest_msg = Message.objects.latest('sent_at')
+        self.assertRedirects(
+            response,
+            reverse(
+                'read_message',
+                kwargs={'id': lastest_msg.id, 'slug': self.subject_slug}
+            ),
+            status_code=302
+        )
+
         # logout administrator
         response = self.client.get(reverse('signout'))
         self.assertRedirects(response, reverse('homepage'), status_code=302)
-        
+
         # login merchant
         response = self.client.post(
             reverse('signin'),
             {'username': self.merchant.username, 'password': 'password2'})
         self.assertRedirects(response, reverse('homepage'), status_code=302)
 
-        # reply message from administrator   
+        # reply message from administrator
         self.msg_stub['parent_msg'] = Message.objects.latest('sent_at').id
         self.msg_stub['recipient'] = self.admin.username
         response = self.client.post(
@@ -173,7 +221,7 @@ class MessagingRouteTestCase(TestCase):
             self.msg_stub, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.msg_stub['body'])
-        
+
         # logout merchant
         response = self.client.get(reverse('signout'))
         self.assertRedirects(response, reverse('homepage'), status_code=302)
