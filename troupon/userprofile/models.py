@@ -26,7 +26,7 @@ class UserProfile(models.Model):
 
 class Merchant(Advertiser):
 
-    user = models.OneToOneField(User)
+    userprofile = models.OneToOneField(UserProfile)
 
     def __unicode__(self):
         return u'Merchant %s with username %s' %(self.name, self.user.username)

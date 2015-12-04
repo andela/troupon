@@ -18,6 +18,7 @@ $(document).ready(function(){
     
         $('#merchantform').on('submit', function(event) {
             var $form = $(this);
+            event.preventDefault();
             console.log($form)
 
             $.ajax({

@@ -13,7 +13,8 @@ from django_otp.forms import OTPTokenForm
 from functools import partial
 from nexmo import send_message
 from .onetimepassword import CustomTOTPDevice
-
+from nexmo.libpynexmo.nexmomessage import NexmoMessage
+from django.conf import settings
 
 # Create your views here.
 class Userprofileview(LoginRequiredMixin, TemplateView):
@@ -82,15 +83,26 @@ class MerchantView(TemplateView, LoginRequiredMixin):
         email = request.POST.get('email')
         address = request.POST.get('address')
         slug = request.POST.get('slug')
-        user = User.objects.get(id=request.user.id)
+        userprofile = UserProfile.objects.get(id=request.user.id)
+        
 
-        merchant = Merchant(name=name, state=state, telephone=telephone, email=email, address=address, slug=slug, user = user ) 
+        merchant = Merchant(name=name, state=state, telephone=telephone, email=email, address=address, slug=slug, userprofile = userprofile ) 
 
-
-        if merchant:            
-            merchant.save()
-            token = CustomTOTPDevice.generate_token()
-            send_message(int(telephone), str(token))
+        merchant.save() ###check
+        customTOTPDevice = CustomTOTPDevice()           
+        token = customTOTPDevice.generate_token()
+        msg = {
+                'reqtype': 'json',
+                'api_key':settings.NEXMO_USERNAME ,
+                'api_secret': settings.NEXMO_PASSWORD,
+                'from': settings.NEXMO_FROM,
+                'to': telephone,
+                'text': str(token),
+            }
+        sms = NexmoMessage(msg)
+        response = sms.send_request()
+        if response:
+            print response
             return HttpResponse("success", content_type="text/plain")
         else:
             context = {
@@ -115,7 +127,9 @@ class VerificationView(TemplateView, LoginRequiredMixin):
     def post(self, request, *args, **kwargs):
 
         token = request.POST.get('token')
-        result = CustomTOTPDevice.verify_token(token)
+        customTOTPDevice = CustomTOTPDevice()
+        result = customTOTPDevice.verify_token(token)
+        print result
 
         if result == True:
             return HttpResponse("success", content_type="text/plain")

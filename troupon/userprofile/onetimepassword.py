@@ -1,12 +1,14 @@
 from binascii import unhexlify
 from django_otp.models import Device
 from django_otp.oath import totp
+from django_otp.oath import TOTP
 import time
 from django_otp.util import random_hex, hex_validator
 from django.db import models
+from django.conf import settings
 
 
-class CustomTOTPDevice(Device):
+class CustomTOTPDevice(Device): ##c#heck
 
     '''Device Model Object defined to generate Token Key for Merchants. '''
 
@@ -25,14 +27,12 @@ class CustomTOTPDevice(Device):
     def bin_key(self):
         return unhexlify(self.key)
 
-    @staticmethod
-    def generate_token(self): 
+    def generate_token(self,): 
         totp = self.totp_obj()
         token = format(totp.token(), '06d')
 
         return token
 
-    @staticmethod
     def verify_token(self, token):
         try:
             token = int(token)
@@ -55,10 +55,8 @@ class CustomTOTPDevice(Device):
 
         return verified
 
-
     def totp_obj(self):
-        totp = TOTP(self.bin_key,)
+        totp = TOTP(self.bin_key,step=1)
         totp.time = time.time()
 
         return totp
-
