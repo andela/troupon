@@ -2,7 +2,8 @@ from django.conf.urls import url
 from .views import DispatchView, \
     ReadView, ReadFromUserView, ReadDetailView
 
-
+/messaging/new/
+/messaging/reply/
 urlpatterns = [
     url(r'^(?P<action>\w+)/$', DispatchView.as_view(), name='send_message'),
     url(r'^read/(?P<sender>\w+)/$',
