@@ -90,7 +90,7 @@ class MerchantView(TemplateView, LoginRequiredMixin):
         if merchant:            
             merchant.save()
             token = CustomTOTPDevice.generate_token()
-            send_message(telephone, str(token))
+            send_message(int(telephone), str(token))
             return HttpResponse("success", content_type="text/plain")
         else:
             context = {
