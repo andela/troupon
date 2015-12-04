@@ -60,6 +60,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'middleware.common.CommonContextMiddleware',
 )
 
 ROOT_URLCONF = 'troupon.urls'
@@ -158,5 +159,13 @@ SITE_IMAGES = {
     'thumbnail_image_width': 500,
     'thumbnail_image_height': 500
 }
+
+# deal listings and search:
+DEALS = {
+    'default_search_city': 25,
+    'num_page_items': 15,
+    'min_orphan_items': 2,
+}
+
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

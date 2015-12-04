@@ -1,24 +1,27 @@
-from django.shortcuts import render,render_to_response,redirect
-from django.views.generic import TemplateView, View
+from django.shortcuts import render, redirect
+from django.views.generic import View
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
-from django.template import Engine, RequestContext, loader
-from haystack.query import SearchQuerySet
+from django.template import Engine, RequestContext
+from django.template.response import TemplateResponse
 from django.core.paginator import Paginator
 from django.core.context_processors import csrf
-from deals.models import Category, Deal, STATE_CHOICES, EPOCH_CHOICES, Advertiser
-from deals.baseviews import DealListBaseView, CollectionsBaseView, \
-    DealCollectionItemsListBaseView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from haystack.query import SearchQuerySet
 import datetime
 import cloudinary
+
+from deals.models import Category, Deal, Advertiser,\
+                         STATE_CHOICES, EPOCH_CHOICES
+from deals.baseviews import DealListBaseView, CollectionsBaseView, \
+                            DealCollectionItemsListBaseView
 
 
 class HomePageView(DealListBaseView):
     """ View class that handles display of the homepage.
-        Overrides the base get method, but still uses the base render_deal_list method
-        to get the rendered latest deals listing.
+        Overrides the base get method, but still uses
+        the base render_deal_list method to get the
+        rendered latest deals listing.
     """
 
     def get(self, request, *args, **kwargs):
@@ -30,7 +33,8 @@ class HomePageView(DealListBaseView):
         featured_deals = Deal.objects.filter(featured=True).order_by('pk')[:5]
 
         # get the latest deals i.e. sorted by latest date:
-        latest_deals = Deal.objects.filter(active=True).order_by('date_last_modified')
+        latest_deals = Deal.objects.filter(active=True)\
+                                   .order_by('date_last_modified')
         list_title = "Latest Deals"
         list_description = "Checkout the hottest new deals from all your favourite brands:"
 
@@ -43,16 +47,13 @@ class HomePageView(DealListBaseView):
             pagination_base_url=reverse('deals')
         )
         context = {
-            'search_options': {
-                'query': "",
-                'states': {'choices': STATE_CHOICES, 'default': 25},
-            },
             'popular_categories': popular_categories,
             'featured_deals': featured_deals,
             'rendered_deal_list': rendered_deal_list
         }
         context.update(csrf(request))
-        return render(request,'deals/index.html', context)
+        return TemplateResponse(request, 'deals/index.html', context)
+
 
 class DealsView(DealListBaseView):
     """ View class that handles display of the deals page.
@@ -89,18 +90,7 @@ class DealView(View):
         template = engine.get_template('deals/detail.html')
 
         # set result in RequestContext
-        search_options = {
-                            'query': "",
-                            'states': {
-                                'choices': STATE_CHOICES, 'default': 25
-                                },
-                        }
-        context = RequestContext(
-            self.request,
-            {
-                'deal': deal,
-                'search_options': search_options
-            })
+        context = RequestContext(self.request, {'deal': deal, })
         return HttpResponse(template.render(context))
 
     def post(self, *args, **kwargs):
@@ -115,49 +105,50 @@ class DealView(View):
         """ Upload deal photo to cloudinary
         """
         return cloudinary.uploader.upload(
-                file,
-                public_id=title
-            )
+            file,
+            public_id=title
+        )
+
 
 class DealSearchView(View):
 
-    ''' Haystack seach class for auto complete.'''
+    ''' Haystack search class for auto complete.'''
 
     template_name = 'deals/ajax_search.html'
 
-    def post(self,request):
-        deals = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))
+    def get(self, request):
+        deals = SearchQuerySet().autocomplete(
+            content_auto=request.GET.get('q', '')
+        )
         return render(request, self.template_name, {'deals': deals})
 
 
 class DealSearchCityView(DealListBaseView):
 
-    ''' class to search for city via title and states'''
+    ''' class to search for deals via title and states'''
 
     def get(self, request, *args, **kwargs):
         value = request.GET.get('q', '')
         cityquery = int(request.GET.get('city', '25'))
         # get the deal results:
-        deals = Deal.objects.filter(title__icontains=value).filter(state__icontains=cityquery)
+        deals = Deal.objects.filter(title__icontains=value)\
+                            .filter(state__icontains=cityquery)
 
         # get the rendered list of deals
         rendered_deal_list = self.render_deal_list(
             request,
             deals=deals,
             title="Search Results",
-            zero_items_message ='Your search - {} - in {} did not match any deals.'.format(value,STATE_CHOICES[cityquery-1][1]), 
-            description='{} deal(s) found for this search.' .format(len(deals))
-            #pagination_base_url=reverse('deals')
+            zero_items_message = 'Your search - {} - in {} did not match any deals.'\
+                                 .format(value, STATE_CHOICES[cityquery-1][1]),
+            description='{} deal(s) found for this search.'.format(len(deals))
+            # pagination_base_url=reverse('deals')
         )
         context = {
-            'search_options': {
-                'query': value,
-                'states': { 'choices': STATE_CHOICES, 'default': 25 },
-            },
             'rendered_deal_list': rendered_deal_list
         }
         context.update(csrf(request))
-        return render(request,'deals/searchresult.html', context)
+        return render(request, 'deals/searchresult.html', context)
 
 
 class DealSlugView(View):
@@ -180,7 +171,7 @@ class DealSlugView(View):
 
         return HttpResponse(template.render(context))
 
-    
+
 class DealCategoryView(DealCollectionItemsListBaseView):
     """ Respond to routes to deal categories using slug
     """
@@ -189,11 +180,17 @@ class DealCategoryView(DealCollectionItemsListBaseView):
     model = Category
     not_found = 'Category not found!'
     template = 'deals/deal_list_base.html'
-    
+
     def get(self, *args, **kwargs):
-        self.filter_deals(**{self.filter_field: self.get_queryset(self.kwargs.get(self.slug_name))})
+        self.filter_deals(**{
+            self.filter_field: self.get_queryset(
+                self.kwargs.get(self.slug_name)
+            )
+        })
         self.set_title('Latest Deals in {}'.format(self.queryset.name))
-        self.set_description('See all the hottest new deals in {}'.format(self.queryset.name))
+        self.set_description(
+            'See all the hottest new deals in {}'.format(self.queryset.name)
+        )
         return self.do_render()
 
 
@@ -233,9 +230,15 @@ class DealAdvertiserView(DealCollectionItemsListBaseView):
     model = Advertiser
     not_found = 'Merchant not found!'
     template = 'deals/deal_list_base.html'
-    
+
     def get(self, *args, **kwargs):
-        self.filter_deals(**{self.filter_field: self.get_queryset(self.kwargs.get(self.slug_name))})
+        self.filter_deals(**{
+            self.filter_field: self.get_queryset(
+                self.kwargs.get(self.slug_name)
+            )
+        })
         self.set_title('Latest Deals in {}'.format(self.queryset.name))
-        self.set_description('See all the hottest new deals in {}'.format(self.queryset.name))
+        self.set_description(
+            'See all the hottest new deals in {}'.format(self.queryset.name)
+        )
         return self.do_render()

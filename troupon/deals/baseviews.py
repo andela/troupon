@@ -2,36 +2,43 @@ import datetime
 
 from django.shortcuts import render
 from django.views.generic import View
-from django.template import RequestContext, loader, Engine
+from django.http import Http404
+from django.template import RequestContext, loader
+from django.template.response import TemplateResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 from deals.models import Deal, STATE_CHOICES, EPOCH_CHOICES
 
 
 class DealListBaseView(View):
-    """ Base class for other Deal listing views.
-        It implements a default get method allowing subclassing views to 
-        render fully functional deal listings by simply overriding the 
-        default class level options.
+    """
+    Base class for other Deal listing views.
+    It implements a default get method allowing
+    subclassing views to render fully functional
+    deal listings by simply overriding the default
+    class level options.
 
-        Subclassing views can still override and implement their own get or post
-        methods. However these methods can call the base 'render_deal_list' method
-        which returns the rendered deal list as a string.
+    Subclassing views can still override and implement
+    their own get or post methods. However these methods
+    can call the base 'render_deal_list' method which
+    returns the rendered deal list as a string.
     """
 
     # default deal list options as class level vars:
-
     deals = Deal.objects.all()  # can be any queryset of Deal instances
     title = "Deals"
     description = ""
     zero_items_message = "Sorry, no deals found!"
-    num_page_items = 15
-    min_orphan_items = 2
+    num_page_items = settings.DEALS.get('num_page_items', 15)
+    min_orphan_items = settings.DEALS.get('min_orphan_items', 2)
     show_page_num = 1
     pagination_base_url = ""
-    date_filter = { 'choices': EPOCH_CHOICES, 'default': -1 }
+    date_filter = {
+        'choices': EPOCH_CHOICES,
+        'default': -1
+    }
 
-        
     def render_deal_list(self, request, **kwargs):
         """ Takes a queryset of of deal
         """
@@ -48,7 +55,7 @@ class DealListBaseView(View):
 
         # paginate deals and get the specified page:
         paginator = Paginator(
-            self.deals, 
+            self.deals,
             self.num_page_items,
             self.min_orphan_items,
         )
@@ -72,7 +79,7 @@ class DealListBaseView(View):
             description = self.zero_items_message
 
         # combine them all into listing dictionary:
-        deals_listing =  {
+        deals_listing = {
             'deals_page': deals_page,
             'date_filter': self.date_filter,
             'title': self.title,
@@ -81,16 +88,20 @@ class DealListBaseView(View):
         }
 
         # set the context and render the template to a string:
-        deals_list_context = RequestContext( request, { 'listing': deals_listing } )
+        deals_list_context = RequestContext(
+            request,
+            {'listing': deals_listing}
+        )
         template = loader.get_template('snippet_deal_listing.html')
         rendered_template = template.render(deals_list_context)
-                    
+
         #  return the rendered template string:
         return rendered_template
 
-
     def filter_deals_from_params(self, request):
-        """ uses any date filter parameter specified in the query string to filter deals.
+        """
+        uses any date filter parameter specified
+        in the query string to filter deals.
         """
 
         date_filter_param = request.GET.get('dtf')
@@ -108,11 +119,13 @@ class DealListBaseView(View):
 
         date_filter_delta = choices[date_filter_param][0]
         if date_filter_delta != -1:
-            filter_date = datetime.date.today() - datetime.timedelta(days=date_filter_delta)
-            self.deals = self.deals.filter(date_last_modified__gt=filter_date)
-        
-        self.date_filter['default'] = date_filter_delta
+            filter_date = datetime.date.today()\
+             - datetime.timedelta(days=date_filter_delta)
+            self.deals = self.deals.filter(
+                date_last_modified__gt=filter_date
+            )
 
+        self.date_filter['default'] = date_filter_delta
 
     def get(self, request, *args, **kwargs):
         """ returns a full featured deals-listing page showing
@@ -120,12 +133,8 @@ class DealListBaseView(View):
         """
         context = {
             'rendered_deal_list': self.render_deal_list(request),
-            'search_options': {
-                'query': "",
-                'states': { 'choices': STATE_CHOICES, 'default': 25 },
-            }
         }
-        return render(request, 'deals/deal_list_base.html', context)
+        return TemplateResponse(request, 'deals/deal_list_base.html', context)
 
 
 class CollectionsBaseView(View):
@@ -142,9 +151,6 @@ class CollectionsBaseView(View):
     template = ''
 
     def get(self, *args, **kwargs):
-
-        engine = Engine.get_default()
-        template = engine.get_template(self.template)
 
         # paginate deals and get the specified page:
         paginator = Paginator(
@@ -173,8 +179,9 @@ class CollectionsBaseView(View):
             description = self.zero_items_message
 
         context = RequestContext(
-                self.request,
-                {'search_options': {
+            self.request,
+            {
+                'search_options': {
                     'query': "",
                     'states': {'choices': STATE_CHOICES, 'default': 25},
                 },
@@ -183,7 +190,8 @@ class CollectionsBaseView(View):
                 'description': description,
                 'pagination_base_url': self.pagination_base_url,
                 'page': True,
-            })
+            }
+        )
 
         return render(self.request, self.template, context)
 
@@ -204,7 +212,7 @@ class DealCollectionItemsListBaseView(DealListBaseView):
         """
         self.queryset = self.model.objects.get(slug=slug)
         return self.queryset
-    
+
     def get(self, *args, **kwargs):
         """Attends to GET request
         """
@@ -217,7 +225,7 @@ class DealCollectionItemsListBaseView(DealListBaseView):
         self.set_title("some title")
         self.set_description("some desc")
         self.do_render()
-        
+
     def set_context_data(self):
         """Sets context for response
         """
@@ -232,18 +240,18 @@ class DealCollectionItemsListBaseView(DealListBaseView):
     def set_description(self, desc):
         """Sets description on list page
         """
-        self.description = desc 
-    
+        self.description = desc
+
     def set_title(self, title):
         """Sets title on list page
         """
         self.title = title
-    
+
     def filter_deals(self, **filter):
         """Applies filter to deal query set
         """
         self.deals = Deal.objects.filter(**filter)
-    
+
     def do_render(self):
         """Renders template
         """
