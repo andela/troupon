@@ -49,6 +49,8 @@ INSTALLED_APPS = (
     'djangobower',
     'django_nose',
     'userprofile',
+    'django_otp',
+    'nexmo',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,6 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -161,4 +164,8 @@ SITE_IMAGES = {
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+CUSTUM_OTP_TOKEN_VALIDITY=60 #60s here used to determine token validity time
+NEXMO_USERNAME = os.getenv('NEXMO_USERNAME')
+NEXMO_PASSWORD = os.getenv('NEXMO_PASSWORD')
+NEXMO_FROM = 'Troupon Group'
 

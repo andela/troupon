@@ -8,6 +8,12 @@ from userprofile.models import UserProfile, Merchant
 from deals.models import STATE_CHOICES
 from django.contrib import messages
 from django.http import HttpResponse
+from django.contrib.auth.views import login
+from django_otp.forms import OTPTokenForm
+from functools import partial
+from nexmo import send_message
+from .onetimepassword import CustomTOTPDevice
+
 
 # Create your views here.
 class Userprofileview(LoginRequiredMixin, TemplateView):
@@ -81,11 +87,10 @@ class MerchantView(TemplateView, LoginRequiredMixin):
         merchant = Merchant(name=name, state=state, telephone=telephone, email=email, address=address, slug=slug, user = user ) 
 
 
-        if merchant:
-
-            
-
+        if merchant:            
             merchant.save()
+            token = CustomTOTPDevice.generate_token()
+            send_message(telephone, str(token))
             return HttpResponse("success", content_type="text/plain")
         else:
             context = {
@@ -100,6 +105,24 @@ class MerchantView(TemplateView, LoginRequiredMixin):
 class VerificationView(TemplateView, LoginRequiredMixin):
 
     template_name = 'userprofile/verify.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['authentication_form']=partial(OTPTokenForm, request.user)
+        return self.render_to_response(context)
+
+
+    def post(self, request, *args, **kwargs):
+
+        token = request.POST.get('token')
+        result = CustomTOTPDevice.verify_token(token)
+
+        if result == True:
+            return HttpResponse("success", content_type="text/plain")
+        else:
+            return HttpResponse("failure", content_type="text/plain")
+
+
 
 
 

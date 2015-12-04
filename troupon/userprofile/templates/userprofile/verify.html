@@ -5,18 +5,24 @@
 
 <!--SECOND FORM STARTS HERE-->
     <div id="otpform">
-        <form>
+        <form method="POST" id="merchantform" action="{% url 'verify' %}">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
             <div class="form-group col-lg-12">
                 <h4>Please Enter Your OTP token to verify phone number </h4>
             </div>
             <div class="form-group col-lg-6">
-                <label>Number</label>
+                <label>Token</label>
                 <div class="custom-input-group">
-                    <input type="text" name="number" class="form-control" id="id_name" value="" placeholder="">
+                    <input type="text" name="token" class="form-control" id="id_name" value="" placeholder="" required>
                 </div>
+            </div>
+
+            <div class="custom-form-group btn-lg col-lg-1">
+                <input type = "submit", value = "Save Changes" align="left" class="btn-action" />
             </div>
 
         </form>
     </div>
+
 
 {% endblock %}
