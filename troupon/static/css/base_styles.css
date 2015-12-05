@@ -666,21 +666,21 @@ body {
   background-color: #F7F7F7;
 }
 
-#subscribe-bar {
+#newsletter-bar {
   position: relative;
   margin-top: 10px;
 }
 
-#subscribe-bar .tag-line {
+#newsletter-bar .tag-line {
   margin: 0 5px;
 }
 
-#subscribe-bar .tag-line span {
+#newsletter-bar .tag-line span {
   font-weight: 400;
   color: #E67E22;
 }
 
-#subscribe-bar .section-close {
+#newsletter-bar .section-close {
   overflow: hidden;
   border: 1px solid;
   position: relative;
@@ -701,19 +701,19 @@ body {
   right: 0;
 }
 
-#subscribe-bar .section-close:hover {
+#newsletter-bar .section-close:hover {
   color: #E67E22;
   background-color: transparent;
   border-color: transparent;
 }
 
-#subscribe-bar .section-close:active {
+#newsletter-bar .section-close:active {
   color: #5E5E77;
   background-color: transparent;
   border-color: transparent;
 }
 
-#subscribe-bar .section-close span, #subscribe-bar .section-close i {
+#newsletter-bar .section-close span, #newsletter-bar .section-close i {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -723,16 +723,16 @@ body {
   font-size: 30px;
 }
 
-#subscribe-bar .custom-input-group, #subscribe-bar .btn-action, #subscribe-bar .btn-action-alt {
+#newsletter-bar .custom-input-group, #newsletter-bar .btn-action, #newsletter-bar .btn-action-alt {
   width: 100%;
 }
 
 @media (min-width: 768px) {
-  #subscribe-bar .tag-line {
+  #newsletter-bar .tag-line {
     position: relative;
     min-height: 55px;
   }
-  #subscribe-bar .tag-line span {
+  #newsletter-bar .tag-line span {
     position: absolute;
     top: 40%;
     -webkit-transform: translateY(-50%);
@@ -742,7 +742,7 @@ body {
     width: 100%;
     text-align: center;
   }
-  #subscribe-bar .section-close {
+  #newsletter-bar .section-close {
     overflow: hidden;
     border: 1px solid;
     position: relative;
@@ -762,17 +762,17 @@ body {
     top: 15px;
     right: 0;
   }
-  #subscribe-bar .section-close:hover {
+  #newsletter-bar .section-close:hover {
     color: #E67E22;
     background-color: transparent;
     border-color: transparent;
   }
-  #subscribe-bar .section-close:active {
+  #newsletter-bar .section-close:active {
     color: #5E5E77;
     background-color: transparent;
     border-color: transparent;
   }
-  #subscribe-bar .section-close span, #subscribe-bar .section-close i {
+  #newsletter-bar .section-close span, #newsletter-bar .section-close i {
     position: absolute;
     top: 50%;
     left: 50%;

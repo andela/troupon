@@ -33,5 +33,7 @@ class CommonContextMiddleware(object):
                 'query': request.GET.get('q', ''),
                 'default_city': settings.DEALS.get('default_search_city', 25),
             },
+            # until newsletter subscription is implemented
+            'show_newsletter_section': False,
         })
         return response

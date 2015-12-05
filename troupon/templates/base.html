@@ -46,10 +46,10 @@
 
     <div class="container page-container modals-parent"> <!-- page container (contains page content)-->
 
-      {% block subscribe %}
-      {% if show_subscribe %} {# hides by default, pass 'show_subscribe: True' in the context to show #}
-      <!-- subscribe bar -->
-      <section class="collapse in" id="subscribe-bar">
+      {% block newsletter_section %}
+      {% if show_newsletter_section %}
+      <!-- newsletter bar -->
+      <section class="collapse in" id="newsletter-bar">
         <form action="" action="" method="POST">
           <div class="row">
             <div class="col-xs-11 col-sm-5">
@@ -68,11 +68,11 @@
             </div>
           </div>
         </form>
-        <button type="button" class="section-close" data-toggle="collapse" data-target="#subscribe-bar"><span>&times;</span></button>
+        <button type="button" class="section-close" data-toggle="collapse" data-target="#newsletter-bar"><span>&times;</span></button>
         <div class="divider"></div>
       </section>
       {% endif %}
-      {% endblock subscribe %}
+      {% endblock newsletter_section %}
 
       {% block header %}
       {% if not hide_header %} {# shows by default, pass 'hide_header: True' in the context to hide #}
