@@ -1,6 +1,5 @@
 import datetime
 
-from django.shortcuts import render
 from django.views.generic import View
 from django.http import Http404
 from django.template import RequestContext, loader
@@ -8,7 +7,7 @@ from django.template.response import TemplateResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 
-from deals.models import Deal, STATE_CHOICES, EPOCH_CHOICES
+from deals.models import Deal, EPOCH_CHOICES
 
 
 class DealListBaseView(View):
@@ -181,10 +180,6 @@ class CollectionsBaseView(View):
         context = RequestContext(
             self.request,
             {
-                'search_options': {
-                    'query': "",
-                    'states': {'choices': STATE_CHOICES, 'default': 25},
-                },
                 'collections_page': collections_page,
                 'title': self.title,
                 'description': description,
@@ -193,7 +188,7 @@ class CollectionsBaseView(View):
             }
         )
 
-        return render(self.request, self.template, context)
+        return TemplateResponse(self.request, self.template, context)
 
 
 class DealCollectionItemsListBaseView(DealListBaseView):
@@ -230,10 +225,6 @@ class DealCollectionItemsListBaseView(DealListBaseView):
         """Sets context for response
         """
         self.context = {
-            'search_options': {
-                'query': "",
-                'states': {'choices': STATE_CHOICES, 'default': 25},
-            },
             'rendered_deal_list': self.rendered_deal_list
         }
 
@@ -262,4 +253,4 @@ class DealCollectionItemsListBaseView(DealListBaseView):
                 description=self.description
             )
         self.set_context_data()
-        return render(self.request, self.template, self.context)
+        return TemplateResponse(self.request, self.template, self.context)

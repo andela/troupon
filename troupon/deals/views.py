@@ -1,18 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views.generic import View
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, Http404
-from django.template import Engine, RequestContext
+from django.http import Http404
 from django.template.response import TemplateResponse
-from django.core.paginator import Paginator
 from django.core.context_processors import csrf
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from haystack.query import SearchQuerySet
-import datetime
-import cloudinary
 
-from deals.models import Category, Deal, Advertiser,\
-                         STATE_CHOICES, EPOCH_CHOICES
+import cloudinary
+from haystack.query import SearchQuerySet
+
+from deals.models import Category, Deal, Advertiser, STATE_CHOICES
 from deals.baseviews import DealListBaseView, CollectionsBaseView, \
                             DealCollectionItemsListBaseView
 
@@ -70,34 +66,29 @@ class DealView(View):
     """This handles request for each deal by id.
     """
 
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         deal_id = self.kwargs.get('deal_id')  # get deal_id from request
         if not deal_id:
             deals = Deal.objects.all()
-            engine = Engine.get_default()
-            template = engine.get_template('deals/list.html')
-            context = RequestContext(self.request, {'deals': deals})
-            return HttpResponse(template.render(context))
+            # engine = Engine.get_default()
+            # template = engine.get_template('deals/list.html')
+            context = {'deals': deals, }
+            # return HttpResponse(template.render(context))
+            return TemplateResponse(request, 'deals/list.html', context)
+        # get and return the page for the single deal
         try:
             deal = Deal.objects.get(id=deal_id)
         except Deal.DoesNotExist:
             raise Http404('Deal does not exist')
 
-        # Replace template object compiled from template code
-        # with an application template.
-        # Use Engine.get_template(template_name)
-        engine = Engine.get_default()
-        template = engine.get_template('deals/detail.html')
+        context = {'deal': deal, }
+        return TemplateResponse(request, 'deals/detail.html', context)
 
-        # set result in RequestContext
-        context = RequestContext(self.request, {'deal': deal, })
-        return HttpResponse(template.render(context))
-
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         """ Upload a deal photo to cloudinary then creates deal
         """
         title = self.kwargs.get('title')
-        photo = self.request.FILES.get('photo')
+        photo = request.FILES.get('photo')
         self.upload(photo, title)
         return redirect(reverse('deals'))
 
@@ -120,7 +111,7 @@ class DealSearchView(View):
         deals = SearchQuerySet().autocomplete(
             content_auto=request.GET.get('q', '')
         )
-        return render(request, self.template_name, {'deals': deals})
+        return TemplateResponse(request, self.template_name, {'deals': deals})
 
 
 class DealSearchCityView(DealListBaseView):
@@ -148,13 +139,13 @@ class DealSearchCityView(DealListBaseView):
             'rendered_deal_list': rendered_deal_list
         }
         context.update(csrf(request))
-        return render(request, 'deals/searchresult.html', context)
+        return TemplateResponse(request, 'deals/searchresult.html', context)
 
 
 class DealSlugView(View):
     """ Respond to routes to deal url using slug
     """
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         deal_slug = self.kwargs.get('deal_slug')
         try:
             deal = Deal.objects.filter(slug=deal_slug)
@@ -165,11 +156,8 @@ class DealSlugView(View):
         except (Deal.DoesNotExist, AttributeError):
             raise Http404('Deal with this slug not found!')
 
-        engine = Engine.get_default()
-        template = engine.get_template('deals/detail.html')
-        context = RequestContext(self.request, {'deal': deal})
-
-        return HttpResponse(template.render(context))
+        context = {'deal': deal}
+        return TemplateResponse(request, 'deals/detail.html', context)
 
 
 class DealCategoryView(DealCollectionItemsListBaseView):

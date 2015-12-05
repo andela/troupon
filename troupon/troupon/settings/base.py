@@ -60,7 +60,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'middleware.common.CommonContextMiddleware',
+    'middleware.global.CommonContextMiddleware',
 )
 
 ROOT_URLCONF = 'troupon.urls'
