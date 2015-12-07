@@ -1,11 +1,12 @@
 {% load staticfiles %}
 
 <!--Sign in modal-->
-<div class="modal-view" id="modal-{{ active_tab }}">
+<div class="modal-view modal-listing" id="modal-{{ active_tab }}">
+  <div class="container">
   <div class="row">
 
     <div class="col-lg-12">
-      <ul class="header-tab-list modal-menu">
+      <ul class="header-tab-list menu">
         {% with 'categories cities merchants' as tab_list %}
         {% for tab_item in tab_list.split %}        
         <li>
@@ -22,21 +23,24 @@
       </ul>
     </div>
 
-    <div class="col-xs-12">
-      <div class="divider"></div>
-    </div>
     
+
     <div class="col-xs-12">
-      <ul class="label-link-list modal-listing">
+      {# <ul class="label-link-list-h "> #}
+      <div class="packery-grid modal-grid listing">
+        <div class="grid-sizer"></div>
+        <div class="gutter-sizer"></div>
         {% for item in list %}
           {% if active_tab == 'cities' %}
-            <li><a href="{% url 'deals' %}">{{ item.1|truncatechars:30 }}</a></li>
+            <div class="grid-item label-link"><a href="{% url 'deals' %}">{{ item.1|truncatechars:30 }}</a></div>
           {% else %}
-             <li><a href="{% url 'deals' %}">{{ item.name|truncatechars:30 }}</a></li>
+            <div class="grid-item label-link"><a href="{% url 'deals' %}">{{ item.name|truncatechars:30 }}</a></div>
           {% endif %}
         {% endfor %}
-      </ul>
+      {# </ul> #}
+      </div>
     </div>
 
+  </div>
   </div>
 </div>

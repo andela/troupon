@@ -7,7 +7,7 @@ from random import randint
 
 # States in Nigeria
 STATE_CHOICES = [
-    (1, 'Abia'), (2, 'Abuja Capital Territory'), (3, 'Adamawa'),
+    (1, 'Abia'), (2, 'Abuja FCT'), (3, 'Adamawa'),
     (4, 'Akwa Ibom'), (5, 'Anambra'), (6, 'Bauchi'),
     (7, 'Bayelsa'), (8, 'Benue'), (9, 'Borno'),
     (10, 'Cross River'), (11, 'Delta'), (12, 'Ebonyi'),

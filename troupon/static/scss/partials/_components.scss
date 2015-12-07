@@ -82,13 +82,27 @@ Forms Controls
 Lists
 ========================================================================== */
 
-.label-link-list {
+@mixin label-link-list {
+  & > li > a {
+    @extend .label-link;
+  }
+}
+
+.label-link-list-v {
   @include unstyled-list-mixin();
+  @include label-link-list();
+
   & > li {
     margin: 8px auto;
   }
-  & > li > a {
-    @extend .label-link;
+}
+
+.label-link-list-h {
+  @include unstyled-h-list-mixin();
+  @include label-link-list();
+
+  & > li {
+    margin: 8px 10px;
   }
 }
 
@@ -252,17 +266,19 @@ Other components.
   }
 }
 
-.packery-grid {
-  width: 100%;
+.deal-grid {
+  @include fluid-width();
+
   margin-top: 30px;
 
   .grid-sizer, .grid-item{
     width: 32%;
   }
+
   .gutter-sizer{
     width: 2%;
   }
-  
+
   .grid-item {
     margin-bottom: 0px;
     overflow: hidden;
@@ -270,63 +286,62 @@ Other components.
     &, * {
       transition: all 0.4s ease-in-out;
     }
+  }
 
-    .item-image-wrapper {
-      position: relative;
+  .grid-item:hover {
+    border-color: color(accent);
+    
+    .title, .current {
+      color: color(accent);
+    }
+
+    .item-image-wrapper img {
+      transform: scale(1.03);
+    }
+  }
+  
+  .item-image-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background-color: color(shaded-bg);
+    border-radius: border-radius(card) - 1;
+
+    img {
       display: block;
       width: 100%;
-      overflow: hidden;
-      background-color: color(shaded-bg);
-      border-radius: border-radius(card) - 1;
-
-      img {
-        display: block;
-        width: 100%;
-      }
-    }
-
-    .item-info {
-      padding: 30px 25px;
-      text-align: center;
-
-      .advertiser {
-        margin-bottom: 10px;
-        p , address {
-          margin: 0px;
-        }
-        i {
-          display: inline-block;
-          margin-right: 5px;
-        }
-      }
-
-      .prices {
-        * {
-          display: inline-block;
-          margin:  auto 5px;
-        }
-        .original {
-          text-decoration: line-through;
-        }
-        .current {
-          font-weight: font-weight(bold);
-        }
-      }
-    }
-
-    &:hover {
-      border-color: color(accent);
-      .title, .current {
-        color: color(accent);
-      }
-
-      .item-image-wrapper img {
-        transform: scale(1.03);
-      }
     }
   }
 
-  
+  .item-info {
+    padding: 30px 25px;
+    text-align: center;
+  }
+
+  .item-info .advertiser {
+    margin-bottom: 10px;
+    p , address {
+      margin: 0px;
+    }
+    i {
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+
+  .item-info .prices {
+    * {
+      display: inline-block;
+      margin:  auto 5px;
+    }
+    .original {
+      text-decoration: line-through;
+    }
+    .current {
+      font-weight: font-weight(bold);
+    }
+  }
 
   @media (max-width: 480px) {
     .grid-sizer, .grid-item {
@@ -337,8 +352,7 @@ Other components.
     }
     .grid-item {
       margin-bottom: 20px;
-    }
-    
+    } 
   }
 
   @media (min-width: 480px) and  (max-width: 992px) {
@@ -347,6 +361,35 @@ Other components.
     }
     .gutter-sizer {
       width: 4%;
+    }
+  }
+}
+
+.modal-grid {
+  @include fluid-width();
+
+  .grid-sizer, .grid-item{
+    width: 20%;
+  }
+
+  .gutter-sizer{
+    width: 0;
+  }
+
+  .grid-item {
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: auto 30px; 
+    .grid-sizer, .grid-item {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 480px) and  (max-width: 992px) {
+    .grid-sizer, .grid-item {
+      width: 50%;
     }
   }
 }
