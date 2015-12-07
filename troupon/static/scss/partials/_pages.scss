@@ -19,12 +19,14 @@ main {
       margin: 0px 0.5px;
     }
 
-    .flickity-page-dots {
-      position: absolute;
-      width: max-content;
-      height: 21px;
-      top: -35px;
-      right: 0px;
+    @media (min-width: 686px) {
+      .flickity-page-dots {
+        position: absolute;
+        width: max-content;
+        height: 21px;
+        top: -35px;
+        right: 0px;
+      }
     }
   }
 

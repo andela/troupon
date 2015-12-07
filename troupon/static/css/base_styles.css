@@ -356,6 +356,27 @@ Lists
   margin: 8px auto;
 }
 
+.header-tab-list {
+  list-style: none outside none;
+  padding: 0;
+}
+
+.header-tab-list li {
+  display: inline-block;
+}
+
+.header-tab-list > li {
+  margin: 5px 50px 5px 0;
+}
+
+.header-tab-list > li .modal-toggle {
+  cursor: pointer;
+}
+
+.header-tab-list > li .active {
+  color: #E67E22;
+}
+
 /* ==========================================================================
 Other components.
 ========================================================================== */
@@ -1217,14 +1238,16 @@ main .flickity-gallery .gallery-cell {
   margin: 0px 0.5px;
 }
 
-main .flickity-gallery .flickity-page-dots {
-  position: absolute;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  height: 21px;
-  top: -35px;
-  right: 0px;
+@media (min-width: 686px) {
+  main .flickity-gallery .flickity-page-dots {
+    position: absolute;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    height: 21px;
+    top: -35px;
+    right: 0px;
+  }
 }
 
 main .gallery-wrapper, main .image-wrapper {

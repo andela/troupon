@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
 from django.core import signals
@@ -94,11 +93,6 @@ class Deal(models.Model):
         """
         return dict(STATE_CHOICES).get(self.state)
 
-    def state_name(self):
-        """Returns the state name
-        """
-        return dict(STATE_CHOICES).get(self.state)
-
     def slideshow_image_url(self):
         """Returns a slide image URL
         """
@@ -122,7 +116,7 @@ class Deal(models.Model):
     def get_absolute_url(self):
         return "/deals/{}/" .format(self.id)
 
-    
+
 class ImageMixin(object):
     """Mixes in an image property which is a random image selected from
     all available deals

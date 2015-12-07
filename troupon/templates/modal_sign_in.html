@@ -1,46 +1,46 @@
  {% load staticfiles %}
-                <!--Sign in modal-->
-                <div class="modal-view" id="modal-sign-in">
-                    <div class="row">
-                        <div class="col-sm-5 hidden-xs brand-col">
-                            <div class="brand">
-                               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
-                            </div>
-                        </div>
-                        <div class="col-xs-11 col-sm-5">
-                            <header class="row">
-                                <div class="col-lg-4">
-                                    <h1>Sign in</h1>
-                                </div>
-                                <div class="col-lg-8">
-                                    <p>Don't have an account yet? <a href="" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></p>
-                                </div>
-                            </header>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form action="{% url 'signin' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                                        <div class="custom-form-group">
-                                            <label for="email">Email <span class="label-asterik">*</span></label>
-                                            <div class="custom-input-group">
-                                                <input type="text" name="username" id="email" placeholder="lagbaja@somedomain.com">
-                                            </div>
-                                        </div>
-                                        <div class="custom-form-group">
-                                            <label for="password">Password <span class="label-asterik">*</span></label>
-                                            <div class="custom-input-group">
-                                                <input type="password" name="password" id="password" placeholder="At least 6 characters.">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p><a href="" class="modal-toggle" data-modal-target="#modal-forgot-password">Forgot your password?</a></p>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn-action btn-form-submit">Sign in</button>
-                                        <!--<a class="social-auth" href="">Sign in with Facebook</a>-->
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--Sign in modal-->
+<div class="modal-view" id="modal-sign-in">
+  <div class="row">
+    <div class="col-sm-5 hidden-xs brand-col">
+      <div class="brand">
+         <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+      </div>
+    </div>
+    <div class="col-xs-11 col-sm-5">
+      <header class="row">
+        <div class="col-lg-4">
+          <h1>Sign in</h1>
+        </div>
+        <div class="col-lg-8">
+          <p>Don't have an account yet? <a href="" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></p>
+        </div>
+      </header>
+      <div class="row">
+        <div class="col-sm-12">
+          <form action="{% url 'signin' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <div class="custom-form-group">
+              <label for="email">Email <span class="label-asterik">*</span></label>
+              <div class="custom-input-group">
+                <input type="text" name="username" id="email" placeholder="lagbaja@somedomain.com">
+              </div>
+            </div>
+            <div class="custom-form-group">
+              <label for="password">Password <span class="label-asterik">*</span></label>
+              <div class="custom-input-group">
+                <input type="password" name="password" id="password" placeholder="At least 6 characters.">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p><a href="" class="modal-toggle" data-modal-target="#modal-forgot-password">Forgot your password?</a></p>
+              </div>
+            </div>
+            <button type="submit" class="btn-action btn-form-submit">Sign in</button>
+            <!--<a class="social-auth" href="">Sign in with Facebook</a>-->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -92,6 +92,21 @@ Lists
   }
 }
 
+.header-tab-list {
+  @include unstyled-h-list-mixin();
+  & > li {
+    margin: 5px 50px 5px 0;
+
+    .modal-toggle {
+      cursor: pointer;
+    }
+
+    .active {
+      color: color(accent);
+    }
+  }
+}
+
 /* ==========================================================================
 Other components.
 ========================================================================== */

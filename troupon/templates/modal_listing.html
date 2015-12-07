@@ -1,0 +1,42 @@
+{% load staticfiles %}
+
+<!--Sign in modal-->
+<div class="modal-view" id="modal-{{ active_tab }}">
+  <div class="row">
+
+    <div class="col-lg-12">
+      <ul class="header-tab-list modal-menu">
+        {% with 'categories cities merchants' as tab_list %}
+        {% for tab_item in tab_list.split %}        
+        <li>
+          {% if active_tab == tab_item %}
+            <h1 class="tab active accent">
+          {% else %}
+            <h1 class="tab modal-toggle" data-modal-target="#modal-{{ tab_item }}" >
+          {% endif %}
+              {{ tab_item|title }}
+            </h1>
+        </li>
+        {% endfor %}
+        {% endwith %}
+      </ul>
+    </div>
+
+    <div class="col-xs-12">
+      <div class="divider"></div>
+    </div>
+    
+    <div class="col-xs-12">
+      <ul class="label-link-list modal-listing">
+        {% for item in list %}
+          {% if active_tab == 'cities' %}
+            <li><a href="{% url 'deals' %}">{{ item.1|truncatechars:30 }}</a></li>
+          {% else %}
+             <li><a href="{% url 'deals' %}">{{ item.name|truncatechars:30 }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
