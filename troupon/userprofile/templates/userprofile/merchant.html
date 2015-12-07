@@ -4,7 +4,7 @@
 {% block main %}
 
 <div class="col-md-2">
-    
+
 
 </div>
 <div class="col-md-8">
@@ -20,7 +20,7 @@
 
     <form method="POST" id="merchantform" action="{% url 'merchant' %}">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-        
+
             <div class="form-group col-lg-12">
                 <label>Name</label>
                 <div class="custom-input-group">
@@ -61,7 +61,7 @@
         <div class="custom-form-group col-lg-6">
             <label>Telephone:</label>
             <div class="custom-input-group">
-                <input type="text" name="telephone" class="form-control" id="" value="" placeholder="phone number">
+                <input type="text" name="telephone" class="form-control" id="" value="" placeholder="startwith +234">
             </div>
         </div>
 

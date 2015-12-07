@@ -1,15 +1,10 @@
-from binascii import unhexlify
-from django_otp.models import Device
-from django_otp.oath import totp
-import time
-from django_otp.util import random_hex, hex_validator
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from deals.models import STATE_CHOICES, Deal, Advertiser
 
 # Create your models here.
-    
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -30,7 +25,7 @@ class Merchant(Advertiser):
 
     def __unicode__(self):
         return u'Merchant %s with username %s' %(self.name, self.user.username)
-    
+
 
 
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
