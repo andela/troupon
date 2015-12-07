@@ -74,8 +74,7 @@
       {% endif %}
       {% endblock newsletter_section %}
 
-      {% block header %}
-      {% if not no_header %} {# shows by default, pass 'no_header: True' in the context to hide #}
+      {% block header %}      {% if not no_header %} {# shows by default, pass 'no_header: True' in the context to hide #}
       <!-- header bar-->
       <header id="header-bar">
         <div class="row">
@@ -91,7 +90,7 @@
               <ul class="nav-menu">
                 <li><a href="{% url 'homepage' %}" class="hidden-sm">Home</a></li>
                 <li><a href="{% url 'deals' %}">Deals</a></li>
-                <li><a href="{% url 'deal-categories' %}" class="modal-toggle" data-modal-target="#modal-categories">Categories</a></li>
+                <li><a href="" class="modal-toggle" data-modal-target="#modal-categories">Categories</a></li>
                 <li><a href="" class="modal-toggle" data-modal-target="#modal-cities">Cities</a></li>
                 <li><a href="" class="modal-toggle hidden-sm" data-modal-target="#modal-merchants">Merchants</a></li>
               </ul>

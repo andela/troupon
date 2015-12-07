@@ -13,7 +13,7 @@ from deals.models import Deal, EPOCH_CHOICES
 class DealListBaseView(View):
     """
     Base class for other Deal listing views.
-    It implements a default get method allowing
+    It implements a default 'get' method allowing
     subclassing views to render fully functional
     deal listings by simply overriding the default
     class level options.
@@ -25,7 +25,7 @@ class DealListBaseView(View):
     """
 
     # default deal list options as class level vars:
-    deals = Deal.objects.all()  # can be any queryset of Deal instances
+    queryset = Deal.objects.all()  # can be any queryset of Deal instances *
     title = "Deals"
     description = ""
     zero_items_message = "Sorry, no deals found!"
@@ -50,11 +50,14 @@ class DealListBaseView(View):
                 pass
 
         # use date filter parameter to filter deals if specified:
-        self.filter_deals_from_params(request)
+        deals = self.filter_queryset_from_params(
+            request,
+            self.get_queryset()
+        )
 
         # paginate deals and get the specified page:
         paginator = Paginator(
-            self.deals,
+            deals,
             self.num_page_items,
             self.min_orphan_items,
         )
@@ -97,7 +100,7 @@ class DealListBaseView(View):
         #  return the rendered template string:
         return rendered_template
 
-    def filter_deals_from_params(self, request):
+    def filter_queryset_from_params(self, request, queryset):
         """
         uses any date filter parameter specified
         in the query string to filter deals.
@@ -105,26 +108,32 @@ class DealListBaseView(View):
 
         date_filter_param = request.GET.get('dtf')
         if not date_filter_param:
-            return
+            return queryset
 
         try:
             date_filter_param = int(date_filter_param)
         except:
-            return
+            return queryset
 
         choices = self.date_filter.get('choices', [])
         if date_filter_param < 0 or date_filter_param >= len(choices):
-            return
+            return queryset
 
         date_filter_delta = choices[date_filter_param][0]
         if date_filter_delta != -1:
             filter_date = datetime.date.today()\
              - datetime.timedelta(days=date_filter_delta)
-            self.deals = self.deals.filter(
+            queryset = queryset.filter(
                 date_last_modified__gt=filter_date
             )
-
         self.date_filter['default'] = date_filter_delta
+        return queryset
+
+    def get_queryset(self):
+        """ returns the default deals queryset.
+            override this method to return custom querysets.
+        """
+        return self.queryset
 
     def get(self, request, *args, **kwargs):
         """ returns a full featured deals-listing page showing
@@ -134,123 +143,3 @@ class DealListBaseView(View):
             'rendered_deal_list': self.render_deal_list(request),
         }
         return TemplateResponse(request, 'deals/deal_list_base.html', context)
-
-
-class CollectionsBaseView(View):
-    """ Handles rendering of items in a collection
-    """
-    zero_items_message = "Sorry, no collection items found!"
-    num_page_items = 9
-    min_orphan_items = 3
-    show_page_num = 1
-    pagination_base_url = ""
-    queryset = ""
-    title = "Collection listing"
-    description = "See all collection items"
-    template = ''
-
-    def get(self, *args, **kwargs):
-
-        # paginate deals and get the specified page:
-        paginator = Paginator(
-            self.queryset,
-            self.num_page_items,
-            self.min_orphan_items,
-        )
-
-        try:
-            # get the page number if present in request.GET
-            show_page_num = self.request.GET.get('pg')
-            if not show_page_num:
-                show_page_num = self.show_page_num
-            collections_page = paginator.page(show_page_num)
-        except PageNotAnInteger:
-            # if page is not an integer, deliver first page.
-            collections_page = paginator.page(1)
-        except EmptyPage:
-            # if page is out of range, deliver last page of results.
-            collections_page = paginator.page(paginator.num_pages)
-
-        # set the description to be used in the list header:
-        if collections_page.paginator.count:
-            description = self.description
-        else:
-            description = self.zero_items_message
-
-        context = RequestContext(
-            self.request,
-            {
-                'collections_page': collections_page,
-                'title': self.title,
-                'description': description,
-                'pagination_base_url': self.pagination_base_url,
-                'page': True,
-            }
-        )
-
-        return TemplateResponse(self.request, self.template, context)
-
-
-class DealCollectionItemsListBaseView(DealListBaseView):
-    """ Renders a list of collection items
-    """
-    title = ''
-    queryset = ''
-    slug_name = ''
-    model = ''
-    not_found = ''
-    template = ''
-    filter_field = ''
-
-    def get_queryset(self, slug):
-        """Returns query set
-        """
-        self.queryset = self.model.objects.get(slug=slug)
-        return self.queryset
-
-    def get(self, *args, **kwargs):
-        """Attends to GET request
-        """
-        slug = self.kwargs.get(self.slug_name)
-        try:
-            self.get_queryset(slug)
-        except self.model.DoesNotExist:
-            raise Http404(self.not_found)
-        self.filter_deals(**kwargs)
-        self.set_title("some title")
-        self.set_description("some desc")
-        self.do_render()
-
-    def set_context_data(self):
-        """Sets context for response
-        """
-        self.context = {
-            'rendered_deal_list': self.rendered_deal_list
-        }
-
-    def set_description(self, desc):
-        """Sets description on list page
-        """
-        self.description = desc
-
-    def set_title(self, title):
-        """Sets title on list page
-        """
-        self.title = title
-
-    def filter_deals(self, **filter):
-        """Applies filter to deal query set
-        """
-        self.deals = Deal.objects.filter(**filter)
-
-    def do_render(self):
-        """Renders template
-        """
-        self.rendered_deal_list = self.render_deal_list(
-                self.request,
-                deals=self.deals,
-                title=self.title,
-                description=self.description
-            )
-        self.set_context_data()
-        return TemplateResponse(self.request, self.template, self.context)

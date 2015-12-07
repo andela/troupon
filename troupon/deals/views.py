@@ -1,6 +1,7 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import View
 from django.core.urlresolvers import reverse
+from django.core.exceptions import SuspiciousOperation
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.core.context_processors import csrf
@@ -9,8 +10,7 @@ import cloudinary
 from haystack.query import SearchQuerySet
 
 from deals.models import Category, Deal, Advertiser, STATE_CHOICES
-from deals.baseviews import DealListBaseView, CollectionsBaseView, \
-                            DealCollectionItemsListBaseView
+from deals.baseviews import DealListBaseView
 
 
 class HomePageView(DealListBaseView):
@@ -37,7 +37,7 @@ class HomePageView(DealListBaseView):
         # get the rendered list of deals
         rendered_deal_list = self.render_deal_list(
             request,
-            deals=latest_deals,
+            queryset=latest_deals,
             title=list_title,
             description=list_description,
             pagination_base_url=reverse('deals')
@@ -56,10 +56,101 @@ class DealsView(DealListBaseView):
         Simply configures the options and makes use of the base methods
         to render return latest deals listing.
     """
-
-    deals = Deal.objects.filter(active=True).order_by('date_last_modified')
+    queryset = Deal.objects.filter(active=True).order_by('date_last_modified')
     title = "Latest Deals"
     description = "See all the hottest new deals from all your favourite brands:"
+
+
+class FilteredDealsView(DealListBaseView):
+    """ View class that handles display of the deals filtered by
+        category, city or merchant. Works with routes of the format:
+        '/deals/:filter_by/:filter_slug/'
+    """
+
+    def get_queryset(self):
+        """ returns the default deals queryset.
+            override this method to return custom querysets.
+        """
+        filter_type = self.kwargs.get('filter_type')
+        filter_slug = self.kwargs.get('filter_slug')
+        queryset = self.queryset
+
+        if filter_type == 'category':
+            category = get_object_or_404(Category, slug=filter_slug)
+            queryset = queryset.filter(category=category)
+        elif filter_type == 'merchant':
+            advertiser = get_object_or_404(Advertiser, slug=filter_slug)
+            queryset = queryset.filter(advertiser=advertiser)
+        elif filter_type == 'city':
+            try:
+                state = [state for state in STATE_CHOICES
+                         if state[1] == filter_slug][0]
+            except:
+                raise Http404('Not found')
+            queryset = queryset.filter(state=state[0])
+        else:
+            raise SuspiciousOperation('Invalid request')
+
+        return queryset
+
+
+class DealHaystackSearchView(View):
+
+    ''' Haystack search class for auto complete.'''
+
+    template_name = 'deals/ajax_search.html'
+
+    def get(self, request):
+        deals = SearchQuerySet().autocomplete(
+            content_auto=request.GET.get('q', '')
+        )
+        return TemplateResponse(request, self.template_name, {'deals': deals})
+
+
+class DealSearchCityView(DealListBaseView):
+
+    ''' class to search for deals via title and states'''
+
+    def get(self, request, *args, **kwargs):
+        value = request.GET.get('q', '')
+        cityquery = int(request.GET.get('city', '25'))
+        # get the deal results:
+        deals = Deal.objects.filter(title__icontains=value)\
+                            .filter(state__icontains=cityquery)
+
+        # get the rendered list of deals
+        rendered_deal_list = self.render_deal_list(
+            request,
+            queryset=deals,
+            title="Search Results",
+            zero_items_message = 'Your search - {} - in {} did not match any deals.'\
+                                 .format(value, STATE_CHOICES[cityquery-1][1]),
+            description='{} deal(s) found for this search.'.format(len(deals))
+            # pagination_base_url=reverse('deals')
+        )
+        context = {
+            'rendered_deal_list': rendered_deal_list
+        }
+        context.update(csrf(request))
+        return TemplateResponse(request, 'deals/searchresult.html', context)
+
+
+class DealSlugView(View):
+    """ Respond to routes to deal url using slug
+    """
+    def get(self, request, *args, **kwargs):
+        deal_slug = self.kwargs.get('deal_slug')
+        try:
+            deal = Deal.objects.filter(slug=deal_slug)
+            if len(deal) > 1:
+                deal = deal[0]
+            else:
+                deal = deal[0]
+        except (Deal.DoesNotExist, AttributeError):
+            raise Http404('Deal with this slug not found!')
+
+        context = {'deal': deal}
+        return TemplateResponse(request, 'deals/detail.html', context)
 
 
 class DealView(View):
@@ -99,134 +190,3 @@ class DealView(View):
             file,
             public_id=title
         )
-
-
-class DealSearchView(View):
-
-    ''' Haystack search class for auto complete.'''
-
-    template_name = 'deals/ajax_search.html'
-
-    def get(self, request):
-        deals = SearchQuerySet().autocomplete(
-            content_auto=request.GET.get('q', '')
-        )
-        return TemplateResponse(request, self.template_name, {'deals': deals})
-
-
-class DealSearchCityView(DealListBaseView):
-
-    ''' class to search for deals via title and states'''
-
-    def get(self, request, *args, **kwargs):
-        value = request.GET.get('q', '')
-        cityquery = int(request.GET.get('city', '25'))
-        # get the deal results:
-        deals = Deal.objects.filter(title__icontains=value)\
-                            .filter(state__icontains=cityquery)
-
-        # get the rendered list of deals
-        rendered_deal_list = self.render_deal_list(
-            request,
-            deals=deals,
-            title="Search Results",
-            zero_items_message = 'Your search - {} - in {} did not match any deals.'\
-                                 .format(value, STATE_CHOICES[cityquery-1][1]),
-            description='{} deal(s) found for this search.'.format(len(deals))
-            # pagination_base_url=reverse('deals')
-        )
-        context = {
-            'rendered_deal_list': rendered_deal_list
-        }
-        context.update(csrf(request))
-        return TemplateResponse(request, 'deals/searchresult.html', context)
-
-
-class DealSlugView(View):
-    """ Respond to routes to deal url using slug
-    """
-    def get(self, request, *args, **kwargs):
-        deal_slug = self.kwargs.get('deal_slug')
-        try:
-            deal = Deal.objects.filter(slug=deal_slug)
-            if len(deal) > 1:
-                deal = deal[0]
-            else:
-                deal = deal[0]
-        except (Deal.DoesNotExist, AttributeError):
-            raise Http404('Deal with this slug not found!')
-
-        context = {'deal': deal}
-        return TemplateResponse(request, 'deals/detail.html', context)
-
-
-class DealCategoryView(DealCollectionItemsListBaseView):
-    """ Respond to routes to deal categories using slug
-    """
-    slug_name = 'category_slug'
-    filter_field = 'category'
-    model = Category
-    not_found = 'Category not found!'
-    template = 'deals/deal_list_base.html'
-
-    def get(self, *args, **kwargs):
-        self.filter_deals(**{
-            self.filter_field: self.get_queryset(
-                self.kwargs.get(self.slug_name)
-            )
-        })
-        self.set_title('Latest Deals in {}'.format(self.queryset.name))
-        self.set_description(
-            'See all the hottest new deals in {}'.format(self.queryset.name)
-        )
-        return self.do_render()
-
-
-class CategoryView(CollectionsBaseView):
-    """ Lists all categories
-    """
-    zero_items_message = "Sorry, no categories found!"
-    num_page_items = 9
-    min_orphan_items = 3
-    show_page_num = 1
-    pagination_base_url = ""
-    queryset = Category.objects.all()
-    template = 'deals/categories.html'
-    title = "Category Listing for All Available Deals"
-    description = "See all categories to choose from"
-
-
-class AdvertiserView(CollectionsBaseView):
-    """ Lists all merchants
-    """
-    zero_items_message = "Sorry, no merchants were found!"
-    num_page_items = 9
-    min_orphan_items = 3
-    show_page_num = 1
-    pagination_base_url = ""
-    queryset = Advertiser.objects.all()
-    template = 'deals/merchants.html'
-    title = "All Merchants with Deals for You"
-    description = "See all merchants with great deal offers"
-
-
-class DealAdvertiserView(DealCollectionItemsListBaseView):
-    """ Renders list of deals by an advertiser
-    """
-    slug_name = 'advertiser_slug'
-    filter_field = 'advertiser'
-    model = Advertiser
-    not_found = 'Merchant not found!'
-    template = 'deals/deal_list_base.html'
-
-    def get(self, *args, **kwargs):
-        self.filter_deals(**{
-            self.filter_field: self.get_queryset(
-                self.kwargs.get(self.slug_name)
-            )
-        })
-        self.set_title('Latest Deals in {}'.format(self.queryset.name))
-        self.set_description(
-            'See all the hottest new deals in {}'.format(self.queryset.name)
-        )
-        return self.do_render()
