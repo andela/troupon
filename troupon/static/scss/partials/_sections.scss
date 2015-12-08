@@ -290,7 +290,8 @@ footer {
     position: relative;
     min-height: 100%;
     perspective: 1200px;
-    overflow: hidden;
+    overflow-x: hidden;
+    padding-x: 50px;
   }
 
   .modal-view {

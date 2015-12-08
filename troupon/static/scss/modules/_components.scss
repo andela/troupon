@@ -52,7 +52,7 @@
   display: inline-block;
   min-width: $size;
   height: $size;
-  padding: 0px;
+  padding: 0;
   font-weight: font-weight(regular);
   text-align: center;
   color: color(#{$type}-label);
@@ -104,8 +104,8 @@
     border-radius: border-radius(form-control);
     padding: 5px 20px;
     width: 100%;
-    font-weight: font-weight(regular);
     font-size: font-size(input);
+    font-weight: font-weight(regular);
     color: color(form-input-text);
     background-color: color(form-input-bg);
     border-color: color(form-input-border);

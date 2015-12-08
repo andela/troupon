@@ -178,19 +178,19 @@ Other components.
       width: auto;
       height: 100%;
       overflow: hidden;
-
-      img {
-        display: block;
-        width: auto;
-        height: 100%;
-        transform: scale(1.03);
-      }
     }
 
-    &:hover {
-      .cell-image-wrapper img{
-        transform: scale(1.06);
-      }
+    .cell-image-wrapper img {
+      display: block;
+      width: auto;
+      height: 100%;
+      transform: scale(1.03);
+    }
+  }
+
+  .gallery-cell:hover {
+    .cell-image-wrapper img{
+      transform: scale(1.06);
     }
   }
   
@@ -407,17 +407,17 @@ Other components.
 
   .links {
     display: inline-block;
-    ol {
-      @include unstyled-h-list-mixin;
+  }
+  .links ol {
+    @include unstyled-h-list-mixin;
+    display: inline-block;
+    
+    li {
+      margin: 0px 15px;
+    }
 
-      display: inline-block;
-      li {
-        margin: 0px 15px;
-      }
-
-      .current-page-num {
-        color: color(accent);
-      }
+    .current-page-num {
+      color: color(accent);
     }
   }
 }

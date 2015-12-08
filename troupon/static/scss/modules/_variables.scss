@@ -33,7 +33,6 @@ $font-sizes: (
   social-links: 30px,
 );
 
-
 $icon-sizes: (
   xs: 16px,
   sm: 20px,
@@ -47,7 +46,7 @@ $colors: (
   //global
   accent: #E67E22,
   body-bg: #F7F7F7,
-  modal-bg: rgba(240,240,240,0.85),
+  modal-bg: rgba(240, 240, 240, 0.85),
 
   // Typography
   body: #5E5E77,
@@ -86,14 +85,14 @@ $colors: (
 
   
   btn-icon-label: #C9CAD1,
-  btn-icon-bg: rgba(0,0,0,0),
-  btn-icon-border: rgba(0,0,0,0),
+  btn-icon-bg: rgba(0, 0, 0, 0),
+  btn-icon-border: rgba(0, 0, 0, 0),
   btn-icon-hover-label: #E67E22,
-  btn-icon-hover-bg: rgba(0,0,0,0),
-  btn-icon-hover-border: rgba(0,0,0,0),
+  btn-icon-hover-bg: rgba(0, 0, 0, 0),
+  btn-icon-hover-border: rgba(0, 0, 0, 0),
   btn-icon-active-label: #5E5E77,
-  btn-icon-active-bg: rgba(0,0,0,0),
-  btn-icon-active-border: rgba(0,0,0,0),
+  btn-icon-active-bg: rgba(0, 0, 0, 0),
+  btn-icon-active-border: rgba(0, 0, 0, 0),
 
 
   btn-icon-fill-label: #F7F7F7,
@@ -167,14 +166,14 @@ $z-indices: (
 $border-radii: (
   btn-action: 5px,
   btn-icon-rect: 5px,
-  form-control: 0px,
+  form-control: 0,
   card: 6px,
 );
 
 // box shadows
 $box-shadows: (
-  btn-action: 0px 0px 3px rgba(0,0,0,0.5),
-  card: 0px 2px 6px rgba(0, 0, 0, 0.1), 
+  btn-action: 0 0 3px rgba(0, 0, 0, 0.5),
+  card: 0 2px 6px rgba(0, 0, 0, 0.1), 
 );
 
 
