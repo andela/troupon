@@ -5,7 +5,7 @@ from django.core.exceptions import SuspiciousOperation
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.core.context_processors import csrf
-from django.utils.text import slugify
+from django.template.defaultfilters import slugify
 
 import cloudinary
 from haystack.query import SearchQuerySet
@@ -63,13 +63,13 @@ class DealsView(DealListBaseView):
 
 
 class FilteredDealsView(DealListBaseView):
-    """ Displays deals filtered by  category, city or merchant.
+    """ Displays deals filtered by category, city or merchant.
         Works with routes of the form: '/deals/:filter_type/:filter_slug/'
     """
     category_title_format = "{} deals"
     city_title_format = "Deals in {}"
     advertiser_title_format = "Deals from {}"
-    
+
     category_description_format = "See all the hot new {} deals!"
     city_description_format = "See all the hot new deals in {}!"
     advertiser_description_format = "See all the hot new from {}!"

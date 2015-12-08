@@ -3,7 +3,7 @@ from django.conf import settings
 from deals.models import Category, Advertiser, STATE_CHOICES
 
 
-class CommonContextMiddleware(object):
+class SharedContextMiddleware(object):
     """
     Middleware class that injects common data that's needed
     when rendering most of view responses into the context

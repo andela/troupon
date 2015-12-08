@@ -1,5 +1,5 @@
 import sendgrid
-from sendgrid import SendGridError, SendGridClientError, SendGridServerError
+from sendgrid import SendGridClientError, SendGridServerError
 import os
 
 
@@ -9,8 +9,7 @@ class SendGrid:
     """
 
     sg = sendgrid.SendGridClient(os.getenv('sendgrid_apikey'),
-                         raise_errors=True)
-
+                                 raise_errors=True)
 
     @staticmethod
     def compose(sender, recipient, subject, text="", html="None"):
@@ -26,16 +25,13 @@ class SendGrid:
 
         return message
 
-
     @staticmethod
     def send(message):
-        
         try:
             http_status_code, message = SendGrid.sg.send(message)
         except SendGridClientError:
             pass
         except SendGridServerError:
             pass
-            
-        return http_status_code
 
+        return http_status_code
