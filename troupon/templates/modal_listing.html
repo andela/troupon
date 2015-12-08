@@ -29,11 +29,17 @@
         <div class="grid-sizer"></div>
         <div class="gutter-sizer"></div>
         {% for item in list %}
-          {% if active_tab == 'cities' %}
-            <div class="grid-item label-link"><a href="{% url 'deals' %}">{{ item.1|truncatechars:30 }}</a></div>
-          {% else %}
-            <div class="grid-item label-link"><a href="{% url 'deals' %}">{{ item.name|truncatechars:30 }}</a></div>
+
+          <div class="grid-item label-link">
+          {% if active_tab == 'categories' %}
+            <a href="{% url 'deal-filter-with-slug' filter_type='category' filter_slug=item.slug %}">{{ item.name|truncatechars:30 }}</a>
+          {% elif active_tab == 'cities' %}
+            <a href="{% url 'deal-filter-with-slug' filter_type='city' filter_slug=item.1|slugify %}">{{ item.1|truncatechars:30 }}</a>
+          {% elif active_tab == 'merchants' %}
+            <a href="{% url 'deal-filter-with-slug' filter_type='merchant' filter_slug=item.slug %}">{{ item.name|truncatechars:30 }}</a>
           {% endif %}
+          </div>
+
         {% endfor %}
       {# </ul> #}
       </div>

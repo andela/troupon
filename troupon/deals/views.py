@@ -5,6 +5,7 @@ from django.core.exceptions import SuspiciousOperation
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.core.context_processors import csrf
+from django.utils.text import slugify
 
 import cloudinary
 from haystack.query import SearchQuerySet
@@ -62,10 +63,16 @@ class DealsView(DealListBaseView):
 
 
 class FilteredDealsView(DealListBaseView):
-    """ View class that handles display of the deals filtered by
-        category, city or merchant. Works with routes of the format:
-        '/deals/:filter_by/:filter_slug/'
+    """ Displays deals filtered by  category, city or merchant.
+        Works with routes of the form: '/deals/:filter_type/:filter_slug/'
     """
+    category_title_format = "{} deals"
+    city_title_format = "Deals in {}"
+    advertiser_title_format = "Deals from {}"
+    
+    category_description_format = "See all the hot new {} deals!"
+    city_description_format = "See all the hot new deals in {}!"
+    advertiser_description_format = "See all the hot new from {}!"
 
     def get_queryset(self):
         """ returns the default deals queryset.
@@ -77,16 +84,31 @@ class FilteredDealsView(DealListBaseView):
 
         if filter_type == 'category':
             category = get_object_or_404(Category, slug=filter_slug)
+            self.title = self.category_title_format\
+                             .format(category.name)
+            self.description = self.category_description_format\
+                                   .format(category.name)
             queryset = queryset.filter(category=category)
+
         elif filter_type == 'merchant':
             advertiser = get_object_or_404(Advertiser, slug=filter_slug)
+            self.title = self.advertiser_title_format\
+                             .format(advertiser.name)
+            self.description = self.advertiser_description_format\
+                                   .format(advertiser.name)
             queryset = queryset.filter(advertiser=advertiser)
+
         elif filter_type == 'city':
             try:
                 state = [state for state in STATE_CHOICES
-                         if state[1] == filter_slug][0]
+                         if slugify(state[1]) == filter_slug][0]
             except:
                 raise Http404('Not found')
+
+            self.title = self.city_title_format\
+                             .format(state[1])
+            self.description = self.city_description_format\
+                                   .format(state[1])
             queryset = queryset.filter(state=state[0])
         else:
             raise SuspiciousOperation('Invalid request')
