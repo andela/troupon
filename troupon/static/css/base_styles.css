@@ -1184,6 +1184,7 @@ footer .copyright p {
   min-height: 100%;
   -webkit-perspective: 1200px;
           perspective: 1200px;
+  overflow: hidden;
 }
 
 .modals-wrapper .modal-view {
@@ -1215,7 +1216,9 @@ footer .copyright p {
 }
 
 .modals-parent.open {
+  width: 100%;
   height: 100%;
+  overflow: hidden;
   -webkit-filter: blur(20px);
           filter: blur(20px);
   -webkit-transition: all 0.5s;
