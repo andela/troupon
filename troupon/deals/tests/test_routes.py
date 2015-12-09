@@ -3,7 +3,8 @@ from django.core.urlresolvers import reverse
 from deals.models import Deal, Advertiser, Category
 from django.core.files import File
 from django.template.defaultfilters import slugify
-from deals.views import HomePageView, DealsView, DealView
+from deals.views import HomePageView, DealsView, DealView,\
+                        FilteredDealsView
 from faker import Faker
 import mock
 import cloudinary
@@ -14,7 +15,7 @@ def set_advertiser_and_category():
     returns a deal dictionary"""
     advertiser = Advertiser(name="XYZ Stores", slug="xyz-stores")
     advertiser.save()
-    category = Category(name="Books", slug="books")
+    category = Category(name="Comic Books", slug="comic-books")
     category.save()
 
     return dict(
@@ -26,26 +27,6 @@ def set_advertiser_and_category():
         duration=15, active=1,
         max_quantity_available=3,
     )
-
-
-class HomepageViewTestCase(TestCase):
-    """docstring for HomepageRouteTests"""
-
-    def test_homepage_returns_200(self):
-        """
-        The homepage should return a code of 200
-        """
-
-        response = self.client.get(reverse('homepage'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_anonymous_can_access_homepage(self,):
-        """
-        Checks if an anonymous user can view the landing page
-        """
-
-        response = self.client.get(reverse('homepage'))
-        self.assertEqual(response.status_code, 200)
 
 
 class HomepageRouteTestCase(TestCase):
@@ -79,6 +60,79 @@ class DealsRouteTestCase(TestCase):
         self.assertEqual(
             response.resolver_match.func.__name__,
             DealsView.as_view().__name__
+        )
+
+
+class FilteredDealsViewTestCase(TestCase):
+    """
+    Testcase for routing to the filtered deals view:
+    """
+    def setUp(self):
+        self.deal = set_advertiser_and_category()
+
+    def test_filter_deals_by_category(self):
+        """
+        test that route to get deals by category works.
+        """
+        response = self.client.get(
+            reverse('deal-filter-with-slug', kwargs={
+                'filter_type': 'category',
+                'filter_slug': 'comic-books'
+            })
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.resolver_match.func.__name__,
+            FilteredDealsView.as_view().__name__
+        )
+
+    def test_filter_deals_by_city(self):
+        """
+        test that route to get deals by city works.
+        """
+        response = self.client.get(
+            reverse('deal-filter-with-slug', kwargs={
+                'filter_type': 'city',
+                'filter_slug': 'akwa-ibom'
+            })
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.resolver_match.func.__name__,
+            FilteredDealsView.as_view().__name__
+        )
+
+    def test_filter_deals_by_merchant(self):
+        """
+        test that route to get deals by merchant works.
+        """
+        response = self.client.get(
+            reverse('deal-filter-with-slug', kwargs={
+                'filter_type': 'merchant',
+                'filter_slug': 'xyz-stores'
+            })
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.resolver_match.func.__name__,
+            FilteredDealsView.as_view().__name__
+        )
+
+    def test_wrong_filter_type_returns_bad_request_error(self):
+        """
+        test that route to get deals with an invalid
+        filter_type errors out.
+        """
+        response = self.client.get(
+            reverse('deal-filter-with-slug', kwargs={
+                'filter_type': 'awoof',
+                'filter_slug': 'xyz-stores'
+            })
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.resolver_match.func.__name__,
+            FilteredDealsView.as_view().__name__
         )
 
 
@@ -126,51 +180,3 @@ class DealSlugViewTestCase(TestCase):
             "/deals/{0}/".format(deal.slug)
         )
         self.assertEqual(response.status_code, 200)
-
-
-class DealCategoryViewTestCase(TestCase):
-
-    def setUp(self):
-        self.deal = set_advertiser_and_category()
-
-    def test_can_view_deals_by_category(self):
-        deal = Deal(**self.deal)
-        deal.save()
-        response = self.client.get("/deals/category/books/")
-        self.assertEqual(response.status_code, 200)
-
-
-class CategoriesViewTestCase(TestCase):
-
-    def setUp(self):
-        fake = Faker()
-        for _ in range(0, 10):
-            fake_word = fake.word()
-            category = Category(
-                name=str(fake_word),
-                slug=str(fake.slug(unicode(fake_word))))
-            category.save()
-
-    def test_can_view_categories(self):
-        response = self.client.get('/deals/categories/')
-        self.assertEqual(response.status_code, 200)
-
-
-class AdvertisersViewTestCase(TestCase):
-    
-    def setUp(self):
-        self.deal = set_advertiser_and_category()
-        deal = Deal(**self.deal)
-        deal.save()
-    
-    def test_can_view_advertisers(self):
-        response = self.client.get(reverse("deal-advertisers"))
-        self.assertEqual(response.status_code, 200)
-
-    def test_can_view_deals_by_advertiser(self):
-        response = self.client.get(
-            "/deals/merchant/{0}/".format(slugify('XYZ Stores')))
-        self.assertEqual(response.status_code, 200)
-
-class StatesViewTestCase(TestCase):
-    pass

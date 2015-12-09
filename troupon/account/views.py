@@ -34,6 +34,7 @@ class LoginRequiredMixin(object):
         return super(LoginRequiredMixin, self).dispatch(
             request, *args, **kwargs)
 
+
 class UserSigninView(View):
 
     """User can signin to his/her account with email and password"""
@@ -373,7 +374,6 @@ class Userconfirm(TemplateView):
     template_name = 'account/confirm.html'
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
-
 
 
 class UserChangePassword(LoginRequiredMixin, TemplateView):
