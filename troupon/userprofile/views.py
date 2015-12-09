@@ -11,8 +11,8 @@ from django.http import HttpResponse
 
 from account.views import LoginRequiredMixin
 from deals.models import STATE_CHOICES
-from userprofile.models import UserProfile, Merchant
 from userprofile.forms import UserProfileForm
+from userprofile.models import UserProfile, Merchant
 
 secret_key = settings.OTP_SECRET_KEY
 totp_token = pyotp.TOTP(secret_key, interval=180)

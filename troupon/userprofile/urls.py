@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from userprofile import views 
+from userprofile import views
 
 urlpatterns = [
     url(r'^(?P<username>\w+)$', views.Userprofileview.as_view(), name = 'userprofile'),

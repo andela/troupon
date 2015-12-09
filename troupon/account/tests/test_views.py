@@ -1,14 +1,8 @@
 from django.test import TestCase, Client, LiveServerTestCase
 from django.core.urlresolvers import resolve, reverse
 from django.contrib.auth.models import User
-from django.utils.datastructures import MultiValueDictKeyError
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from mock import patch, MagicMock
-import socket
-from account import emails
+from mock import patch
 from account.emails import SendGrid
 
 
@@ -77,11 +71,14 @@ class ForgotPasswordViewTestCase(TestCase):
         self.assertEquals(response.status_code, 200)
 
     def test_recovery_email_sent_for_registered_user(self):
-        response = self.client.post(
+
+        with patch.object(SendGrid, 'send', return_value=200) \
+                as mock_method:
+                response = self.client.post(
             '/account/recovery/', {"email": self.user.email})
 
-        self.assertIn('registered_user', response.context)
-        self.assertIn('recovery_mail_status', response.context)
+                self.assertIn('registered_user', response.context)
+                self.assertIn('recovery_mail_status', response.context)
 
 
     def test_recovery_email_not_sent_for_unregistered_user(self):
@@ -128,7 +125,7 @@ class UserRegisterTestCase(LiveServerTestCase):
 
         # assert user is signed in
         self.driver.implicitly_wait(20)
-        self.assertIn("Signed in as:", self.driver.page_source)        
+        self.assertIn("Signed in as:", self.driver.page_source)
 
     def test_user_can_register(self,):
         """
@@ -165,6 +162,10 @@ class ActivateAccountTestCase(TestCase):
 
 
     def test_activation_mail_sent(self):
-        
-        response = self.client_stub.post('/account/signup/', self.form_data)
-        self.assertEqual(302,response.status_code)
+
+        with patch.object(SendGrid, 'send', return_value=200) \
+                as mock_method:
+                response = self.client_stub.post(
+                    '/account/signup/',
+                    self.form_data)
+                self.assertEqual(302, response.status_code)

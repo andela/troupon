@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
+from mock import patch
+
 from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
-from account.views import ForgotPasswordView, ResetPasswordView, UserSignupView, ActivateAccountView
-from allaccess.views import OAuthRedirect,OAuthCallback
-from deals.views import DealView, DealsView, DealSearchView, DealSearchCityView
+
+from account.views import ForgotPasswordView, ResetPasswordView,\
+    ActivateAccountView
+from allaccess.views import OAuthRedirect, OAuthCallback
+from deals.views import DealSearchView
+from account.emails import SendGrid
+
 
 class UserSigninRouteTestCase(TestCase):
     """Test that post and get requests to signin routes is successful
@@ -115,8 +121,12 @@ class UserRegistrationViewTest(TestCase):
         '''
         User is redirected after signup data is validated.
         '''
-        response = self.client_stub.post('/account/signup/', self.form_data)
-        self.assertEquals(response.status_code, 302)
+        with patch.object(SendGrid, 'send', return_value=200) \
+                as mock_method:
+                response = self.client_stub.post(
+                    '/account/signup/',
+                    self.form_data)
+                self.assertEquals(response.status_code, 302)
 
     def test_view_reg_success_route(self):
         '''
@@ -126,10 +136,9 @@ class UserRegistrationViewTest(TestCase):
         response = self.client_stub.get('/account/confirm/')
         self.assertEquals(response.status_code, 200)
 
-
     def test_user_signup_functioncalled(self):
-        ''' Test that signup binds to UserSignupview '''
 
+        ''' Test that signup binds to UserSignupview '''
         response = resolve('/account/signup/')
         self.assertEquals(response.func.__name__, 'UserSignupView')
 
@@ -216,7 +225,7 @@ class UserchangePasswordTestCase(TestCase):
         response = self.client.post("/account/changepassword/johndoe",data)
         self.assertEqual(response.status_code, 302)
 
-class UsercBadChangePasswordTestCase(TestCase):
+class UserErrorChangePasswordTestCase(TestCase):
 
     ''' Test that user error on change password is caught.'''
 
