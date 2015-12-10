@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+    <div class="row">
+        <div
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>    
+{% endblock main %}
