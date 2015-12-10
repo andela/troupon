@@ -3,13 +3,19 @@
 
 {% block main %}
     <div class="row">
-        <div
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+        <div class="col-sm-12">
+            {% if messages %}
+            <div class="panel panel-{{ message.tags }}">
+                <div class="panel-heading">Payment Status</div>
+                <div class="panel-body">
+                    {% for message in messages %}
+                    <p>
+                        {{ message }}
+                    </p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </div>    
 {% endblock main %}
