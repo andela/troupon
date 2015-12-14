@@ -1,11 +1,11 @@
 
 from django.conf.urls import url, include
 from .views import DealsView, FilteredDealsView, DealView, DealSlugView,\
-    DealHaystackSearchView, DealSearchCityView
+    DealHaystackSearchView, DealSearchCityView, CheckoutView,\
+    PaymentProcessorView
 
 
 urlpatterns = [
-
     url(r'^search/', include('haystack.urls')),
 
     url(r'^search/entry/$',
@@ -18,6 +18,16 @@ urlpatterns = [
 
     # /deals/
     url(r'^$', DealsView.as_view(), name='deals'),
+
+    # /deals/checkout/
+    url(r'^checkout/$',
+        CheckoutView.as_view(),
+        name='checkout'),
+
+    # /deals/process_payment/
+    url(r'^process_payment/$',
+        PaymentProcessorView.as_view(),
+        name='process_payment'),
 
     # /deals/:filter_by/:filter_slug/
     url(r'^(?P<filter_type>[\w-]+)/(?P<filter_slug>[\w-]+)/$',

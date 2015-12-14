@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-sm-12">
+            <form action="{% url 'process_payment' %}" method="POST">
+            {% csrf_token %}
+              <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="{{payment_details.key}}"
+                data-image="{% static 'img/logo-v-lg.png' %}"
+                data-name="Troupon"
+                data-description="{{payment_details.description}}"
+                data-amount="{{ amount_in_cents }}"
+                data-locale="auto">
+              </script>
+            </form>
+        </div>
+    </div>
+{% endblock main %}

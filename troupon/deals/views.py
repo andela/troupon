@@ -218,6 +218,39 @@ class DealView(View):
         )
 
 
+class CheckoutView(View):
+    """
+    Creates a checkout page
+    """
+    template_name = 'deals/checkout.html'
+    stripe_secret_api_key = os.getenv('STRIPE_SECRET_API_KEY')
+    stripe_publishable_api_key = os.getenv('STRIPE_PUBLISHABLE_API_KEY')
+
+    def get(self, request, *args, **kwargs):
+        """create a dummy checkout page"""
+        amount = 23
+        amount_in_cents = amount * 100
+        payment_details = {
+            "key": self.stripe_publishable_api_key,
+            "description": "Hairless Armpits",
+        }
+
+        context = {
+            "amount_in_cents": amount_in_cents,
+            "payment_details": payment_details,
+        }
+
+        # store payment details in session
+        payment_details = {
+            "amount": amount_in_cents,
+            "description": "Hairless Armpits",
+            "currency": "usd",
+        }
+        request.session['payment_details'] = payment_details
+
+        return render(request, self.template_name, context)
+
+
 class PaymentProcessorView(View):
     """
     Processes payments sent from stripe checkout.js
@@ -236,7 +269,7 @@ class PaymentProcessorView(View):
         token = request.POST['stripeToken']
 
         # Get payment details from session
-        payment_details = request.session.get('payment_amount', None)
+        payment_details = request.session.get('payment_details', None)
 
         # process payment if the payment details exist
         if payment_details:
@@ -245,7 +278,7 @@ class PaymentProcessorView(View):
                 stripe.Charge.create(
                     # amount in cents, again
                     amount=payment_details['amount'],
-                    currency=payment_details['usd'],
+                    currency=payment_details['currency'],
                     source=token,
                     description=payment_details['description']
                 )
@@ -332,6 +365,9 @@ class PaymentProcessorView(View):
             # return a success message if no errors are raised
             message = "Success!!! you payment has been received"
             messages.add_message(request, messages.WARNING, message)
+
+            # delete payment details from session
+            del request.session['payment_details']
             return render(request, self.template_name)
         else:
             # return an error message as payment details are not in session
