@@ -54,7 +54,7 @@ INSTALLED_APPS = (
     'account',
     'authentication',
     'deals',
-    'messages',
+    'conversations',
 )
 
 MIDDLEWARE_CLASSES = (
