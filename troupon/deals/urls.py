@@ -2,7 +2,8 @@
 from django.conf.urls import url
 
 from .views import DealsView, FilteredDealsView, DealView,\
-                   DealSlugView, DealSearchCityView
+                   DealSlugView, DealSearchCityView,\
+                   DealHaystackSearchView
 
 
 urlpatterns = [
@@ -28,4 +29,8 @@ urlpatterns = [
         DealSearchCityView.as_view(),
         name='dealsearchcity'),
 
+    # /deals/search/autosuggest?q=<search_key>
+    url(r'^search/autosuggest/$',
+        DealHaystackSearchView.as_view(),
+        name='dealsearchauto'),
 ]

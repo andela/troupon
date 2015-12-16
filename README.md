@@ -11,7 +11,7 @@
 ### <a name="introduction"></a>Introduction
 Troupon is a Groupon clone. Users are able to buy products and services at a discounted price.
 
-### <a name="features"></a>Featuresß
+### <a name="features"></a>Features
 - Users can search for deals by cities.
 - Users can view maps of deals.
 - Users can search for deals by categories.

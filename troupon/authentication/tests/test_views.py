@@ -50,64 +50,64 @@ class UserLogoutViewTestCase(TestCase):
         self.assertEquals(response.status_code, 302)
 
 
-# class UserRegisterViewTestCase(LiveServerTestCase):
-#     """
-#     End to End testing of user registration and login pages
-#     """
-#     @classmethod
-#     def setUpClass(cls):
-#         """
-#         Setup the test driver
-#         """
-#         cls.driver = webdriver.PhantomJS()
-#         super(UserRegisterViewTestCase, cls).setUpClass()
+class UserRegisterViewTestCase(LiveServerTestCase):
+    """
+    End to End testing of user registration and login pages
+    """
+    @classmethod
+    def setUpClass(cls):
+        """
+        Setup the test driver
+        """
+        cls.driver = webdriver.PhantomJS()
+        super(UserRegisterViewTestCase, cls).setUpClass()
 
-#     def setUp(self,):
-#         """
-#         Setup the test driver
-#         """
-#         User.objects.create_superuser(
-#             'admin', 'admin@example.com', 'admin'
-#         )
-#         self.driver = UserRegisterViewTestCase.driver
-#         super(UserRegisterViewTestCase, self).setUp()
+    def setUp(self,):
+        """
+        Setup the test driver
+        """
+        User.objects.create_superuser(
+            'admin', 'admin@example.com', 'admin'
+        )
+        self.driver = UserRegisterViewTestCase.driver
+        super(UserRegisterViewTestCase, self).setUp()
 
-#         # socket.setdefaulttimeout(10)
+        # socket.setdefaulttimeout(10)
 
-#     def test_login_user(self,):
-#         """
-#         Checks if a user can sign in
-#         """
-#         url = "%s%s" % (self.live_server_url, reverse('login'))
-#         self.driver.get(url)
-#         # input login details and submit
-#         self.driver.find_element_by_id("email").send_keys('admin')
-#         self.driver.find_element_by_id("password").send_keys('admin')
-#         self.driver.find_element_by_id("loginBtn").click()
+    def test_login_user(self,):
+        """
+        Checks if a user can sign in
+        """
+        url = "%s%s" % (self.live_server_url, reverse('login'))
+        self.driver.get(url)
+        # input login details and submit
+        self.driver.find_element_by_id("email").send_keys('admin')
+        self.driver.find_element_by_id("password").send_keys('admin')
+        self.driver.find_element_by_id("loginBtn").click()
 
-#         # assert user is signed in
-#         self.driver.implicitly_wait(20)
-#         self.assertIn("Signed in as:", self.driver.page_source)
+        # assert user is signed in
+        self.driver.implicitly_wait(20)
+        self.assertIn("Signed in as:", self.driver.page_source)
 
-#     def test_user_can_register(self,):
-#         """
-#         Checks if user can register on login page
-#         """
-#         url = "%s%s" % (self.live_server_url, reverse('login'))
-#         self.driver.get(url)
-#         self.driver.find_element_by_id("user_register_link").click()
-#         self.assertIn("Sign up", self.driver.page_source)
+    def test_user_can_register(self,):
+        """
+        Checks if user can register on login page
+        """
+        url = "%s%s" % (self.live_server_url, reverse('login'))
+        self.driver.get(url)
+        self.driver.find_element_by_id("user_register_link").click()
+        self.assertIn("Log in", self.driver.page_source)
 
-#     def tearDown(self,):
-#         """
-#         Close the browser window
-#         """
-#         super(UserRegisterViewTestCase, self).tearDown()
+    def tearDown(self,):
+        """
+        Close the browser window
+        """
+        super(UserRegisterViewTestCase, self).tearDown()
 
-#     @classmethod
-#     def tearDownClass(cls):
-#         cls.driver.quit()
-#         super(UserRegisterViewTestCase, cls).tearDownClass()
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super(UserRegisterViewTestCase, cls).tearDownClass()
 
 
 class ActivateAccountViewTestCase(TestCase):

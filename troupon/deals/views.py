@@ -117,9 +117,9 @@ class FilteredDealsView(DealListBaseView):
 
 
 class DealHaystackSearchView(View):
-
-    ''' Haystack search class for auto complete.'''
-
+    """
+    Haystack search class for auto complete.
+    """
     template_name = 'deals/ajax_search.html'
 
     def get(self, request):
@@ -131,7 +131,7 @@ class DealHaystackSearchView(View):
 
 class DealSearchCityView(DealListBaseView):
 
-    ''' class to search for deals via title and states'''
+    """ class to search for deals via title and states"""
 
     def get(self, request, *args, **kwargs):
         value = request.GET.get('q', '')
@@ -183,10 +183,7 @@ class DealView(View):
         deal_id = self.kwargs.get('deal_id')  # get deal_id from request
         if not deal_id:
             deals = Deal.objects.all()
-            # engine = Engine.get_default()
-            # template = engine.get_template('deals/list.html')
             context = {'deals': deals, }
-            # return HttpResponse(template.render(context))
             return TemplateResponse(request, 'deals/list.html', context)
         # get and return the page for the single deal
         try:
