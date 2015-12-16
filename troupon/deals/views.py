@@ -144,9 +144,10 @@ class DealSearchCityView(DealListBaseView):
         rendered_deal_list = self.render_deal_list(
             request,
             queryset=deals,
-            title="Search Results",
-            zero_items_message = 'Your search - {} - in {} did not match any deals.'\
-                                 .format(value, STATE_CHOICES[cityquery-1][1]),
+            title='Search Results',
+            zero_items_message='Your search - {} - in {} \
+            did not match any deals.'
+            .format(value, STATE_CHOICES[cityquery - 1][1]),
             description='{} deal(s) found for this search.'.format(len(deals))
             # pagination_base_url=reverse('deals')
         )
@@ -173,39 +174,3 @@ class DealSlugView(View):
 
         context = {'deal': deal}
         return TemplateResponse(request, 'deals/detail.html', context)
-
-
-class DealView(View):
-    """This handles request for each deal by id.
-    """
-
-    def get(self, request, *args, **kwargs):
-        deal_id = self.kwargs.get('deal_id')  # get deal_id from request
-        if not deal_id:
-            deals = Deal.objects.all()
-            context = {'deals': deals, }
-            return TemplateResponse(request, 'deals/list.html', context)
-        # get and return the page for the single deal
-        try:
-            deal = Deal.objects.get(id=deal_id)
-        except Deal.DoesNotExist:
-            raise Http404('Deal does not exist')
-
-        context = {'deal': deal, }
-        return TemplateResponse(request, 'deals/detail.html', context)
-
-    def post(self, request, *args, **kwargs):
-        """ Upload a deal photo to cloudinary then creates deal
-        """
-        title = self.kwargs.get('title')
-        photo = request.FILES.get('photo')
-        self.upload(photo, title)
-        return redirect(reverse('deals'))
-
-    def upload(self, file, title):
-        """ Upload deal photo to cloudinary
-        """
-        return cloudinary.uploader.upload(
-            file,
-            public_id=title
-        )
