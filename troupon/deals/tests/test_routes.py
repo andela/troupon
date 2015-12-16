@@ -1,11 +1,11 @@
 from django.test import TestCase, RequestFactory, Client
 from django.core.urlresolvers import reverse
-from deals.models import Deal, Advertiser, Category
 from django.core.files import File
 from django.template.defaultfilters import slugify
+
+from deals.models import Deal, Advertiser, Category
 from deals.views import HomePageView, DealsView, DealView,\
                         FilteredDealsView
-from faker import Faker
 import mock
 import cloudinary
 

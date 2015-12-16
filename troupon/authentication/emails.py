@@ -1,11 +1,13 @@
-import sendgrid
-from sendgrid import SendGridClientError, SendGridServerError
 import os
+import sendgrid
+
+from sendgrid import SendGridClientError, SendGridServerError
 
 
 class SendGrid:
-    """This class is used to send emails using the requests
-        module to the sendgrid message api.
+    """
+    This class is used to send emails using the requests
+    module to the sendgrid message api.
     """
 
     sg = sendgrid.SendGridClient(os.getenv('sendgrid_apikey'),
@@ -13,8 +15,8 @@ class SendGrid:
 
     @staticmethod
     def compose(sender, recipient, subject, text="", html="None"):
-        """RECOMMENDED: use this method to compose
-            the email.
+        """
+        RECOMMENDED: use this method to compose the email.
         """
         message = sendgrid.Mail()
         message.add_to(recipient)

@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from deals.models import Deal, Advertiser, Category
 
 

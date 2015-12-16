@@ -10,8 +10,8 @@ from django.template.defaultfilters import slugify
 import cloudinary
 from haystack.query import SearchQuerySet
 
-from deals.models import Category, Deal, Advertiser, STATE_CHOICES
-from deals.baseviews import DealListBaseView
+from models import Category, Deal, Advertiser, STATE_CHOICES
+from baseviews import DealListBaseView
 
 
 class HomePageView(DealListBaseView):

@@ -1,13 +1,12 @@
 import datetime
 
 from django.views.generic import View
-from django.http import Http404
 from django.template import RequestContext, loader
 from django.template.response import TemplateResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 
-from deals.models import Deal, EPOCH_CHOICES
+from models import Deal, EPOCH_CHOICES
 
 
 class DealListBaseView(View):

@@ -1,6 +1,6 @@
  {% load staticfiles %}
 <!--Sign in modal-->
-<div class="modal-view" id="modal-sign-in">
+<div class="modal-view" id="modal-login">
   <div class="row">
     <div class="col-sm-5 hidden-xs brand-col">
       <div class="brand">
@@ -10,15 +10,15 @@
     <div class="col-xs-11 col-sm-5">
       <header class="row">
         <div class="col-lg-4">
-          <h1>Sign in</h1>
+          <h1>Log in</h1>
         </div>
         <div class="col-lg-8">
-          <p>Don't have an account yet? <a href="" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></p>
+          <p>Don't have an account yet? <a href="" class="modal-toggle" data-modal-target="#modal-register">Register Here</a></p>
         </div>
       </header>
       <div class="row">
         <div class="col-sm-12">
-          <form action="{% url 'signin' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+          <form action="{% url 'login' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
             <div class="custom-form-group">
               <label for="email">Email <span class="label-asterik">*</span></label>
               <div class="custom-input-group">
@@ -36,7 +36,7 @@
                 <p><a href="" class="modal-toggle" data-modal-target="#modal-forgot-password">Forgot your password?</a></p>
               </div>
             </div>
-            <button type="submit" class="btn-action btn-form-submit">Sign in</button>
+            <button type="submit" class="btn-action btn-form-submit">Log in</button>
             <!--<a class="social-auth" href="">Sign in with Facebook</a>-->
           </form>
         </div>
