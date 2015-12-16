@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from messages.models import Message
+from conversations.models import Message
 
 
 class MessageRouteTestCase(TestCase):

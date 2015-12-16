@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.utils import timezone
-from messages.models import Message
+from conversations.models import Message
 from django.shortcuts import redirect
 from django.views.generic import View
 from django.contrib.auth.models import User
