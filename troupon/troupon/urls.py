@@ -4,7 +4,6 @@ from django.views.generic import TemplateView
 
 from deals.views import HomePageView
 
-
 urlpatterns = [
 
     # home/index:
