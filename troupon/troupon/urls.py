@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^', include('authentication.urls')),
     url(r'^deals/', include('deals.urls')),
     url(r'^account/', include('account.urls')),
-    url(r'^merchant/', include('conversations.urls')),
+    url(r'^merchant/', include('merchant.urls')),
 
     # static pages:
     url(r'^about/',

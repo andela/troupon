@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import MessagesView, MessageView
+from conversations.views import MessagesView, MessageView
 
 urlpatterns = [
     # pattern maps to view handling `POST` and `GET`
