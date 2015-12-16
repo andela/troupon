@@ -100,7 +100,7 @@
                 {% if request.user.is_authenticated %}
                 <ul class="member-options">
                   <li>
-                    <a href="{% url 'read_messages' %}">{% if unread_mesg_count %}<span class="badge">{{ unread_mesg_count }}</span>{% endif %}<i class="fa fa-inbox fa-fw"></i></a>
+                    <a href="{% url 'messages' %}">{% if unread_mesg_count %}<span class="badge">{{ unread_mesg_count }}</span>{% endif %}<i class="fa fa-inbox fa-fw"></i></a>
                   </li>
                   <li class="divider-v"></li>
                   <li>

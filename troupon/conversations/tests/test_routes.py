@@ -48,8 +48,7 @@ class MessageRouteTestCase(TestCase):
         self.assertRedirects(
             response,
             reverse(
-                'message',
-                kwargs={'m_id': lastest_msg.id}
+                'message', kwargs={'m_id': lastest_msg.id}
             ),
             status_code=302
         )
@@ -68,7 +67,7 @@ class MessageRouteTestCase(TestCase):
         self.msg_stub['parent_msg'] = Message.objects.latest('sent_at').id
         self.msg_stub['recipient'] = self.admin.username
         response = self.client.post(
-            reverse('message', kwargs={'m_id': lastest_msg.id}),
+            reverse('message', kwargs={'m_id': self.msg_stub['parent_msg']}),
             self.msg_stub, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.msg_stub['body'])
@@ -94,12 +93,8 @@ class MessagesRouteTestCase(TestCase):
             'body': 'Test body',
         }  # message stub
         cls.subject_slug = slugify(cls.msg_stub['subject'])
-        cls.admin = User.objects.create_user(
-            username='testadmin', email='testadmin@test.com',
-            password='password1')
-        cls.merchant = User.objects.create_user(
-            username='testmerchant', email='testmerchant@test.com',
-            password='password2')
+        cls.admin = User.objects.get(username='testadmin')
+        cls.merchant = User.objects.get(username='testmerchant')
         cls.client = Client()
         super(MessagesRouteTestCase, cls).setUpClass()
 
@@ -122,7 +117,7 @@ class MessagesRouteTestCase(TestCase):
             response,
             reverse(
                 'message',
-                kwargs={'message_id': lastest_msg.id}
+                kwargs={'m_id': lastest_msg.id}
             ),
             status_code=302,
         )
