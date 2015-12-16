@@ -22,7 +22,9 @@ class MessagesView(View):
             # grant admin access to list of all registered users
             #  in the response context
             context_data['users'] = User.objects.exclude(is_superuser=True)
-        return TemplateResponse(request, 'messaging/index.html', context_data)
+        return TemplateResponse(
+            request, 'conversations/index.html', context_data
+        )
 
     def post(self, request, *args, **kwargs):
         """Dispatch message to start a new conversation"""
@@ -46,17 +48,16 @@ class MessagesView(View):
 
         return redirect(
             reverse(
-                'message', kwargs={'id': mesg.id}
+                'message', kwargs={'m_id': mesg.id}
             )
         )
 
 
 class MessageView(View):
 
-    def get(self, request, id):
+    def get(self, request, m_id):
         """Read messages in a conversation"""
-        mesg = Message.objects.get(id=id)
-
+        mesg = Message.objects.get(id=m_id)
         if mesg.parent_msg:
             raise Http404("Oops! You shouldn't mess around with URLs")
         mesg.read_at = timezone.now()  # update last read time
@@ -73,7 +74,9 @@ class MessageView(View):
             'mesg': mesg,
             'other_messages': other_messages
         }
-        return TemplateResponse(request, 'messages/detail.html', context_data)
+        return TemplateResponse(
+            request, 'conversations/detail.html', context_data
+        )
 
     def post(self, request, m_id):
         """Dispatch a reply to a conversation"""
@@ -101,6 +104,6 @@ class MessageView(View):
 
         return redirect(
             reverse(
-                'message', kwargs={'id': message.id}
+                'message', kwargs={'m_id': message.id}
             )
         )

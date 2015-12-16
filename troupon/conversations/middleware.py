@@ -1,4 +1,4 @@
-from messaging.models import Message
+from conversations.models import Message
 
 
 class UnreadMessageCount(object):
