@@ -1,16 +1,16 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from mock import patch, MagicMock
-from account.hashs import UserHasher as Hasher
-from account import emails 
-from account.emails import SendGrid
+
+from authentication.hashs import UserHasher as Hasher
+from authentication.emails import SendGrid
 
 
-class AccountHashsTestCase(TestCase):
-    """This class tests the user account hash generation and hash
-        reversing functions defined in the 'account.hashs' module.
+class HashsTestCase(TestCase):
+    """
+    This class tests the user authentication hash generation and hash
+    reversing functions defined in the 'authentication.hashs' module.
     It tests the round trip: generating a unique hash for a user
-    and then testing it against results of the reverse process
+    and then testing it against results of the reverse process.
     """
 
     def setUp(self):
@@ -59,8 +59,7 @@ class EmailTestCase(TestCase):
             text="Troupon ---> SendGrid API ---> You \n\nTesting Mic: 1, 2"
         )
 
-    
     def test_sendgrid_sends_email(self):
-        
+
         response = SendGrid.send(self.email)
         self.assertEquals(200, response)

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Deal, Advertiser, Category
+
+from models import Deal, Advertiser, Category
 
 
 class DealAdmin(admin.ModelAdmin):

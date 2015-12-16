@@ -38,7 +38,7 @@
                 <p> Interest:  {{ profile.interest }} </p>
             </div>
 
-            <form action="{% url 'userprofile' username=request.user.username %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <form action="{% url 'userprofile' %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <div class="form-group col-lg-12">
                     <label>Location: </label>
                     <select name="user_state" placeholder="Ikeja.Lagos">
@@ -77,7 +77,3 @@
     </section>
 
 {% endblock %}
-
-{% block extended_modals %}
-        {% include "account/modal_change_password.html" %}
-{% endblock extended_modals %}

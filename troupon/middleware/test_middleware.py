@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from general import SharedContextMiddleware
 from mock import MagicMock
 

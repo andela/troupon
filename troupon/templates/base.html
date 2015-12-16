@@ -110,19 +110,19 @@
                       <li><a href="">{{request.user.username }}</a></li>
 
                       <li class="divider"></li>
-                      <li><a href="{% url 'userprofile' username=request.user.username %}"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
-                      <li><a href="#" class="modal-toggle" data-modal-target="#modal-change-password"><i class="fa fa-key fa-fw"></i> Change Password</a></li>
+                      <li><a href="{% url 'userprofile' %}"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
+                      <li><a href=""><i class="fa fa-key fa-fw"></i> Change Password</a></li>
                       <li><a href=""><i class="fa fa-th-list fa-fw"></i> View History</a></li>
                       <li  class="divider"></li>
-                      <li><a href="{% url 'signout' %}"><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
+                      <li><a href="{% url 'logout' %}"><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
                     </ul>
                   </li>
                 </ul>
                 {% else %}
                  <ul class="auth-options">
-                  <li><a href="{% url 'signin' %}" class="modal-toggle" data-modal-target="#modal-sign-in">Sign in</a></li>
+                  <li><a href="{% url 'login' %}" class="modal-toggle" data-modal-target="#modal-login">Log in</a></li>
                   <li class="divider-v"></li>
-                  <li><a href="{% url 'UserSignupView' %}" class="modal-toggle" data-modal-target="#modal-sign-up">Sign up</a></li>
+                  <li><a href="{% url 'register' %}" class="modal-toggle" data-modal-target="#modal-register">Register</a></li>
                 </ul>
                 {% endif %}
               </div>
@@ -227,8 +227,8 @@
       <div class="modals-container">
 
         {% if not request.user.is_authenticated %}
-        {% include "modal_sign_up.html" %}
-        {% include "modal_sign_in.html" %}
+        {% include "modal_register.html" %}
+        {% include "modal_login.html" %}
         {% include "modal_forgot_password.html" %}
         {% endif %}
 

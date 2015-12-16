@@ -1,20 +1,41 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-import deals
-import account
-import userprofile
 from django.views.generic import TemplateView
+
+from deals.views import HomePageView
 
 
 urlpatterns = [
-    url(r'^accounts/', include('allaccess.urls')),
-    url(r'^account/', include('account.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+
+    # home/index:
+    url(r'^$', HomePageView.as_view(), name='homepage'),
+
+    # apps:
+    url(r'^', include('authentication.urls')),
     url(r'^deals/', include('deals.urls')),
-    url(r'^userprofile/', include('userprofile.urls')),
-    url(r'^$', deals.views.HomePageView.as_view(), name='homepage'),
-    url(r'^about/', TemplateView.as_view(template_name="deals/about.html"), name='about'),
-    url(r'^investors/', TemplateView.as_view(template_name="deals/investor.html"), name='investor'),
-    url(r'^team/', TemplateView.as_view(template_name="deals/team.html"), name='team'),
-    url(r'^support/', TemplateView.as_view(template_name="deals/support.html"), name='support'),
+    url(r'^account/', include('account.urls')),
+
+    # static pages:
+    url(r'^about/',
+        TemplateView.as_view(template_name="about.html"),
+        name='about'),
+
+    url(r'^investors/',
+        TemplateView.as_view(template_name="investor.html"),
+        name='investor'),
+
+    url(r'^team/',
+        TemplateView.as_view(template_name="team.html"),
+        name='team'),
+
+    url(r'^support/',
+        TemplateView.as_view(template_name="support.html"),
+        name='support'),
+
+    # admin:
+    url(r'^admin/', include(admin.site.urls)),
+
+    # third party apps:
+    url(r'^accounts/', include('allaccess.urls')),
+
 ]

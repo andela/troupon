@@ -1,5 +1,6 @@
 
 from django.conf import settings
+
 from deals.models import Category, Advertiser, STATE_CHOICES
 
 

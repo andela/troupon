@@ -357,13 +357,13 @@ footer {
     }
   }
 }
-#modal-sign-in {
+#modal-login {
   @extend %modal-auth;
   .brand-col {
     min-height: 390px;
   }
 }
-#modal-sign-up {
+#modal-register {
   @extend %modal-auth;
   .brand-col {
     min-height: 550px;

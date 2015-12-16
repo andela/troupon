@@ -46,14 +46,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'deals',
-    'account',
+    'djangobower',
+    'django_nose',
     'allaccess',
     'haystack',
     'whoosh',
-    'djangobower',
-    'django_nose',
-    'userprofile',
+    'account',
+    'authentication',
+    'deals',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -126,8 +126,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-LOGIN_REDIRECT_URL = '/account/confirm/'
-LOGIN_URL = '/account/signup/'
+LOGIN_REDIRECT_URL = '/confirm/'
+LOGIN_URL = '/register/'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

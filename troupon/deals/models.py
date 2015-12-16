@@ -1,9 +1,13 @@
-from django.db import models
-from cloudinary.models import CloudinaryField
-from troupon.settings.base import SITE_IMAGES
-from django.core import signals
 from datetime import date
 from random import randint
+
+from django.db import models
+from django.core import signals
+
+from cloudinary.models import CloudinaryField
+
+from troupon.settings.base import SITE_IMAGES
+
 
 # States in Nigeria
 STATE_CHOICES = [
@@ -141,7 +145,7 @@ class Advertiser(ImageMixin, models.Model):
         blank=False,
         default=''
     )
-    slug = models.SlugField(blank=True) 
+    slug = models.SlugField(blank=True)
     address = models.CharField(max_length=200, default='')
     state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
     telephone = models.CharField(max_length=60, default='')
@@ -167,11 +171,11 @@ class Category(ImageMixin, models.Model):
         return "{0}".format(self.name)
 
 
-
 def set_deal_inactive(**kwargs):
     """Set deal to inactive if the end date set is present date
     """
     date_today = date.today()
     Deal.objects.filter(date_end=date_today.isoformat()).update(active=False)
+
 
 signals.request_started.connect(set_deal_inactive)
