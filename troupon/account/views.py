@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.base import TemplateView
 from django.template import RequestContext
 from django.contrib import messages
