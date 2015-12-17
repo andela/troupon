@@ -49,8 +49,14 @@ ul, ol {
     position: absolute;
     z-index: z-index(dropdown);
 
-    li > a {
+    & > li {
+      width: 100%;
+      padding: 0;
+    }
+
+    & > li > a {
       @extend a;
+      padding: 5px 20px;
     }
 
     .divider {

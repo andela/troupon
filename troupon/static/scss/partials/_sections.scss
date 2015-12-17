@@ -104,6 +104,13 @@ body {
 
   .member-options {
     z-index: z-index(dropdown);
+    .user-info, .dropdown-header {
+      padding: 3px 20px;
+    }
+    .user-info {
+      font-weight: font-weight(bold);
+    }
+
   }
   
   .auth-options {
@@ -363,13 +370,13 @@ footer {
     }
   }
 }
-#modal-sign-in {
+#modal-login {
   @extend %modal-auth;
   .brand-col {
     min-height: 390px;
   }
 }
-#modal-sign-up {
+#modal-register {
   @extend %modal-auth;
   .brand-col {
     min-height: 550px;
