@@ -70,7 +70,7 @@ body {
 
 #header-bar {
   position: relative;
-  margin-top: 30px;
+  margin: 30px 0 10px;
 
   .menu-toggle, .search-toggle {
     @include btn-action-mixin (btn-alt, 50px);
@@ -113,10 +113,6 @@ body {
     }
   }
 
-  .divider {
-    margin-top: 10px;
-  }
-
   @media (max-width: 768px) {
     margin-top: 20px;
   }
@@ -142,7 +138,7 @@ body {
 //main section:
 
 main {
-  min-height : 300px;
+  min-height : 500px;
   
   .placeholder { //to be removed in production:
     p {
@@ -160,7 +156,7 @@ main {
   }
 
   @media (max-width: 768px) {
-    min-height : 200px;
+    min-height : 300px;
 
     .placeholder { //to be removed in production:
       p {
@@ -176,8 +172,7 @@ main {
 // footer section:
 
 footer {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 30px 0;
 
   .divider-1 {
     margin-bottom: 25px;
@@ -238,6 +233,17 @@ footer {
     .divider-2 {
       margin: 5px auto 10px;
     }
+  }
+}
+
+
+// dashboard subview:
+
+.subview-wrapper {
+  padding-left: 50px;
+
+  form > .divider {
+    margin-bottom: 30px;
   }
 }
 
@@ -357,13 +363,13 @@ footer {
     }
   }
 }
-#modal-login {
+#modal-sign-in {
   @extend %modal-auth;
   .brand-col {
     min-height: 390px;
   }
 }
-#modal-register {
+#modal-sign-up {
   @extend %modal-auth;
   .brand-col {
     min-height: 550px;

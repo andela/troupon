@@ -118,29 +118,29 @@ h1 {
 /* ==========================================================================
 links
 ========================================================================== */
-a, .dropdown .dropdown-menu li > a, .menu-link, .label-link, .label-link-list-v > li > a, .label-link-list-h > li > a, #header-bar .auth-options > li > a, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, #header-bar .nav-menu > li > a, #header-bar .member-options > li > a, footer .quick-links > li > a {
+a, .dropdown .dropdown-menu li > a, .menu-link, .label-link, .label-link-list-v > li > a, .label-link-list-h > li > a, #header-bar .auth-options > li > a, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #header-bar .nav-menu > li > a, #header-bar .member-options > li > a, footer .quick-links > li > a {
   color: #5E5E77;
   text-decoration: none;
 }
 
-a:hover, .dropdown .dropdown-menu li > a:hover, .dropdown .dropdown-menu li > a:active, .dropdown .dropdown-menu li > a:focus, a:active, .menu-link:active, .label-link:active, .label-link-list-v > li > a:active, .label-link-list-h > li > a:active, #header-bar .auth-options > li > a:active, #modal-login header p > a:active, #modal-register header p > a:active, #modal-forgot-password header p > a:active, #header-bar .nav-menu > li > a:active, #header-bar .member-options > li > a:active, footer .quick-links > li > a:active, a:focus, .menu-link:focus, .label-link:focus, .label-link-list-v > li > a:focus, .label-link-list-h > li > a:focus, #header-bar .auth-options > li > a:focus, #modal-login header p > a:focus, #modal-register header p > a:focus, #modal-forgot-password header p > a:focus, #header-bar .nav-menu > li > a:focus, #header-bar .member-options > li > a:focus, footer .quick-links > li > a:focus, .menu-link:hover, .label-link:hover, .label-link-list-v > li > a:hover, .label-link-list-h > li > a:hover, #header-bar .auth-options > li > a:hover, #modal-login header p > a:hover, #modal-register header p > a:hover, #modal-forgot-password header p > a:hover, #header-bar .nav-menu > li > a:hover, #header-bar .member-options > li > a:hover, footer .quick-links > li > a:hover {
+a:hover, .dropdown .dropdown-menu li > a:hover, .dropdown .dropdown-menu li > a:active, .dropdown .dropdown-menu li > a:focus, a:active, .menu-link:active, .label-link:active, .label-link-list-v > li > a:active, .label-link-list-h > li > a:active, #header-bar .auth-options > li > a:active, #modal-sign-in header p > a:active, #modal-sign-up header p > a:active, #modal-forgot-password header p > a:active, #header-bar .nav-menu > li > a:active, #header-bar .member-options > li > a:active, footer .quick-links > li > a:active, a:focus, .menu-link:focus, .label-link:focus, .label-link-list-v > li > a:focus, .label-link-list-h > li > a:focus, #header-bar .auth-options > li > a:focus, #modal-sign-in header p > a:focus, #modal-sign-up header p > a:focus, #modal-forgot-password header p > a:focus, #header-bar .nav-menu > li > a:focus, #header-bar .member-options > li > a:focus, footer .quick-links > li > a:focus, .menu-link:hover, .label-link:hover, .label-link-list-v > li > a:hover, .label-link-list-h > li > a:hover, #header-bar .auth-options > li > a:hover, #modal-sign-in header p > a:hover, #modal-sign-up header p > a:hover, #modal-forgot-password header p > a:hover, #header-bar .nav-menu > li > a:hover, #header-bar .member-options > li > a:hover, footer .quick-links > li > a:hover {
   color: #E67E22;
   text-decoration: none;
 }
 
-a:active, .dropdown .dropdown-menu li > a:active, .menu-link:active, .label-link:active, .label-link-list-v > li > a:active, .label-link-list-h > li > a:active, #header-bar .auth-options > li > a:active, #modal-login header p > a:active, #modal-register header p > a:active, #modal-forgot-password header p > a:active, #header-bar .nav-menu > li > a:active, #header-bar .member-options > li > a:active, footer .quick-links > li > a:active {
+a:active, .dropdown .dropdown-menu li > a:active, .menu-link:active, .label-link:active, .label-link-list-v > li > a:active, .label-link-list-h > li > a:active, #header-bar .auth-options > li > a:active, #modal-sign-in header p > a:active, #modal-sign-up header p > a:active, #modal-forgot-password header p > a:active, #header-bar .nav-menu > li > a:active, #header-bar .member-options > li > a:active, footer .quick-links > li > a:active {
   color: #5E5E77;
 }
 
-a:focus, .dropdown .dropdown-menu li > a:focus, .menu-link:focus, .label-link:focus, .label-link-list-v > li > a:focus, .label-link-list-h > li > a:focus, #header-bar .auth-options > li > a:focus, #modal-login header p > a:focus, #modal-register header p > a:focus, #modal-forgot-password header p > a:focus, #header-bar .nav-menu > li > a:focus, #header-bar .member-options > li > a:focus, footer .quick-links > li > a:focus {
+a:focus, .dropdown .dropdown-menu li > a:focus, .menu-link:focus, .label-link:focus, .label-link-list-v > li > a:focus, .label-link-list-h > li > a:focus, #header-bar .auth-options > li > a:focus, #modal-sign-in header p > a:focus, #modal-sign-up header p > a:focus, #modal-forgot-password header p > a:focus, #header-bar .nav-menu > li > a:focus, #header-bar .member-options > li > a:focus, footer .quick-links > li > a:focus {
   color: #E67E22;
 }
 
-.menu-link, .label-link, .label-link-list-v > li > a, .dropdown .dropdown-menu .label-link-list-v > li > a, .label-link-list-v > li > .menu-link, .label-link-list-h > li > a, .dropdown .dropdown-menu .label-link-list-h > li > a, .label-link-list-h > li > .menu-link, #header-bar .auth-options > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, #modal-login header p > .menu-link, #modal-register header p > .menu-link, #modal-forgot-password header p > .menu-link, #header-bar .nav-menu > li > a, #header-bar .dropdown .dropdown-menu .nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .member-options > li > a, #header-bar .dropdown .dropdown-menu .member-options > li > a, #header-bar .member-options > li > .menu-link, footer .quick-links > li > a, footer .dropdown .dropdown-menu .quick-links > li > a, .dropdown .dropdown-menu footer .quick-links > li > a, footer .quick-links > li > .menu-link {
+.menu-link, .label-link, .label-link-list-v > li > a, .dropdown .dropdown-menu .label-link-list-v > li > a, .label-link-list-v > li > .menu-link, .label-link-list-h > li > a, .dropdown .dropdown-menu .label-link-list-h > li > a, .label-link-list-h > li > .menu-link, #header-bar .auth-options > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #header-bar .nav-menu > li > a, #header-bar .dropdown .dropdown-menu .nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .member-options > li > a, #header-bar .dropdown .dropdown-menu .member-options > li > a, #header-bar .member-options > li > .menu-link, footer .quick-links > li > a, footer .dropdown .dropdown-menu .quick-links > li > a, .dropdown .dropdown-menu footer .quick-links > li > a, footer .quick-links > li > .menu-link {
   font-weight: 700;
 }
 
-.label-link, .label-link-list-v > li > a, .dropdown .dropdown-menu .label-link-list-v > li > a, .label-link-list-v > li > .menu-link, .label-link-list-v > li > .label-link, #header-bar .nav-menu.label-link-list-v > li > a, #header-bar .member-options.label-link-list-v > li > a, footer .quick-links.label-link-list-v > li > a, .label-link-list-h > li > a, .dropdown .dropdown-menu .label-link-list-h > li > a, .label-link-list-h > li > .menu-link, .label-link-list-h > li > .label-link, #header-bar .nav-menu.label-link-list-h > li > a, #header-bar .member-options.label-link-list-h > li > a, footer .quick-links.label-link-list-h > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, #modal-login header p > .menu-link, #modal-register header p > .menu-link, #modal-forgot-password header p > .menu-link, #modal-login header p > .label-link, #modal-register header p > .label-link, #modal-forgot-password header p > .label-link {
+.label-link, .label-link-list-v > li > a, .dropdown .dropdown-menu .label-link-list-v > li > a, .label-link-list-v > li > .menu-link, .label-link-list-v > li > .label-link, #header-bar .nav-menu.label-link-list-v > li > a, #header-bar .member-options.label-link-list-v > li > a, footer .quick-links.label-link-list-v > li > a, .label-link-list-h > li > a, .dropdown .dropdown-menu .label-link-list-h > li > a, .label-link-list-h > li > .menu-link, .label-link-list-h > li > .label-link, #header-bar .nav-menu.label-link-list-h > li > a, #header-bar .member-options.label-link-list-h > li > a, footer .quick-links.label-link-list-h > li > a, #header-bar .dropdown .dropdown-menu .auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a, #modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #modal-sign-in header p > .label-link, #modal-sign-up header p > .label-link, #modal-forgot-password header p > .label-link {
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -240,6 +240,10 @@ Buttons
   }
 }
 
+a.btn-action, .dropdown .dropdown-menu li > a.btn-action, .btn-action.menu-link, .btn-action.label-link, .label-link-list-v > li > a.btn-action, .label-link-list-h > li > a.btn-action, #header-bar .auth-options > li > a.btn-action, #modal-sign-in header p > a.btn-action, #modal-sign-up header p > a.btn-action, #modal-forgot-password header p > a.btn-action, #header-bar .nav-menu > li > a.btn-action, #header-bar .member-options > li > a.btn-action, footer .quick-links > li > a.btn-action, a.btn-action-alt, .dropdown .dropdown-menu li > a.btn-action-alt, .btn-action-alt.menu-link, .btn-action-alt.label-link, .label-link-list-v > li > a.btn-action-alt, .label-link-list-h > li > a.btn-action-alt, #header-bar .auth-options > li > a.btn-action-alt, #modal-sign-in header p > a.btn-action-alt, #modal-sign-up header p > a.btn-action-alt, #modal-forgot-password header p > a.btn-action-alt, #header-bar .nav-menu > li > a.btn-action-alt, #header-bar .member-options > li > a.btn-action-alt, footer .quick-links > li > a.btn-action-alt {
+  line-height: 2.5;
+}
+
 /* ==========================================================================
 Forms Controls
 ========================================================================== */
@@ -328,7 +332,7 @@ Forms Controls
 }
 
 .custom-form-group {
-  margin: 10px auto;
+  margin: 0 auto 15px;
 }
 
 .custom-form-group label {
@@ -718,6 +722,133 @@ Other components.
   color: #E67E22;
 }
 
+.jumbotron > * {
+  margin-bottom: 15px;
+}
+
+.jumbotron .title {
+  color: #660066;
+  font-size: 70px;
+  letter-spacing: -2px;
+}
+
+.breadcrumbs {
+  list-style: none outside none;
+  padding: 0;
+  right: 10px;
+}
+
+.breadcrumbs li {
+  display: inline-block;
+}
+
+.breadcrumbs li.active {
+  color: #E67E22;
+}
+
+.breadcrumbs li.delim {
+  font-size: 12px;
+  color: #C9CAD1;
+  vertical-align: middle;
+}
+
+.sidebar {
+  list-style: none outside none;
+  padding: 0;
+  border-right: 1px solid #DFDFD0;
+}
+
+.sidebar li {
+  position: relative;
+  min-height: 45px;
+  margin-right: -1px;
+}
+
+.sidebar li a, .sidebar .dropdown .dropdown-menu li > a, .dropdown .dropdown-menu .sidebar li > a, .sidebar li .menu-link, .sidebar li .label-link, .sidebar #header-bar .auth-options > li > a, #header-bar .sidebar .auth-options > li > a, .sidebar li #modal-sign-in header p > a, #modal-sign-in header .sidebar li p > a, .sidebar li #modal-sign-up header p > a, #modal-sign-up header .sidebar li p > a, .sidebar li #modal-forgot-password header p > a, #modal-forgot-password header .sidebar li p > a, .sidebar #header-bar .nav-menu > li > a, #header-bar .sidebar .nav-menu > li > a, .sidebar #header-bar .member-options > li > a, #header-bar .sidebar .member-options > li > a, .sidebar footer .quick-links > li > a, footer .sidebar .quick-links > li > a, .sidebar li span {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.sidebar li.active {
+  color: #E67E22;
+  border-right: 1px solid #E67E22;
+}
+
+.flash-message {
+  background-color: #EFEFF1;
+  border-top: 1px solid #DFDFD0;
+  border-bottom: 1px solid #DFDFD0;
+  position: relative;
+  min-height: 55px;
+  margin-bottom: 5px;
+}
+
+.flash-message > [class*="col-"] {
+  min-height: 55px;
+}
+
+.flash-message .message-line {
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 30px;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 90%;
+  font-weight: 400;
+  color: #E67E22;
+}
+
+.flash-message .section-close {
+  overflow: hidden;
+  border: 1px solid;
+  position: relative;
+  display: inline-block;
+  min-width: 30px;
+  height: 30px;
+  padding: 0;
+  font-weight: 400;
+  text-align: center;
+  color: #C9CAD1;
+  background-color: transparent;
+  border-color: transparent;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.flash-message .section-close:hover {
+  color: #E67E22;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.flash-message .section-close:active {
+  color: #5E5E77;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.flash-message .section-close span, .flash-message .section-close i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 30px;
+}
+
 /* ==========================================================================
 Sections
 ========================================================================== */
@@ -850,7 +981,7 @@ body {
 
 #header-bar {
   position: relative;
-  margin-top: 30px;
+  margin: 30px 0 10px;
 }
 
 #header-bar .menu-toggle, #header-bar .search-toggle {
@@ -943,10 +1074,6 @@ body {
   padding: 5px;
 }
 
-#header-bar .divider {
-  margin-top: 10px;
-}
-
 @media (max-width: 768px) {
   #header-bar {
     margin-top: 20px;
@@ -968,7 +1095,7 @@ body {
 }
 
 main {
-  min-height: 300px;
+  min-height: 500px;
 }
 
 main .placeholder p {
@@ -985,7 +1112,7 @@ main .placeholder p {
 
 @media (max-width: 768px) {
   main {
-    min-height: 200px;
+    min-height: 300px;
   }
   main .placeholder p {
     -webkit-transform: translateY(60px);
@@ -997,8 +1124,7 @@ main .placeholder p {
 }
 
 footer {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 30px 0;
 }
 
 footer .divider-1 {
@@ -1099,6 +1225,14 @@ footer .copyright p {
   footer .divider-2 {
     margin: 5px auto 10px;
   }
+}
+
+.subview-wrapper {
+  padding-left: 50px;
+}
+
+.subview-wrapper form > .divider, .subview-wrapper .dropdown .dropdown-menu form > .divider, .dropdown .dropdown-menu .subview-wrapper form > .divider {
+  margin-bottom: 30px;
 }
 
 .modals-wrapper {
@@ -1226,7 +1360,7 @@ footer .copyright p {
   transition: all 0.5s;
 }
 
-#modal-login .brand, #modal-register .brand, #modal-forgot-password .brand {
+#modal-sign-in .brand, #modal-sign-up .brand, #modal-forgot-password .brand {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1235,34 +1369,34 @@ footer .copyright p {
           transform: translate(-50%, -50%);
 }
 
-#modal-login header p > .menu-link, #modal-register header p > .menu-link, #modal-forgot-password header p > .menu-link, #modal-login header p > .label-link, #modal-register header p > .label-link, #modal-forgot-password header p > .label-link, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a {
+#modal-sign-in header p > .menu-link, #modal-sign-up header p > .menu-link, #modal-forgot-password header p > .menu-link, #modal-sign-in header p > .label-link, #modal-sign-up header p > .label-link, #modal-forgot-password header p > .label-link, #modal-sign-in header p > a, #modal-sign-up header p > a, #modal-forgot-password header p > a {
   margin-left: 5px;
 }
 
 @media (min-width: 1200px) {
-  #modal-login header [class*='col-'], #modal-register header [class*='col-'], #modal-forgot-password header [class*='col-'] {
+  #modal-sign-in header [class*='col-'], #modal-sign-up header [class*='col-'], #modal-forgot-password header [class*='col-'] {
     position: relative;
     display: inline-block;
     min-height: 60px;
   }
-  #modal-login header [class*='col-'] > *, #modal-register header [class*='col-'] > *, #modal-forgot-password header [class*='col-'] > * {
+  #modal-sign-in header [class*='col-'] > *, #modal-sign-up header [class*='col-'] > *, #modal-forgot-password header [class*='col-'] > * {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
             transform: translateY(-50%);
   }
-  #modal-login header p, #modal-register header p, #modal-forgot-password header p {
+  #modal-sign-in header p, #modal-sign-up header p, #modal-forgot-password header p {
     width: 95%;
     text-align: right;
   }
 }
 
-#modal-login .brand-col {
+#modal-sign-in .brand-col {
   min-height: 390px;
 }
 
-#modal-register .brand-col {
+#modal-sign-up .brand-col {
   min-height: 550px;
 }
 
@@ -1361,7 +1495,7 @@ main > section.row > [class*='col-'] {
   display: inline-block;
 }
 
-.deals-specs .share-options ul.social-share-links li a, .deals-specs .share-options ul.social-share-links li .menu-link, .deals-specs .share-options ul.social-share-links li .label-link, .deals-specs .share-options ul.social-share-links #header-bar .auth-options > li > a, #header-bar .deals-specs .share-options ul.social-share-links .auth-options > li > a, .deals-specs .share-options ul.social-share-links li #modal-login header p > a, #modal-login header .deals-specs .share-options ul.social-share-links li p > a, .deals-specs .share-options ul.social-share-links li #modal-register header p > a, #modal-register header .deals-specs .share-options ul.social-share-links li p > a, .deals-specs .share-options ul.social-share-links li #modal-forgot-password header p > a, #modal-forgot-password header .deals-specs .share-options ul.social-share-links li p > a, .deals-specs .share-options ul.social-share-links #header-bar .nav-menu > li > a, #header-bar .deals-specs .share-options ul.social-share-links .nav-menu > li > a, .deals-specs .share-options ul.social-share-links #header-bar .member-options > li > a, #header-bar .deals-specs .share-options ul.social-share-links .member-options > li > a {
+.deals-specs .share-options ul.social-share-links li a, .deals-specs .share-options ul.social-share-links li .menu-link, .deals-specs .share-options ul.social-share-links li .label-link, .deals-specs .share-options ul.social-share-links #header-bar .auth-options > li > a, #header-bar .deals-specs .share-options ul.social-share-links .auth-options > li > a, .deals-specs .share-options ul.social-share-links li #modal-sign-in header p > a, #modal-sign-in header .deals-specs .share-options ul.social-share-links li p > a, .deals-specs .share-options ul.social-share-links li #modal-sign-up header p > a, #modal-sign-up header .deals-specs .share-options ul.social-share-links li p > a, .deals-specs .share-options ul.social-share-links li #modal-forgot-password header p > a, #modal-forgot-password header .deals-specs .share-options ul.social-share-links li p > a, .deals-specs .share-options ul.social-share-links #header-bar .nav-menu > li > a, #header-bar .deals-specs .share-options ul.social-share-links .nav-menu > li > a, .deals-specs .share-options ul.social-share-links #header-bar .member-options > li > a, #header-bar .deals-specs .share-options ul.social-share-links .member-options > li > a {
   font-size: 24px;
   line-height: 1rem;
   padding: 0;
@@ -1410,4 +1544,9 @@ main > section.row > [class*='col-'] {
 
 .section-label {
   margin-bottom: 15px;
+}
+
+.shopper-img {
+  margin: -60px 0 -47px 120px;
+  pointer-events: none;
 }

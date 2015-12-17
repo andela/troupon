@@ -10,7 +10,7 @@
 {% block subview %}
   <div class="row">
     <div class="col-sm-7">
-      <form action="{% url 'uaccount_profile' %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+      <form action="{% url 'account_profile' %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         
         <div class="custom-form-group">
           <label>Location <span class="label-asterik">*</span></label>

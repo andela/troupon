@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.base import TemplateView
 from django.template import RequestContext
 from django.contrib import messages
-from django.db.models import Model
 
 from authentication.views import LoginRequiredMixin
 from forms import UserProfileForm
@@ -20,6 +20,10 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         context_var = super(UserProfileView, self).get_context_data(**kwargs)
         context_var.update({
             'profile': self.request.user.profile,
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'Profile', },
+            ]
         })
         return context_var
 
@@ -50,15 +54,8 @@ class MerchantIndexView(LoginRequiredMixin, TemplateView):
     OR redirects to show the the status of the merchant's application
     OR show the approved message with a link to the merchant dashboard.
     """
-    def get(self, request, *args, **kwargs):
 
-        # define the base breadcrumbs for this view:
-        context = {
-            'breadcrumbs': [
-                {'name': 'My Account', 'url': reverse('account')},
-                {'name': 'Merchant', },
-            ]
-        }
+    def get(self, request, *args, **kwargs):
         # use the merchant status fields to determine which
         # view to show or redirect to:
         try:
@@ -67,8 +64,16 @@ class MerchantIndexView(LoginRequiredMixin, TemplateView):
             else:
                 redirect(reverse('account_merchant_confirm'))
 
-        except Model.DoesNotExist:
-            template_name = 'account/become_a_merchant.html'
-            context['breadcrumbs'].push({'name': 'Get Started', })
+        except AttributeError:
+            pass
 
+        # define the base breadcrumbs for this view:
+        context = {
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'Merchant', },
+                {'name': 'Get Started', },
+            ]
+        }
+        template_name = 'account/become_a_merchant.html'
         return render(request, template_name, context)

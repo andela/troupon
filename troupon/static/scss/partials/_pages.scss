@@ -10,6 +10,8 @@ main > section.row {
   }
 }
 
+// home page:
+
 .flickity-gallery {
   
   .gallery-cell {
@@ -39,6 +41,8 @@ main > section.row {
     margin-bottom: 40px;
   }
 }
+
+// deal details:
 
 .image-wrapper {
   height: 410px;
@@ -96,4 +100,12 @@ main > section.row {
 
 .section-label {
   margin-bottom: 15px;
+}
+
+
+// merchant get-started
+
+.shopper-img{
+  margin: -60px 0 -47px 120px;
+  pointer-events: none;
 }
