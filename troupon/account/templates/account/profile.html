@@ -1,79 +1,59 @@
-{% extends "base.html" %}
+{% extends "account/profile_base.html" %}
 {% load static%}
 
-{% block main %}
+{% block sidebar_menu %}
+  {% with active_tab='My profile' %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock sidebar_menu %}
 
-    <section class="row">
-        <!-- heading -->
-        {% include "snippet_section_heading.html" with title="My Account"  description="Manage account settings and profile information" %}
-    </section>
- 
-    {% if messages %}
-        <div class="alert alert-warning alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    <section class = "row">
+{% block subview %}
+  <div class="row">
+    <div class="col-sm-7">
+      <form action="{% url 'uaccount_profile' %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         
-        <div class="col-md-2">
-            <a href = "#" id ="profile">Profile</a><br>
-            <a href = "#">Edit Profile</a><br>
-            <a href = "">History</a><br>
-
-            <a href="#" class="modal-toggle" data-modal-target="#modal-change-password">Change Password</a><br>
+        <div class="custom-form-group">
+          <label>Location <span class="label-asterik">*</span></label>
+          <div class="custom-input-group">
+            <span class="left-icon"><i class="fa fa-map-marker"></i></span>
+            <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+            <select name="city" placeholder="Select City">
+              {% for city in cities %}
+                <option value="{{ city.0 }}" {% if city.0 == search_options.default_city %}selected{% endif %} >
+                  {{ city.1 }}
+                </option>
+              {% endfor %}
+            </select>
+          </div> 
         </div>
 
-        <div class="col-md-6">
+        <div class="custom-form-group">
+          <label>First Name <span class="label-asterik">*</span></label>
+          <div class="custom-input-group">
+          <input type="text" name="first_name" id="" value="" placeholder="{{ profile.first_name }}">
+          </div>
+        </div>
 
-            <div class="container">
-                <p>Email: {{ request.user.email }}</p>
-                <p> Username: {{ request.user.username }}</p>
+        <div class="custom-form-group">
+          <label>Last Name <span class="label-asterik">*</span></label>
+          <div class="custom-input-group">
+          <input type="text" name="last_name" id="" value="" placeholder="{{ profile.last_name }}">
+          </div>
+        </div>
 
-                <p> Firstname: {{ profile.first_name}}</p>
-                <p> Lastname:  {{ profile.last_name }} 
-                <p> Interest:  {{ profile.interest }} </p>
-            </div>
+        <div class="divider"></div>
 
-            <form action="{% url 'userprofile' %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                <div class="form-group col-lg-12">
-                    <label>Location: </label>
-                    <select name="user_state" placeholder="Ikeja.Lagos">
-                    {% for choice in states.choices %}
-                        <option value="{{ choice.0 }}" {% if choice.0 == states.default %}selected{% endif %} >
-                            {{ choice.1 }}
-                        </option>
-                    {% endfor %}
-                    </select>
-                 </div>            
-                <div class="custom-form-group col-lg-6">
-                    <label>First Name</label>
-                    <div class="custom-input-group">
-                    <input type="text" name="first_name" class="form-control" id="" value="" placeholder="{{ profile.first_name }}">
-                    </div>
-                </div>
-                <div class="custom-form-group col-lg-6">
-                    <label>Last Name</label>
-                    <div class="custom-input-group">
-                    <input type="text" name="last_name" class="form-control" id="" value="" placeholder="{{ profile.last_name }}">
-                    </div>
-                </div>
-                <hr>
-                <div class="custom-form-group col-lg-12">
-                    <label>Interest</label>
-                    <div class="custom-input-group">
-                    <input type="text" name="interest" class="form-control" id="" value="" placeholder="{{ profile.interest }}">
-                    </div>
-                </div><br>            
-                <div class="custom-form-group btn-lg col-lg-1">
-                    <input type = "submit", value = "Save Changes" align="left" class="btn-action" />
-                </div>
-            </form>
-            
-        </div>           
-    </section>
+        <div class="custom-form-group">
+          <label>Interests <span class="label-asterik">*</span></label>
+          <div class="custom-input-group">
+          <input type="text" name="interest" id="" value="" placeholder="{{ profile.interest }}">
+          </div>
+        </div>
 
-{% endblock %}
+        <button type="submit" class="btn-action btn-form-submit">Save Changes</button>
+
+      </form> 
+    </div>
+  </div>
+
+{% endblock subview %}
