@@ -1,31 +1,31 @@
 <div class="pagination">
-    {% if page.paginator.count %}
-    
-    <span class="info">Showing {{ page.start_index }} - {{ page.end_index }} of {{ page.paginator.count }} {% if page.paginator.count > 1 %}items{% else %}item{% endif %}</span>
-    
-    <span class="links">
-        Page: 
-        <ol>
-            {% if page.has_previous %}
-                <li><a href="{{ pagination_base_url }}?pg={{ page.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
-            {% endif %}
+  {% if page.paginator.count %}
+  
+  <span class="info">Showing {{ page.start_index }} - {{ page.end_index }} of {{ page.paginator.count }} {% if page.paginator.count > 1 %}items{% else %}item{% endif %}</span>
+  
+  <span class="links">
+    Page: 
+    <ol>
+      {% if page.has_previous %}
+        <li><a href="{{ pagination_base_url }}?pg={{ page.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+      {% endif %}
 
-            {% for page_number in page.paginator.page_range %}
+      {% for page_number in page.paginator.page_range %}
 
-                {% if page_number != page.number %}
-                    <li><a href="{{ pagination_base_url }}?pg={{ page_number }}">{{ page_number }}</a></li>
-                {% else %}
-                    <li><span class="current-page-num">{{ page_number }}</span></li>
-                {% endif %}  
+        {% if page_number != page.number %}
+          <li><a href="{{ pagination_base_url }}?pg={{ page_number }}">{{ page_number }}</a></li>
+        {% else %}
+          <li><span class="current-page-num">{{ page_number }}</span></li>
+        {% endif %}  
 
-            {% endfor %}
+      {% endfor %}
 
-            {% if page.has_next %}
-                <li><a href="{{ pagination_base_url }}?pg={{ page.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
-            {% endif %}
-        </ol>
-    </span>
+      {% if page.has_next %}
+        <li><a href="{{ pagination_base_url }}?pg={{ page.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+      {% endif %}
+    </ol>
+  </span>
 
-    {% endif %}
+  {% endif %}
 
 </div>
