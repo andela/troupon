@@ -21,7 +21,12 @@ class UserProfileTestCase(TestCase):
         response = self.client_stub.get("/account/")
         self.assertEquals(response.status_code, 302)
 
-    def test_user_user_profile_page(self):
+    def test_user_account_profile_page(self):
 
         response = self.client_stub.get("/account/profile/")
+        self.assertEquals(response.status_code, 302)
+
+    def test_user_account_merchant_view(self):
+
+        response = self.client_stub.get("/account/merchant/")
         self.assertEquals(response.status_code, 302)

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block search %}
+  <!-- no search bar on this page -->
+{% endblock search %} 
+
+{% block main %}
+
+  <section class="row">
+    <!-- heading -->
+    {% block heading %}
+      {% include "snippet_section_heading.html" %}
+    {% endblock heading %}
+  </section>
+
+  <section class = "row">
+    
+    <div class="col-sm-2">
+      <ul class="sidebar">
+
+        {% block sidebar_menu %}
+        
+        {% comment %}
+
+        Override this block to place the sidebar menu items here using this format:
+
+        {% url 'named-url-1' [username=request.user.username] as url %}
+        {% include "snippet_sidebar_item.html" with name='Item Name 1' url=url %}
+
+        {% url 'named-url-2' [username=request.user.username] as url %}
+        {% include "snippet_sidebar_item.html" with name='Item Name 2' url=url %}
+
+        {% url 'named-url-3' [username=request.user.username] as url %}
+        {% include "snippet_sidebar_item.html" with name='Item Name 3' url=url %}
+        
+        {% endcomment %}
+
+      {% endblock sidebar_menu %}
+
+      </ul>
+    </div>
+
+    <div class="col-sm-10">
+      <div class="row subview-wrapper">
+        
+        <div class="col-sm-12">
+          {% include "snippet_messages.html" %}
+        </div>
+
+        <div class="col-sm-12">
+
+          {% block subview %}
+
+            {# override this block with your subview content #}
+
+          {% endblock subview %}
+
+        <div class="col-sm-12">
+
+      </div>
+    </div>
+
+  </section>
+
+{% endblock main %}

@@ -4,7 +4,7 @@ import sendgrid
 from sendgrid import SendGridClientError, SendGridServerError
 
 
-class SendGrid:
+class SendGrid(object):
     """
     This class is used to send emails using the requests
     module to the sendgrid message api.

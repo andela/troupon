@@ -56,6 +56,10 @@ Buttons
   margin: 15px auto;
 }
 
+a.btn-action, a.btn-action-alt {
+  line-height: 2.5;
+}
+
 
 
 /* ==========================================================================
@@ -69,7 +73,7 @@ Forms Controls
 
 .custom-form-group {
   @include form-group-mixin();
-  margin: 10px auto;
+  margin: 0 auto 15px;
 }
 
 .label-asterik {
@@ -419,5 +423,76 @@ Other components.
     .current-page-num {
       color: color(accent);
     }
+  }
+}
+
+.jumbotron {
+  & > * {
+    margin-bottom: 15px;
+  }
+  .title {
+    color: color(h1);
+    font-size: 70px;
+    letter-spacing: -2px;
+  }
+}
+
+.breadcrumbs {
+  @include unstyled-h-list-mixin();
+  right: 10px;
+  
+  li.active {
+    color: color(accent);
+  }
+  li.delim {
+    font-size: font-size(breadcrumbs-caret);
+    color: color(icon-light);
+    vertical-align: middle;
+  }
+}
+
+.sidebar {
+  @include unstyled-list-mixin();
+  border-right: 1px solid color(divider);
+  li {
+    position: relative;
+    min-height: component-height(sidebar-item);
+    margin-right: -1px;
+    a, span {
+      @include v-middle;
+    }
+  }
+  li.active {
+    color: color(accent);
+    border-right: 1px solid color(accent);
+  }
+}
+
+.flash-message {
+  @include shaded-border;
+  position: relative;
+  min-height: component-height(flash-message);
+  margin-bottom: 5px;
+
+  & > [class*="col-"] {
+    min-height: component-height(flash-message);
+  }
+
+  .message-line {
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    width: 90%;
+    font-weight: font-weight(regular);
+    color: color(accent);
+  }
+  .section-close {
+    @include btn-icon-mixin (btn-icon, icon-size(md), rect);
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
   }
 }

@@ -1,53 +1,53 @@
 {% load staticfiles %}
-                <!--Sign up modal-->
-                <div class="modal-view" id="modal-register">
-                    <div class="row">
-                        <div class="col-sm-5 hidden-xs brand-col">
-                            <div class="brand">
-                               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
-                            </div>
-                        </div>
-                        <div class="col-xs-11 col-sm-5">
-                            <header class="row">
-                                <div class="col-lg-4">
-                                    <h1>Register</h1>
-                                </div>
-                                <div class="col-lg-8">
-                                    <p>Already have an account? <a href="" class="modal-toggle" data-modal-target="#modal-login">Log in</a></p>
-                                </div>
-                            </header>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form action="{% url 'register' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                                        <div class="custom-form-group">
-                                            <label for="email">Email <span class="label-asterik">*</span></label>
-                                            <div class="custom-input-group">
-                                                <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
-                                            </div>
-                                        </div>
-                                        <div class="custom-form-group">
-                                            <label for="username">Username <span class="label-asterik">*</span></label>
-                                            <div class="custom-input-group">
-                                                <input type="text" name="username" id="username" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="custom-form-group">
-                                            <label for="password1">Password <span class="label-asterik">*</span></label>
-                                            <div class="custom-input-group">
-                                                <input type="password" name="password1" id="password1" placeholder="At least 6 characters.">
-                                            </div>
-                                        </div>
-                                        <div class="custom-form-group">
-                                            <label for="password2">Confirm Password <span class="label-asterik">*</span></label>
-                                            <div class="custom-input-group">
-                                                <input type="password" name="password2" id="password2" placeholder="Must match Password above.">
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn-action btn-form-submit">Register</button>
-                                        <!--<a class="social-auth" href="">Sign up with Facebook</a>-->
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--Sign up modal-->
+<div class="modal-view" id="modal-register">
+  <div class="row">
+    <div class="col-sm-5 hidden-xs brand-col">
+      <div class="brand">
+         <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+      </div>
+    </div>
+    <div class="col-xs-11 col-sm-5">
+      <header class="row">
+        <div class="col-lg-4">
+          <h1>Register</h1>
+        </div>
+        <div class="col-lg-8">
+          <p>Already have an account? <a href="" class="modal-toggle" data-modal-target="#modal-login">Log in</a></p>
+        </div>
+      </header>
+      <div class="row">
+        <div class="col-sm-12">
+          <form action="{% url 'register' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <div class="custom-form-group">
+              <label for="email">Email <span class="label-asterik">*</span></label>
+              <div class="custom-input-group">
+                <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
+              </div>
+            </div>
+            <div class="custom-form-group">
+              <label for="username">Username <span class="label-asterik">*</span></label>
+              <div class="custom-input-group">
+                <input type="text" name="username" id="username" placeholder="">
+              </div>
+            </div>
+            <div class="custom-form-group">
+              <label for="password1">Password <span class="label-asterik">*</span></label>
+              <div class="custom-input-group">
+                <input type="password" name="password1" id="password1" placeholder="At least 6 characters.">
+              </div>
+            </div>
+            <div class="custom-form-group">
+              <label for="password2">Confirm Password <span class="label-asterik">*</span></label>
+              <div class="custom-input-group">
+                <input type="password" name="password2" id="password2" placeholder="Must match Password above.">
+              </div>
+            </div>
+            <button type="submit" class="btn-action btn-form-submit">Register</button>
+            <!--<a class="social-auth" href="">Sign up with Facebook</a>-->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

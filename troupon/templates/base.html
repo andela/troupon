@@ -11,7 +11,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+  <!-- title and favicon -->
   <title>Troupon - {% block title %}Get Some!{% endblock title %}</title>
+  <link rel="icon" href="{% static 'img/icon.png' %}" type="image/x-icon">
   
   {% block base_css %}
   <!-- Bootstrap Core -->
@@ -106,15 +108,15 @@
                   <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-user fa-fw"></i> <span class="caret"></span></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                      <li class="dropdown-header">Signed in as:</li>
-                      <li><a href="">{{request.user.username }}</a></li>
-
-                      <li class="divider"></li>
-                      <li><a href="{% url 'userprofile' %}"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
-                      <li><a href=""><i class="fa fa-key fa-fw"></i> Change Password</a></li>
-                      <li><a href=""><i class="fa fa-th-list fa-fw"></i> View History</a></li>
+                      <li class="dropdown-header">Logged in as:</li>
+                      <li class="user-info">{{request.user.username|title }}</li>
+                      <li><div class="divider"></div></li>
+                      <li><a href="{% url 'account_profile' %}">My Profile</a></li>
+                      <li><a href=""></i>Change Password</a></li>
+                      <li><a href=""></i>Preferences</a></li>
+                      <li><a href=""></i>History</a></li>
                       <li  class="divider"></li>
-                      <li><a href="{% url 'logout' %}"><i class="fa fa-lock fa-fw"></i> Sign Out</a></li>
+                      <li><a href="{% url 'logout' %}">Log Out</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -128,7 +130,6 @@
               </div>
             </div>
           </div>
-          <div class="divider"></div>
         </header>
         {% endif %}
         {% endblock header %}
@@ -185,7 +186,7 @@
           <div class="row">
             <div class="col-sm-3 col-md-3 col-lg-3">
               <h4>Troupon Loyalties Ltd.</h4>
-              <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerci tation.</p>
+              <p>Troupon is a marketing service that offers its subscribers daily discount coupons. Typical Troupon deals focus on local restaurants, stores, services, events and regional products.</p>
             </div>
             <div class="col-sm-offset-1 col-sm-2 col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-1">
               <h4>Quick links</h4>

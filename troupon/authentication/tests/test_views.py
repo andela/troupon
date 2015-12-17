@@ -87,7 +87,7 @@ class UserRegisterViewTestCase(LiveServerTestCase):
 
         # assert user is signed in
         self.driver.implicitly_wait(20)
-        self.assertIn("Signed in as:", self.driver.page_source)
+        self.assertIn("Logged in as:", self.driver.page_source)
 
     def test_user_can_register(self,):
         """

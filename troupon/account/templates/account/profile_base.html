@@ -1,0 +1,31 @@
+{% extends "dashboard_base.html" %}
+{% load static %}
+
+
+{% block heading %}
+
+  {% with title="My Account"  description="Manage your account settings and profile information, etc." %}
+    {{ block.super }}
+  {% endwith %}
+
+{% endblock heading %}
+
+
+{% block sidebar_menu %}
+
+  {% url 'account_profile' as url %}
+  {% include "snippet_sidebar_item.html" with name='My Profile' url=url %}
+
+  {% url 'account_change_password' as url %}
+  {% include "snippet_sidebar_item.html" with name='Change Password' url=url %}
+
+  {% url 'account_preferences' as url %}
+  {% include "snippet_sidebar_item.html" with name='Preferences' url=url %}
+
+  {% url 'account_history' as url %}
+  {% include "snippet_sidebar_item.html" with name='History' url=url %}
+
+  {% url 'account_merchant' as url %}
+  {% include "snippet_sidebar_item.html" with name='Merchant' url=url %}
+
+{% endblock sidebar_menu %}
