@@ -1,12 +1,8 @@
-{% extends "base.html" %}
+{% extends "conversations/conversations_base.html" %}
 
 {% load static %}
 
-
-{% block custom_css %}
-{% endblock %}
-
-{% block main %}
+{% block subview %}
 <div class="row">
     <div class="col-sm-12">
         <a href="{% url 'messages' %}">Back to Inbox</a>
@@ -53,7 +49,7 @@
     </div>
 
 </div>
-{% endblock %}
+{% endblock subview %}
 
 {% block extended_js %}
     <script type="text/javascript" src="{% static 'js/messaging.js' %}"></script>

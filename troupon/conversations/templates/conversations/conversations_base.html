@@ -1,0 +1,19 @@
+{% extends "dashboard_base.html" %}
+{% load static %}
+
+
+{% block heading %}
+
+  {% with title="My Messages"  description="Start, Read, and Reply to a conversation" %}
+    {{ block.super }}
+  {% endwith %}
+
+{% endblock heading %}
+
+
+{% block sidebar_menu %}
+
+  {% url 'messages' as url %}
+  {% include "snippet_sidebar_item.html" with name='Inbox' url=url %}
+
+{% endblock sidebar_menu %}

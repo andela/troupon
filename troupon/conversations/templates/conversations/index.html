@@ -1,10 +1,7 @@
-{% extends "base.html" %}
+{% extends "conversations/conversations_base.html" %}
 {% load static %}
 
-{% block custom_css %}
-{% endblock %}
-
-{% block main %}
+{% block subview %}
 <div class="row">
     <div class="col-sm-12">
         <a href="#" id="compose-btn">Compose <i class="fa fa-chevron-right"></i></a>
@@ -45,7 +42,7 @@
     {% endfor %}
 </div>
 
-{% endblock %}
+{% endblock subview %}
 
 {% block extended_js %}
     <script type="text/javascript" src="{% static 'js/messaging.js' %}"></script>
