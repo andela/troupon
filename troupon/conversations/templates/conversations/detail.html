@@ -2,21 +2,29 @@
 
 {% load static %}
 
+{% block sidebar_menu %}
+  
+      {{ block.super }}
+
+{% endblock sidebar_menu %}
+
 {% block subview %}
-<div class="row">
-    <div class="col-sm-12">
-        <a href="{% url 'messages' %}">Back to Inbox</a>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-sm-12">
-        <div class="strip{% if mesg.is_unread %} unread{% endif %}">
-            <div><strong>{{ mesg.sender }}</strong> <span>{{ mesg.sent_at }}</span></div>
-            <h3><a href="{% url 'message' m_id=mesg.id %}">{{ mesg.subject }}</a></h3>
-            <p>{{ mesg.body }}</p>
-            <div class="">
-                <a href="#" id="reply-btn">Reply <i class="fa fa-chevron-right"></i></a>
+        <div class="row strip{% if mesg.is_unread %} unread{% endif %}">
+            <div class="col-sm-12 subject">
+                <span class="message-type">{{ mesg.get_type_display }}</span> <span>{{ mesg.subject|default:mesg.parent_msg.subject }}</span>
+            </div>
+            <div class="col-sm-8">
+                <strong>{{ mesg.sender }}</strong> ({{mesg.sender.email}})
+                 <date>{{ mesg.sent_at }}</date>
+            </div>
+            <div class="col-sm-12">To: <strong>{{ mesg.parent_msg.sender|default:mesg.recipient }}</strong></div>
+            
+            <div class="col-sm-12 message">{{ mesg.body }}</div>
+            <div class="col-sm-12">
+                <a href="#" id="reply-btn"><em>Reply</em> <i class="fa fa-fw fa-chevron-right"></i></a>
             </div>
         </div>
 
@@ -24,7 +32,7 @@
         <div id="compose-form" class="col-sm-6 hidden">
             <form action="{% url 'message' m_id=mesg.id  %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" name="parent_msg" value="{{mesg.id}}" />
+                <input type="hidden" name="parent_msg" value="{{ mesg.parent_msg.id|default:mesg.id }}" />
                 <input type="hidden" name="recipient" value="{{mesg.sender}}" />
                 <div class="custom-form-group">
                     <textarea name="body" class="form-control" rows=8></textarea>
@@ -35,17 +43,21 @@
     </div>
 
     <div class="col-sm-12">
-
-        {% for letter in other_messages %}
+        
         <div class="row{% if letter.sender == request.user %} from-user{% endif %}">
+            {% for letter in other_messages %}
             <div class="col-sm-12">
+            <div class="divider divider-1"></div>
                 <div class="strip{% if letter.is_unread %} unread{% endif %}">
-                    <div><strong>{{ letter.sender }}</strong> <span>{{ letter.sent_at }}</span></div>
-                    <p>{{ letter.body }}</p>
+                    <div>
+                        <strong>{{ letter.sender }}</strong>
+                         <date>{{ letter.sent_at }}</date>
+                    </div>
+                    <div class="message">{{ letter.body }}</div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 
 </div>

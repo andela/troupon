@@ -1,27 +1,49 @@
-from django.http import Http404
+from django.db.models import Q
 from django.utils import timezone
-from conversations.models import Message
 from django.shortcuts import redirect
 from django.views.generic import View
 from django.contrib.auth.models import User
 from django.contrib import messages as alert
 from django.core.urlresolvers import reverse
 from django.template.response import TemplateResponse
+from conversations.models import Message, MESG_CHOICES
+
+
+class ComposeMessageView(View):
+    def get(self, request):
+        """Show compose view"""
+        if request.user.is_superuser:
+            # grant admin access to list of all registered users
+            #  in the response context
+            context_data = {'users': User.objects.exclude(is_superuser=True)}
+        context_data = {
+            'breadcrumbs': [
+                {'name': 'Merchant', 'url': reverse('account')},
+                {'name': 'Messages', 'url': reverse('messages')},
+                {'name': 'Compose', 'url': reverse('compose_message')},
+            ]
+        }
+        return TemplateResponse(
+            request, 'conversations/compose.html', context_data
+        )
 
 
 class MessagesView(View):
 
     def get(self, request):
         """Read thread topics"""
-        user_id = request.user.id
-        mesgs = Message.objects.extra(
-            where=['recipient_id={} OR sender_id={}'.format(user_id, user_id)]
-        ).filter(parent_msg=None).order_by('-sent_at')
-        context_data = {'messages': mesgs}
-        if request.user.is_superuser:
-            # grant admin access to list of all registered users
-            #  in the response context
-            context_data['users'] = User.objects.exclude(is_superuser=True)
+        u_id = request.user.id
+        mesgs = Message.objects.filter(
+            Q(recipient=u_id) | Q(sender=u_id)
+        ).exclude(~Q(parent_msg=None)).order_by('-sent_at')
+        context_data = {
+            'mesgs': mesgs,
+            'message_choices': MESG_CHOICES,
+            'breadcrumbs': [
+                {'name': 'Merchant', 'url': reverse('account')},
+                {'name': 'Messages', 'url': reverse('messages')},
+            ]
+        }
         return TemplateResponse(
             request, 'conversations/index.html', context_data
         )
@@ -57,22 +79,26 @@ class MessageView(View):
 
     def get(self, request, m_id):
         """Read messages in a conversation"""
-        mesg = Message.objects.get(id=m_id)
-        if mesg.parent_msg:
-            raise Http404("Oops! You shouldn't mess around with URLs")
+        mesg = Message.objects.filter(
+            parent_msg=m_id).latest('sent_at') or Message.objects.get(id=m_id)
         mesg.read_at = timezone.now()  # update last read time
         mesg.save()
 
         # get messages in thread
         other_messages = Message.objects\
-            .filter(parent_msg=mesg.id).order_by('-sent_at')
+            .exclude(Q(id=mesg.id)).order_by('-sent_at')
 
         # update last read time for messages in thread
         other_messages.update(read_at=mesg.read_at)
 
         context_data = {
             'mesg': mesg,
-            'other_messages': other_messages
+            'other_messages': other_messages,
+            'breadcrumbs': [
+                {'name': 'Merchant', 'url': reverse('account')},
+                {'name': 'Messages', 'url': reverse('messages')},
+                {'name': mesg.subject or mesg.parent_msg.subject},
+            ]
         }
         return TemplateResponse(
             request, 'conversations/detail.html', context_data
@@ -83,17 +109,18 @@ class MessageView(View):
         recipient_username = request.POST.get('recipient') or 'admin'
         recipient = User.objects.get(username=recipient_username)
         parent_msg_id = request.POST.get('parent_msg')
-        message = Message.objects.get(id=parent_msg_id)
+        print parent_msg_id
+        message = Message.objects.get(id=int(parent_msg_id))
         message.replied_at = timezone.now()
         message.save()  # update replied at
         parent_msg_id = Message.objects.get(id=m_id)
 
         payload = {
-                'sender': User.objects.get(username=request.user.username),
-                'parent_msg': message,
-                'body': request.POST.get('body'),
-                'recipient': recipient,
-            }  # create reply payload
+            'sender': User.objects.get(username=request.user.username),
+            'parent_msg': message,
+            'body': request.POST.get('body'),
+            'recipient': recipient,
+        }  # create reply payload
         reply = Message(**payload)
         reply.sent_at = timezone.now()
         reply.save()

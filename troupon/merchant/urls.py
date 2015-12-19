@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from conversations.views import MessagesView, MessageView
+from conversations.views import MessagesView, MessageView, ComposeMessageView
 
 urlpatterns = [
     # pattern maps to view handling `POST` and `GET`
@@ -8,6 +8,14 @@ urlpatterns = [
         r'^messages/$',
         MessagesView.as_view(),
         name='messages'
+    ),
+
+    # pattern maps to view handling `GET` requests
+    # to `/merchant/messages/compose`
+    url(
+        r'^messages/compose/$',
+        ComposeMessageView.as_view(),
+        name='compose_message'
     ),
 
     # pattern maps to view handling `POST` and `GET`

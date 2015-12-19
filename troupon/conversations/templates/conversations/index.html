@@ -2,44 +2,34 @@
 {% load static %}
 
 {% block subview %}
+
+
 <div class="row">
-    <div class="col-sm-12">
-        <a href="#" id="compose-btn">Compose <i class="fa fa-chevron-right"></i></a>
-    </div>
-    <div class="col-sm-6 hidden" id="compose-form">
-        <form action="{% url 'messages' %}" method="POST">
-            {% csrf_token %}
+    <table class="table table-responsive">
+        <thead>
+            <th>Created</th>
+            <th>Subject</th>
+            <th>Type</th>
             {% if request.user.is_superuser %}
-                <div class="custom-input-group">
-                    <select name="recipient">
-                        {% for user in users %}
-                            <option value="{{user.username}}">{{user.username}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+                <th>Sender</th>
             {% endif %}
-            <div class="custom-input-group">
-                <input name="subject" placeholder="Subject" type="text" required="yes">
-            </div>
-            <div class="custom-input-group">
-                <textarea name="body" class="form-control" placeholder="Body Content" required="yes" rows=8></textarea>
-            </div>
-            <button class="btn btn-action"><i class="fa fa-paper-plane"></i> Send</button>
-        </form>
-    </div>
-</div>
-
-
-<div class="row">
-    {% for letter in messages %}
-    <div class="col-sm-12">
-        <div class="strip{% if letter.is_unread %} unread{% endif %}">
-            <div><strong>{{ letter.sender }}</strong> <span>{{ letter.sent_at }}</span></div>
-            <h3><a href="{% url 'message' id=letter.id %}">{{ letter.subject }}</a></h3>
-            <p>{{ letter.body|truncatewords:8 }}</p>
-        </div>
-    </div>
-    {% endfor %}
+        </thead>
+        <tbody>
+        {% for letter in mesgs %}
+            <tr>
+                <td>{{ letter.sent_at }}</td>
+                <td><a class="strip{% if letter.is_unread %} unread{% endif %}" 
+                        href="{% url 'message' m_id=letter.id %}">
+                        {{ letter.subject }} ({{ letter.count }})
+                    </a>
+                </td>
+                <td>{{ letter.get_type_display }}</td>
+                {% if request.user.is_superuser %}
+                <td>{{ letter.sender }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
 </div>
 
 {% endblock subview %}

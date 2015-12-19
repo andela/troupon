@@ -4,7 +4,7 @@
 
 {% block heading %}
 
-  {% with title="My Messages"  description="Start, Read, and Reply to a conversation" %}
+  {% with title="My Messages"  description="Start, read, and reply a conversation" %}
     {{ block.super }}
   {% endwith %}
 
@@ -13,6 +13,9 @@
 
 {% block sidebar_menu %}
 
+  {% url 'compose_message' as compose_url %}
+  {% include "snippet_sidebar_item.html" with name='Compose' url=compose_url %}
+  
   {% url 'messages' as url %}
   {% include "snippet_sidebar_item.html" with name='Inbox' url=url %}
 
