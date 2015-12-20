@@ -19,6 +19,7 @@ class MessageTestCase(TestCase):
             'recipient': cls.user2,
             'subject': 'Subject Text',
             'body': 'Body Text',
+            'type': 1,
         }
 
     def test_that_messages_can_be_created(self):

@@ -14,7 +14,7 @@
     <div class="col-sm-12">
         <div class="row strip{% if mesg.is_unread %} unread{% endif %}">
             <div class="col-sm-12 subject">
-                <span class="message-type">{{ mesg.get_type_display }}</span> <span>{{ mesg.subject|default:mesg.parent_msg.subject }}</span>
+                <span class="message-type">{{ mesg.get_type_display }}</span> <span>{% firstof mesg.subject mesg.parent_msg.subject %}</span>
             </div>
             <div class="col-sm-8">
                 <strong>{{ mesg.sender }}</strong> ({{mesg.sender.email}})

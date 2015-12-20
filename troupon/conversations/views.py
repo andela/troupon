@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.views.generic import View
+from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
 from django.contrib import messages as alert
 from django.core.urlresolvers import reverse
@@ -80,10 +81,11 @@ class MessageView(View):
     def get(self, request, m_id):
         """Read messages in a conversation"""
         mesg = Message.objects.filter(
-            parent_msg=m_id).latest('sent_at') or Message.objects.get(id=m_id)
+            parent_msg=m_id) or Message.objects.get(id=m_id)
+        if type(mesg) is QuerySet and mesg.count():
+            mesg = mesg.latest('sent_at')
         mesg.read_at = timezone.now()  # update last read time
         mesg.save()
-
         # get messages in thread
         other_messages = Message.objects\
             .exclude(Q(id=mesg.id)).order_by('-sent_at')
@@ -109,7 +111,7 @@ class MessageView(View):
         recipient_username = request.POST.get('recipient') or 'admin'
         recipient = User.objects.get(username=recipient_username)
         parent_msg_id = request.POST.get('parent_msg')
-        print parent_msg_id
+
         message = Message.objects.get(id=int(parent_msg_id))
         message.replied_at = timezone.now()
         message.save()  # update replied at

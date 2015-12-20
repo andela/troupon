@@ -17,6 +17,7 @@ class MessageRouteTestCase(TestCase):
         cls.msg_stub = {
             'subject': 'Test subject',
             'body': 'Test body',
+            'type': 1,
         }  # message stub
         cls.subject_slug = slugify(cls.msg_stub['subject'])
         cls.admin = User.objects.create_user(
@@ -44,11 +45,11 @@ class MessageRouteTestCase(TestCase):
             reverse('messages'),
             self.msg_stub)
 
-        lastest_msg = Message.objects.latest('sent_at')
+        latest_msg = Message.objects.latest('sent_at')
         self.assertRedirects(
             response,
             reverse(
-                'message', kwargs={'m_id': lastest_msg.id}
+                'message', kwargs={'m_id': latest_msg.id}
             ),
             status_code=302
         )
@@ -217,12 +218,12 @@ class MessagesRouteTestCase(TestCase):
             reverse('messages'),
             self.msg_stub)
 
-        lastest_msg = Message.objects.latest('sent_at')
+        latest_msg = Message.objects.latest('sent_at')
         self.assertRedirects(
             response,
             reverse(
                 'message',
-                kwargs={'m_id': lastest_msg.id}
+                kwargs={'m_id': latest_msg.id}
             ),
             status_code=302
         )
@@ -240,7 +241,7 @@ class MessagesRouteTestCase(TestCase):
         # read messages
         response = self.client.get(
             reverse(
-                'message', kwargs={'m_id': lastest_msg.id})
+                'message', kwargs={'m_id': latest_msg.id})
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.msg_stub['body'])
