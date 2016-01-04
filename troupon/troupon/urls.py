@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^deals/', include('deals.urls')),
     url(r'^account/', include('account.urls')),
     url(r'^merchant/', include('merchant.urls')),
+    url(r'^payment/', include('payment.urls')),
 
     # static pages:
     url(r'^about/',
