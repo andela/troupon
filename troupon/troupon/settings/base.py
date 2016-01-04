@@ -56,6 +56,8 @@ INSTALLED_APPS = (
     'deals',
     'conversations',
     'merchant',
+    'cart',
+    'payment',
 )
 
 MIDDLEWARE_CLASSES = (

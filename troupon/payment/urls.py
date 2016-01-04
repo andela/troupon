@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from payment.views import 
+from payment.views import PaymentProcessView, PaymentStatusView
 
 
 urlpatterns = [
