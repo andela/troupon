@@ -41,3 +41,10 @@ class Message(models.Model):
     @property
     def count(self):
         return Message.objects.filter(parent_msg=self.id).count() + 1
+
+    @classmethod
+    def unread_count(cls, request):
+        unread = Message.objects.filter(
+            recipient=request.user, read_at=None
+        ).exclude(sender=request.user)
+        return unread.count()

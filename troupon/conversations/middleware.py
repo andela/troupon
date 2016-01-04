@@ -6,8 +6,7 @@ class UnreadMessageCount(object):
     """
     def process_template_response(self, request, response):
         context_data = {
-            'unread_mesg_count': Message.objects.filter(
-                recipient=request.user.id).filter(read_at=None).count()
+            'unread_mesg_count': Message.unread_count(request)
         }
         response.context_data.update(context_data)
         return response

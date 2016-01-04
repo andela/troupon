@@ -3,8 +3,9 @@
 {% load static %}
 
 {% block sidebar_menu %}
-  
+  {% with active_tab='Inbox' %}
       {{ block.super }}
+  {% endwith %}
 
 {% endblock sidebar_menu %}
 
@@ -20,7 +21,7 @@
                 <strong>{{ mesg.sender }}</strong> ({{mesg.sender.email}})
                  <date>{{ mesg.sent_at }}</date>
             </div>
-            <div class="col-sm-12">To: <strong>{{ mesg.parent_msg.sender|default:mesg.recipient }}</strong></div>
+            <div class="col-sm-12">To: <strong>{% firstof mesg.recipient mesg.parent_msg.sender  %}</strong></div>
             
             <div class="col-sm-12 message">{{ mesg.body }}</div>
             <div class="col-sm-12">
@@ -33,7 +34,7 @@
             <form action="{% url 'message' m_id=mesg.id  %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="parent_msg" value="{{ mesg.parent_msg.id|default:mesg.id }}" />
-                <input type="hidden" name="recipient" value="{{mesg.sender}}" />
+                <input type="hidden" name="recipient" value="{% if mesg.sender != request.user %}{{mesg.sender}}{% else %}{{ mesg.recipient }}{% endif %}" />
                 <div class="custom-form-group">
                     <textarea name="body" class="form-control" rows=8></textarea>
                 </div>

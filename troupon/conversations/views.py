@@ -84,14 +84,19 @@ class MessageView(View):
             parent_msg=m_id) or Message.objects.get(id=m_id)
         if type(mesg) is QuerySet and mesg.count():
             mesg = mesg.latest('sent_at')
-        mesg.read_at = timezone.now()  # update last read time
-        mesg.save()
+        time_now = timezone.now()
+        is_recipient = mesg.recipient == request.user
+        print is_recipient
+        if is_recipient:  # value comparison
+            mesg.read_at = timezone.now()  # update last read time
+            mesg.save()
         # get messages in thread
         other_messages = Message.objects\
-            .exclude(Q(id=mesg.id)).order_by('-sent_at')
+            .filter(recipient=request.user).exclude(id=mesg.id)\
+            .order_by('-sent_at')
 
         # update last read time for messages in thread
-        other_messages.update(read_at=mesg.read_at)
+        other_messages.update(read_at=time_now)
 
         context_data = {
             'mesg': mesg,
