@@ -45,6 +45,6 @@ class Message(models.Model):
     @classmethod
     def unread_count(cls, request):
         unread = Message.objects.filter(
-            recipient=request.user, read_at=None
-        ).exclude(sender=request.user)
+            recipient_id=request.user.id, read_at=None
+        ).exclude(sender_id=request.user.id)
         return unread.count()
