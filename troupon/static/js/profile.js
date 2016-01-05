@@ -53,7 +53,7 @@ $(document).ready(function() {
             console.log('it works');
         }
         else{
-            alert("Form should not be empty fields");
+            alert("Form should not be submitted empty");
             return false;
         }
     });
