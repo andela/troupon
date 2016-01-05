@@ -12,6 +12,21 @@ class UserProfile(models.Model):
                                           default=25)
     occupation = models.TextField(blank=True, default='')
     phonenumber = models.CharField(blank=True, default='', max_length=20)
+    intlnumber = models.CharField(blank=True, default='', max_length=20)
+
+    def check_diff(self, request_value):
+
+        for field in request_value:
+            if getattr(self, field) != request_value[field] and \
+                    request_value[field] != '':
+                    setattr(self, field, request_value[field])
+        self.save()
+        return {
+            u'user_state': self.user_state,
+            u'phonenumber': self.phonenumber,
+            u'intlnumber': self.intlnumber,
+            u'occupation': self.occupation
+        }
 
     def __unicode__(self):
         return u'Profile of user: %s' % self.user.username

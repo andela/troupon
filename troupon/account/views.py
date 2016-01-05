@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 
 from authentication.views import LoginRequiredMixin
 from deals.models import STATE_CHOICES
-from forms import UserProfileForm
+from account.forms import UserProfileForm
+from account.models import UserProfile
 
 
 class UserProfileView(LoginRequiredMixin, TemplateView):
@@ -39,9 +40,15 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         last_name = str(
             request.POST.pop('last_name')[0]
         ) or request.user.last_name
+        csrfmiddlewaretoken = str(
+            request.POST.pop('csrfmiddlewaretoken')[0]
+        )
+
+        profile = UserProfile.objects.get(id=request.user.profile.id)
+        form_dict = profile.check_diff(request.POST)
 
         form = self.form_class(
-            request.POST, instance=request.user.profile)
+            form_dict, instance=request.user.profile)
 
         if form.errors:
             context_var = {}
