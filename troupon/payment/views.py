@@ -5,10 +5,11 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import View
 from django.contrib import messages
+from authentication.views import LoginRequiredMixin
 
 
 # Create your views here.
-class PaymentProcessView(View):
+class PaymentProcessView(LoginRequiredMixin, View):
     """
     Processes payments sent from stripe checkout.js
     """
@@ -134,7 +135,7 @@ class PaymentProcessView(View):
             return HttpResponseRedirect(url + '?status=error')
 
 
-class PaymentStatusView(View):
+class PaymentStatusView(LoginRequiredMixin, View):
     """
     Display status of the transaction
     """

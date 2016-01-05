@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import View
 import os
+from authentication.views import LoginRequiredMixin
 
 
-class CheckoutView(View):
+class CheckoutView(LoginRequiredMixin, View):
     """
     Creates a checkout page
     """
@@ -13,24 +14,23 @@ class CheckoutView(View):
 
     def get(self, request, *args, **kwargs):
         """create a dummy checkout page"""
-        amount = 23
-        amount_in_cents = amount * 100
+        amount_in_dollars = 23
+        amount_in_cents = amount_in_dollars * 100
+
         payment_details = {
+            "amount_in_dollars": amount_in_dollars,
+            "amount_in_cents": amount_in_cents,
+            "description": "Hairless Armpits",
+            "currency": "usd",
             "key": self.stripe_publishable_api_key,
             "description": "Hairless Armpits",
         }
 
         context = {
-            "amount_in_cents": amount_in_cents,
             "payment_details": payment_details,
         }
 
         # store payment details in session
-        payment_details = {
-            "amount": amount_in_cents,
-            "description": "Hairless Armpits",
-            "currency": "usd",
-        }
         request.session['payment_details'] = payment_details
 
         return render(request, self.template_name, context)
