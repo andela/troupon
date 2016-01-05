@@ -1,1 +1,642 @@
-[{"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": true, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 1}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Fashion-holics", "price": 34500, "featured": true, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "fashion-holics", "disclaimer": ""}, "model": "deals.deal", "pk": 2}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "Hairless Armpits", "price": 23500, "featured": true, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-10-20", "quorum": null, "active": true, "slug": "hairless-armpits", "disclaimer": ""}, "model": "deals.deal", "pk": 3}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "Legendary Moustachios", "price": 23500, "featured": true, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "legendary-moustachios", "disclaimer": ""}, "model": "deals.deal", "pk": 4}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": true, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 5}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "Hairless Armpits", "price": 23500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "hairless-armpits", "disclaimer": ""}, "model": "deals.deal", "pk": 6}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445323333/lo7xpyhhbznvbjmlvjjt.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 7}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 8}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "Hairless Armpits", "price": 23500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "hairless-armpits", "disclaimer": ""}, "model": "deals.deal", "pk": 9}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 10}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "LegendaryMoustachios", "price": 23500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "legendarymoustachios", "disclaimer": ""}, "model": "deals.deal", "pk": 11}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 12}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "Hairless Armpits", "price": 23500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "hairless-armpits", "disclaimer": ""}, "model": "deals.deal", "pk": 13}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot2 GiveAway", "price": 34500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445323333/lo7xpyhhbznvbjmlvjjt.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 14}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "Hairless Armpits", "price": 23500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "hairless-armpits", "disclaimer": ""}, "model": "deals.deal", "pk": 15}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 16}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "Legendary Moustachios", "price": 23500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "legendary-moustachios", "disclaimer": ""}, "model": "deals.deal", "pk": 17}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 18}, {"fields": {"category": 1, "advertiser": 1, "original_price": 30000, "description": "", "title": "Hairless Armpits", "price": 23500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg", "address": "Suite 212, Gatsby Road, Neverland", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "hairless-armpits", "disclaimer": ""}, "model": "deals.deal", "pk": 19}, {"fields": {"category": 1, "advertiser": 1, "original_price": 15600, "description": "", "title": "Infinix Hot 2 GiveAway", "price": 34500, "featured": false, "date_end": null, "currency": 1, "state": 25, "date_created": "2015-05-18", "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png", "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.", "duration": 10, "max_quantity_available": 5, "date_last_modified": "2015-11-10", "quorum": null, "active": true, "slug": "infinix-hot-2-giveaway", "disclaimer": ""}, "model": "deals.deal", "pk": 20}, {"fields": {"name": "Shoprite Ikeja", "telephone": "111-111-11", "slug": "shoprite-ikeja", "state": 1, "address": "234, Agege-Somolu, Victoria Island, Lagos, Nigeria.", "email": "paulmccartney@noho.com"}, "model": "deals.advertiser", "pk": 1}, {"fields": {"name": "DressToKill Boutique", "telephone": "456786543213456", "slug": "dresstokill-boutique", "state": 25, "address": "Shoprite Ikeja,Lagos", "email": "dresstokill@troupon.com"}, "model": "deals.advertiser", "pk": 2}, {"fields": {"name": "Travel n Hotels", "slug": "travel-n-hotels"}, "model": "deals.category", "pk": 1}, {"fields": {"name": "Electronics", "slug": "electronics"}, "model": "deals.category", "pk": 2}, {"fields": {"name": "Fashion", "slug": "fashion"}, "model": "deals.category", "pk": 3}, {"fields": {"name": "Foods", "slug": "foods"}, "model": "deals.category", "pk": 4}, {"fields": {"name": "Getaways", "slug": "getaways"}, "model": "deals.category", "pk": 5}, {"fields": {"name": "Shopping", "slug": "shopping"}, "model": "deals.category", "pk": 6}, {"fields": {"name": "Automobiles", "slug": "automobiles"}, "model": "deals.category", "pk": 7}, {"fields": {"name": "Hotels", "slug": "hotels"}, "model": "deals.category", "pk": 8}, {"fields": {"name": "Event Tickets", "slug": "event-tickets"}, "model": "deals.category", "pk": 9}, {"fields": {"name": "Kerosene", "slug": "kerosene"}, "model": "deals.category", "pk": 10}, {"fields": {"name": "Beauty Treatments", "slug": "beauty-treatments"}, "model": "deals.category", "pk": 11}, {"fields": {"name": "Akara and Pap", "slug": "akara-and-pap"}, "model": "deals.category", "pk": 12}]
+[
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": true,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-05-18",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Fashion-holics",
+      "price": 34500,
+      "featured": true,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "fashion-holics-2015-05-19",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "Hairless Armpits",
+      "price": 23500,
+      "featured": true,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-10-20",
+      "quorum": null,
+      "active": true,
+      "slug": "hairless-armpits-2015-05-20",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "Legendary Moustachios",
+      "price": 23500,
+      "featured": true,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "legendary-moustachios-2015-11-21",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": true,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-05-22",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "Hairless Armpits",
+      "price": 23500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "hairless-armpits-2015-05-23",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445323333/lo7xpyhhbznvbjmlvjjt.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-05-24",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-05-25",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "Hairless Armpits",
+      "price": 23500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "hairless-armpits-2015-05-26",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-05-27",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "LegendaryMoustachios",
+      "price": 23500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "legendarymoustachios-2015-05-28",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-05-29",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "Hairless Armpits",
+      "price": 23500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "hairless-armpits-2015-05-30",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot2 GiveAway",
+      "price": 34500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445323333/lo7xpyhhbznvbjmlvjjt.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot2-giveaway-2015-06-01",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "Hairless Armpits",
+      "price": 23500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "hairless-armpits-2015-06-02",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-06-03",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "Legendary Moustachios",
+      "price": 23500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "legendary-moustachios--2015-06-04",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-06-05",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 30000,
+      "description": "",
+      "title": "Hairless Armpits",
+      "price": 23500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg",
+      "address": "Suite 212, Gatsby Road, Neverland",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "hairless-armpits-2015-06-06",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "category": 1,
+      "advertiser": 1,
+      "original_price": 15600,
+      "description": "",
+      "title": "Infinix Hot 2 GiveAway",
+      "price": 34500,
+      "featured": false,
+      "date_end": null,
+      "currency": 1,
+      "state": 25,
+      "date_created": "2015-05-18",
+      "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png",
+      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
+      "duration": 10,
+      "max_quantity_available": 5,
+      "date_last_modified": "2015-11-10",
+      "quorum": null,
+      "active": true,
+      "slug": "infinix-hot-2-giveaway-2015-06-07",
+      "disclaimer": ""
+    },
+    "model": "deals.deal",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "name": "Shoprite Ikeja",
+      "telephone": "111-111-11",
+      "slug": "shoprite-ikeja",
+      "state": 1,
+      "address": "234, Agege-Somolu, Victoria Island, Lagos, Nigeria.",
+      "email": "paulmccartney@noho.com"
+    },
+    "model": "deals.advertiser",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "name": "DressToKill Boutique",
+      "telephone": "456786543213456",
+      "slug": "dresstokill-boutique",
+      "state": 25,
+      "address": "Shoprite Ikeja,Lagos",
+      "email": "dresstokill@troupon.com"
+    },
+    "model": "deals.advertiser",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "name": "Travel n Hotels",
+      "slug": "travel-n-hotels"
+    },
+    "model": "deals.category",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "name": "Electronics",
+      "slug": "electronics"
+    },
+    "model": "deals.category",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "name": "Fashion",
+      "slug": "fashion"
+    },
+    "model": "deals.category",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "name": "Foods",
+      "slug": "foods"
+    },
+    "model": "deals.category",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "name": "Getaways",
+      "slug": "getaways"
+    },
+    "model": "deals.category",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "name": "Shopping",
+      "slug": "shopping"
+    },
+    "model": "deals.category",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "name": "Automobiles",
+      "slug": "automobiles"
+    },
+    "model": "deals.category",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "name": "Hotels",
+      "slug": "hotels"
+    },
+    "model": "deals.category",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "name": "Event Tickets",
+      "slug": "event-tickets"
+    },
+    "model": "deals.category",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "name": "Kerosene",
+      "slug": "kerosene"
+    },
+    "model": "deals.category",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "name": "Beauty Treatments",
+      "slug": "beauty-treatments"
+    },
+    "model": "deals.category",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "name": "Akara and Pap",
+      "slug": "akara-and-pap"
+    },
+    "model": "deals.category",
+    "pk": 12
+  }
+]

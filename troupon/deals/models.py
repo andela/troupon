@@ -1,9 +1,9 @@
 from datetime import date
 from random import randint
-
 from django.db import models
 from django.core import signals
-
+from django.utils.text import slugify
+from django.db.models import signals as msig
 from cloudinary.models import CloudinaryField
 
 from troupon.settings.base import SITE_IMAGES
@@ -50,22 +50,19 @@ class Deal(models.Model):
         Other fields are optional.
     """
 
-    title = models.CharField(max_length=100,
-                             null=False,
-                             blank=False,
-                             default='')
-    slug = models.SlugField(blank=True)
-    description = models.TextField(blank=True, default='')
-    disclaimer = models.TextField(blank=True, default='')
-    advertiser = models.ForeignKey('Advertiser')
-    address = models.CharField(max_length=100, blank=False, default='')
-    state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
-    currency = models.SmallIntegerField(choices=CURRENCY_CHOICES, default=1)
-    category = models.ForeignKey('Category')
-    original_price = models.IntegerField()
     price = models.IntegerField()
     duration = models.IntegerField()
+    original_price = models.IntegerField()
+    category = models.ForeignKey('Category')
+    advertiser = models.ForeignKey('Advertiser')
     quorum = models.IntegerField(blank=True, null=True)
+    disclaimer = models.TextField(blank=True, default='')
+    description = models.TextField(blank=True, default='')
+    slug = models.SlugField(blank=True, null=False, unique=True)
+    title = models.CharField(max_length=100, null=False, blank=False,)
+    state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
+    address = models.CharField(max_length=100, blank=False, default='')
+    currency = models.SmallIntegerField(choices=CURRENCY_CHOICES, default=1)
     image = CloudinaryField(
         resource_type='image',
         type='upload',
@@ -73,11 +70,11 @@ class Deal(models.Model):
         default="img/photo_default.png"
     )
     active = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False)
     max_quantity_available = models.IntegerField()
     date_created = models.DateField(auto_now_add=True)
     date_last_modified = models.DateField(auto_now=True)
     date_end = models.DateField(blank=True, null=True)
-    featured = models.BooleanField(default=False)
 
     def currency_symbol(self):
         return CURRENCY_CHOICES[self.currency - 1][1]
@@ -130,7 +127,7 @@ class ImageMixin(object):
         """
         deals = Deal.objects.filter(category=self.id)
         if len(deals) is not 0:
-            return deals[randint(0, len(deals)-1)].image.url
+            return deals[randint(0, len(deals) - 1)].image.url
 
 
 class Advertiser(ImageMixin, models.Model):
@@ -177,5 +174,18 @@ def set_deal_inactive(**kwargs):
     date_today = date.today()
     Deal.objects.filter(date_end=date_today.isoformat()).update(active=False)
 
+
+def set_deal_slug(**kwargs):
+    """Set deal slug to one terminated with a timestamp
+    """
+    if kwargs.get('created'):
+        instance = kwargs.get('instance')
+        instance.slug = '{0}-{1}'.format(
+            instance.slug, slugify(instance.date_created)
+        )
+        instance.save()
+
+# update slug field on create of deal to reflect timestamp
+msig.post_save.connect(set_deal_slug, sender=Deal)
 
 signals.request_started.connect(set_deal_inactive)
