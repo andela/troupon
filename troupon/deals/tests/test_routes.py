@@ -1,13 +1,10 @@
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
-from django.core.files import File
 from django.template.defaultfilters import slugify
 
 from deals.models import Deal, Advertiser, Category
-from deals.views import HomePageView, DealsView, DealView,\
-                        FilteredDealsView
-import mock
-import cloudinary
+from deals.views import HomePageView, DealsView,\
+    FilteredDealsView
 
 
 def set_advertiser_and_category():
@@ -134,38 +131,6 @@ class FilteredDealsViewTestCase(TestCase):
             response.resolver_match.func.__name__,
             FilteredDealsView.as_view().__name__
         )
-
-
-class DealViewTestCase(TestCase):
-
-    """This contains tests to check that a HTTP GET
-        request for a deal is successful
-    """
-    def setUp(self):
-        self.deal = set_advertiser_and_category()
-
-    def test_deal404_and_single_deal_view(self):
-        response = self.client.get(reverse('deal', args=[2000]))
-        self.assertEqual(response.status_code, 404)
-
-        deal = Deal(**self.deal)
-        deal.save()
-
-        response = self.client.get('/deals/{0}/'.format(deal.id))
-        self.assertIn(str(deal.id), response.content)
-
-    @mock.patch('deals.views.DealView.upload', mock.MagicMock(name="upload"))
-    @mock.patch('deals.models.Deal.save', mock.MagicMock(name="save"))
-    def test_upload_to_cloudinary(self):
-        mock_file = mock.MagicMock(spec=File, name='FileMock')
-        mock_file.name = 'testimage.jpg'
-        self.deal['photo'] = mock_file
-        cloudinary.config = mock.MagicMock(name='cloudinary')
-        view = DealView.as_view()
-        request = RequestFactory().post('/deals', self.deal)
-        response = view(request)
-        self.assertTrue(DealView.upload.called)
-        self.assertEqual(response.status_code, 302)
 
 
 class DealSlugViewTestCase(TestCase):

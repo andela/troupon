@@ -1,18 +1,15 @@
 
 from django.conf.urls import url
 
-from .views import DealsView, FilteredDealsView, DealView,\
-                   DealSlugView, DealSearchCityView,\
-                   DealHaystackSearchView
+from .views import DealsView, FilteredDealsView,\
+    DealSlugView, DealSearchCityView,\
+    DealHaystackSearchView
 
 
 urlpatterns = [
 
     # /deals/
     url(r'^$', DealsView.as_view(), name='deals'),
-
-    # /deals/:id/
-    url(r'^(?P<deal_id>[0-9]+)/$', DealView.as_view(), name='deal'),
 
     # /deals/:slug/
     url(r'^(?P<deal_slug>[\w-]+)/$',

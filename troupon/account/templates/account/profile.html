@@ -1,6 +1,10 @@
 {% extends "account/profile_base.html" %}
 {% load static%}
 
+{% block extended_css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock extended_css %}
+
 {% block sidebar_menu %}
   {% with active_tab='My profile' %}
     {{ block.super }}

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ==========================================================================
 Resets (overrides for Bootstrap and browser-defaults)
 ========================================================================== */
@@ -296,7 +297,6 @@ Forms Controls
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   min-width: 50px;
   text-align: center;
@@ -310,7 +310,6 @@ Forms Controls
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
 }
 
@@ -428,7 +427,6 @@ Other components.
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
 }
 
@@ -480,13 +478,11 @@ Other components.
   width: auto;
   height: 100%;
   -webkit-transform: scale(1.03);
-      -ms-transform: scale(1.03);
           transform: scale(1.03);
 }
 
 .flickity-gallery .gallery-cell:hover .cell-image-wrapper img {
   -webkit-transform: scale(1.06);
-      -ms-transform: scale(1.06);
           transform: scale(1.06);
 }
 
@@ -560,7 +556,6 @@ Other components.
 
 .image-frame:hover .image-holder img {
   -webkit-transform: scale(1.01);
-      -ms-transform: scale(1.01);
           transform: scale(1.01);
 }
 
@@ -597,7 +592,6 @@ Other components.
 
 .deal-grid .grid-item:hover .item-image-wrapper img {
   -webkit-transform: scale(1.03);
-      -ms-transform: scale(1.03);
           transform: scale(1.03);
 }
 
@@ -777,7 +771,6 @@ Other components.
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
 }
 
@@ -805,7 +798,6 @@ Other components.
   top: 50%;
   left: 30px;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   width: 90%;
   font-weight: 400;
@@ -832,7 +824,6 @@ Other components.
   top: 50%;
   right: 15px;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
 }
 
@@ -853,7 +844,6 @@ Other components.
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   font-size: 30px;
 }
@@ -923,7 +913,6 @@ body {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   font-size: 30px;
 }
@@ -941,7 +930,6 @@ body {
     position: absolute;
     top: 40%;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
             transform: translateY(-50%);
     display: inline-block;
     width: 100%;
@@ -982,7 +970,6 @@ body {
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
     font-size: 30px;
   }
@@ -1043,7 +1030,6 @@ body {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
 }
 
@@ -1053,7 +1039,6 @@ body {
 
 #header-bar .search-toggle {
   -webkit-transform: translate(-110%, -50%);
-      -ms-transform: translate(-110%, -50%);
           transform: translate(-110%, -50%);
 }
 
@@ -1118,7 +1103,6 @@ main {
 main .placeholder p {
   width: 100%;
   -webkit-transform: translateY(60px);
-      -ms-transform: translateY(60px);
           transform: translateY(60px);
   font-weight: 300;
   font-size: 38px;
@@ -1133,7 +1117,6 @@ main .placeholder p {
   }
   main .placeholder p {
     -webkit-transform: translateY(60px);
-        -ms-transform: translateY(60px);
             transform: translateY(60px);
     font-size: 30px;
     letter-spacing: -1px;
@@ -1214,7 +1197,6 @@ footer .social-links > li > a span, footer .dropdown .dropdown-menu.social-links
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   font-size: 12px;
   line-height: 12px;
@@ -1223,7 +1205,6 @@ footer .social-links > li > a span, footer .dropdown .dropdown-menu.social-links
 footer .brand {
   float: right;
   -webkit-transform: translateY(10px);
-      -ms-transform: translateY(10px);
           transform: translateY(10px);
 }
 
@@ -1313,7 +1294,6 @@ footer .copyright p {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   font-size: 55px;
 }
@@ -1323,7 +1303,6 @@ footer .copyright p {
   top: 120%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   font-weight: 700;
   font-size: 12px;
@@ -1382,7 +1361,6 @@ footer .copyright p {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -1400,7 +1378,6 @@ footer .copyright p {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
             transform: translateY(-50%);
   }
   #modal-login header p, #modal-register header p, #modal-forgot-password header p {
@@ -1425,8 +1402,42 @@ footer .copyright p {
   margin-top: 30px;
 }
 
+<<<<<<< HEAD
 /* =========================================================================
 page-related styles:
+=======
+.strip {
+  padding: 10px 5px 10px;
+}
+
+.subject {
+  font-size: 22px;
+  padding-bottom: 5px;
+}
+
+#compose-form {
+  padding-bottom: 8px;
+}
+
+.message {
+  background: #ffffff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.message-type {
+  font-size: 14px;
+}
+
+.message-type:after {
+  content: ' —';
+}
+
+/* =========================================================================
+page-related styles:
+>>>>>>> develop
 ========================================================================== */
 main > section.row {
   padding: 30px 0px 0px;
@@ -1566,11 +1577,4 @@ main > section.row > [class*='col-'] {
 .shopper-img {
   margin: -60px 0 -47px 120px;
   pointer-events: none;
-}
-
-/* =========================================================================
-intl tel input styles:
-========================================================================== */
-.iti-flag {
-  background-image: url("../img/flags.png");
 }
