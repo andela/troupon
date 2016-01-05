@@ -14,7 +14,7 @@
       <div class="custom-form-group">
         <label>Email <span class="label-asterik">*</span></label>
         <div class="custom-input-group">
-        <input type="text" name="interest" id="" value="" placeholder="{{ request.user.email }}" disabled="disabled">
+        <input type="text" name="interest" id="" value="{{ request.user.email }}" placeholder="" disabled="disabled">
         </div>
       </div>
 
@@ -37,14 +37,14 @@
         <div class="custom-form-group">
           <label>First Name <span class="label-asterik">*</span></label>
           <div class="custom-input-group">
-          <input type="text" name="first_name" id="first_name" value="" placeholder="{{ request.user.first_name }}" {% if not request.user.first_name %} required {% endif %}>
+          <input type="text" name="first_name" id="first_name" value="{{ request.user.first_name }}" placeholder="" {% if not request.user.first_name %} required {% endif %}>
           </div>
         </div>
 
         <div class="custom-form-group">
           <label>Last Name <span class="label-asterik">*</span></label>
           <div class="custom-input-group">
-          <input type="text" name="last_name" id="last_name" value="" placeholder="{{ request.user.last_name }}" {% if not request.user.last_name %} required {% endif %}>
+          <input type="text" name="last_name" id="last_name" value="{{ request.user.last_name }}" placeholder="" {% if not request.user.last_name %} required {% endif %}>
           </div>
         </div>
 
@@ -53,14 +53,14 @@
         <div class="custom-form-group">
           <label>Occupation <span class="label-asterik">*</span></label>
           <div class="custom-input-group">
-          <input type="text" name="occupation" id="occupation" value="" placeholder="{{ profile.occupation }}">
+          <input type="text" name="occupation" id="occupation" value="{{ profile.occupation }}" placeholder="">
           </div>
         </div>
 
         <div class="custom-form-group">
           <label>Phone Number <span class="label-asterik">*</span></label>
           <div class="custom-input-group">
-            <input type="tel" name="phonenumber" id="mobile-number" value="" placeholder="{{ profile.phonenumber }}" {% if not profile.phonenumber %} required {% endif %}>
+            <input type="tel" name="phonenumber" id="mobile-number" value="{{ profile.intlnumber }}" placeholder="" {% if not profile.phonenumber %} required {% endif %}>
             <span id="valid-msg" class="hide">✓ Valid</span>
             <span id="error-msg" class="hide">Invalid number</span>
             <input id="hidden" type="hidden" name="intlnumber">
@@ -68,7 +68,7 @@
 
         </div>
 
-        <button type="submit" class="btn-action btn-form-submit">Save Changes</button>
+        <button id = "save" type="submit" class="btn-action btn-form-submit">Save Changes</button>
 
       </form>
     </div>

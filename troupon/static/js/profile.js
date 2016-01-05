@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    // disable save button on page load
+    var button  = $('#save');
+    button.attr('disabled', 'disabled');
+
     var telInput = $("#mobile-number")
     telInput.intlTelInput({
         initialCountry: "auto",
@@ -40,21 +44,11 @@ $(document).ready(function() {
 
         $("form").submit(function() {
         $("#hidden").val(telInput.intlTelInput("getNumber"));
-
-        var firstName = $.trim($('#first_name').val());
-        var lastName = $.trim($('#last_name').val());
-        var occupation = $.trim($('#occupation').val());
-        var phonenumber = $.trim(telInput.val());
-        var intlnumber = $.trim($('#hidden').val());
-
-         // Check if empty or not
-        if ( firstName != '' || lastName != '' || occupation != '' || phonenumber != '' || intlnumber != '')
-        {
-            console.log('it works');
-        }
-        else{
-            alert("Form should not be submitted empty");
-            return false;
-        }
     });
+        // enable save button on changes in form data
+        $("form :input").change(function() {
+            $(this).closest('form').data('changed', true);
+            button.removeAttr('disabled');
+    });
+
 });
