@@ -1,0 +1,41 @@
+{% extends "conversations/conversations_base.html" %}
+{% load static %}
+
+{% block subview %}
+
+
+<div class="row">
+    <table class="table table-responsive">
+        <thead>
+            <th>Created</th>
+            <th>Subject</th>
+            <th>Type</th>
+            {% if request.user.is_superuser %}
+                <th>Sender</th>
+            {% endif %}
+        </thead>
+        <tbody>
+        {% for letter in mesgs %}
+            <tr>
+                <td>{{ letter.sent_at }}</td>
+                <td><a class="strip{% if letter.is_unread %} unread{% endif %}" 
+                        href="{% url 'message' m_id=letter.id %}">
+                        {{ letter.subject }} ({{ letter.count }})
+                    </a>
+                </td>
+                <td>{{ letter.get_type_display }}</td>
+                {% if request.user.is_superuser %}
+                <td>{{ letter.sender }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock subview %}
+
+{% block extended_js %}
+    <script type="text/javascript" src="{% static 'js/messaging.js' %}"></script>
+
+{% endblock %}
+

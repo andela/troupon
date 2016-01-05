@@ -397,3 +397,28 @@ footer {
     margin-top: 30px;
   }
 }
+
+// messages
+.strip {
+  padding: 10px 5px 10px;
+}
+.subject {
+  font-size: 22px;
+  padding-bottom: 5px;
+}
+#compose-form {
+  padding-bottom: 8px;
+}
+.message {
+  background: #ffffff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top:5px;
+  margin-bottom: 5px;
+}
+.message-type {
+  font-size: 14px;
+}
+.message-type:after{
+  content:' —';
+}
