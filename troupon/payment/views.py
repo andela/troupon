@@ -5,11 +5,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import View
 from django.contrib import messages
-from authentication.views import LoginRequiredMixin
 
 
 # Create your views here.
-class PaymentProcessView(LoginRequiredMixin, View):
+class PaymentProcessView(View):
     """
     Processes payments sent from stripe checkout.js
     """
@@ -32,13 +31,15 @@ class PaymentProcessView(LoginRequiredMixin, View):
         if payment_details:
             # Create the charge on Stripe's servers, charge the user's card
             try:
-                stripe.Charge.create(
-                    # amount in cents, again
-                    amount=payment_details['amount'],
-                    currency=payment_details['currency'],
-                    source=token,
-                    description=payment_details['description']
-                )
+                charge = stripe.Charge.create(
+                             # amount in cents, again
+                             amount=payment_details['amount'],
+                             currency=payment_details['currency'],
+                             source=token,
+                             description=payment_details['description']
+                         )
+                print charge.id
+                print charge.created
             except stripe.error.CardError, e:
                 # Since it's a decline, stripe.error.CardError will be caught
                 body = e.json_body
@@ -49,7 +50,8 @@ class PaymentProcessView(LoginRequiredMixin, View):
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
 
-                return render(request, self.template_name)
+                url = reverse('payment_status')
+                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.RateLimitError, e:
                 # Too many requests made to the API too quickly
                 body = e.json_body
@@ -60,7 +62,8 @@ class PaymentProcessView(LoginRequiredMixin, View):
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
 
-                return render(request, self.template_name)
+                url = reverse('payment_status')
+                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.InvalidRequestError, e:
                 # Invalid parameters were supplied to Stripe's API
                 body = e.json_body
@@ -71,7 +74,8 @@ class PaymentProcessView(LoginRequiredMixin, View):
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
 
-                return render(request, self.template_name)
+                url = reverse('payment_status')
+                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.AuthenticationError, e:
                 # Authentication with Stripe's API failed
                 # (maybe you changed API keys recently)
@@ -83,7 +87,8 @@ class PaymentProcessView(LoginRequiredMixin, View):
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
 
-                return render(request, self.template_name)
+                url = reverse('payment_status')
+                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.APIConnectionError, e:
                 # Network communication with Stripe failed
                 body = e.json_body
@@ -94,7 +99,8 @@ class PaymentProcessView(LoginRequiredMixin, View):
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
 
-                return render(request, self.template_name)
+                url = reverse('payment_status')
+                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.StripeError, e:
                 # Display a very generic error to the user, and maybe send
                 # yourself an email
@@ -106,7 +112,8 @@ class PaymentProcessView(LoginRequiredMixin, View):
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
 
-                return render(request, self.template_name)
+                url = reverse('payment_status')
+                return HttpResponseRedirect(url + '?status=error')
             except Exception, e:
                 # Something else happened, completely unrelated to Stripe
                 body = e.json_body
@@ -117,7 +124,8 @@ class PaymentProcessView(LoginRequiredMixin, View):
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
 
-                return render(request, self.template_name)
+                url = reverse('payment_status')
+                return HttpResponseRedirect(url + '?status=error')
 
             # return a success message if no errors are raised
             message = "Success!!! you payment has been received"
@@ -135,7 +143,7 @@ class PaymentProcessView(LoginRequiredMixin, View):
             return HttpResponseRedirect(url + '?status=error')
 
 
-class PaymentStatusView(LoginRequiredMixin, View):
+class PaymentStatusView(View):
     """
     Display status of the transaction
     """
