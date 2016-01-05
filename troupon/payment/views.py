@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import View
 from django.contrib import messages
+from payment.models import TransactionHistory
 
 
 # Create your views here.
@@ -38,8 +39,29 @@ class PaymentProcessView(View):
                              source=token,
                              description=payment_details['description']
                          )
-                print charge.id
-                print charge.created
+                # return a success message
+                message = "Success!!! you payment has been received"
+                messages.add_message(request, messages.WARNING, message)
+
+                # add to transaction history
+                transaction = TransactionHistory(
+                                    transaction_id=charge.id,
+                                    transaction_status=charge.status,
+                                    transaction_amount=charge.amount,
+                                    transaction_created=charge.created,
+                                    transaction_currency=charge.currency,
+                                    failure_code=charge.failure_code,
+                                    failure_message=charge.failure_message,
+                                    user=request.user
+                                )
+                transaction.save()
+
+                # delete payment details from session
+                del request.session['payment_details']
+
+                # redirect to payment status page
+                url = reverse('payment_status')
+                return HttpResponseRedirect(url + '?status=complete')
             except stripe.error.CardError, e:
                 # Since it's a decline, stripe.error.CardError will be caught
                 body = e.json_body
@@ -49,9 +71,6 @@ class PaymentProcessView(View):
                 Error!!! %s: %s\n%s
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
-
-                url = reverse('payment_status')
-                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.RateLimitError, e:
                 # Too many requests made to the API too quickly
                 body = e.json_body
@@ -61,9 +80,6 @@ class PaymentProcessView(View):
                 Error!!! %s: %s\n%s
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
-
-                url = reverse('payment_status')
-                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.InvalidRequestError, e:
                 # Invalid parameters were supplied to Stripe's API
                 body = e.json_body
@@ -73,9 +89,6 @@ class PaymentProcessView(View):
                 Error!!! %s: %s\n%s
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
-
-                url = reverse('payment_status')
-                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.AuthenticationError, e:
                 # Authentication with Stripe's API failed
                 # (maybe you changed API keys recently)
@@ -86,9 +99,6 @@ class PaymentProcessView(View):
                 Error!!! %s: %s\n%s
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
-
-                url = reverse('payment_status')
-                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.APIConnectionError, e:
                 # Network communication with Stripe failed
                 body = e.json_body
@@ -98,9 +108,6 @@ class PaymentProcessView(View):
                 Error!!! %s: %s\n%s
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
-
-                url = reverse('payment_status')
-                return HttpResponseRedirect(url + '?status=error')
             except stripe.error.StripeError, e:
                 # Display a very generic error to the user, and maybe send
                 # yourself an email
@@ -111,30 +118,29 @@ class PaymentProcessView(View):
                 Error!!! %s: %s\n%s
                 ''' % (e.http_status, err['code'], err['message'])
                 messages.add_message(request, messages.WARNING, message)
-
-                url = reverse('payment_status')
-                return HttpResponseRedirect(url + '?status=error')
             except Exception, e:
                 # Something else happened, completely unrelated to Stripe
-                body = e.json_body
-                err = body['error']
+                body = e
 
-                message = '''
-                Error!!! %s: %s\n%s
-                ''' % (e.http_status, err['code'], err['message'])
+                message = '''Error!!! %s''' % (e)
                 messages.add_message(request, messages.WARNING, message)
 
-                url = reverse('payment_status')
-                return HttpResponseRedirect(url + '?status=error')
+            # add to transaction history
+            transaction = TransactionHistory(
+                                transaction_id=charge.id,
+                                transaction_status=charge.status,
+                                transaction_amount=charge.amount,
+                                transaction_created=charge.created,
+                                transaction_currency=charge.currency,
+                                failure_code=charge.failure_code,
+                                failure_message=charge.failure_message,
+                                user=request.user
+                            )
+            transaction.save()
 
-            # return a success message if no errors are raised
-            message = "Success!!! you payment has been received"
-            messages.add_message(request, messages.WARNING, message)
-
-            # delete payment details from session
-            del request.session['payment_details']
+            # redirect to payment status page for errors
             url = reverse('payment_status')
-            return HttpResponseRedirect(url + '?status=complete')
+            return HttpResponseRedirect(url + '?status=error')
         else:
             # return an error message as payment details are not in session
             message = "Error cannot get payment details"
