@@ -1567,3 +1567,10 @@ main > section.row > [class*='col-'] {
   margin: -60px 0 -47px 120px;
   pointer-events: none;
 }
+
+/* =========================================================================
+intl tel input styles:
+========================================================================== */
+.iti-flag {
+  background-image: url("../img/flags.png");
+}

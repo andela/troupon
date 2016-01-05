@@ -8,13 +8,10 @@ from deals.models import STATE_CHOICES
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User)
-    first_name = models.CharField(max_length=100, null=False,
-                                  blank=False, default='')
-    last_name = models.CharField(max_length=100, null=False,
-                                 blank=False, default='')
     user_state = models.SmallIntegerField(choices=STATE_CHOICES,
                                           default=25)
-    interest = models.TextField(blank=True, default='')
+    occupation = models.TextField(blank=True, default='')
+    phonenumber = models.CharField(blank=True, default='', max_length=20)
 
     def __unicode__(self):
         return u'Profile of user: %s' % self.user.username

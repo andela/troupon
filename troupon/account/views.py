@@ -3,8 +3,10 @@ from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.template import RequestContext
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 from authentication.views import LoginRequiredMixin
+from deals.models import STATE_CHOICES
 from forms import UserProfileForm
 
 
@@ -19,6 +21,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         context_var = super(UserProfileView, self).get_context_data(**kwargs)
         context_var.update({
             'profile': self.request.user.profile,
+            'states': {'choices': STATE_CHOICES, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Profile', },
@@ -27,6 +30,15 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         return context_var
 
     def post(self, request, **kwargs):
+
+        request.POST._mutable = True
+
+        first_name = str(
+            request.POST.pop('first_name')[0]
+        ) or request.user.first_name
+        last_name = str(
+            request.POST.pop('last_name')[0]
+        ) or request.user.last_name
 
         form = self.form_class(
             request.POST, instance=request.user.profile)
@@ -39,6 +51,12 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
 
         if form.is_valid():
             form.save()
+
+            user = User.objects.get(id=request.user.id)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+
             messages.add_message(
                 request, messages.SUCCESS, 'Profile Updated!')
             return redirect(
