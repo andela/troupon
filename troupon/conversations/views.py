@@ -17,13 +17,13 @@ class ComposeMessageView(View):
             # grant admin access to list of all registered users
             #  in the response context
             context_data = {'users': User.objects.exclude(is_superuser=True)}
-        context_data = {
+        context_data.update({
             'breadcrumbs': [
                 {'name': 'Merchant', 'url': reverse('account')},
                 {'name': 'Messages', 'url': reverse('messages')},
                 {'name': 'Compose', 'url': reverse('compose_message')},
             ]
-        }
+        })
         return TemplateResponse(
             request, 'conversations/compose.html', context_data
         )
@@ -86,7 +86,7 @@ class MessageView(View):
             mesg = mesg.latest('sent_at')
         time_now = timezone.now()
         is_recipient = mesg.recipient == request.user
-        print is_recipient
+
         if is_recipient:  # value comparison
             mesg.read_at = timezone.now()  # update last read time
             mesg.save()
