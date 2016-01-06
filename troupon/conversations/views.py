@@ -11,12 +11,15 @@ from conversations.models import Message, MESG_CHOICES
 
 
 class ComposeMessageView(View):
+    """Composes messages sent to a recipient"""
     def get(self, request):
         """Show compose view"""
+        context_data = {}
         if request.user.is_superuser:
             # grant admin access to list of all registered users
             #  in the response context
-            context_data = {'users': User.objects.exclude(is_superuser=True)}
+            context_data.setdefault(
+                'users', User.objects.exclude(is_superuser=True))
         context_data.update({
             'breadcrumbs': [
                 {'name': 'Merchant', 'url': reverse('account')},
@@ -30,7 +33,7 @@ class ComposeMessageView(View):
 
 
 class MessagesView(View):
-
+    """Views messages for a sender"""
     def get(self, request):
         """Read thread topics"""
         u_id = request.user.id
@@ -77,7 +80,7 @@ class MessagesView(View):
 
 
 class MessageView(View):
-
+    """View messages in a thread """
     def get(self, request, m_id):
         """Read messages in a conversation"""
         mesg = Message.objects.filter(
