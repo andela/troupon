@@ -1573,3 +1573,7 @@ main > section.row > [class*='col-'] {
   margin: -60px 0 -47px 120px;
   pointer-events: none;
 }
+
+.strip-unread {
+  font-weight: 900;
+}

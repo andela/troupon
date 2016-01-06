@@ -2,12 +2,12 @@ from django.db import models
 from django.conf import settings
 
 
-MESG_CHOICES = [
+MESG_CHOICES = (
     (1, 'Account'),
     (2, 'Billing'),
     (3, 'General Info & Getting Started'),
     (4, 'Marketplace'),
-]
+)
 
 
 class Message(models.Model):
@@ -36,14 +36,21 @@ class Message(models.Model):
     recipient_deleted_at = models.DateTimeField(null=True, blank=True)
 
     def is_unread(self):
+        """Checks if a message is unread """
         return self.read_at is None
+
+    def unread(self):
+        """Checks then returns a count of unread thread messages"""
+        return Message.objects.filter(parent_msg=self.id, read_at=None).count()
 
     @property
     def count(self):
+        """Counts the number of messages """
         return Message.objects.filter(parent_msg=self.id).count() + 1
 
     @classmethod
     def unread_count(cls, request):
+        """Counts the number of unread messages """
         unread = Message.objects.filter(
             recipient_id=request.user.id, read_at=None
         ).exclude(sender_id=request.user.id)
