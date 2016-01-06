@@ -6,7 +6,7 @@ from django.shortcuts import reverse
 from deals.tests.test_routes import set_advertiser_and_category
 
 
-class MerchantDealsTestCase(TestCase):
+class ManageDealsTestCase(TestCase):
     """Tests that routes to manage deals are accessible by the logged in
     merchant.
     route: '/merchant/deals'
@@ -18,7 +18,7 @@ class MerchantDealsTestCase(TestCase):
         cls.deal = Deal(**deal)
         cls.deal.save()
         cls.user = settings.AUTH_USER_MODEL.objects.create_user(
-            'johndoe', 'johndoe@gmail.com', '12345'
+            'testuser', 'testuser@mail.com', '12345'
         )
 
         is_merchant = Merchant.objects.filter(
@@ -33,7 +33,7 @@ class MerchantDealsTestCase(TestCase):
         # login user
         response = cls.client.post(
             reverse('login'),
-            dict(username='johndoe@gmail.com', password='12345')
+            dict(username='testuser@mail.com', password='12345')
         )
         cls.assertEquals(response.status_code, 302)
 
@@ -49,7 +49,7 @@ class MerchantDealsTestCase(TestCase):
         super(MerchantDealsTestCase, cls).tearDownClass()
 
 
-class MerchantDealTestCase(TestCase):
+class ManageDealTestCase(TestCase):
     """Manage single deal under merchant role.
     route: '/merchant/deals/<slug>'
     """
@@ -59,7 +59,7 @@ class MerchantDealTestCase(TestCase):
         cls.deal = Deal(**deal)
         cls.deal.save()
         cls.user = settings.AUTH_USER_MODEL.objects.create_user(
-            'johndoe', 'johndoe@gmail.com', '12345'
+            'testuser', 'testuser@mail.com', '12345'
         )
 
         is_merchant = Merchant.objects.filter(
@@ -74,7 +74,7 @@ class MerchantDealTestCase(TestCase):
         # login user
         response = cls.client.post(
             reverse('login'),
-            dict(username='johndoe@gmail.com', password='12345')
+            dict(username='testuser@mail.com', password='12345')
         )
         cls.assertEquals(response.status_code, 302)
 
