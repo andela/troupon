@@ -1,0 +1,31 @@
+{% extends "account/profile_base.html" %}
+{% load static%}
+
+{% block sidebar_menu %}
+  {% with active_tab='Merchant' %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock sidebar_menu %}
+
+{% block subview %}
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="jumbotron">
+
+        <h1 class="title">Give Your Business<br>the Edge!</h1>
+
+        <p class="description">Register as a Troupon Merchant today and give your business a loyalty boost.<br>You can now reach your customers right where they are, here on Troupon!</p>
+
+        <a href="" class="btn-action"><i class="fa fa-star fa-fw"></i> Become a Merchant</a>
+
+        <div class="shopper-img">
+         <img src="{% static 'img/shopper-girl.png' %}">
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock subview %}
+

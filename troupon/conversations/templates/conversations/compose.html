@@ -1,0 +1,51 @@
+{% extends "conversations/conversations_base.html" %}
+{% load static %}
+
+{% block sidebar_menu %}
+
+  {% url 'compose_message' as compose_url %}
+  {% include "snippet_sidebar_item.html" with name='Compose' url=compose_url %}
+  
+  {% url 'messages' as url %}
+  {% include "snippet_sidebar_item.html" with name='Inbox' url=url %}
+
+{% endblock sidebar_menu %}
+
+
+{% block subview %}
+
+    <div class="row">
+        <div class="col-sm-6" id="compose-form">
+            <form action="{% url 'messages' %}" method="POST">
+                {% csrf_token %}
+                <div class="custom-input-group">
+                    <label>Recipient <span class="label-asterik">*</span></label>
+                    <select name="recipient">
+                        {% for user in users %}
+                            <option value="{{user.username}}">{{user.username}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="custom-input-group">
+                    <label>Message Type <span class="label-asterik">*</span></label>
+                    <select name="type" required="yes">
+                        <option>Select an option</option>
+                        {% for val, display  in message_choices %}
+                            <option value="{{val}}"> {{display}} </option>
+                        {% endfor %}
+                    </select> 
+                </div>
+                <div class="custom-input-group">
+                    <label>Subject <span class="label-asterik">*</span></label>
+                    <input name="subject" placeholder="Subject" type="text" required="yes">
+                </div>
+                <div class="custom-input-group">
+                    <label>Description <span class="label-asterik">*</span></label>
+                    <textarea name="body" class="form-control" placeholder="Body Content" required="yes" rows=8></textarea>
+                </div>
+                <button class="btn btn-action"><i class="fa fa-paper-plane"></i> Send</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

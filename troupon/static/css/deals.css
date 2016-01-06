@@ -1,0 +1,100 @@
+.deal-item {
+    padding: 18px;
+}
+
+.infix img{
+    height: auto;
+    width: 100%;
+    border-radius: 8px;
+    margin: 3px;
+    box-shadow: rgba(0,0,0,0.2) 0px 3px 3px, inset rgba(0,0,0,0.2) 0px -3px 3px, rgba(0,0,0,0.2) -3px 3px 3px, inset rgba(0,0,0,0.2) 3px -3px 3px;
+}
+.infix {
+    padding: 5px 30px 0px 0px;
+    overflow: hidden;
+}
+
+.detail.row {
+    margin: 25px 0px;
+}
+
+.second.row{
+    margin: 45px 0px;
+}
+.directions a {
+    text-decoration: underline;
+}
+.deal-price strike{
+    display: block;
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #F1C40F;
+    position: relative;
+
+}
+.deal-price strike::after {
+    border-bottom: 0.125em solid #F39C12;
+    content: "";
+    left: 35%;
+    margin-top: calc(0.125em / 2 * -1);
+    position: absolute;
+    width: 80px;
+    top: 50%;
+}
+.deal-price strike span {
+    color: #000000;
+}
+.deal-price h3{
+    font-size: 30px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+#search-bar .row {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.deal-location {
+    margin-top: 8px;
+    font-weight: 400;
+    color: #F1C40F;
+}
+
+.deal-price-specs {
+    position: static;
+    list-style: none;
+    clear: both;
+}
+.deal-price-specs li{
+    position: static;
+}
+.deal-price-specs li {
+    border-bottom: solid 1px #C6C6C6;
+    padding-top: 5px;
+    padding-bottom: 28px;
+    display: block;
+}
+.deal-price-specs-leaf:first-child {
+    border-top: solid 1px #C6C6C6;
+}
+.ash {
+    color: #C6C6C6;
+}
+.description h3 i {
+    margin-right: 10px;
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+.description h3 {
+    color: #C6C6C6;
+    font-size: 0.9em;
+}
+.description h4 {
+    margin-top: 30px;
+}
+
+#map {
+    box-shadow: rgba(0,0,0,0.2) 0px 3px 3px, inset rgba(0,0,0,0.2) 0px -3px 3px, rgba(0,0,0,0.2) -3px 3px 3px, inset rgba(0,0,0,0.2) 3px -3px 3px;
+    border-radius: 8px;
+}

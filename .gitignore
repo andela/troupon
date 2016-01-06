@@ -58,3 +58,27 @@ target/
 
 # virtualenv
 venv/
+.idea/
+
+# environment files
+.env.*
+
+# Gulp-Sass preprocessing
+troupon/prepros.cfg
+node_modules/
+
+
+# Mac OS Desktop Store
+*/.DS_Store
+.DS_Store
+
+# staticfiles
+troupon/staticfiles/
+
+# database migrations
+troupon/*/migrations/*
+
+# eclipse IDE
+.settings
+.project
+.pydevproject
