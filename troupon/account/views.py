@@ -1,3 +1,7 @@
+import pyotp
+from nexmo.libpynexmo.nexmomessage import NexmoMessage
+import time
+
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
@@ -5,11 +9,17 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
+from django.conf import settings
+from django.http import HttpResponse
 
 from authentication.views import LoginRequiredMixin
 from deals.models import STATE_CHOICES
 from account.forms import UserProfileForm
 from account.models import UserProfile
+from merchant.models import Merchant
+
+secret_key = settings.OTP_SECRET_KEY
+totp_token = pyotp.TOTP(secret_key, interval=180)
 
 
 class UserProfileView(LoginRequiredMixin, TemplateView):
@@ -93,6 +103,108 @@ class MerchantIndexView(LoginRequiredMixin, TemplateView):
         }
         template_name = 'account/become_a_merchant.html'
         return render(request, template_name, context)
+
+
+class MerchantRegisterView(LoginRequiredMixin, TemplateView):
+
+    template_name = "account/register_merchant.html"
+
+    def get_context_data(self, **kwargs):
+        context_var = super(MerchantRegisterView,
+                            self).get_context_data(**kwargs)
+        # define the base breadcrumbs for this view:
+        context_var.update({
+            'states': {'choices': STATE_CHOICES, 'default': 25},
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'Merchant', 'url': reverse('account_merchant')},
+                {'name': 'Merchant Register', },
+            ]
+        })
+
+        return context_var
+
+    def post(self, request, **kwargs):
+        name = request.POST.get('name')
+        state = request.POST.get('user_state')
+        telephone = request.POST.get('telephone')
+        intlnumber = request.POST.get('intlnumber')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        slug = request.POST.get('slug')
+        userprofile = UserProfile.objects.get(id=request.user.id)
+
+        merchant = Merchant(name=name, state=state,
+                            telephone=telephone, email=email,
+                            address=address, slug=slug,
+                            intlnumber=intlnumber,
+                            userprofile=userprofile)
+
+        merchant.save()
+        token = totp_token.now()
+        msg = {
+            'reqtype': 'json',
+            'api_key': settings.NEXMO_USERNAME,
+            'api_secret': settings.NEXMO_PASSWORD,
+            'from': settings.NEXMO_FROM,
+            'to': intlnumber,
+            'text': str(token),
+        }
+        sms = NexmoMessage(msg)
+        response = sms.send_request()
+
+        if response:
+            return redirect(
+                reverse('account_merchant_verify'))
+        else:
+
+            context = {
+                'states': {'choices': STATE_CHOICES, 'default': 25},
+                'breadcrumbs': [
+                    {'name': 'My Account', 'url': reverse('account')},
+                    {'name': 'Merchant', 'url': reverse('account_merchant')},
+                    {'name': 'Merchant Register', },
+                ]
+            }
+
+            mssg = "error."
+            messages.add_message(request, messages.ERROR, mssg)
+            return render(request, self.template_name, context)
+
+
+class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
+
+    template_name = "account/verify_merchant.html"
+
+    def get(self, request, *args, **kwargs):
+        # define the base breadcrumbs for this view:
+        context = {
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'Merchant', 'url': reverse('account_merchant')},
+                {'name': 'Merchant OTP Verification', },
+            ]
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        token = request.POST.get('token')
+        result = totp_token.verify(token)
+
+        if result is True:
+            merchant = Merchant.objects.get(
+                userprofile_id=request.user.profile.id
+            )
+            merchant.enabled = True
+            merchant.save()
+
+            return redirect(reverse('account_merchant_confirm'))
+        else:
+            mssg = "OTP Verification Failed."
+            messages.add_message(request, messages.ERROR, mssg)
+            return redirect(reverse('account_merchant_verify'))
 
 
 class UserChangePasswordView(LoginRequiredMixin, TemplateView):

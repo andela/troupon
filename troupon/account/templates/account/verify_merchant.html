@@ -1,0 +1,18 @@
+{% extends "account/profile_base.html" %}
+{% load static%}
+
+{% block sidebar_menu %}
+  {% with active_tab='Merchant' %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock sidebar_menu %}
+
+{% block subview %}
+
+  <div class="row">
+    <div class="col-sm-7">
+        VERIFY
+    </div>
+  </div>
+
+{% endblock subview %}
