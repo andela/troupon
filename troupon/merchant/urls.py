@@ -25,4 +25,5 @@ urlpatterns = [
         MessageView.as_view(),
         name='message'
     ),
+
 ]
