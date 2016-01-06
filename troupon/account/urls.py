@@ -1,19 +1,23 @@
 from django.conf.urls import url
 
-from views import UserProfileView, MerchantIndexView
+from account import views
 
 urlpatterns = [
 
     url(r'^$',
-        UserProfileView.as_view(),
+        views.UserProfileView.as_view(),
         name='account'),
 
     url(r'^profile/$',
-        UserProfileView.as_view(),
+        views.UserProfileView.as_view(),
         name='account_profile'),
 
     url(r'^merchant/$',
-        MerchantIndexView.as_view(),
+        views.MerchantIndexView.as_view(),
         name='account_merchant'),
+
+    url(r'^change_password/$',
+        views.UserChangePasswordView.as_view(),
+        name='account_change_password'),
 
 ]

@@ -4,6 +4,8 @@ from django.views.generic.base import TemplateView
 from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.core.context_processors import csrf
+from django.http import HttpResponseRedirect
 
 from authentication.views import LoginRequiredMixin
 from deals.models import STATE_CHOICES
@@ -101,3 +103,64 @@ class MerchantIndexView(LoginRequiredMixin, TemplateView):
         }
         template_name = 'account/become_a_merchant.html'
         return render(request, template_name, context)
+
+
+class UserChangePasswordView(LoginRequiredMixin, TemplateView):
+
+    """
+    Class defined to change user password.
+    """
+
+    template_name = "account/user_changepassword.html"
+
+    def get(self, request, *args, **kwargs):
+        # define the base breadcrumbs for this view:
+        context = {
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'Change Password', },
+            ]
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, **kwargs):
+
+        user_id = request.user.id
+        password1 = request.POST.get('password1', '')
+        password2 = request.POST.get('password2', '')
+
+        context = {
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'Change Password', },
+            ]
+        }
+
+        if password1 and password2:
+            if password1 == password2:
+                user = User.objects.get(id=user_id)
+                user.set_password(password1)
+                user.save()
+                return HttpResponseRedirect('/')
+            else:
+
+                context.update(csrf(request))
+                mssg = "Password Mismatch"
+                messages.add_message(request, messages.INFO, mssg)
+                return render(request, self.template_name, context)
+
+        if not password1 and not password2:
+
+            context.update(csrf(request))
+            mssg = "Passwords should match or field should not be left empty"
+            messages.add_message(request, messages.INFO, mssg)
+            return render(request, self.template_name, context)
+
+        if not password1 or not password2:
+
+            context.update(csrf(request))
+            mssg = "Passwords should match or field should not be left empty"
+            messages.add_message(request, messages.INFO, mssg)
+
+            return render(request, self.template_name, context)

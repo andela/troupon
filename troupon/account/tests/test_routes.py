@@ -30,3 +30,51 @@ class UserProfileTestCase(TestCase):
 
         response = self.client_stub.get("/account/merchant/")
         self.assertEquals(response.status_code, 302)
+
+
+class UserchangePasswordTestCase(TestCase):
+
+    '''Test that User can successfully change password.'''
+
+    def setUp(self):
+        self.client = Client()
+
+        self.user = User.objects.create_user(username='johndoe',
+                                             email='johndoe@gmail.com',
+                                             password='12345')
+
+    def test_user_can_changepassword(self):
+
+        data = dict(password1="andela", password2="andela")
+        response = self.client.post("/account/change_password/", data)
+        self.assertEqual(response.status_code, 302)
+
+
+class ChangePasswordErrorTestCase(TestCase):
+
+    ''' Test that change password error is caught.'''
+
+    def setUp(self):
+        self.client = Client()
+
+        self.user = User.objects.create_user(username='johndoe',
+                                             email='johndoe@gmail.com',
+                                             password='12345')
+
+    def test_user_mismatch_changepassword(self):
+
+        data = dict(password1="andela", password2="hhhjjh")
+        response = self.client.post("/account/change_password/", data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_no_data_on_changepassword(self):
+
+        data = dict(password1="", password2="")
+        response = self.client.post("/account/change_password/", data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_only_one_field_given_on_changepassword(self):
+
+        data = dict(password1="andela", password2="")
+        response = self.client.post("/account/change_password/", data)
+        self.assertEqual(response.status_code, 302)
