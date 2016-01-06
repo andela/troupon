@@ -5,7 +5,6 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
-from django.http import HttpResponseRedirect
 
 from authentication.views import LoginRequiredMixin
 from deals.models import STATE_CHOICES
@@ -138,25 +137,20 @@ class UserChangePasswordView(LoginRequiredMixin, TemplateView):
             if password1 == password2:
                 user.set_password(password1)
                 user.save()
-                return HttpResponseRedirect('/')
+                mssg = "Password Successfully Changed!"
             else:
-
                 context.update(csrf(request))
                 mssg = "Password Mismatch"
-                messages.add_message(request, messages.INFO, mssg)
-                return render(request, self.template_name, context)
+
+            messages.add_message(request, messages.INFO, mssg)
+            return render(request, self.template_name, context)
 
         if not password1 and not password2:
-
             context.update(csrf(request))
             mssg = "Passwords should match or field should not be left empty"
-            messages.add_message(request, messages.INFO, mssg)
-            return render(request, self.template_name, context)
-
-        if not password1 or not password2:
-
+        else:
             context.update(csrf(request))
             mssg = "Passwords should match or field should not be left empty"
-            messages.add_message(request, messages.INFO, mssg)
 
-            return render(request, self.template_name, context)
+        messages.add_message(request, messages.INFO, mssg)
+        return render(request, self.template_name, context)
