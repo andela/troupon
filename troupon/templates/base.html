@@ -14,7 +14,7 @@
   <!-- title and favicon -->
   <title>Troupon - {% block title %}Get Some!{% endblock title %}</title>
   <link rel="icon" href="{% static 'img/icon.png' %}" type="image/x-icon">
-  
+
   {% block base_css %}
   <!-- Bootstrap Core -->
   <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
@@ -22,6 +22,8 @@
   <link href='https://fonts.googleapis.com/css?family=Lato:900,700italic,700,400italic,400,300' rel='stylesheet' type='text/css'>
   <!-- FontAwesome -->
   <link rel="stylesheet" type="text/css" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+  <!--International telephoneinput-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/intlTelInput.css' %}">
   <!-- Flickity -->
   <link rel="stylesheet" type="text/css" href="{% static 'bower_components/flickity/dist/flickity.min.css' %}">
   <!-- Troupon base-->
@@ -29,7 +31,7 @@
   {% endblock base_css %}
 
 
-  {% block extended_css %} 
+  {% block extended_css %}
     {# override this block to add app/feature-specific css in extending templates #}
   {% endblock extended_css %}
 
@@ -43,7 +45,7 @@
 </head>
 
 <body>
-  
+
   <div class="container-fluid viewport-container {% if shaded_bg %}shaded{% endif %}"> <!-- viewport container (wraps everything)-->
 
     <div class="modals-parent">
@@ -85,7 +87,7 @@
               <div class="brand">
                  <a class="logo" href="{% url 'homepage' %}"><img src="{% static 'img/logo-h-sm.png' %}" alt="Troupon logo"></a>
               </div>
-              
+
               <button type="button" class="menu-toggle visible-xs collapsed" data-toggle="collapse" data-target="#menu-bar"><i class="fa fa-bars"></i></button>
             </div>
             <div class="navbar-collapse collapse" id="menu-bar">
@@ -142,7 +144,7 @@
         {% if search_options %} {# hides by default, pass the 'search_options' dictionary in the context to show #}
         <!-- search bar-->
         <section id="search-bar" class="navbar-collapse collapse">
-          <form class="form-inline" action="{% url 'dealsearchcity' %}" method="GET">                
+          <form class="form-inline" action="{% url 'dealsearchcity' %}" method="GET">
             <div class="row">
               <div class="col-sm-5 col-md-6 col-lg-6">
                 <div class="custom-input-group">
@@ -182,7 +184,7 @@
           </div>
         {% endblock main %}
         </main>
-    
+
         {% block footer %}
         {% if not hide_footer %} {# shows by default, pass 'hide_footer: True' in the context to hide #}
         <footer>
@@ -209,7 +211,7 @@
                 <li><a href=""><i class="fa fa-google-plus fa-fw"></i></a></li>
                 <li><a href=""><i class="fa fa-linkedin fa-fw"></i></a></li>
                 <li><a href=""><i class="fa fa-envelope fa-fw"></i></a></li>
-              </ul>    
+              </ul>
             </div>
             <div class="col-sm-offset-1 col-sm-2 col-md-2 col-lg-offset-1 col-lg-3">
               <div class="brand">
@@ -250,7 +252,7 @@
       </div>
       <button type="button" id="modals-close"><span>&times;</span><span class="caption hidden-xs">Escape</span></button>
     </div> <!-- ends modals -->
-    
+
 
   </div> <!-- ends viewport container -->
 
@@ -263,6 +265,8 @@
     <script src="{% static 'bower_components/flickity/dist/flickity.pkgd.min.js' %}"></script>
     <!-- Packery -->
     <script src="{% static 'bower_components/packery/dist/packery.pkgd.min.js' %}"></script>
+    <!--Intl tel number-->
+    <script src="{% static 'js/intlTelInput.min.js' %}"></script>
     <!-- Troupon base-->
     <script src="{% static 'js/app.js' %}"></script>
   {% endblock base_js %}
@@ -270,7 +274,7 @@
   {% block extended_js %}
      <!-- override this block to add app/feature-specific js libraries and scripts in extending templates -->
   {% endblock extended_js %}
-  
+
 </body>
 
 </html>

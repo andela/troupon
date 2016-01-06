@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
@@ -7,12 +6,27 @@ from deals.models import STATE_CHOICES
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    first_name = models.CharField(max_length=100, null=False, blank=False, default='')
-    last_name = models.CharField(max_length=100, null=False, blank=False, default='')
+
+    user = models.OneToOneField(User)
     user_state = models.SmallIntegerField(choices=STATE_CHOICES,
                                           default=25)
-    interest = models.TextField(blank=True, default='')
+    occupation = models.TextField(blank=True, default='')
+    phonenumber = models.CharField(blank=True, default='', max_length=20)
+    intlnumber = models.CharField(blank=True, default='', max_length=20)
+
+    def check_diff(self, request_value):
+
+        for field in request_value:
+            if getattr(self, field, False) != False and getattr(self, field) != request_value[field] and \
+                    request_value[field] != '':
+                    setattr(self, field, request_value[field])
+        self.save()
+        return {
+            u'user_state': self.user_state,
+            u'phonenumber': self.phonenumber,
+            u'intlnumber': self.intlnumber,
+            u'occupation': self.occupation
+        }
 
     def __unicode__(self):
         return u'Profile of user: %s' % self.user.username
