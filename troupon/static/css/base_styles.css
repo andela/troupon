@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* ==========================================================================
 Resets (overrides for Bootstrap and browser-defaults)
 ========================================================================== */
@@ -1411,7 +1410,7 @@ footer .copyright p {
   padding-bottom: 5px;
 }
 
-#compose-form {
+.form-message {
   padding-bottom: 8px;
 }
 
@@ -1428,7 +1427,7 @@ footer .copyright p {
 }
 
 .message-type:after {
-  content: ' —';
+  content: "-";
 }
 
 /* =========================================================================

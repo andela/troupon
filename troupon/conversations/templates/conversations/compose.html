@@ -15,7 +15,7 @@
 {% block subview %}
 
     <div class="row">
-        <div class="col-sm-6" id="compose-form">
+        <div id="compose-form" class="col-sm-6 form-message">
             <form action="{% url 'messages' %}" method="POST">
                 {% csrf_token %}
                 <div class="custom-input-group">
