@@ -4,11 +4,12 @@ $(document).ready(function() {
     var button  = $('#save');
     button.attr('disabled', 'disabled');
 
-    var telInput = $('#mobile-number')
+    var telInput = $('#mobile-number');
     telInput.intlTelInput({
         initialCountry: 'auto',
         geoIpLookup: function(callback) {
-            $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
+            $.get('http://ipinfo.io', function() {},
+                 'jsonp').always(function(resp) {
             var countryCode = (resp && resp.country) ? resp.country : '';
             callback(countryCode);
         });
