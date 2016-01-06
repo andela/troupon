@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
@@ -18,7 +17,7 @@ class UserProfile(models.Model):
     def check_diff(self, request_value):
 
         for field in request_value:
-            if getattr(self, field) != request_value[field] and \
+            if getattr(self, field, False) != False and getattr(self, field) != request_value[field] and \
                     request_value[field] != '':
                     setattr(self, field, request_value[field])
         self.save()

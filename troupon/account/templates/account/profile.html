@@ -18,7 +18,7 @@
       <div class="custom-form-group">
         <label>Email <span class="label-asterik">*</span></label>
         <div class="custom-input-group">
-        <input type="text" name="interest" id="" value="{{ request.user.email }}" placeholder="" disabled="disabled">
+          <input type="text" name="interest" id="" value="{{ request.user.email }}" placeholder="" disabled="disabled">
         </div>
       </div>
 
@@ -41,14 +41,14 @@
         <div class="custom-form-group">
           <label>First Name <span class="label-asterik">*</span></label>
           <div class="custom-input-group">
-          <input type="text" name="first_name" id="first_name" value="{{ request.user.first_name }}" placeholder="" {% if not request.user.first_name %} required {% endif %}>
+            <input type="text" name="first_name" id="first_name" value="{{ request.user.first_name }}" placeholder="" {% if not request.user.first_name %} required {% endif %}>
           </div>
         </div>
 
         <div class="custom-form-group">
           <label>Last Name <span class="label-asterik">*</span></label>
           <div class="custom-input-group">
-          <input type="text" name="last_name" id="last_name" value="{{ request.user.last_name }}" placeholder="" {% if not request.user.last_name %} required {% endif %}>
+            <input type="text" name="last_name" id="last_name" value="{{ request.user.last_name }}" placeholder="" {% if not request.user.last_name %} required {% endif %}>
           </div>
         </div>
 
@@ -57,7 +57,7 @@
         <div class="custom-form-group">
           <label>Occupation <span class="label-asterik">*</span></label>
           <div class="custom-input-group">
-          <input type="text" name="occupation" id="occupation" value="{{ profile.occupation }}" placeholder="">
+            <input type="text" name="occupation" id="occupation" value="{{ profile.occupation }}" placeholder="">
           </div>
         </div>
 
@@ -69,12 +69,11 @@
             <span id="error-msg" class="hide">Invalid number</span>
             <input id="hidden" type="hidden" name="intlnumber">
           </div>
-
         </div>
 
         <button id = "save" type="submit" class="btn-action btn-form-submit">Save Changes</button>
-
       </form>
+
     </div>
   </div>
 

@@ -34,17 +34,8 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, **kwargs):
 
-        request.POST._mutable = True
-
-        first_name = str(
-            request.POST.pop('first_name')[0]
-        ) or request.user.first_name
-        last_name = str(
-            request.POST.pop('last_name')[0]
-        ) or request.user.last_name
-        csrfmiddlewaretoken = str(
-            request.POST.pop('csrfmiddlewaretoken')[0]
-        )
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
 
         profile = UserProfile.objects.get(id=request.user.profile.id)
         form_dict = profile.check_diff(request.POST)
@@ -126,9 +117,10 @@ class UserChangePasswordView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, **kwargs):
 
-        user_id = request.user.id
         password1 = request.POST.get('password1', '')
         password2 = request.POST.get('password2', '')
+        current_password = request.POST.get('current_pasword', '')
+        user = User.objects.get(id=request.user.id)
 
         context = {
             'breadcrumbs': [
@@ -136,10 +128,14 @@ class UserChangePasswordView(LoginRequiredMixin, TemplateView):
                 {'name': 'Change Password', },
             ]
         }
+        if not user.check_password(current_password):
+            context.update(csrf(request))
+            mssg = "Your current password is incorrect"
+            messages.add_message(request, messages.INFO, mssg)
+            return render(request, self.template_name, context)
 
         if password1 and password2:
             if password1 == password2:
-                user = User.objects.get(id=user_id)
                 user.set_password(password1)
                 user.save()
                 return HttpResponseRedirect('/')

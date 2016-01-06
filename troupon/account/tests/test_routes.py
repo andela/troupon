@@ -45,7 +45,7 @@ class UserchangePasswordTestCase(TestCase):
 
     def test_user_can_changepassword(self):
 
-        data = dict(password1="andela", password2="andela")
+        data = dict(current_password="12345", password1="andela", password2="andela")
         response = self.client.post("/account/change_password/", data)
         self.assertEqual(response.status_code, 302)
 
@@ -63,18 +63,24 @@ class ChangePasswordErrorTestCase(TestCase):
 
     def test_user_mismatch_changepassword(self):
 
-        data = dict(password1="andela", password2="hhhjjh")
+        data = dict(current_password="12345", password1="andela", password2="hhhjjh")
         response = self.client.post("/account/change_password/", data)
         self.assertEqual(response.status_code, 302)
 
     def test_no_data_on_changepassword(self):
 
-        data = dict(password1="", password2="")
+        data = dict(current_password="12345", password1="", password2="")
         response = self.client.post("/account/change_password/", data)
         self.assertEqual(response.status_code, 302)
 
     def test_only_one_field_given_on_changepassword(self):
 
-        data = dict(password1="andela", password2="")
+        data = dict(current_password="12345", password1="andela", password2="")
+        response = self.client.post("/account/change_password/", data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_invalid_currentpassword(self):
+
+        data = dict(current_password="wrong", password1="andela", password2="")
         response = self.client.post("/account/change_password/", data)
         self.assertEqual(response.status_code, 302)
