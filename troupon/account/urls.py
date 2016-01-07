@@ -24,6 +24,10 @@ urlpatterns = [
         views.MerchantVerifyVeiw.as_view(),
         name='account_merchant_verify'),
 
+    url(r'^merchant/resendotp/$',
+        views.MerchantResendOtpVeiw.as_view(),
+        name='account_merchant_resendotp'),
+
     url(r'^merchant/confirm/$',
         views.MerchantConfirmVeiw.as_view(),
         name='account_merchant_confirm'),

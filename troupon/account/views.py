@@ -10,13 +10,13 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.conf import settings
-from django.http import HttpResponse
 
 from authentication.views import LoginRequiredMixin
-from deals.models import STATE_CHOICES
+from deals.models import STATE_CHOICES, Advertiser
 from account.forms import UserProfileForm
 from account.models import UserProfile
 from merchant.models import Merchant
+from account.slugify import slugify
 
 secret_key = settings.OTP_SECRET_KEY
 totp_token = pyotp.TOTP(secret_key, interval=180)
@@ -125,51 +125,57 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
         return context_var
 
     def post(self, request, **kwargs):
+
         name = request.POST.get('name')
-        state = request.POST.get('user_state')
-        telephone = request.POST.get('telephone')
-        intlnumber = request.POST.get('intlnumber')
-        email = request.POST.get('email')
-        address = request.POST.get('address')
-        slug = request.POST.get('slug')
-        userprofile = UserProfile.objects.get(id=request.user.id)
-
-        merchant = Merchant(name=name, state=state,
-                            telephone=telephone, email=email,
-                            address=address, slug=slug,
-                            intlnumber=intlnumber,
-                            userprofile=userprofile)
-
-        merchant.save()
-        token = totp_token.now()
-        msg = {
-            'reqtype': 'json',
-            'api_key': settings.NEXMO_USERNAME,
-            'api_secret': settings.NEXMO_PASSWORD,
-            'from': settings.NEXMO_FROM,
-            'to': intlnumber,
-            'text': str(token),
+        context = {
+            'states': {'choices': STATE_CHOICES, 'default': 25},
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'Merchant', 'url': reverse('account_merchant')},
+                {'name': 'Merchant Register', },
+            ]
         }
-        sms = NexmoMessage(msg)
-        response = sms.send_request()
 
-        if response:
-            return redirect(
-                reverse('account_merchant_verify'))
-        else:
+        try:
+            advertiser = Advertiser.objects.filter(name__exact=name)
+            if advertiser:
+                mssg = "Company Name Already taken"
+                messages.add_message(request, messages.ERROR, mssg)
+                return render(request, self.template_name, context)
 
-            context = {
-                'states': {'choices': STATE_CHOICES, 'default': 25},
-                'breadcrumbs': [
-                    {'name': 'My Account', 'url': reverse('account')},
-                    {'name': 'Merchant', 'url': reverse('account_merchant')},
-                    {'name': 'Merchant Register', },
-                ]
+        except Advertiser.DoesNotExist:
+
+            state = request.POST.get('user_state')
+            telephone = request.POST.get('telephone')
+            intlnumber = request.POST.get('intlnumber')
+            email = request.POST.get('email')
+            address = request.POST.get('address')
+            slug = slugify(name)
+            userprofile = UserProfile.objects.get(id=request.user.id)
+
+            merchant = Merchant(name=name, state=state,
+                                telephone=telephone, email=email,
+                                address=address, slug=slug,
+                                intlnumber=intlnumber,
+                                userprofile=userprofile)
+
+            merchant.save()
+            token = totp_token.now()
+            msg = {
+                'reqtype': 'json',
+                'api_key': settings.NEXMO_USERNAME,
+                'api_secret': settings.NEXMO_PASSWORD,
+                'from': settings.NEXMO_FROM,
+                'to': intlnumber,
+                'text': str(token),
             }
+            sms = NexmoMessage(msg)
+            response = sms.send_request()
+            print response
 
-            mssg = "error."
-            messages.add_message(request, messages.ERROR, mssg)
-            return render(request, self.template_name, context)
+            if response:
+                return redirect(
+                    reverse('account_merchant_verify'))
 
 
 class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
@@ -182,7 +188,7 @@ class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
-                {'name': 'Merchant OTP Verification', },
+                {'name': 'OTP Verification', },
             ]
         }
 
@@ -203,6 +209,49 @@ class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
             return redirect(reverse('account_merchant_confirm'))
         else:
             mssg = "OTP Verification Failed."
+            messages.add_message(request, messages.ERROR, mssg)
+            return redirect(reverse('account_merchant_verify'))
+
+
+class MerchantConfirmVeiw(LoginRequiredMixin, TemplateView):
+    template_name = "account/confirm_merchant.html"
+
+    def get(self, request, *args, **kwargs):
+        # define the base breadcrumbs for this view:
+        context = {
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'Merchant', 'url': reverse('account_merchant')},
+                {'name': 'Confirm Merchant', },
+            ]
+        }
+
+        return render(request, self.template_name, context)
+
+
+class MerchantResendOtpVeiw(LoginRequiredMixin, TemplateView):
+
+    def get(self, request, *args, **kwargs):
+
+        merchant = Merchant.objects.get(
+            userprofile_id=request.user.profile.id
+        )
+        intlnumber = merchant.intlnumber
+        token = totp_token.now()
+        msg = {
+            'reqtype': 'json',
+            'api_key': settings.NEXMO_USERNAME,
+            'api_secret': settings.NEXMO_PASSWORD,
+            'from': settings.NEXMO_FROM,
+            'to': intlnumber,
+            'text': str(token),
+        }
+        sms = NexmoMessage(msg)
+        response = sms.send_request()
+        print response
+
+        if response:
+            mssg = "OTP Verification number has been sent."
             messages.add_message(request, messages.ERROR, mssg)
             return redirect(reverse('account_merchant_verify'))
 

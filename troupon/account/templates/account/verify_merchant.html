@@ -11,7 +11,27 @@
 
   <div class="row">
     <div class="col-sm-7">
-        VERIFY
+      <form method="POST" id="merchantform" action="{% url 'account_merchant_verify' %}">
+      <section>
+      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <div class="form-group col-lg-12">
+          <h4>Please Enter Your OTP token to verify Phone-number </h4>
+        </div>
+        <div class="form-group col-lg-12">
+          <label>Token</label>
+          <div class="custom-input-group">
+            <input type="text" name="token" class="form-control" id="id_name" value="" placeholder="One Time Password" required>
+          </div>
+        </div>
+        </section>
+
+        <div class="form-group col-lg-12">
+        <button type="submit" class="btn-action btn-form-submit pull-left" disabled="disabled">Verify</button>
+
+        <a href="{% url 'account_merchant_resendotp' %}"><button type="button" class="btn-action btn-form-submit pull-right" disabled="disabled">Resend OTP</button></a>
+        </div>
+
+      </form>
     </div>
   </div>
 
