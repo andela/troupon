@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    var button  = $('#m_submit');
+    button.attr('disabled', 'disabled');
+
     var telInput = $('#telephone');
     telInput.intlTelInput({
         initialCountry: 'auto',
@@ -41,6 +44,11 @@ $(document).ready(function() {
 
         $('form').submit(function() {
         $('#hidden1').val(telInput.intlTelInput('getNumber'));
+
+    });
+        $('form :input').change(function() {
+            $(this).closest('form').data('changed', true);
+            button.removeAttr('disabled');
     });
 
 });

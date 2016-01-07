@@ -139,7 +139,7 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
         try:
             advertiser = Advertiser.objects.filter(name__exact=name)
             if advertiser:
-                mssg = "Company Name Already taken"
+                mssg = "Company Name Already taken/exists"
                 messages.add_message(request, messages.ERROR, mssg)
                 return render(request, self.template_name, context)
 
