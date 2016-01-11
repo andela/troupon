@@ -20,8 +20,7 @@ class TransactionHistory(models.Model):
                                             null=False,
                                             blank=False,
                                             default='')
-    failure_code = models.IntegerField(max_length=20,
-                                       null=True,
+    failure_code = models.IntegerField(null=True,
                                        blank=True)
     failure_message = models.CharField(max_length=200,
                                        null=True,
