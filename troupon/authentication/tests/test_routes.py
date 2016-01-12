@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from mock import patch
+
 from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
@@ -6,7 +8,8 @@ from django.contrib.auth.models import User
 from allaccess.views import OAuthRedirect, OAuthCallback
 
 from authentication.views import ForgotPasswordView, ResetPasswordView,\
-                          ActivateAccountView
+    ActivateAccountView
+from authentication.emails import SendGrid
 
 
 class UserLoginRouteTestCase(TestCase):
@@ -122,8 +125,12 @@ class UserRegistrationRouteTest(TestCase):
         """
         User is redirected after registration data is validated.
         """
-        response = self.client_stub.post('/register/', self.form_data)
-        self.assertEquals(response.status_code, 302)
+        with patch.object(SendGrid, 'send', return_value=200) \
+                as mock_method:
+                response = self.client_stub.post(
+                    '/register/',
+                    self.form_data)
+                self.assertEquals(response.status_code, 302)
 
     def test_view_reg_success_route(self):
         """

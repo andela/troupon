@@ -1,3 +1,5 @@
+from mock import patch
+
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
@@ -35,7 +37,7 @@ class HashsTestCase(TestCase):
         reversed_hash_result = Hasher.reverse_hash(generated_hash)
         self.assertIsInstance(reversed_hash_result, User)
 
-    def test_reverse_hash_returns_None_for_Wrong_hash(self):
+    def test_reverse_hash_returns_none_for_wrong_hash(self):
         generated_hash = "a2374920910"
         reversed_hash_result = Hasher.reverse_hash(generated_hash)
         self.assertEquals(reversed_hash_result, None)
@@ -61,5 +63,7 @@ class EmailTestCase(TestCase):
 
     def test_sendgrid_sends_email(self):
 
-        response = SendGrid.send(self.email)
-        self.assertEquals(200, response)
+        with patch.object(SendGrid, 'send', return_value=200) \
+                as mock_method:
+            response = mock_method(self.email)
+            self.assertEquals(response, 200)

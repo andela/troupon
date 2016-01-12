@@ -2,7 +2,7 @@ import pyotp
 from nexmo.libpynexmo.nexmomessage import NexmoMessage
 import time
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.template import RequestContext
@@ -86,7 +86,6 @@ class MerchantIndexView(LoginRequiredMixin, TemplateView):
         # use the merchant status fields to determine which
         # view to show or redirect to:
         try:
-            # import pdb; pdb.set_trace()
             if not request.user.profile.merchant.enabled:
                 return redirect(reverse('account_mechant_verify'))
             else:
@@ -148,11 +147,10 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
         }
 
         try:
-            advertiser = Advertiser.objects.filter(name__exact=name)
-            if advertiser:
-                mssg = "Company Name Already taken/exists"
-                messages.add_message(request, messages.ERROR, mssg)
-                return render(request, self.template_name, context)
+            advertiser = Advertiser.objects.get(name__exact=name)
+            mssg = "Company Name Already taken/exists"
+            messages.add_message(request, messages.ERROR, mssg)
+            return render(request, self.template_name, context)
 
         except Advertiser.DoesNotExist:
 
@@ -162,13 +160,15 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             email = request.POST.get('email')
             address = request.POST.get('address')
             slug = slugify(name)
-            userprofile = UserProfile.objects.get(id=request.user.id)
+            userprofile = request.user.profile
 
-            merchant = Merchant(name=name, state=state,
-                                telephone=telephone, email=email,
-                                address=address, slug=slug,
-                                intlnumber=intlnumber,
-                                userprofile=userprofile)
+            merchant = Merchant(
+                name=name, state=state,
+                telephone=telephone, email=email,
+                address=address, slug=slug,
+                intlnumber=intlnumber,
+                userprofile=userprofile
+            )
 
             merchant.save()
             token = totp_token.now()
@@ -182,7 +182,6 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             }
             sms = NexmoMessage(msg)
             response = sms.send_request()
-            print response
 
             if response:
                 return redirect(
@@ -211,8 +210,9 @@ class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
         result = totp_token.verify(token)
 
         if result is True:
+
             merchant = Merchant.objects.get(
-                userprofile_id=request.user.profile.id
+                userprofile_id=request.user.profile
             )
             merchant.enabled = True
             merchant.save()
@@ -241,10 +241,12 @@ class MerchantConfirmVeiw(LoginRequiredMixin, TemplateView):
             body = """%s %s just verified his phone number.
         He is awaiting approval for his request to become a merchant.
         """ % (request.user.first_name, request.user.last_name)
+
             Message.send('Account', 'Merchant Approval', body, request.user)
             mesg = """A message has been sent to the admin with your
             application to become a merchant."""
             messages.add_message(request, messages.INFO, mesg)
+
         return render(request, self.template_name, context)
 
 
@@ -252,8 +254,9 @@ class MerchantResendOtpVeiw(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        merchant = Merchant.objects.get(
-            userprofile_id=request.user.profile.id
+        merchant = get_object_or_404(
+            Merchant,
+            userprofile_id=request.user.profile
         )
         intlnumber = merchant.intlnumber
         token = totp_token.now()
@@ -267,7 +270,6 @@ class MerchantResendOtpVeiw(LoginRequiredMixin, TemplateView):
         }
         sms = NexmoMessage(msg)
         response = sms.send_request()
-        print response
 
         if response:
             mssg = "OTP Verification number has been sent."

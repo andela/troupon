@@ -61,7 +61,8 @@ class Message(models.Model):
     def send(cls, type, subject, body, sender, recipient=None):
         """Sends a message to a recipient.
         Accepts as argument message type which must be in the list of
-        MESG_CHOICES, subject(in words), a body text, a sender, recipient is optional
+        MESG_CHOICES, subject(in words), a body text, a sender,
+        recipient is optional
         """
         time_now = timezone.now()
         if not recipient:

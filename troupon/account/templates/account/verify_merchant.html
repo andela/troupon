@@ -20,15 +20,15 @@
         <div class="form-group col-lg-12">
           <label>Token</label>
           <div class="custom-input-group">
-            <input type="text" name="token" class="form-control" id="id_name" value="" placeholder="One Time Password" required>
+            <input type="text" name="token" class="form-control" id="id_token_name" value="" placeholder="One Time Password" required>
           </div>
         </div>
         </section>
 
         <div class="form-group col-lg-12">
-        <button type="submit" class="btn-action btn-form-submit pull-left">Verify</button>
+        <button type="submit" class="btn-action btn-form-submit pull-left" id="id_verify_button">Verify</button>
 
-        <a href="{% url 'account_merchant_resendotp' %}"><button type="button" class="btn-action btn-form-submit pull-right" id="resend_button">Resend OTP</button></a>
+        <button data-href="{% url 'account_merchant_resendotp' %}" type="button" class="btn-action btn-form-submit pull-right" id="id_resend_button">Resend OTP</button>
         </div>
 
       </form>
