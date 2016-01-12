@@ -15,19 +15,17 @@
 {% block subview %}
 
     <div class="row">
-        <div class="col-sm-6" id="compose-form">
+        <div id="compose-form" class="col-sm-6 form-message">
             <form action="{% url 'messages' %}" method="POST">
                 {% csrf_token %}
-                {% if request.user.is_superuser %}
-                    <div class="custom-input-group">
-                        <label>Recipient <span class="label-asterik">*</span></label>
-                        <select name="recipient">
-                            {% for user in users %}
-                                <option value="{{user.username}}">{{user.username}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                {% endif %}
+                <div class="custom-input-group">
+                    <label>Recipient <span class="label-asterik">*</span></label>
+                    <select name="recipient">
+                        {% for user in users %}
+                            <option value="{{user.username}}">{{user.username}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <div class="custom-input-group">
                     <label>Message Type <span class="label-asterik">*</span></label>
                     <select name="type" required="yes">

@@ -11,18 +11,27 @@ from conversations.models import Message, MESG_CHOICES
 
 
 class ComposeMessageView(View):
+    """Composes messages sent to a recipient"""
     def get(self, request):
         """Show compose view"""
+        context_data = {}
         if request.user.is_superuser:
             # grant admin access to list of all registered users
             #  in the response context
-            context_data = {'users': User.objects.exclude(is_superuser=True)}
+            context_data.update({
+                'users': User.objects.exclude(is_superuser=True)
+            })
+        else:
+            context_data.update({
+                'users': User.objects.filter(is_superuser=True)
+            })
         context_data.update({
             'breadcrumbs': [
                 {'name': 'Merchant', 'url': reverse('account')},
                 {'name': 'Messages', 'url': reverse('messages')},
                 {'name': 'Compose', 'url': reverse('compose_message')},
-            ]
+            ],
+            'message_choices': MESG_CHOICES,
         })
         return TemplateResponse(
             request, 'conversations/compose.html', context_data
@@ -30,7 +39,7 @@ class ComposeMessageView(View):
 
 
 class MessagesView(View):
-
+    """Views messages for a sender"""
     def get(self, request):
         """Read thread topics"""
         u_id = request.user.id
@@ -38,12 +47,11 @@ class MessagesView(View):
             Q(recipient=u_id) | Q(sender=u_id)
         ).exclude(~Q(parent_msg=None)).order_by('-sent_at')
         context_data = {
-            'mesgs': mesgs,
-            'message_choices': MESG_CHOICES,
             'breadcrumbs': [
                 {'name': 'Merchant', 'url': reverse('account')},
                 {'name': 'Messages', 'url': reverse('messages')},
-            ]
+            ],
+            'mesgs': mesgs,
         }
         return TemplateResponse(
             request, 'conversations/index.html', context_data
@@ -77,34 +85,33 @@ class MessagesView(View):
 
 
 class MessageView(View):
-
+    """View messages in a thread """
     def get(self, request, m_id):
         """Read messages in a conversation"""
-        mesg = Message.objects.filter(
-            parent_msg=m_id) or Message.objects.get(id=m_id)
-        if type(mesg) is QuerySet and mesg.count():
-            mesg = mesg.latest('sent_at')
         time_now = timezone.now()
-        is_recipient = mesg.recipient == request.user
+        mesg = Message.objects.filter(Q(id=m_id) | Q(parent_msg=m_id))
+        latest_mesg = mesg.latest('sent_at')
+        other_messages = mesg.exclude(id=latest_mesg.id)
+        is_recipient = latest_mesg.recipient == request.user
+        # is_recipient = mesg.recipient == request.user
 
         if is_recipient:  # value comparison
-            mesg.read_at = timezone.now()  # update last read time
-            mesg.save()
+            latest_mesg.read_at = time_now
+            latest_mesg.save()
         # get messages in thread
-        other_messages = Message.objects\
-            .filter(recipient=request.user).exclude(id=mesg.id)\
-            .order_by('-sent_at')
-
-        # update last read time for messages in thread
-        other_messages.update(read_at=time_now)
-
+        if other_messages:
+            other_messages = other_messages.order_by('-sent_at')
+            # update last read time for messages in thread
+            other_messages.update(read_at=time_now)
+        mesg = other_messages.first()
         context_data = {
-            'mesg': mesg,
+            'mesg': latest_mesg,
             'other_messages': other_messages,
             'breadcrumbs': [
                 {'name': 'Merchant', 'url': reverse('account')},
                 {'name': 'Messages', 'url': reverse('messages')},
-                {'name': mesg.subject or mesg.parent_msg.subject},
+                {'name': latest_mesg.subject or latest_mesg
+                    .parent_msg.subject},
             ]
         }
         return TemplateResponse(
