@@ -10,13 +10,13 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.conf import settings
+from django.utils.text import slugify
 
 from authentication.views import LoginRequiredMixin
 from deals.models import STATE_CHOICES, Advertiser
 from account.forms import UserProfileForm
 from account.models import UserProfile
 from merchant.models import Merchant
-from account.slugify import slugify
 
 secret_key = settings.OTP_SECRET_KEY
 totp_token = pyotp.TOTP(secret_key, interval=180)
@@ -208,7 +208,7 @@ class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
 
             return redirect(reverse('account_merchant_confirm'))
         else:
-            mssg = "OTP Verification Failed."
+            mssg = "OTP Verification Failed. Resend OTP "
             messages.add_message(request, messages.ERROR, mssg)
             return redirect(reverse('account_merchant_verify'))
 
