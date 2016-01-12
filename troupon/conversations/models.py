@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
-
+from django.utils import timezone
+from django.contrib.auth.models import User
 
 MESG_CHOICES = (
     (1, 'Account'),
@@ -55,3 +56,37 @@ class Message(models.Model):
             recipient_id=request.user.id, read_at=None
         ).exclude(sender_id=request.user.id)
         return unread.count()
+
+    @classmethod
+    def send(cls, type, subject, body, sender, recipient=None):
+        """Sends a message to a recipient.
+        Accepts as argument message type which must be in the list of
+        MESG_CHOICES, subject(in words), a body text, a sender, recipient is optional
+        """
+        time_now = timezone.now()
+        if not recipient:
+            recipient = User.objects.filter(username="troupon_admin")[0]
+        else:
+            try:
+                recipient = User.objects.get(pk=recipient)
+            except User.DoesNotExist:
+                return False,
+                "Message couldn't be sent because the user wasn't found"
+        mesg_choices_dict = dict(MESG_CHOICES)
+        # get subject index
+        mesg_type = filter(
+            lambda x: mesg_choices_dict[x].lower() == type.lower(),
+            mesg_choices_dict.keys())[0]
+        Message.objects.create(
+            type=mesg_type, subject=subject,
+            sender=sender, recipient=recipient,
+            body=body, sent_at=time_now
+        )
+        return True
+
+    @classmethod
+    def confirmation_sent(cls, sender):
+        """Checks if a confirmation has been sent"""
+        return Message.objects.filter(
+            sender=sender, subject="Merchant Approval"
+        )

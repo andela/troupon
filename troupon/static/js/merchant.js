@@ -3,6 +3,9 @@ $(document).ready(function() {
     var button  = $('#m_submit');
     button.attr('disabled', 'disabled');
 
+    var resend_button  = $('#resend_button');
+    resend_button.attr('disabled', 'disabled');
+
     var telInput = $('#telephone');
     telInput.intlTelInput({
         initialCountry: 'auto',
@@ -37,6 +40,10 @@ $(document).ready(function() {
               errorMsg.removeClass('hide');
             }
         }
+    });
+
+    $('#id_name').change(function() {
+        resend_button.removeAttr('disabled');
     });
 
     // on keyup / change flag: reset

@@ -17,6 +17,7 @@ from deals.models import STATE_CHOICES, Advertiser
 from account.forms import UserProfileForm
 from account.models import UserProfile
 from merchant.models import Merchant
+from conversations.models import Message
 
 secret_key = settings.OTP_SECRET_KEY
 totp_token = pyotp.TOTP(secret_key, interval=180)
@@ -85,10 +86,11 @@ class MerchantIndexView(LoginRequiredMixin, TemplateView):
         # use the merchant status fields to determine which
         # view to show or redirect to:
         try:
-            if not request.user.userprofile.merchant.enabled:
-                redirect(reverse('account_mechant_verify'))
+            # import pdb; pdb.set_trace()
+            if not request.user.profile.merchant.enabled:
+                return redirect(reverse('account_mechant_verify'))
             else:
-                redirect(reverse('account_merchant_confirm'))
+                return redirect(reverse('account_merchant_confirm'))
 
         except AttributeError:
             pass
@@ -123,6 +125,15 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
         })
 
         return context_var
+
+    def get(self, request, **kwargs):
+        if not self.request.user.profile.is_complete():
+            mesg = """Please complete your profile information
+             before applying to become a merchant."""
+            messages.add_message(self.request, messages.INFO, mesg)
+            return redirect(reverse('account_profile'))
+
+        return render(request, self.template_name)
 
     def post(self, request, **kwargs):
 
@@ -225,7 +236,15 @@ class MerchantConfirmVeiw(LoginRequiredMixin, TemplateView):
                 {'name': 'Confirm Merchant', },
             ]
         }
-
+        if(not Message.confirmation_sent(request.user)):
+            # send message to admin that a merchant has been enabled
+            body = """%s %s just verified his phone number.
+        He is awaiting approval for his request to become a merchant.
+        """ % (request.user.first_name, request.user.last_name)
+            Message.send('Account', 'Merchant Approval', body, request.user)
+            mesg = """A message has been sent to the admin with your
+            application to become a merchant."""
+            messages.add_message(request, messages.INFO, mesg)
         return render(request, self.template_name, context)
 
 

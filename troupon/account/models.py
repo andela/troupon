@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-
+from django.core import exceptions
 from deals.models import STATE_CHOICES
 
 
@@ -27,6 +27,20 @@ class UserProfile(models.Model):
             u'intlnumber': self.intlnumber,
             u'occupation': self.occupation
         }
+
+    def is_complete(self):
+        """Checks if a user's profile is completed"""
+        for field in self._meta.get_all_field_names():
+            try:
+                fieldattr = getattr(self, field)
+                if fieldattr == '':
+                    return False
+                if type(fieldattr) == User:
+                    if fieldattr.first_name == '' or fieldattr.last_name == '':
+                        return False
+            except:
+                pass
+        return True
 
     def __unicode__(self):
         return u'Profile of user: %s' % self.user.username
