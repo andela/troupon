@@ -87,7 +87,7 @@ class MerchantIndexView(LoginRequiredMixin, TemplateView):
         # view to show or redirect to:
         try:
             if not request.user.profile.merchant.enabled:
-                return redirect(reverse('account_mechant_verify'))
+                return redirect(reverse('account_merchant_verify'))
             else:
                 return redirect(reverse('account_merchant_confirm'))
 
@@ -193,6 +193,7 @@ class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
     template_name = "account/verify_merchant.html"
 
     def get(self, request, *args, **kwargs):
+
         # define the base breadcrumbs for this view:
         context = {
             'breadcrumbs': [
@@ -202,7 +203,12 @@ class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
             ]
         }
 
-        return render(request, self.template_name, context)
+        try:
+            if request.user.profile.merchant:
+                return render(request, self.template_name, context)
+
+        except AttributeError:
+            return redirect(reverse('account_profile'))
 
     def post(self, request, *args, **kwargs):
 
@@ -236,45 +242,59 @@ class MerchantConfirmVeiw(LoginRequiredMixin, TemplateView):
                 {'name': 'Confirm Merchant', },
             ]
         }
-        if(not Message.confirmation_sent(request.user)):
-            # send message to admin that a merchant has been enabled
-            body = """%s %s just verified his phone number.
-        He is awaiting approval for his request to become a merchant.
-        """ % (request.user.first_name, request.user.last_name)
 
-            Message.send('Account', 'Merchant Approval', body, request.user)
-            mesg = """A message has been sent to the admin with your
-            application to become a merchant."""
-            messages.add_message(request, messages.INFO, mesg)
+        try:
+            if request.user.profile.merchant:
+                if(not Message.confirmation_sent(request.user)):
+                    # send message to admin that a merchant has been enabled
+                    body = """%s %s just verified his phone number.
+                    He is awaiting approval for his request to
+                    become a merchant.""" % (
+                        request.user.first_name,
+                        request.user.last_name)
 
-        return render(request, self.template_name, context)
+                    Message.send('Account', 'Merchant Approval',
+                                            body, request.user)
+                    mesg = """A message has been sent to the admin with your
+                    application to become a merchant."""
+                    messages.add_message(request, messages.INFO, mesg)
+
+                return render(request, self.template_name, context)
+
+        except AttributeError:
+            return redirect(reverse('account_profile'))
 
 
 class MerchantResendOtpVeiw(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        merchant = get_object_or_404(
-            Merchant,
-            userprofile_id=request.user.profile
-        )
-        intlnumber = merchant.intlnumber
-        token = totp_token.now()
-        msg = {
-            'reqtype': 'json',
-            'api_key': settings.NEXMO_USERNAME,
-            'api_secret': settings.NEXMO_PASSWORD,
-            'from': settings.NEXMO_FROM,
-            'to': intlnumber,
-            'text': str(token),
-        }
-        sms = NexmoMessage(msg)
-        response = sms.send_request()
+        try:
+            if request.user.profile.merchant:
+                merchant = get_object_or_404(
+                    Merchant,
+                    userprofile_id=request.user.profile
+                )
+            intlnumber = merchant.intlnumber
+            token = totp_token.now()
+            msg = {
+                'reqtype': 'json',
+                'api_key': settings.NEXMO_USERNAME,
+                'api_secret': settings.NEXMO_PASSWORD,
+                'from': settings.NEXMO_FROM,
+                'to': intlnumber,
+                'text': str(token),
+            }
+            sms = NexmoMessage(msg)
+            response = sms.send_request()
 
-        if response:
-            mssg = "OTP Verification number has been sent."
-            messages.add_message(request, messages.ERROR, mssg)
-            return redirect(reverse('account_merchant_verify'))
+            if response:
+                mssg = "OTP Verification number has been sent."
+                messages.add_message(request, messages.ERROR, mssg)
+                return redirect(reverse('account_merchant_verify'))
+
+        except AttributeError:
+            return redirect(reverse('account_profile'))
 
 
 class UserChangePasswordView(LoginRequiredMixin, TemplateView):

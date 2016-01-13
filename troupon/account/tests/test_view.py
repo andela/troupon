@@ -6,17 +6,18 @@ from django.conf import settings
 from django.contrib.messages.storage.fallback import FallbackStorage
 
 
-from account.tests.test_routes import UserProfileTestCase
+from account.tests.test_routes import UserProfileTestCase,\
+    UserProfileMerchantTestCase
 from account.views import MerchantRegisterView, MerchantVerifyVeiw, \
     MerchantResendOtpVeiw, MerchantConfirmVeiw
 
 
-class TestMerchantView(UserProfileTestCase):
+class TestMerchantView(UserProfileMerchantTestCase):
 
-    def test_user_can_view_merchant_page(self):
+    def test_unapproved_merchant_redirected(self):
 
         response = self.client.get(reverse('account_merchant'))
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 302)
 
     def test_user_register_as_merchant(self):
 
@@ -46,8 +47,10 @@ class TestMerchantView(UserProfileTestCase):
                 engine = import_module(settings.SESSION_ENGINE)
                 session_key = None
                 request.session = engine.SessionStore(session_key)
+                messages = FallbackStorage(request)
+                setattr(request, '_messages', messages)
                 response = MerchantRegisterView.as_view()(request)
-                self.assertEquals(response.status_code, 302)
+                self.assertEquals(response.status_code, 200)
 
         # test that OTP number is verified
         with mock.patch('pyotp.TOTP.verify') as mock_verify:
@@ -82,18 +85,36 @@ class TestMerchantView(UserProfileTestCase):
                 response = MerchantResendOtpVeiw.as_view()(request)
                 self.assertEquals(response.status_code, 302)
 
-
-class TestOTPVerification(UserProfileTestCase):
-
-    def test_otp_form_shown(self):
+    def test_otp_form_shown_merchant(self):
 
         response = self.client.get(reverse('account_merchant_verify'))
         self.assertEquals(response.status_code, 200)
 
 
-class TestMerchantConfirmationView(UserProfileTestCase):
+class TestOTPVerification(UserProfileTestCase):
 
-    def test_confirmation_page_can_be_viewed(self):
+    def test_otp_form_not_shown__to_user(self):
+
+        response = self.client.get(reverse('account_merchant_verify'))
+        self.assertEquals(response.status_code, 302)
+
+    def test_confirmation_page_cannot_be_viewed_by_user(self):
+
+        request = self.factory.get(
+            reverse('account_merchant_confirm'))
+        request.user = self.user
+        engine = import_module(settings.SESSION_ENGINE)
+        session_key = None
+        request.session = engine.SessionStore(session_key)
+        messages = FallbackStorage(request)
+        setattr(request, '_messages', messages)
+        response = MerchantConfirmVeiw.as_view()(request)
+        self.assertEquals(response.status_code, 302)
+
+
+class TestMerchantConfirmationView(UserProfileMerchantTestCase):
+
+    def test_confirmation_page_can_be_viewed_by_merchant(self):
 
         request = self.factory.get(
             reverse('account_merchant_confirm'))
