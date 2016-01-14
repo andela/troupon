@@ -8,6 +8,7 @@ from merchant.forms import DealForm
 
 
 class ManageDealsView(DealListBaseView):
+
     """Manage deals"""
     def get(self, request):
         """Renders a listing page for all deals that was created by a merchant
