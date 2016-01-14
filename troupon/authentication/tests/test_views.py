@@ -1,7 +1,11 @@
+from mock import patch
+from selenium import webdriver
+
 from django.test import TestCase, Client, LiveServerTestCase
 from django.core.urlresolvers import resolve, reverse
 from django.contrib.auth.models import User
-from selenium import webdriver
+
+from authentication.emails import SendGrid
 
 
 class UserLoginViewTestCase(TestCase):
@@ -125,8 +129,12 @@ class ActivateAccountViewTestCase(TestCase):
 
     def test_activation_mail_sent(self):
 
-        response = self.client_stub.post('/register/', self.form_data)
-        self.assertEqual(302, response.status_code)
+        with patch.object(SendGrid, 'send', return_value=200) \
+                as mock_method:
+                response = self.client_stub.post(
+                    '/register/',
+                    self.form_data)
+                self.assertEqual(302, response.status_code)
 
 
 class ForgotPasswordViewTestCase(TestCase):
@@ -152,9 +160,12 @@ class ForgotPasswordViewTestCase(TestCase):
         self.assertEquals(response.status_code, 200)
 
     def test_recovery_email_sent_for_registered_user(self):
-        response = self.client.post(
-            '/recovery/', {"email": self.user.email}
-        )
+
+        with patch.object(SendGrid, 'send', return_value=200) \
+                as mock_method:
+                response = self.client.post(
+                    '/recovery/', {"email": self.user.email})
+
         self.assertIn('registered_user', response.context)
         self.assertIn('recovery_mail_status', response.context)
 

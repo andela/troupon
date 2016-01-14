@@ -16,6 +16,22 @@ urlpatterns = [
         views.MerchantIndexView.as_view(),
         name='account_merchant'),
 
+    url(r'^merchant/register/$',
+        views.MerchantRegisterView.as_view(),
+        name='account_merchant_register'),
+
+    url(r'^merchant/verify/$',
+        views.MerchantVerifyVeiw.as_view(),
+        name='account_merchant_verify'),
+
+    url(r'^merchant/resendotp/$',
+        views.MerchantResendOtpVeiw.as_view(),
+        name='account_merchant_resendotp'),
+
+    url(r'^merchant/confirm/$',
+        views.MerchantConfirmVeiw.as_view(),
+        name='account_merchant_confirm'),
+
     url(r'^change_password/$',
         views.UserChangePasswordView.as_view(),
         name='account_change_password'),

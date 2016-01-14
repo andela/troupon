@@ -177,3 +177,8 @@ DEALS = {
 
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NEXMO_USERNAME = os.getenv('NEXMO_USERNAME')
+NEXMO_PASSWORD = os.getenv('NEXMO_PASSWORD')
+NEXMO_FROM = 'Troupon'
+OTP_SECRET_KEY= os.getenv('OTP_SECRET_KEY')

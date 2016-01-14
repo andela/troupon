@@ -1,5 +1,49 @@
-from django.test import TestCase, Client
+from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import User
+
+from merchant.models import Merchant
+from account.models import UserProfile
+
+
+class UserProfileMerchantTestCase(TestCase):
+
+    def setUp(self):
+        """
+        User calls profile page.
+        """
+        self.client = Client()
+        self.factory = RequestFactory()
+
+        self.user = User.objects.create_user(
+            username='johndoe',
+            email='johndoe@gmail.com',
+            password='12345'
+        )
+        self.userprofile = UserProfile.objects.create(
+            user=self.user,
+            user_state=25,
+            occupation='Developer',
+            phonenumber='08020202020',
+            intlnumber='+12334567789'
+        )
+
+        self.merchant = Merchant.objects.create(
+            name='yourname',
+            state=25,
+            telephone='12345678901',
+            intlnumber='+2342345678901',
+            email='youremail',
+            address='youraddress',
+            slug='yourslug',
+            userprofile=self.userprofile
+        )
+
+        self.superuser = User.objects.create_superuser(
+            username='troupon_admin',
+            email='admin@troupon.com',
+            password='12345')
+
+        self.client.login(username='johndoe', password='12345')
 
 
 class UserProfileTestCase(TestCase):
@@ -8,28 +52,33 @@ class UserProfileTestCase(TestCase):
         """
         User calls profile page.
         """
-        self.client_stub = Client()
+        self.client = Client()
+        self.factory = RequestFactory()
 
         self.user = User.objects.create_user(
             username='johndoe',
             email='johndoe@gmail.com',
             password='12345'
         )
+        self.superuser = User.objects.create_superuser(
+            username='troupon_admin',
+            email='admin@troupon.com',
+            password='12345')
+
+        self.client.login(username='johndoe', password='12345')
+
+
+class TestProfileAction(UserProfileTestCase):
 
     def test_user_default_account_page(self):
 
-        response = self.client_stub.get("/account/")
-        self.assertEquals(response.status_code, 302)
+        response = self.client.get("/account/")
+        self.assertEquals(response.status_code, 200)
 
     def test_user_account_profile_page(self):
 
-        response = self.client_stub.get("/account/profile/")
-        self.assertEquals(response.status_code, 302)
-
-    def test_user_account_merchant_view(self):
-
-        response = self.client_stub.get("/account/merchant/")
-        self.assertEquals(response.status_code, 302)
+        response = self.client.get("/account/profile/")
+        self.assertEquals(response.status_code, 200)
 
 
 class UserchangePasswordTestCase(TestCase):
@@ -45,7 +94,10 @@ class UserchangePasswordTestCase(TestCase):
 
     def test_user_can_changepassword(self):
 
-        data = dict(current_password="12345", password1="andela", password2="andela")
+        data = dict(current_password="12345",
+                    password1="andela",
+                    password2="andela")
+
         response = self.client.post("/account/change_password/", data)
         self.assertEqual(response.status_code, 302)
 
@@ -63,7 +115,12 @@ class ChangePasswordErrorTestCase(TestCase):
 
     def test_user_mismatch_changepassword(self):
 
-        data = dict(current_password="12345", password1="andela", password2="hhhjjh")
+        data = dict(
+            current_password="12345",
+            password1="andela",
+            password2="hhhjjh"
+        )
+
         response = self.client.post("/account/change_password/", data)
         self.assertEqual(response.status_code, 302)
 
