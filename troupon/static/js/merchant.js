@@ -78,3 +78,5 @@ $(document).ready(function() {
             $(this).closest('form').data('changed', true);
             button.removeAttr('disabled');
     });
+
+});
