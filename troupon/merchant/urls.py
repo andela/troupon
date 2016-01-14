@@ -31,14 +31,14 @@ urlpatterns = [
     # pattern maps to view handling `GET request to
     #  `/merchant/deals`
     url(
-        r'^deals',
+        r'^deals/$',
         ManageDealsView.as_view(), name='merchant_manage_deals',
     ),
 
     # pattern maps to view handling `GET` and `POST`
     # requests to `/merchant/deals/<slug>`
     url(
-        r'^deals/(?P<slug>[\w-]+)/$',
+        r'^deals/(?P<deal_slug>[\w-]+)/$',
         ManageDealView.as_view(), name='merchant_manage_deal',
     ),
 
