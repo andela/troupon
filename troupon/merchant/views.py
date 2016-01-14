@@ -59,7 +59,7 @@ class ManageDealView(View):
         deal = get_object_or_404(Deal, slug=deal_slug)
         if dealform.is_valid():
             for key, value in dealform.cleaned_data.items():
-                if key == 'quorum':
+                if key == 'max_quantity_available':
                     value = int(value)
                 setattr(deal, key, value)
             deal.save()

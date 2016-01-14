@@ -6,4 +6,6 @@ class DealForm(forms.Form):
     Handles verification of form inputs
     """
     active = forms.BooleanField(label='Is active?', required=False)
-    quorum = forms.CharField(label='Quorum', max_length=10)
+    max_quantity_available = forms.CharField(
+        label='Max. quantity available', max_length=10
+    )

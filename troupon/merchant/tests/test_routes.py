@@ -1,12 +1,12 @@
 from deals.models import Deal
-from account.models import Merchant
+from merchant.models import Merchant
 from django.conf import settings
 from django.test import TestCase
-from django.shortcuts import reverse
+from django.core.urlresolvers import reverse
 from deals.tests.test_routes import set_advertiser_and_category
 
 
-class ManageDealsTestCase(TestCase):
+class MerchantManageDealsTestCase(TestCase):
     """Tests that routes to manage deals are accessible by the logged in
     merchant.
     route: '/merchant/deals'
@@ -28,7 +28,7 @@ class ManageDealsTestCase(TestCase):
         if not is_merchant:
             Merchant(userprofile=cls.user.userprofile).save()
 
-        super(MerchantDealsTestCase, cls).setUpClass()
+        super(MerchantManageDealsTestCase, cls).setUpClass()
 
         # login user
         response = cls.client.post(
@@ -46,10 +46,11 @@ class ManageDealsTestCase(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        super(MerchantDealsTestCase, cls).tearDownClass()
+        cls.deal.delete()
+        super(MerchantManageDealsTestCase, cls).tearDownClass()
 
 
-class ManageDealTestCase(TestCase):
+class MerchantManageDealTestCase(TestCase):
     """Manage single deal under merchant role.
     route: '/merchant/deals/<slug>'
     """
@@ -69,7 +70,7 @@ class ManageDealTestCase(TestCase):
         if not is_merchant:
             Merchant(userprofile=cls.user.userprofile).save()
 
-        super(MerchantDealsTestCase, cls).setUpClass()
+        super(MerchantManageDealTestCase, cls).setUpClass()
 
         # login user
         response = cls.client.post(
@@ -82,7 +83,7 @@ class ManageDealTestCase(TestCase):
         # Ensures that a merchant can mark a deal as active
         response = self.client.post(
             reverse(
-                'merchant_deal', kwargs={'slug': self.deal.slug}
+                'merchant_deal', kwargs={'deal_slug': self.deal.slug}
             ),
             data={'active': True}
         )
@@ -93,7 +94,7 @@ class ManageDealTestCase(TestCase):
         # Ensures that quantity of product available can be set to a number
         response = self.client.post(
             reverse(
-                'merchant_deal', kwargs={'slug': self.deal.slug}
+                'merchant_deal', kwargs={'deal_slug': self.deal.slug}
             ),
             data={'quantity': 360}  # stock quantity
         )
@@ -107,11 +108,12 @@ class ManageDealTestCase(TestCase):
         # 4 test_can_view_sales_trends_for_individual_deal
         # 5 test_can_view_sales_trends_for_individual_deal
         response = self.client.get(
-            reverse('merchant_deal', kwargs={'slug': self.deal.slug})
+            reverse('merchant_deal', kwargs={'deal_slug': self.deal.slug})
         )
         # TODO: add tests for 1-5
         self.assertEqual(response.status_code, 200)
 
     @classmethod
     def tearDownClass(cls):
-        super(MerchantDealsTestCase, cls).tearDownClass()
+        cls.deal.delete()
+        super(MerchantManageDealTestCase, cls).tearDownClass()
