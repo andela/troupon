@@ -17,7 +17,10 @@ class ManageDealsView(MerchantMixin, DealListBaseView):
         # context_data = Deal.objects.filter(
         #     advertiser=request.user.profile.merchant
         # )
-        deals = Deal.objects.all()
+        advertiser_id = request.user.profile.merchant.advertiser_ptr.id
+        deals = Deal.objects.filter(advertiser=advertiser_id)
+        # deals = Deal.objects.filter(
+        #     advertiser=request.user.profile.merchant.advertiser_ptr)
 
         list_title = "My Deals"
         list_description = "All deals posted by you"
@@ -44,6 +47,12 @@ class ManageDealView(MerchantMixin, View):
         """Renders a page showing a deal that was created by a merchant
         """
         deal = get_object_or_404(Deal, slug=deal_slug)
+        if deal.advertiser != request.user.profile.merchant.advertiser_ptr:
+            messages.add_message(
+                request, messages.ERROR,
+                'You are not allowed to manage this deal'
+            )
+            return redirect(reverse('merchant_manage_deals'))
         context_data = {
             'deal': deal,
             'breadcrumbs': [
@@ -58,6 +67,12 @@ class ManageDealView(MerchantMixin, View):
         """
         dealform = DealForm(request.POST, request.FILES)
         deal = get_object_or_404(Deal, slug=deal_slug)
+        if deal.advertiser != request.user.profile.merchant.advertiser_ptr:
+            messages.add_message(
+                request, messages.ERROR,
+                'You are not allowed to manage this deal'
+            )
+            return redirect(reverse('merchant_manage_deals'))
         if dealform.is_valid():
             dealform.save(deal)
             messages.add_message(

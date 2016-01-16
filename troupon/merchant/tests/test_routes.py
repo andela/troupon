@@ -29,7 +29,10 @@ class MerchantManageDealsTestCase(TestCase):
 
         if not is_merchant:
             cls.merchant = Merchant(
-                userprofile=cls.user.profile, enabled=True, approved=True,
+                advertiser_ptr=cls.deal.advertiser,
+                userprofile=cls.user.profile,
+                enabled=True,
+                approved=True,
                 intlnumber='123456789'
             )
             cls.merchant.save()
@@ -81,7 +84,10 @@ class MerchantManageDealTestCase(TestCase):
 
         if not is_merchant:
             cls.merchant = Merchant(
-                userprofile=cls.user.profile, enabled=True, approved=True,
+                advertiser_ptr=cls.deal.advertiser,
+                userprofile=cls.user.profile,
+                enabled=True,
+                approved=True,
                 intlnumber='123456789'
             )
             cls.merchant.save()
@@ -153,7 +159,10 @@ class SalesHistoryAndTrendTestCase(LiveServerTestCase):
 
         if not is_merchant:
             cls.merchant = Merchant(
-                userprofile=cls.user.profile, enabled=True, approved=True,
+                advertiser_ptr=cls.deal.advertiser,
+                userprofile=cls.user.profile,
+                enabled=True,
+                approved=True,
                 intlnumber='123456789'
             )
             cls.merchant.save()
@@ -167,6 +176,9 @@ class SalesHistoryAndTrendTestCase(LiveServerTestCase):
         super(SalesHistoryAndTrendTestCase, cls).tearDownClass()
 
     def test_can_view_deal_management_dashboard_for_single_deal(self):
+        """Test that a merchant can access deal management options on his
+        dashboard
+        """
         self.selenium.get('%s%s' % (self.live_server_url, reverse('login')))
         self.wait.until(
             EC.visibility_of_element_located(
