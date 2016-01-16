@@ -51,7 +51,10 @@ h1 {
 .item-info {
   .title, .advertiser, .price, .address {
     padding-bottom: 20px;
-    padding-left: 30px;
+  }
+
+  address {
+    margin-bottom: 0px
   }
 
   .quorum {

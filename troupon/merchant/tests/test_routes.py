@@ -1,9 +1,13 @@
 from deals.models import Deal
-from merchant.models import Merchant
-from django.conf import settings
-from django.test import TestCase
-from django.core.urlresolvers import reverse
 from deals.tests.test_routes import set_advertiser_and_category
+from merchant.models import Merchant
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.test import TestCase, Client, LiveServerTestCase
+from selenium.webdriver.phantomjs.webdriver import WebDriver
+import selenium.webdriver.support.ui as ui
+from selenium.webdriver.common.by import By
+import selenium.webdriver.support.expected_conditions as EC
 
 
 class MerchantManageDealsTestCase(TestCase):
@@ -17,36 +21,46 @@ class MerchantManageDealsTestCase(TestCase):
         deal = set_advertiser_and_category()  # dictionary
         cls.deal = Deal(**deal)
         cls.deal.save()
-        cls.user = settings.AUTH_USER_MODEL.objects.create_user(
-            'testuser', 'testuser@mail.com', '12345'
+        cls.user = User.objects.create_user(
+            'testuser1', 'testuser1@mail.com', '12345'
         )
 
-        is_merchant = Merchant.objects.filter(
-            userprofile=cls.user.userprofile
-        )
+        is_merchant = cls.user.profile.is_approved_merchant()
 
         if not is_merchant:
-            Merchant(userprofile=cls.user.userprofile).save()
+            cls.merchant = Merchant(
+                userprofile=cls.user.profile, enabled=True, approved=True,
+                intlnumber='123456789'
+            )
+            cls.merchant.save()
 
+        cls.client = Client()
         super(MerchantManageDealsTestCase, cls).setUpClass()
 
+    def test_can_login_user(self):
         # login user
-        response = cls.client.post(
+        response = self.client.post(
             reverse('login'),
-            dict(username='testuser@mail.com', password='12345')
+            dict(username='testuser1@mail.com', password='12345')
         )
-        cls.assertEquals(response.status_code, 302)
+        self.assertEquals(response.status_code, 302)
 
     def test_can_view_purchases_with_quantity(self):
         # Ensures that the merchant can view deals purchased
+        response = self.client.post(
+            reverse('login'),
+            dict(username='testuser1@mail.com', password='12345')
+        )
         response = self.client.get(
-            reverse('merchant_deals')
+            reverse('merchant_manage_deals')
         )
         self.assertEqual(response.status_code, 200)
 
     @classmethod
     def tearDownClass(cls):
         cls.deal.delete()
+        cls.merchant.delete()
+        cls.user.delete()
         super(MerchantManageDealsTestCase, cls).tearDownClass()
 
 
@@ -59,31 +73,39 @@ class MerchantManageDealTestCase(TestCase):
         deal = set_advertiser_and_category()  # dictionary
         cls.deal = Deal(**deal)
         cls.deal.save()
-        cls.user = settings.AUTH_USER_MODEL.objects.create_user(
-            'testuser', 'testuser@mail.com', '12345'
+        cls.user = User.objects.create_user(
+            username='testuser2', email='testuser2@mail.com', password='12345',
         )
 
-        is_merchant = Merchant.objects.filter(
-            userprofile=cls.user.userprofile
-        )
+        is_merchant = cls.user.profile.is_approved_merchant()
 
         if not is_merchant:
-            Merchant(userprofile=cls.user.userprofile).save()
+            cls.merchant = Merchant(
+                userprofile=cls.user.profile, enabled=True, approved=True,
+                intlnumber='123456789'
+            )
+            cls.merchant.save()
 
+        cls.client = Client()
         super(MerchantManageDealTestCase, cls).setUpClass()
 
+    def test_can_login_user(self):
         # login user
-        response = cls.client.post(
+        response = self.client.post(
             reverse('login'),
-            dict(username='testuser@mail.com', password='12345')
+            dict(username='testuser2@mail.com', password='12345')
         )
-        cls.assertEquals(response.status_code, 302)
+        self.assertEquals(response.status_code, 302)
 
     def test_can_mark_deal_as_active(self):
         # Ensures that a merchant can mark a deal as active
         response = self.client.post(
+            reverse('login'),
+            dict(username='testuser2@mail.com', password='12345')
+        )
+        response = self.client.post(
             reverse(
-                'merchant_deal', kwargs={'deal_slug': self.deal.slug}
+                'merchant_manage_deal', kwargs={'deal_slug': self.deal.slug}
             ),
             data={'active': True}
         )
@@ -93,27 +115,88 @@ class MerchantManageDealTestCase(TestCase):
     def test_can_set_quantity_of_product_available(self):
         # Ensures that quantity of product available can be set to a number
         response = self.client.post(
+            reverse('login'),
+            dict(username='testuser2@mail.com', password='12345')
+        )
+        response = self.client.post(
             reverse(
-                'merchant_deal', kwargs={'deal_slug': self.deal.slug}
+                'merchant_manage_deal', kwargs={'deal_slug': self.deal.slug}
             ),
-            data={'quantity': 360}  # stock quantity
+            data={'max_quantity_available': 360}  # stock quantity
         )
-        self.assertEqual(self.deal.quantity, 360)
+        self.deal = Deal.objects.get(
+            slug=self.deal.slug
+        )  # refresh cached object
+        self.assertEqual(self.deal.max_quantity_available, 360)
         self.assertEqual(response.status_code, 302)
-
-    def test_can_view_deal_management_dashboard_for_single_deal(self):
-        # 1 test_can_view_buyers_for_deal
-        # 2 test_can_view_buyers
-        # 3 test_can_view_sales_trends
-        # 4 test_can_view_sales_trends_for_individual_deal
-        # 5 test_can_view_sales_trends_for_individual_deal
-        response = self.client.get(
-            reverse('merchant_deal', kwargs={'deal_slug': self.deal.slug})
-        )
-        # TODO: add tests for 1-5
-        self.assertEqual(response.status_code, 200)
 
     @classmethod
     def tearDownClass(cls):
         cls.deal.delete()
+        cls.merchant.delete()
+        cls.user.delete()
         super(MerchantManageDealTestCase, cls).tearDownClass()
+
+
+class SalesHistoryAndTrendTestCase(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        deal = set_advertiser_and_category()
+        deal['title'] = 'Deal #3'  # dictionary
+        cls.deal = Deal(**deal)
+        cls.deal.save()
+        cls.user = User.objects.create_user(
+            'testuser3', 'testuser3@mail.com', '123456'
+        )
+
+        is_merchant = cls.user.profile.is_approved_merchant()
+
+        if not is_merchant:
+            cls.merchant = Merchant(
+                userprofile=cls.user.profile, enabled=True, approved=True,
+                intlnumber='123456789'
+            )
+            cls.merchant.save()
+        cls.selenium = WebDriver()
+        cls.wait = ui.WebDriverWait(cls.selenium, 10)
+        super(SalesHistoryAndTrendTestCase, cls).setUpClass()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super(SalesHistoryAndTrendTestCase, cls).tearDownClass()
+
+    def test_can_view_deal_management_dashboard_for_single_deal(self):
+        self.selenium.get('%s%s' % (self.live_server_url, reverse('login')))
+        self.wait.until(
+            EC.visibility_of_element_located(
+                (By.XPATH, '//input[@value="Log in"]')
+            )
+        )
+        username_input = self.selenium.find_element_by_id("email")
+        username_input.send_keys('testuser3@mail.com')
+        password_input = self.selenium.find_element_by_id("password")
+        password_input.send_keys('123456')
+        self.selenium.find_element_by_xpath(
+            '//input[@value="Log in"]').click()
+
+        self.selenium.get(
+            '%s%s' % (self.live_server_url, reverse(
+                'merchant_manage_deal', kwargs={'deal_slug': self.deal.slug})
+            )
+        )
+        # 1 test_can_view_buyers_of_this_deal
+        self.selenium.find_element_by_xpath(
+            '//li[.="Sales History"]').click()
+        self.selenium.find_element_by_xpath(
+            '//h4[.="All purchases of your merchandise"]')
+        el = self.selenium.find_element_by_xpath('//th[.="Buyer"]')
+        self.assertIsNotNone(el)
+
+        # 2 test_can_view_sales_trends_for_deal
+        self.selenium.find_element_by_xpath(
+            '//li[.="Sales Trend"]').click()
+        self.selenium.find_element_by_xpath(
+            '//h4[.="Monthly sales trend"]')
+        el = self.selenium.find_element_by_id('visualisation')
+        self.assertIsNotNone(el)

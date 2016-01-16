@@ -79,4 +79,42 @@ $(document).ready(function() {
             button.removeAttr('disabled');
     });
 
+
+    var DealEditingAbl = {
+        $editDealBtn: $('#id_edit_deal_btn'),
+        $cancelDealEditBtn: $('#id_cancel_deal_edit_btn'),
+        $editDealEditForm: $('#id_deal_edit_form'),
+        $dealDetailView: $('#id_deal_detail'),
+        $dealQuorumCbx: $('#id_has_quorum_cbx'),
+        $dealQuorumTbx: $('#id_quorum_tbx'),
+        showEditForm: function (event) {
+            event.preventDefault();
+            this.$cancelDealEditBtn.toggleClass('hide');
+            this.$editDealBtn.toggleClass('hide');
+            this.$dealDetailView.toggleClass('hide');
+            this.$editDealEditForm.toggleClass('hide');
+        },
+        showDealDetail: function (event) {
+            event.preventDefault();
+            this.$cancelDealEditBtn.toggleClass('hide');
+            this.$editDealBtn.toggleClass('hide');
+            this.$editDealEditForm.toggleClass('hide');
+            this.$dealDetailView.toggleClass('hide');
+        },
+        toggleQuorumtbx: function (event) {
+            this.$dealQuorumTbx.toggleClass('hide');
+        },
+        applyBinds: function () {
+            this.$editDealBtn.on('click', this.showEditForm.bind(this));
+            this.$cancelDealEditBtn.on('click', this.showDealDetail.bind(this));
+            this.$dealQuorumCbx.on('click', this.toggleQuorumtbx.bind(this));
+        },
+        init: function () {
+            this.applyBinds();
+        }
+
+    }
+    
+    DealEditingAbl.init();
+
 });

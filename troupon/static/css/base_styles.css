@@ -130,7 +130,10 @@ h1 {
 
 .item-info .title, .item-info .advertiser, .item-info .price, .item-info .address {
   padding-bottom: 20px;
-  padding-left: 30px;
+}
+
+.item-info address {
+  margin-bottom: 0px;
 }
 
 .item-info .quorum {

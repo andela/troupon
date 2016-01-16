@@ -11,115 +11,24 @@
 
 {% block subview %}
 
-    {% load humanize %}
     <div class="col-xs-12 col-sm-12 col-md-2">
-      <div class="space-bottom">
-        <a href="{% url 'merchant_manage_deals' %}" class="btn btn-default" title="Click to see all deals">See All Deals</a>
+      <div>
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active">
+            <a href="{% url 'merchant_manage_deals' %}" title="Click to see all deals">See All Deals</a>
+          </li>
+          <li role="presentation">
+            <a  id="id_edit_deal_btn" href="#" title="Click to edit this deal">Edit This Deal</a>
+          </li>
+          <li role="presentation">
+            <a id="id_cancel_deal_edit_btn" class="hide" title="Click to cancel editing this deal" href="#">Cancel Editing</a>
+          </li>
+        </ul>
       </div>
     </div>
     
-    <div class="col-xs-12 col-sm-12 col-md-10">    
-      <div class="row">
-        <div class="col-sm-12">
-          <h3>{{ deal.title }}</h3>
-        </div>
-
-        <div class="col-sm-6 col-md-8">
-          <div class="row item-info">
-            <div class="col-sm-12">
-              <a class="item-image-wrapper">
-                <img class="img img-responsive" src="{{ deal.thumbnail_image_url }}"/>
-              </a>
-            </div>
-            <div class="col-sm-12 quorum">
-              <form action="{% url 'merchant_manage_deal' deal_slug=deal.slug %}" method="post">
-                {% csrf_token %}
-                <div class="s-response">
-                </div>
-                <div class="row">
-                  <div class="col-sm-4 col-md-3">
-                    <span>Max. Quantity Available: </span>
-                  </div>
-                  <div class="col-sm-4 col-md-3">
-                    <input name="max_quantity_available" type="number" value="{{ deal.max_quantity_available|default:0 }}" class="form-control">
-                  </div>
-                  <div class="col-sm-4 col-md-5 col-md-push-1">
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <button class="btn btn-primary" title="Click to set the amount of product available.">Set Max. Quantity Available</button>
-                      </div>
-                    </div>
-                    <div class="row space-top">
-                      <div class="col-xs-12">
-                        <button type="submit" class="btn btn-primary" title="{% if deal.active == True %}Hide this deal from everyone {% else %}Show this deal to the everyone{% endif %}">
-                          {% if deal.active == True %}
-                            Hide from Everyone
-                            <input name="active" type="hidden">
-                          {% else %}
-                            <input name="active" type="hidden" value="on">
-                            Show to Everyone
-                          {% endif %}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-md-4">
-          <div class="item-info"> 
-              <div class="advertiser">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <span class="label label-text">Advertiser:</span>
-                  </div>
-                  <div class="col-sm-8">
-                    <span class="field">{{ deal.advertiser.name }}</span>
-                  </div>
-                </div>
-              </div>
-            
-              <div class="address">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <span class="label label-text">Deal address:</span>
-                  </div>
-                  <div class="col-sm-8">
-                    <address>
-                      <i class="fa fa-map-marker"></i> {{ deal.address }}
-                    </address>
-                  </div>
-                </div>
-              </div>
-            
-              <div class="price">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <span class="label label-text">Original price:</span>
-                  </div>
-                  <div class="col-sm-8">{{ deal.currency_symbol }}{{ deal.original_price|intcomma }}</div>
-                </div>
-              </div>
-
-              <div class="price">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <span class="label label-text">Current price:</span>
-                  </div>
-                  <div class="col-sm-8">{{ deal.currency_symbol  }}{{ deal.price|intcomma }}</div>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <div class="col-sm-12">
-          {% include 'merchant/report_tabs.html' %}
-        </div>
-      </div>
-    </div>
+    {% include 'merchant/deal_detail.html' with deal=deal %}
+    {% include 'merchant/deal_edit.html' with deal=deal %}
 
 {% endblock subview %}
 

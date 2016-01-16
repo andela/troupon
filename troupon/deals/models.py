@@ -5,9 +5,8 @@ from django.core import signals
 from django.utils.text import slugify
 from django.db.models import signals as msig
 from cloudinary.models import CloudinaryField
-
 from troupon.settings.base import SITE_IMAGES
-
+import re
 
 # States in Nigeria
 STATE_CHOICES = [
@@ -180,9 +179,26 @@ def set_deal_slug(**kwargs):
     """
     if kwargs.get('created'):
         instance = kwargs.get('instance')
+
         instance.slug = '{0}-{1}'.format(
-            instance.slug, slugify(instance.date_created)
-        )
+                instance.slug, slugify(instance.date_created)
+            )
+
+        deal_slug_exists = Deal.objects.filter(
+            slug=instance.slug).order_by('-date_created')
+
+        if deal_slug_exists:
+            deal_title_slug = slugify(instance.title)
+            deal_title_slug_len = len(deal_title_slug) + 1
+            date, counter = re.match(
+                '^([\d]{4}-[\d]{2}-[\d]{2})[-]?([\d]{0,})$',
+                deal_slug_exists[0].slug[deal_title_slug_len:]).groups()
+            counter = 1 if counter == '' else int(counter) + 1
+            instance.slug = '{0}-{1}-{2}'.format(
+                deal_title_slug, slugify(instance.date_created),
+                counter
+            )
+
         instance.save()
 
 # update slug field on create of deal to reflect timestamp

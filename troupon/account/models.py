@@ -41,6 +41,13 @@ class UserProfile(models.Model):
                 pass
         return True
 
+    def is_approved_merchant(self):
+        """Checks if the user is an approved merchant"""
+        try:
+            return getattr(self.merchant, 'approved', False)
+        except:
+            return False
+
     def __unicode__(self):
         return u'Profile of user: %s' % self.user.username
 

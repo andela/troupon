@@ -5,9 +5,10 @@ from django.contrib import messages
 from deals.models import Deal
 from deals.baseviews import DealListBaseView
 from merchant.forms import DealForm
+from merchant.mixins import MerchantMixin
 
 
-class ManageDealsView(DealListBaseView):
+class ManageDealsView(MerchantMixin, DealListBaseView):
 
     """Manage deals"""
     def get(self, request):
@@ -37,7 +38,7 @@ class ManageDealsView(DealListBaseView):
         return render(request, 'merchant/deals.html', context)
 
 
-class ManageDealView(View):
+class ManageDealView(MerchantMixin, View):
     """Manage a single deal"""
     def get(self, request, deal_slug):
         """Renders a page showing a deal that was created by a merchant
@@ -55,15 +56,10 @@ class ManageDealView(View):
     def post(self, request, deal_slug):
         """Updates information about a deal that was created by a merchant
         """
-        dealform = DealForm(request.POST)
+        dealform = DealForm(request.POST, request.FILES)
         deal = get_object_or_404(Deal, slug=deal_slug)
         if dealform.is_valid():
-            for key, value in dealform.cleaned_data.items():
-                if key == 'max_quantity_available':
-                    value = int(value)
-                setattr(deal, key, value)
-            deal.save()
-
+            dealform.save(deal)
             messages.add_message(
                 request, messages.SUCCESS, 'The deal was updated successfully.'
             )
@@ -72,7 +68,7 @@ class ManageDealView(View):
         )
 
 
-class TransactionsView(View):
+class TransactionsView(MerchantMixin, View):
     """View transactions for a merchant"""
     def get(self, request):
         """Renders a page with a table showing a deal, its buyer,
@@ -82,7 +78,7 @@ class TransactionsView(View):
         return render(request, 'merchant/transactions.html', context_data)
 
 
-class TransactionView(View):
+class TransactionView(MerchantMixin, View):
     """View transactions detail for a merchant"""
     def get(self, request, transaction_id):
         """Renders a detailed view about a transaction """
@@ -90,7 +86,7 @@ class TransactionView(View):
         return render(request, 'merchant/transactions.html', context_data)
 
 
-class CreateDealView(View):
+class CreateDealView(MerchantMixin, View):
     def get(self, request):
         """Renders a form for creating deals """
         pass
@@ -100,7 +96,7 @@ class CreateDealView(View):
         pass
 
 
-class MerchantView(View):
+class MerchantView(MerchantMixin, View):
     def get(self, request, merchant_slug):
         """Renders a view containing information about a merchant"""
         pass

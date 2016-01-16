@@ -12,5 +12,6 @@ class Merchant(Advertiser):
     trusted = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return u'Merchant %s with username %s' % (self.name,
-                                                  self.user.username)
+        return u'Merchant %s with username %s' % (
+            self.name, self.userprofile.user.username
+        )
