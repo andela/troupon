@@ -7,6 +7,7 @@ django-all-access==0.7.2
 django-bower==5.0.4
 django-envie==0.0.9
 django-haystack==2.4.0
+django-jsonfield==0.9.15
 django-nexmo==1.0.1
 django-nose==1.4.2
 django-postgrespool==0.3.0

@@ -148,4 +148,3 @@ class DealSlugViewTestCase(TestCase):
 
     def tearDown(self):
         Deal.objects.all().delete()
-

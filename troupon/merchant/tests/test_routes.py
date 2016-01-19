@@ -174,7 +174,7 @@ class SalesHistoryAndTrendTestCase(LiveServerTestCase):
     @classmethod
     def tearDownClass(cls):
         Deal.objects.all().delete()
-        cls.user.delete()
+        User.objects.all().delete()
         cls.selenium.quit()
         super(SalesHistoryAndTrendTestCase, cls).tearDownClass()
 

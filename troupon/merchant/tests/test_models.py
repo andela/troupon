@@ -40,14 +40,14 @@ class OrderModelTestCase(TestCase):
             total_cost=500,
             status=1,
             cart=[
-                    {
-                        "merchant_id": "{}".format(self.user.profile.merchant.id),
-                        "deal_id": self.deal.id,
-                        "quantity": 10,
-                        "amount": 50,
-                    }
-                ]
-            )
+                {
+                    "merchant_id": "{}".format(self.user.profile.merchant.id),
+                    "deal_id": self.deal.id,
+                    "quantity": 10,
+                    "amount": 50,
+                }
+            ]
+        )
         order.save()
         self.assertNotEqual(Order.objects.count(), 0)
 
