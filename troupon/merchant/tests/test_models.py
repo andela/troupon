@@ -1,8 +1,17 @@
+from django.contrib.auth.models import User
+from django.db import connection
 from django.test import TestCase
+
 from deals.tests.test_routes import set_advertiser_and_category
 from merchant.models import Merchant, Order, Sales
 from deals.models import Deal
-from django.contrib.auth.models import User
+
+
+def run_for_postgres(fn):
+    def fn_wrap(self, *args, **kwargs):
+        if connection.settings_dict['ENGINE']\
+             == 'django.db.backends.postgresql_psycopg2':
+            return fn(self)
 
 
 class OrderModelTestCase(TestCase):
@@ -51,6 +60,7 @@ class OrderModelTestCase(TestCase):
         order.save()
         self.assertNotEqual(Order.objects.count(), 0)
 
+    @run_for_postgres
     def test_can_retrieve_order_for_a_merchant(self):
         """
         Test that order can be retrieved for a merchant
@@ -74,6 +84,7 @@ class OrderModelTestCase(TestCase):
             queryset[0]['id'], Order.objects.latest('date_created').id
         )
 
+    @run_for_postgres
     def test_can_retrieve_order_for_a_deal_by_a_merchant(self):
         """
         Test that order can be retrieved for a deal put up by a merchant

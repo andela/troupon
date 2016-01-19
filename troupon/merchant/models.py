@@ -6,6 +6,7 @@ from django.db import connection
 import jsonfield
 import json
 
+
 class Merchant(Advertiser):
 
     userprofile = models.OneToOneField(UserProfile)
