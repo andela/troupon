@@ -18,6 +18,8 @@ class MerchantManageDealsTestCase(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        Deal.objects.all().delete()
+        User.objects.all().delete()
         deal = set_advertiser_and_category()  # dictionary
         cls.deal = Deal(**deal)
         cls.deal.save()
@@ -61,9 +63,8 @@ class MerchantManageDealsTestCase(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.deal.delete()
-        cls.merchant.delete()
-        cls.user.delete()
+        Deal.objects.all().delete()
+        User.objects.all().delete()
         super(MerchantManageDealsTestCase, cls).tearDownClass()
 
 
@@ -73,6 +74,7 @@ class MerchantManageDealTestCase(TestCase):
     """
     @classmethod
     def setUpClass(cls):
+        Deal.objects.all().delete()
         deal = set_advertiser_and_category()  # dictionary
         cls.deal = Deal(**deal)
         cls.deal.save()
@@ -138,9 +140,8 @@ class MerchantManageDealTestCase(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.deal.delete()
-        cls.merchant.delete()
-        cls.user.delete()
+        Deal.objects.all().delete()
+        User.objects.all().delete()
         super(MerchantManageDealTestCase, cls).tearDownClass()
 
 
@@ -172,6 +173,8 @@ class SalesHistoryAndTrendTestCase(LiveServerTestCase):
 
     @classmethod
     def tearDownClass(cls):
+        Deal.objects.all().delete()
+        cls.user.delete()
         cls.selenium.quit()
         super(SalesHistoryAndTrendTestCase, cls).tearDownClass()
 

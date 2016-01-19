@@ -145,3 +145,7 @@ class DealSlugViewTestCase(TestCase):
             "/deals/{0}/".format(deal.slug)
         )
         self.assertEqual(response.status_code, 200)
+
+    def tearDown(self):
+        Deal.objects.all().delete()
+
