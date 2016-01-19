@@ -2,8 +2,10 @@ from datetime import date
 from random import randint
 from django.db import models
 from django.core import signals
+from django.dispatch import receiver
 from django.utils.text import slugify
-from django.db.models import signals as msig
+from django.utils import timezone
+from django.db.models.signals import pre_save
 from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
 import re
@@ -174,34 +176,29 @@ def set_deal_inactive(**kwargs):
     Deal.objects.filter(date_end=date_today.isoformat()).update(active=False)
 
 
-def set_deal_slug(**kwargs):
+@receiver(pre_save, sender=Deal)
+def set_deal_slug(sender, instance, **kwargs):
     """Set deal slug to one terminated with a timestamp
     """
-    if kwargs.get('created'):
-        instance = kwargs.get('instance')
+    date_created = str(timezone.now().date())
+    slug = slugify('%s %s' % (instance.title, date_created))
 
-        instance.slug = '{0}-{1}'.format(
-                instance.slug, slugify(instance.date_created)
-            )
+    deal_slug_exists = Deal.objects.filter(
+            slug__startswith=slug).order_by('-date_created')
 
-        deal_slug_exists = Deal.objects.filter(
-            slug=instance.slug).order_by('-date_created')
+    if deal_slug_exists:
+        deal_title_slug = slugify(instance.title)
+        deal_title_slug_len = len(deal_title_slug) + 1
+        date, counter = re.match(
+            '^([\d]{4}-[\d]{2}-[\d]{2})[-]?([\d]{0,})$',
+            deal_slug_exists[0].slug[deal_title_slug_len:]).groups()
+        radix = len(deal_slug_exists)
+        counter = radix if counter == '' else int(counter) + radix
+        slug = '{0}-{1}-{2}'.format(
+            deal_title_slug, slugify(date_created),
+            counter
+        )
 
-        if deal_slug_exists:
-            deal_title_slug = slugify(instance.title)
-            deal_title_slug_len = len(deal_title_slug) + 1
-            date, counter = re.match(
-                '^([\d]{4}-[\d]{2}-[\d]{2})[-]?([\d]{0,})$',
-                deal_slug_exists[0].slug[deal_title_slug_len:]).groups()
-            counter = 1 if counter == '' else int(counter) + 1
-            instance.slug = '{0}-{1}-{2}'.format(
-                deal_title_slug, slugify(instance.date_created),
-                counter
-            )
-
-        instance.save()
-
-# update slug field on create of deal to reflect timestamp
-msig.post_save.connect(set_deal_slug, sender=Deal)
+    instance.slug = slug
 
 signals.request_started.connect(set_deal_inactive)
