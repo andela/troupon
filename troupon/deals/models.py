@@ -180,25 +180,26 @@ def set_deal_inactive(**kwargs):
 def set_deal_slug(sender, instance, **kwargs):
     """Set deal slug to one terminated with a timestamp
     """
-    date_created = str(timezone.now().date())
-    slug = slugify('%s %s' % (instance.title, date_created))
+    if instance._state.adding is True:  # continue if instance is newly created
+        date_created = str(timezone.now().date())
+        slug = slugify('%s %s' % (instance.title, date_created))
 
-    deal_slug_exists = Deal.objects.filter(
-            slug__startswith=slug).order_by('-date_created')
+        deal_slug_exists = Deal.objects.filter(
+                slug__startswith=slug).order_by('-date_created')
 
-    if deal_slug_exists:
-        deal_title_slug = slugify(instance.title)
-        deal_title_slug_len = len(deal_title_slug) + 1
-        date, counter = re.match(
-            '^([\d]{4}-[\d]{2}-[\d]{2})[-]?([\d]{0,})$',
-            deal_slug_exists[0].slug[deal_title_slug_len:]).groups()
-        radix = len(deal_slug_exists)
-        counter = radix if counter == '' else int(counter) + radix
-        slug = '{0}-{1}-{2}'.format(
-            deal_title_slug, slugify(date_created),
-            counter
-        )
+        if deal_slug_exists:
+            deal_title_slug = slugify(instance.title)
+            deal_title_slug_len = len(deal_title_slug) + 1
+            date, counter = re.match(
+                '^([\d]{4}-[\d]{2}-[\d]{2})[-]?([\d]{0,})$',
+                deal_slug_exists[0].slug[deal_title_slug_len:]).groups()
+            radix = len(deal_slug_exists)
+            counter = radix if counter == '' else int(counter) + radix
+            slug = '{0}-{1}-{2}'.format(
+                deal_title_slug, slugify(date_created),
+                counter
+            )
 
-    instance.slug = slug
+        instance.slug = slug
 
 signals.request_started.connect(set_deal_inactive)

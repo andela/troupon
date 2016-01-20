@@ -132,6 +132,7 @@ class MerchantManageDealTestCase(TestCase):
             ),
             data={'max_quantity_available': 360}  # stock quantity
         )
+
         self.deal = Deal.objects.get(
             slug=self.deal.slug
         )  # refresh cached object
