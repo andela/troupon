@@ -63,8 +63,9 @@ class ManageDealView(MerchantMixin, View):
         return render(request, 'merchant/deal.html', context_data)
 
     def post(self, request, deal_slug):
-        """Updates information about a deal that was created by a merchant
+        """Updates information about a deal that was created by a merchant.
         """
+
         dealform = DealForm(request.POST, request.FILES)
         deal = get_object_or_404(Deal, slug=deal_slug)
         if deal.advertiser != request.user.profile.merchant.advertiser_ptr:
@@ -73,10 +74,16 @@ class ManageDealView(MerchantMixin, View):
                 'You are not allowed to manage this deal'
             )
             return redirect(reverse('merchant_manage_deals'))
+
         if dealform.is_valid():
             dealform.save(deal)
             messages.add_message(
                 request, messages.SUCCESS, 'The deal was updated successfully.'
+            )
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                'An error occurred while performing the operation.'
             )
         return redirect(
             reverse('merchant_manage_deal', kwargs={'deal_slug': deal.slug})

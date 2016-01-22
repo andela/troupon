@@ -1,6 +1,13 @@
 from django import forms
 from cloudinary.forms import CloudinaryFileField
 
+integerfields = {
+            'max_quantity_available': True,
+            'original_price': True,
+            'quorum': True,
+            'current_price': True,
+        }
+
 
 class DealForm(forms.Form):
     """
@@ -17,21 +24,46 @@ class DealForm(forms.Form):
     title = forms.CharField(label='Title', required=False, max_length=200)
     address = forms.CharField(label='Address', required=False, max_length=200)
 
-    def save(self, deal):
+    @staticmethod
+    def construct_int(value):
+        """Contructs an integer value from a string or a comma separated list
         """
-        Updates information about a deal
+        if value == '' or value is None:
+            return 0
+        print value
+        index = value.find(',')
+        if index is -1:
+            return int(value)
+        else:
+            return int(value[:index] + value[index+1:])
+
+    def is_valid(self):
         """
-        integerfields = {
-            'max_quantity_available': True,
-            'original_price': True,
-            'quorum': True,
-            'current_price': True,
-        }
-        for key, value in self.cleaned_data.items():
+        Checks if form data is valid.
+        """
+        super(DealForm, self).is_valid()
+        for key, value in self.data.items():
             if value is None or value == '':
                 if key != 'quorum':
                     continue
             if integerfields.get(key, False):
-                value = 0 if value is None else int(value)
+                if type(str(value)) is str:
+                    value = DealForm.construct_int(value)
+                # remove errors upon normalization of uncleaned data
+                self.errors.pop(key, None)
+                # update value of cleaned data
+                self.cleaned_data[key] = value
+
+        return len(self.errors) is 0
+
+    def save(self, deal):
+        """
+        Updates information about a deal
+        """
+        for key, value in self.cleaned_data.items():
+            if value is None or value == '':
+                # skip the quorum field
+                if key != 'quorum':
+                    continue
             setattr(deal, key, value)
         deal.save()

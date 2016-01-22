@@ -66,7 +66,7 @@ urlpatterns = [
     # pattern maps to view handling `GET` to
     #  `/merchant/<merchant_slug>`
     url(
-        r'^merchant/(?P<merchant_slug>[\w-]+)/$',
+        r'^(?P<merchant_slug>[\w-]+)/$',
         MerchantView.as_view(), name='merchant_view',
     ),
 ]
