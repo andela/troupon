@@ -8,8 +8,8 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 
 from account.tests.test_routes import UserProfileTestCase,\
     UserProfileMerchantTestCase
-from account.views import MerchantRegisterView, MerchantVerifyVeiw, \
-    MerchantResendOtpVeiw, MerchantConfirmVeiw
+from account.views import MerchantRegisterView, MerchantVerifyView, \
+    MerchantResendOtpView, MerchantConfirmView
 
 
 class TestMerchantView(UserProfileMerchantTestCase):
@@ -61,7 +61,7 @@ class TestMerchantView(UserProfileMerchantTestCase):
             engine = import_module(settings.SESSION_ENGINE)
             session_key = None
             request.session = engine.SessionStore(session_key)
-            response = MerchantVerifyVeiw.as_view()(request)
+            response = MerchantVerifyView.as_view()(request)
             self.assertEquals(response.status_code, 302)
 
         # test OTP resend view
@@ -82,7 +82,7 @@ class TestMerchantView(UserProfileMerchantTestCase):
                 request.session = engine.SessionStore(session_key)
                 messages = FallbackStorage(request)
                 setattr(request, '_messages', messages)
-                response = MerchantResendOtpVeiw.as_view()(request)
+                response = MerchantResendOtpView.as_view()(request)
                 self.assertEquals(response.status_code, 302)
 
     def test_otp_form_shown_merchant(self):
@@ -108,7 +108,7 @@ class TestOTPVerification(UserProfileTestCase):
         request.session = engine.SessionStore(session_key)
         messages = FallbackStorage(request)
         setattr(request, '_messages', messages)
-        response = MerchantConfirmVeiw.as_view()(request)
+        response = MerchantConfirmView.as_view()(request)
         self.assertEquals(response.status_code, 302)
 
 
@@ -124,5 +124,5 @@ class TestMerchantConfirmationView(UserProfileMerchantTestCase):
         request.session = engine.SessionStore(session_key)
         messages = FallbackStorage(request)
         setattr(request, '_messages', messages)
-        response = MerchantConfirmVeiw.as_view()(request)
+        response = MerchantConfirmView.as_view()(request)
         self.assertEquals(response.status_code, 200)
