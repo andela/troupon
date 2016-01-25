@@ -399,16 +399,20 @@ footer {
 }
 
 // messages
+
 .strip {
   padding: 10px 5px 10px;
 }
+
 .subject {
   font-size: 22px;
   padding-bottom: 5px;
 }
+
 .form-message {
   padding-bottom: 8px;
 }
+
 .message {
   background: #ffffff;
   padding-top: 5px;
@@ -416,9 +420,41 @@ footer {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
 .message-type {
   font-size: 14px;
 }
+
 .message-type:after{
   content: "-";
+}
+
+.report, .row.space-top {
+  margin-top: 30px;
+}
+
+@media(max-width: 768px) {
+.space-bottom {
+    margin-bottom: 30px;
+    float: right;
+  }
+}
+
+@media(max-width: 360px) {
+.space-bottom { 
+    margin-bottom: 30px;
+  }
+.subview-wrapper {
+    padding-left: 0px;
+}
+}
+
+@media(max-width: 980px) {
+  .space-bottom {
+    margin-bottom: 30px;
+  }
+}
+
+.flash-message{
+  margin-bottom: 20px;
 }

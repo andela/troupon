@@ -55,3 +55,6 @@ class DealModelTestCase(TestCase):
         deal = Deal(**self.deal)
         deal.save()
         self.assertEqual(deal.discount(), '50%')
+
+    def tearDown(self):
+        Deal.objects.all().delete()

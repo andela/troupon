@@ -2,7 +2,7 @@
   <div class="grid-sizer"></div>
   <div class="gutter-sizer"></div>
   {% for deal in deals %}
-    {% include "snippet_deal_thumbnail.html" with deal=deal %}
+    {% include "snippet_deal_thumbnail.html" with deal=deal action_url=action_url %}
   {% endfor %}
 </div>
 

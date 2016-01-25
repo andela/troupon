@@ -37,7 +37,7 @@ class DealListBaseView(View):
         'default': -1
     }
 
-    def render_deal_list(self, request, **kwargs):
+    def render_deal_list(self, request, action_url='deal-with-slug', **kwargs):
         """ Takes a queryset of of deal
         """
 
@@ -91,7 +91,10 @@ class DealListBaseView(View):
         # set the context and render the template to a string:
         deals_list_context = RequestContext(
             request,
-            {'listing': deals_listing}
+            {
+                'listing': deals_listing,
+                'action_url': action_url
+            }
         )
         template = loader.get_template('snippet_deal_listing.html')
         rendered_template = template.render(deals_list_context)

@@ -124,6 +124,31 @@ h1 {
   margin-right: 5px;
 }
 
+.fa-edit {
+  padding-left: 8px;
+}
+
+.item-info .title, .item-info .advertiser, .item-info .price, .item-info .address {
+  padding-bottom: 20px;
+}
+
+.item-info address {
+  margin-bottom: 0px;
+}
+
+.item-info .quorum {
+  margin-top: 30px;
+}
+
+.item-info a:hover, .item-info .dropdown .dropdown-menu > li > a:hover, .dropdown .item-info .dropdown-menu > li > a:hover, .item-info .dropdown .dropdown-menu > li > a:active, .dropdown .item-info .dropdown-menu > li > a:active, .item-info .dropdown .dropdown-menu > li > a:focus, .dropdown .item-info .dropdown-menu > li > a:focus, .item-info a:active, .item-info .menu-link:active, .item-info .label-link:active, .item-info #header-bar .auth-options > li > a:active, #header-bar .item-info .auth-options > li > a:active, .item-info #modal-login header p > a:active, #modal-login header .item-info p > a:active, .item-info #modal-register header p > a:active, #modal-register header .item-info p > a:active, .item-info #modal-forgot-password header p > a:active, #modal-forgot-password header .item-info p > a:active, .item-info #header-bar .nav-menu > li > a:active, #header-bar .item-info .nav-menu > li > a:active, .item-info #header-bar .member-options > li > a:active, #header-bar .item-info .member-options > li > a:active, .item-info a:focus, .item-info .menu-link:focus, .item-info .label-link:focus, .item-info #header-bar .auth-options > li > a:focus, #header-bar .item-info .auth-options > li > a:focus, .item-info #modal-login header p > a:focus, #modal-login header .item-info p > a:focus, .item-info #modal-register header p > a:focus, #modal-register header .item-info p > a:focus, .item-info #modal-forgot-password header p > a:focus, #modal-forgot-password header .item-info p > a:focus, .item-info #header-bar .nav-menu > li > a:focus, #header-bar .item-info .nav-menu > li > a:focus, .item-info #header-bar .member-options > li > a:focus, #header-bar .item-info .member-options > li > a:focus, .item-info .menu-link:hover, .item-info .label-link:hover, .item-info #header-bar .auth-options > li > a:hover, #header-bar .item-info .auth-options > li > a:hover, .item-info #modal-login header p > a:hover, #modal-login header .item-info p > a:hover, .item-info #modal-register header p > a:hover, #modal-register header .item-info p > a:hover, .item-info #modal-forgot-password header p > a:hover, #modal-forgot-password header .item-info p > a:hover, .item-info #header-bar .nav-menu > li > a:hover, #header-bar .item-info .nav-menu > li > a:hover, .item-info #header-bar .member-options > li > a:hover, #header-bar .item-info .member-options > li > a:hover {
+  cursor: pointer;
+}
+
+.item-info .label-text {
+  color: #5E5E77;
+  padding-left: 0px;
+}
+
 /* ==========================================================================
 links
 ========================================================================== */
@@ -1428,6 +1453,36 @@ footer .copyright p {
 
 .message-type:after {
   content: "-";
+}
+
+.report, .row.space-top {
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .space-bottom {
+    margin-bottom: 30px;
+    float: right;
+  }
+}
+
+@media (max-width: 360px) {
+  .space-bottom {
+    margin-bottom: 30px;
+  }
+  .subview-wrapper {
+    padding-left: 0px;
+  }
+}
+
+@media (max-width: 980px) {
+  .space-bottom {
+    margin-bottom: 30px;
+  }
+}
+
+.flash-message {
+  margin-bottom: 20px;
 }
 
 /* =========================================================================

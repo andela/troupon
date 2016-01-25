@@ -119,6 +119,9 @@
                       <li class="dropdown-header">Logged in as:</li>
                       <li class="user-info">{{request.user.username|title }}</li>
                       <li><div class="divider"></div></li>
+                      {% if request.user.profile.merchant.approved or False %}
+                        <li><a href="{% url 'merchant_manage_deals' %}">Merchant Dashboard</a></li>
+                      {% endif %}
                       <li><a href="{% url 'account_profile' %}">My Profile</a></li>
                       <li><a href=""></i>Change Password</a></li>
                       <li><a href=""></i>Preferences</a></li>

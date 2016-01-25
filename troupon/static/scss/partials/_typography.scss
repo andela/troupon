@@ -43,3 +43,30 @@ h1 {
     margin-right: 5px;
   }
 }
+
+.fa-edit {
+  padding-left: 8px;
+}
+
+.item-info {
+  .title, .advertiser, .price, .address {
+    padding-bottom: 20px;
+  }
+
+  address {
+    margin-bottom: 0px
+  }
+
+  .quorum {
+    margin-top: 30px;
+  }
+
+  a:hover {
+    cursor: pointer
+  }
+
+  .label-text {
+    color: #5E5E77;
+    padding-left: 0px;
+  }
+}

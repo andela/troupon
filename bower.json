@@ -22,6 +22,7 @@
     "font-awesome": "fontawesome#~4.4.0",
     "packery": "~1.4.3",
     "flickity": "~1.1.1",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "d3": "~3.5.12"
   }
 }

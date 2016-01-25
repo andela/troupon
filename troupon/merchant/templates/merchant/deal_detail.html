@@ -1,0 +1,101 @@
+{% load humanize %}
+
+<div id="id_deal_detail" class="col-xs-12 col-sm-12 col-md-10">
+  <form action="{% url 'merchant_manage_deal' deal_slug=deal.slug %}" method="post">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>{{ deal.title }}</h3>
+      </div>
+
+      <div class="col-sm-6 col-md-9">
+        <div class="row item-info">
+          <div class="col-sm-12">
+            <a class="item-image-wrapper">
+              <img class="img img-responsive" src="{{ deal.thumbnail_image_url }}"/>
+            </a>
+          </div>
+          <div class="col-sm-12 quorum">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-sm-4 col-md-5">
+                <span>Max. Quantity Available: </span>
+              </div>
+              <div class="col-sm-4 col-md-2">
+                <input name="max_quantity_available" type="number" value="{{ deal.max_quantity_available|default:0 }}" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 cols-sm-push-4 col-md-push-5">
+                <button class="btn btn-action" title="Click to set the amount of product available.">Set Max. Quantity Available</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-3">
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit" class="btn btn-action" title="{% if deal.active == True %}Hide this deal from everyone {% else %}Show this deal to the everyone{% endif %}">
+              {% if deal.active == True %} Show to Everyone 
+              {% else %} Hide from everyone
+              {% endif %}
+            </button>
+            {% if deal.active == True %}
+              <input name="active" type="hidden">
+            {% else %}
+              <input name="active" type="hidden" value="on">
+            {% endif %}
+          </div>
+        </div>
+        <div class="item-info col-xs-12">
+          <div class="advertiser">
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="label label-text">Advertiser:</span>
+              </div>
+              <div class="col-sm-12">
+                <span class="field">{{ deal.advertiser.name }}</span>
+              </div>
+            </div>
+          </div>
+        
+          <div class="address">
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="label label-text">Deal address:</span>
+              </div>
+              <div class="col-sm-12">
+                <address>
+                  <i class="fa fa-map-marker"></i> {{ deal.address }}
+                </address>
+              </div>
+            </div>
+          </div>
+        
+          <div class="price">
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="label label-text">Original price:</span>
+              </div>
+              <div class="col-sm-12">{{ deal.currency_symbol }}{{ deal.original_price|intcomma }}</div>
+            </div>
+          </div>
+
+          <div class="price">
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="label label-text">Current price:</span>
+              </div>
+              <div class="col-sm-12">{{ deal.currency_symbol  }}{{ deal.price|intcomma }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        {% include 'merchant/report_tabs.html' %}
+      </div>
+    </div>
+  </form>
+</div>
