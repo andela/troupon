@@ -92,10 +92,10 @@ class UserLoginView(View):
                 # Set error context
                 error_msg = self.cls_default_msgs['invalid_param']
                 messages.add_message(self.request, messages.INFO, error_msg)
-                
+
                 # Set template
                 template = self.engine.get_template('authentication/login.html')
-                
+
                 # Set result in RequestContext
                 context = RequestContext(self.request)
                 return HttpResponse(template.render(context))
