@@ -102,7 +102,7 @@ class UserLoginView(View):
                 validate_email(username)
                 user = User.objects.get(email__exact=username)
                 username = user.username
-            except (ValidationError, User.DoesNoist) as e:
+            except (ValidationError, User.DoesNotExist) as e:
                 # failing silently
                 pass
             user = authenticate(username=username, password=password)
