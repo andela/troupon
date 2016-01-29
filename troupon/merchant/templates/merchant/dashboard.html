@@ -19,4 +19,7 @@
   {% url 'merchant_transactions' as url %}
   {% include "snippet_sidebar_item.html" with name='Transactions' url=url %}
 
+  {% url 'account_profile' as url %}
+  {% include "snippet_sidebar_item.html" with name='Settings' url=url %}
+
 {% endblock sidebar_menu %}

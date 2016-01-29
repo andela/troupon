@@ -1,5 +1,19 @@
 $(document).ready(function() {
 
+    $('#datetimepicker').datetimepicker({
+        timepicker:false,
+        format:'Y-m-d'
+    });
+
+    function uploadbutton() {
+        $('.btn-file :file').change(function(event) {
+            label = $(this).val().split('\\');
+            $(this).closest('span').after('<p>' + label[label.length -1] +' </p>')
+        });
+    }
+
+    uploadbutton();
+
     var TokenGenerator = {
         goResend: function (event) {
             var _this = this;

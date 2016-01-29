@@ -35,6 +35,13 @@ urlpatterns = [
         ManageDealsView.as_view(), name='merchant_manage_deals',
     ),
 
+    # pattern maps to view handling `GET` and `POST` to
+    #  `/merchant/deals/create`
+    url(
+        r'^deals/create/$',
+        CreateDealView.as_view(), name='merchant_create_deal',
+    ),
+
     # pattern maps to view handling `GET` and `POST`
     # requests to `/merchant/deals/<slug>`
     url(
@@ -54,13 +61,6 @@ urlpatterns = [
     url(
         r'^transactions/(?P<transaction_id>[\d]+)/$',
         TransactionView.as_view(), name='merchant_transaction',
-    ),
-
-    # pattern maps to view handling `GET` and `POST` to
-    #  `/merchant/deals/create`
-    url(
-        r'^deals/create/$',
-        CreateDealView.as_view(), name='merchant_create_deal',
     ),
 
     # pattern maps to view handling `GET` to

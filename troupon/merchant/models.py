@@ -17,7 +17,8 @@ class Merchant(Advertiser):
 
     def __unicode__(self):
         return u'Merchant %s with username %s' % (
-            self.name, self.userprofile.user.username
+            self.name,
+            self.userprofile.user.username
         )
 
 

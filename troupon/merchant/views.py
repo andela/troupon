@@ -1,8 +1,13 @@
+from datetime import date
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.views.generic import View
+from django.views.generic.base import TemplateView
 from django.contrib import messages
-from deals.models import Deal
+
+from deals.models import Deal, Category, Advertiser, \
+    STATE_CHOICES, CURRENCY_CHOICES
 from deals.baseviews import DealListBaseView
 from merchant.forms import DealForm
 from merchant.mixins import MerchantMixin
@@ -14,13 +19,9 @@ class ManageDealsView(MerchantMixin, DealListBaseView):
     def get(self, request):
         """Renders a listing page for all deals that was created by a merchant
         """
-        # context_data = Deal.objects.filter(
-        #     advertiser=request.user.profile.merchant
-        # )
+
         advertiser_id = request.user.profile.merchant.advertiser_ptr.id
         deals = Deal.objects.filter(advertiser=advertiser_id)
-        # deals = Deal.objects.filter(
-        #     advertiser=request.user.profile.merchant.advertiser_ptr)
 
         list_title = "My Deals"
         list_description = "All deals posted by you"
@@ -65,7 +66,6 @@ class ManageDealView(MerchantMixin, View):
     def post(self, request, deal_slug):
         """Updates information about a deal that was created by a merchant.
         """
-
         dealform = DealForm(request.POST, request.FILES)
         deal = get_object_or_404(Deal, slug=deal_slug)
         if deal.advertiser != request.user.profile.merchant.advertiser_ptr:
@@ -108,14 +108,62 @@ class TransactionView(MerchantMixin, View):
         return render(request, 'merchant/transactions.html', context_data)
 
 
-class CreateDealView(MerchantMixin, View):
-    def get(self, request):
-        """Renders a form for creating deals """
-        pass
+class CreateDealView(MerchantMixin, TemplateView):
 
-    def post(self, request):
+    template_name = "merchant/deal_create.html"
+
+    def get(self, request, **kwargs):
+        """Renders a form for creating deals """
+        context = {
+            'states': {'choices': STATE_CHOICES, 'default': 25},
+            'currency': {'choices': CURRENCY_CHOICES, 'default': 1},
+            'category': Category.objects.order_by('name')
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, **kwargs):
+
         """Creates a deal"""
-        pass
+
+        price = request.POST.get('price')
+        original_price = request.POST.get('original_price')
+        currency = request.POST.get('currency')
+        state = request.POST.get('user_state')
+        quorum = request.POST.get('quorum')
+        disclaimer = request.POST.get('disclaimer')
+        description = request.POST.get('description')
+        title = request.POST.get('title')
+        address = request.POST.get('address')
+        max_quantity_available = request.POST.get('max_quantity_available')
+        active = request.POST.get('active')
+        image = request.FILES.get('image')
+
+        date_end_unicode = request.POST.get('date_end')
+        category_id = request.POST.get('category')
+        advertiser_id = request.user.profile.merchant.advertiser_ptr.id
+
+        category = Category.objects.get(id=category_id)
+        advertiser = Advertiser.objects.get(id=advertiser_id)
+
+        ymd = date_end_unicode.split('-')
+        date_end = date(int(ymd[0]), int(ymd[1]), int(ymd[2]))
+        today = date.today()
+        duration = int(str(date_end - today).split(" ")[0])
+
+        deal = Deal(
+            price=price, original_price=original_price, currency=currency,
+            state=state, category=category, quorum=quorum,
+            disclaimer=disclaimer, description=description, address=address,
+            max_quantity_available=max_quantity_available, date_end=date_end,
+            active=active, image=image, title=title, advertiser=advertiser,
+            duration=duration
+        )
+
+        deal.save()
+
+        mssg = "Deal successfully created."
+        messages.add_message(request, messages.ERROR, mssg)
+        return redirect(reverse('merchant_manage_deals'))
 
 
 class MerchantView(MerchantMixin, View):
