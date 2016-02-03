@@ -136,6 +136,7 @@ class CreateDealView(MerchantMixin, TemplateView):
         address = request.POST.get('address')
         max_quantity_available = request.POST.get('max_quantity_available')
         active = request.POST.get('active')
+        active = True if active else False
         image = request.FILES.get('image')
 
         date_end_unicode = request.POST.get('date_end')
@@ -148,7 +149,7 @@ class CreateDealView(MerchantMixin, TemplateView):
         ymd = date_end_unicode.split('-')
         date_end = date(int(ymd[0]), int(ymd[1]), int(ymd[2]))
         today = date.today()
-        # ensure duration is not negative
+
         duration = int(str(date_end - today).split(" ")[0])
 
         if date_end < today:
