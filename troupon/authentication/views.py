@@ -23,17 +23,29 @@ from emails import SendGrid
 
 class LoginRequiredMixin(object):
     """
-    View mixin which requires that the user is authenticated.
+    This class acts as a mixin to enforce user authentication.
     """
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        """Override the dispatch method of the view class.
+
+        Args: request, other arguments and key-value pairs.
+        Returns: The call to the dispatch method of the parent class i.e
+                 the View class
+        """
+
         return super(LoginRequiredMixin, self).dispatch(
             request, *args, **kwargs)
 
 
 class UserLoginView(View):
     """
-    User can signin to his/her account with email and password
+    This class allows a user to login to his/her account.
+
+    Attributes:
+        engine: the static reference of the template engine.
+        cls_default_msgs: a dictionary of messages representing the current
+                          user status.
     """
     engine = Engine.get_default()  # get static reference to template engine
     cls_default_msgs = {
@@ -44,6 +56,10 @@ class UserLoginView(View):
                         }  # class default messages
 
     def get(self, *args, **kwargs):
+        """Handles the get request to the 'login' named route.
+
+        Returns: A HttpResponse with an authentication login template
+        """
         if self.request.user.is_authenticated():
             # Obtain referring view
             referer_view = self.get_referer_view(self.request)
@@ -59,15 +75,24 @@ class UserLoginView(View):
             return HttpResponse(template.render(context))
 
     def post(self, *args, **kwargs):
+        """Handles the POST request to the 'login' named route.
+
+        Expects that an email/username and password is contained in
+        the submitted form.
+
+        Returns: A HttpResponse with a redirect if user is active,
+                otherwise returns an authentication login template.
+        """
+
         if self.request.user.is_authenticated():
             data = {'msg': {'content': self.cls_default_msgs['signed_in']}}
             # Replace template object compiled from template code
             # with an application template before push to production.
             # Use self.engine.get_template(template_name)
-            t = self.engine.from_string('{{msg.content}}')
+            template = self.engine.from_string('{{msg.content}}')
             # Set result in RequestContext
-            c = RequestContext(self.request, data)
-            return HttpResponse(t.render(c))
+            context = RequestContext(self.request, data)
+            return HttpResponse(template.render(context))
         else:
             username = self.request.POST.get('username', '')
             password = self.request.POST.get('password', '')
@@ -78,6 +103,7 @@ class UserLoginView(View):
                 user = User.objects.get(email__exact=username)
                 username = user.username
             except (ValidationError, User.DoesNotExist) as e:
+                # failing silently
                 pass
             user = authenticate(username=username, password=password)
             if user is not None and user.is_active:
@@ -102,7 +128,7 @@ class UserLoginView(View):
 
     def get_referer_view(self, request, default='/'):
         '''
-        Return the referer view of the current request
+        Returns the referer view of the current request
         Example:
             def some_view(request):
                 ...
@@ -113,7 +139,6 @@ class UserLoginView(View):
         referer = request.META.get('HTTP_REFERER')
         if not referer:
             return default
-
         # remove the protocol and split the url at the slashes
         referer = re.sub('^https?:\/\/', '', referer).split('/')
         if referer[0] != request.META.get('SERVER_NAME'):
@@ -126,7 +151,7 @@ class UserLoginView(View):
 
 class UserLogoutView(View):
     """
-    Logout user from session.
+    This class logs out an authenticated user from session.
     """
     def get(self, request, *args, **kwargs):
         logout(request)
@@ -137,9 +162,13 @@ class UserLogoutView(View):
 
 class ForgotPasswordView(View):
     """
-    Allows user to send account recovery email.
+    This class allows user to send account recovery email.
     """
     def get(self, request, *args, **kwargs):
+        """Handles GET requests to the 'account_forgot_password' named route.
+
+        Returns: A forgot-password template rendered to a HttpResponse.
+        """
         context = {
             'page_title': 'Forgot Password',
             'email_form': EmailForm(auto_id=True),
@@ -148,6 +177,12 @@ class ForgotPasswordView(View):
         return render(request, 'authentication/forgot_password.html', context)
 
     def post(self, request, *args, **kwargs):
+        """Handles the POST request to the 'account_forgot_password' named route.
+
+        Args: request.
+        Returns: A HttpResponse with a forgot_password_recovery_status template
+                 otherwise, return forgot_password template. 
+        """
         email_form = EmailForm(request.POST, auto_id=True)
         if email_form.is_valid():
             try:
@@ -208,10 +243,18 @@ class ForgotPasswordView(View):
 
 
 class ResetPasswordView(View):
+    """This class allows user to reset password from recovery email.
     """
-    Allows user to reset password from recovery email.
-    """
+    
     def get(self, request, *args, **kwargs):
+        """Handles GET requests to 'account_reset_password' named route.
+
+        Resets user password.
+
+        Returns:
+            HttpResponse with reset_password template if user is active
+            otherwise, flashes 'Account not activated' error to the session.
+        """
         # get the recovery_hash captured in url
         recovery_hash = kwargs['recovery_hash']
 
@@ -251,6 +294,10 @@ class ResetPasswordView(View):
             raise Http404("/User does not exist")
 
     def post(self, request, *args, **kwargs):
+        """Handles POST requests to 'account_reset_password' named route. 
+        
+        Returns: A HttpResponse with the reset_password template.
+        """
         reset_password_form = ResetPasswordForm(request.POST, auto_id=True)
         if reset_password_form.is_valid():
             try:
@@ -263,7 +310,7 @@ class ResetPasswordView(View):
                 user.set_password(new_password)
                 user.save()
 
-                # inform the user thru a flash message:
+                # inform the user through a flash message:
                 messages.add_message(
                     request, messages.INFO,
                     'Your password was changed successfully!')
@@ -288,19 +335,30 @@ class ResetPasswordView(View):
 
 class UserRegistrationView(View):
     """
-    Class handles user signup.
+    This class handles user signup.
+
+    Attributes: template_name
     """
     template_name = 'authentication/register.html'
 
     def get(self, request, *args, **kwargs):
+        """
+        Handles the GET request to the 'register' named route.
+        Returns: A HttpResponse with register template.
+        """ 
         args = {}
         args.update(csrf(request))
         return render(request, 'authentication/register.html', args)
 
     def post(self, request):
-        """
-        Raw data posted from form is recieved here,bound to form
+        """Handles POST requests to 'register' named route.
+        
+        Raw data posted from form is received here,bound to form
         as dictionary and sent to unrendered django form for validation.
+
+        Returns:
+            A HttpResponse with a register template, otherwise, redirects to the 
+            login page.
         """
         usersignupform = UserSignupForm(request.POST)
         # get the user email address
@@ -361,10 +419,15 @@ class UserRegistrationView(View):
 
 class ActivateAccountView(View):
     """
-    Class handles account activation.
+    This class handles account activation.
     """
 
     def get(self, request, *args, **kwargs):
+        """Handles GET requests to 'activate_account' named route.
+        
+        Returns: A redirect to the login page.
+        Raises: A Http404 error.
+        """
         # get the activation_hash captured in url
         activation_hash = kwargs['activation_hash']
 
@@ -383,11 +446,19 @@ class ActivateAccountView(View):
 
 
 class UserConfirm(TemplateView):
-
     """
-    class handles account creation confirmation.
+    This class handles account creation confirmation.
+
+    Attributes: 
+        template_name.
     """
     template_name = 'authentication/confirm.html'
 
     def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests to 'confirm_registration' named route.
+        
+        Returns:
+            A rendered template response.
+        """
         return render(request, self.template_name)
