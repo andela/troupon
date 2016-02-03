@@ -1,12 +1,13 @@
-from django import forms
 from cloudinary.forms import CloudinaryFileField
 
+from django import forms
+
 integerfields = {
-            'max_quantity_available': True,
-            'original_price': True,
-            'quorum': True,
-            'current_price': True,
-        }
+    'max_quantity_available': True,
+    'original_price': True,
+    'quorum': True,
+    'current_price': True,
+}
 
 
 class DealForm(forms.Form):

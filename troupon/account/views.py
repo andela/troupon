@@ -110,29 +110,25 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
 
     template_name = "account/register_merchant.html"
 
-    def get_context_data(self, **kwargs):
-        context_var = super(MerchantRegisterView,
-                            self).get_context_data(**kwargs)
+    def get(self, request, **kwargs):
+
         # define the base breadcrumbs for this view:
-        context_var.update({
+        context = {
             'states': {'choices': STATE_CHOICES, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
                 {'name': 'Merchant Register', },
             ]
-        })
+        }
 
-        return context_var
-
-    def get(self, request, **kwargs):
         if not self.request.user.profile.is_complete():
             mesg = """Please complete your profile information
              before applying to become a merchant."""
             messages.add_message(self.request, messages.INFO, mesg)
             return redirect(reverse('account_profile'))
 
-        return render(request, self.template_name)
+        return render(request, self.template_name, context)
 
     def post(self, request, **kwargs):
 
@@ -188,7 +184,7 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
                     reverse('account_merchant_verify'))
 
 
-class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
+class MerchantVerifyView(LoginRequiredMixin, TemplateView):
 
     template_name = "account/verify_merchant.html"
 
@@ -230,7 +226,7 @@ class MerchantVerifyVeiw(LoginRequiredMixin, TemplateView):
             return redirect(reverse('account_merchant_verify'))
 
 
-class MerchantConfirmVeiw(LoginRequiredMixin, TemplateView):
+class MerchantConfirmView(LoginRequiredMixin, TemplateView):
     template_name = "account/confirm_merchant.html"
 
     def get(self, request, *args, **kwargs):
@@ -265,7 +261,7 @@ class MerchantConfirmVeiw(LoginRequiredMixin, TemplateView):
             return redirect(reverse('account_profile'))
 
 
-class MerchantResendOtpVeiw(LoginRequiredMixin, TemplateView):
+class MerchantResendOtpView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 

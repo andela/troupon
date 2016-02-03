@@ -23,6 +23,8 @@
     "packery": "~1.4.3",
     "flickity": "~1.1.1",
     "jquery": "~2.1.4",
-    "d3": "~3.5.12"
+    "d3": "~3.5.12",
+    "jackocnr": "intl-tel-input#~7.1.1",
+    "datetimepicker": "xdan/datetimepicker#~2.4.5"
   }
 }

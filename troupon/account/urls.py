@@ -31,19 +31,19 @@ urlpatterns = [
     # pattern maps to view handling `GET` and `POST` requests to
     # /account/merchant/verify/
     url(r'^merchant/verify/$',
-        views.MerchantVerifyVeiw.as_view(),
+        views.MerchantVerifyView.as_view(),
         name='account_merchant_verify'),
 
     # pattern maps to view handling `GET` requests to
     # /account/merchant/resendotp/
     url(r'^merchant/resendotp/$',
-        views.MerchantResendOtpVeiw.as_view(),
+        views.MerchantResendOtpView.as_view(),
         name='account_merchant_resendotp'),
 
     # pattern maps to view handling `GET` requests to
     # /account/merchant/confirm/
     url(r'^merchant/confirm/$',
-        views.MerchantConfirmVeiw.as_view(),
+        views.MerchantConfirmView.as_view(),
         name='account_merchant_confirm'),
 
     # pattern maps to view handling `GET` and `POST` requests to

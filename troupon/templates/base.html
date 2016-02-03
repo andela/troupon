@@ -23,9 +23,11 @@
   <!-- FontAwesome -->
   <link rel="stylesheet" type="text/css" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
   <!--International telephoneinput-->
-  <link rel="stylesheet" type="text/css" href="{% static 'css/intlTelInput.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'bower_components/jackocnr/build/css/intlTelInput.css' %}">
   <!-- Flickity -->
   <link rel="stylesheet" type="text/css" href="{% static 'bower_components/flickity/dist/flickity.min.css' %}">
+  <!-- Datetimepicker -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bower_components/datetimepicker/jquery.datetimepicker.css' %}" >
   <!-- Troupon base-->
   <link rel="stylesheet" type="text/css" href="{% static 'css/base_styles.css' %}" />
   {% endblock base_css %}
@@ -123,9 +125,9 @@
                         <li><a href="{% url 'merchant_manage_deals' %}">Merchant Dashboard</a></li>
                       {% endif %}
                       <li><a href="{% url 'account_profile' %}">My Profile</a></li>
-                      <li><a href=""></i>Change Password</a></li>
-                      <li><a href=""></i>Preferences</a></li>
-                      <li><a href=""></i>History</a></li>
+                      <li><a href="{% url 'account_change_password' %}"></i>Change Password</a></li>
+                      <li><a href="#"></i>Preferences</a></li>
+                      <li><a href="#"></i>History</a></li>
                       <li  class="divider"></li>
                       <li><a href="{% url 'logout' %}">Log Out</a></li>
                     </ul>
@@ -271,7 +273,9 @@
     <!-- Packery -->
     <script src="{% static 'bower_components/packery/dist/packery.pkgd.min.js' %}"></script>
     <!--Intl tel number-->
-    <script src="{% static 'js/intlTelInput.min.js' %}"></script>
+    <script src="{% static 'bower_components/jackocnr/build/js/intlTelInput.min.js' %}"></script>
+    <!-- datetimepicker-->
+    <script src="{% static 'bower_components/datetimepicker/jquery.datetimepicker.js' %}"></script>
     <!-- Troupon base-->
     <script src="{% static 'js/app.js' %}"></script>
   {% endblock base_js %}

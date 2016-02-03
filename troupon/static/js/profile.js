@@ -14,7 +14,7 @@ $(document).ready(function() {
             callback(countryCode);
         });
     },
-        utilsScript: '../../static/lib/libphonenumber/build/utils.js',
+        utilsScript: '/static/bower_components/jackocnr/lib/libphonenumber/build/utils.js',
         nationalMode: 'true'
     });
 

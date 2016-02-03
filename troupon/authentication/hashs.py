@@ -10,19 +10,37 @@ class UserHasher:
     """
     NOTE: This class has the Hashids package as a dependency.
     Run 'pip install requirements.txt' to install on your environment.
+
+    Attributes:
+        timehash_min_length: An integer representing the minimum
+            length of the generated time hash.
+        pkhash_min_length: An integer representing the minimum
+            length of the primary key hash.
+        alphabet: A string representing available characters to construct
+            hash from.
+        delim: A string representing the delimiter to be used to
+            concatenate the generated time hash and primary key hash.
     """
 
     timehash_min_length = 40
     pkhash_min_length = 20
     alphabet = 'abcdefghijklmnopqrstuvwyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     delim = "x"
+    # from settings.py
     secret_key = os.getenv('SECRET_KEY')
 
     @staticmethod
     def gen_hash(registered_user):
-        """
-        Accepts a intsance of user account and returns
-        a reversible 'time-unique' hash for it
+        """Generates a time dependent hash.
+
+        Accepts an instance of user account and returns
+        a reversible 'time-unique' hash for it.
+
+        Args:
+            registered_user: A user instance.
+        Returns:
+            A hash composed of a time-stamp hash and a
+            pk-hash delimited by x.
         """
 
         # get a timestamp (to make each generated hash unique):
@@ -49,10 +67,16 @@ class UserHasher:
 
     @staticmethod
     def reverse_hash(hash_str):
-        """
+        """Reverses a hash parsed from the request URL.
+
         Accepts a unique hash string representing a user account
-        and decodes it to return an actual intance of that account
-        Returns None if decoded user does not exits.
+        and decodes it to return an actual intance of that account.
+
+        Args:
+            hash_str: an hash string.
+        Returns:
+            None if decoded user does not exist.
+            user instance if decoded user exists.
         """
 
         # split the hash_str with the delim:
