@@ -4,6 +4,7 @@ from merchant.views import ManageDealsView, ManageDealView, TransactionsView,\
     TransactionView, CreateDealView, MerchantView
 
 urlpatterns = [
+
     # pattern maps to view handling `POST` and `GET`
     #  requests to `/merchant/messages`
     url(
@@ -69,4 +70,5 @@ urlpatterns = [
         r'^(?P<merchant_slug>[\w-]+)/$',
         MerchantView.as_view(), name='merchant_view',
     ),
+
 ]
