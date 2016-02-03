@@ -2,7 +2,8 @@ $(document).ready(function() {
 
     $('#datetimepicker').datetimepicker({
         timepicker:false,
-        format:'Y-m-d'
+        format:'Y-m-d',
+        minDate: '0'
     });
 
     function uploadbutton() {

@@ -112,14 +112,14 @@ class CreateDealView(MerchantMixin, TemplateView):
 
     template_name = "merchant/deal_create.html"
 
-    def get(self, request, **kwargs):
-        """Renders a form for creating deals """
-        context = {
+    def get_context_data(self, **kwargs):
+        context_var = super(CreateDealView, self).get_context_data(**kwargs)
+        context_var.update({
             'states': {'choices': STATE_CHOICES, 'default': 25},
             'currency': {'choices': CURRENCY_CHOICES, 'default': 1},
             'category': Category.objects.order_by('name')
-        }
-        return render(request, self.template_name, context)
+        })
+        return context_var
 
     def post(self, request, **kwargs):
 
@@ -148,7 +148,15 @@ class CreateDealView(MerchantMixin, TemplateView):
         ymd = date_end_unicode.split('-')
         date_end = date(int(ymd[0]), int(ymd[1]), int(ymd[2]))
         today = date.today()
+        # ensure duration is not negative
         duration = int(str(date_end - today).split(" ")[0])
+
+        if date_end < today:
+            messages.add_message(
+                request, messages.ERROR,
+                "You entered a date that's before today. Please try again"
+            )
+            return redirect(reverse('merchant_create_deal'))
 
         deal = Deal(
             price=price, original_price=original_price, currency=currency,

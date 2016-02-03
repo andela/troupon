@@ -8,6 +8,8 @@ intl tel input styles:
 .btn-file {
     position: relative;
     overflow: hidden;
+    background: #660066;
+    color: white;
 }
 .btn-file input[type=file] {
     position: absolute;
