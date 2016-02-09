@@ -1,3 +1,5 @@
+"""Model defined for UserProfile creation."""
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -5,6 +7,14 @@ from deals.models import STATE_CHOICES
 
 
 class UserProfile(models.Model):
+    """Class that defines user profile model.
+
+    Attributes: user,
+                user_state,
+                occupation,
+                phonenumber,
+                intlnumber.
+    """
 
     user = models.OneToOneField(User)
     user_state = models.SmallIntegerField(choices=STATE_CHOICES,
@@ -14,9 +24,16 @@ class UserProfile(models.Model):
     intlnumber = models.CharField(blank=True, default='', max_length=20)
 
     def check_diff(self, request_value):
+        """Check for differences between request and model data.
 
+            Args:
+                request_value: form data passed in from post method.
+            Returns:
+                A dictionary containing user information in unicode format.
+        """
         for field in request_value:
-            if getattr(self, field, False) != False and getattr(self, field) != request_value[field] and \
+            if getattr(self, field, False) != False \
+                and getattr(self, field) != request_value[field] and \
                     request_value[field] != '':
                     setattr(self, field, request_value[field])
         self.save()
@@ -53,9 +70,14 @@ class UserProfile(models.Model):
 
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
-
 def create_user_profile(sender, instance, created, **kwargs):
+    """Creates the user profile for a given User instance.
 
+    Args: sender, instance, created,
+       Sender: The model class,
+       Instance: The actual instance being saved,
+       Created: Boolean that defaults to True if user is created
+    """
     if created:
         UserProfile.objects.create(user=instance)
 
