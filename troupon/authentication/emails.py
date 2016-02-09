@@ -8,6 +8,9 @@ class SendGrid(object):
     """
     This class is used to send emails using the requests
     module to the sendgrid message api.
+
+    Attributes:
+        sg: An instance of the SendGrid Client.
     """
 
     sg = sendgrid.SendGridClient(os.getenv('sendgrid_apikey'),
@@ -17,6 +20,8 @@ class SendGrid(object):
     def compose(sender, recipient, subject, text="", html="None"):
         """
         RECOMMENDED: use this method to compose the email.
+
+        Returns: A mail instance.
         """
         message = sendgrid.Mail()
         message.add_to(recipient)
@@ -29,6 +34,13 @@ class SendGrid(object):
 
     @staticmethod
     def send(message):
+        """Sends a message using SendGrid's messaging API.
+
+        Returns: A status code.
+        Raises:
+            SendGridClientError,
+            SendGridServerError
+        """
         try:
             http_status_code, message = SendGrid.sg.send(message)
         except SendGridClientError:
