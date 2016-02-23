@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
@@ -123,7 +123,7 @@ class CreateDealView(MerchantMixin, TemplateView):
 
     def post(self, request, **kwargs):
 
-        """Creates a deal"""
+        """Create a deal."""
 
         price = request.POST.get('price')
         original_price = request.POST.get('original_price')
@@ -139,7 +139,8 @@ class CreateDealView(MerchantMixin, TemplateView):
         active = True if active else False
         image = request.FILES.get('image')
 
-        date_end_unicode = request.POST.get('date_end')
+        date_end_unicode = request.POST.get('date_end') or \
+            (date.today() + timedelta(days=2)).isoformat()
         category_id = request.POST.get('category')
         advertiser_id = request.user.profile.merchant.advertiser_ptr.id
 
