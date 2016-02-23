@@ -139,8 +139,7 @@ class CreateDealView(MerchantMixin, TemplateView):
         active = True if active else False
         image = request.FILES.get('image')
 
-        date_request = request.POST.get('date_end')
-        date_end_unicode = date_request if date_request else \
+        date_end_unicode = request.POST.get('date_end') or \
             (date.today() + timedelta(days=2)).isoformat()
         category_id = request.POST.get('category')
         advertiser_id = request.user.profile.merchant.advertiser_ptr.id
