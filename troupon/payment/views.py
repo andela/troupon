@@ -27,20 +27,19 @@ class PaymentProcessView(View):
 
         # Get payment details from session
         payment_details = request.session.get('payment_details', None)
-
         # process payment if the payment details exist
         if payment_details:
             # Create the charge on Stripe's servers, charge the user's card
             try:
                 charge = stripe.Charge.create(
-                             # amount in cents, again
-                             amount=payment_details['amount'],
-                             currency=payment_details['currency'],
-                             source=token,
-                             description=payment_details['description']
+                            # amount in cents, again
+                            amount=payment_details['amount'],
+                            currency=payment_details['currency'],
+                            source=token,
+                            description=payment_details['description']
                          )
                 # return a success message
-                message = "Success!!! you payment has been received"
+                message = "Success! Your payment has been received."
                 messages.add_message(request, messages.WARNING, message)
 
                 # add to transaction history
@@ -84,10 +83,10 @@ class PaymentProcessView(View):
                 # Invalid parameters were supplied to Stripe's API
                 body = e.json_body
                 err = body['error']
-
+                code = err['code'] if 'code' in err else -1
                 message = '''
                 Error!!! %s: %s\n%s
-                ''' % (e.http_status, err['code'], err['message'])
+                ''' % (e.http_status, code, err['message'])
                 messages.add_message(request, messages.WARNING, message)
             except stripe.error.AuthenticationError, e:
                 # Authentication with Stripe's API failed
@@ -125,18 +124,6 @@ class PaymentProcessView(View):
                 message = '''Error!!! %s''' % (e)
                 messages.add_message(request, messages.WARNING, message)
 
-            # add to transaction history
-            transaction = TransactionHistory(
-                                transaction_id=charge.id,
-                                transaction_status=charge.status,
-                                transaction_amount=charge.amount,
-                                transaction_created=charge.created,
-                                transaction_currency=charge.currency,
-                                failure_code=charge.failure_code,
-                                failure_message=charge.failure_message,
-                                user=request.user
-                            )
-            transaction.save()
 
             # redirect to payment status page for errors
             url = reverse('payment_status')

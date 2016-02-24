@@ -21,9 +21,9 @@ class CheckoutView(LoginRequiredMixin, View):
         """Update imformation.
         """
         amount = request.POST.get('price', 23)
+        amount_in_cents = int(amount) * 100
         title = request.POST.get('title')
         description = request.POST.get('description') or "No description"
-        amount_in_cents = amount * 100
 
         # store payment details in session
         payment_details = {
@@ -33,16 +33,13 @@ class CheckoutView(LoginRequiredMixin, View):
             "description": description,
             "currency": "usd",
         }
+        request.session['payment_details'] = payment_details
 
         context = {
             "amount": amount,
             "title": title,
             "description": description,
-            "amount_in_cents": amount_in_cents,
             "payment_details": payment_details,
         }
-
-        request.session['payment_details'] = payment_details
-
         return render(request, self.template_name, context)
 
