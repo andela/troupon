@@ -5,7 +5,9 @@
     <div class="row">
         <div class="col-sm-12">
             <form action="{% url 'process_payment' %}" method="POST">
+            <h2>{{ title }}</h2>
             <h3>Total amount due: ${{ amount }}</h3>
+            <p>Description: {{ description }}</p>
             {% csrf_token %}
               <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"

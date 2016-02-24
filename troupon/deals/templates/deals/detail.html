@@ -68,14 +68,22 @@
                     <div class="divider"></div>
                 </div>
 
-                <!-- Call to action --> 
-                <div class="row call-to-action">
-                    <div class="col-md-8 col-md-offset-2">
-                        <button id="buy-btn" class="btn-action"><i class="fa fa-shopping-cart"></i> Buy Deal</button>
+                <!-- Call to action -->
+                <form action="/cart/checkout/" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="description" value="{{deal.description}}" />
+                    <input type="hidden" name="title" value="{{deal.title}}" />
+                    <div class="row call-to-action">
+                        <div class="col-md-8 col-md-offset-2">
+                            <button type="submit" value="{{deal.price}}" name="price" id="buy-btn" class="btn-action"><i class="fa fa-shopping-cart"></i> Buy Deal</button>
+                        </div>
                     </div>
-                </div>
+                </form>
+                <!-- <input name="price" type="hidden" value="{{deal.price}}" />-->
 
-                <!-- Sharing options --> 
+
+
+                <!-- Sharing options -->
                 <div class="row share-options">
                     <div class="col-xs-12">
                         <p class="mini-label">Share this deal</p>
@@ -87,13 +95,13 @@
                             <li><a href="" class="btn-instagram"><i class="fa fa-instagram fa-fw"></i></a></li>
                             <li><a href="" class="btn-pinterest"><i class="fa fa-pinterest fa-fw"></i></a></li>
                             <li><a href="" class="btn-email"><i class="fa fa-envelope fa-fw"></i></a></li>
-                        </ul> 
+                        </ul>
                     </div>
                 </div>
 
             </div>
         </div>
-        
+
     </section>
 
     <div class="row" id="banner-section">
