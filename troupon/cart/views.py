@@ -17,38 +17,29 @@ class CheckoutView(LoginRequiredMixin, View):
     stripe_secret_api_key = os.getenv('STRIPE_SECRET_API_KEY')
     stripe_publishable_api_key = os.getenv('STRIPE_PUBLISHABLE_API_KEY')
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, **kwargs):
+        """Update imformation.
         """
-        creates a dummy checkout page
-
-        Sets up a dummy page that users can pay for goods worth $23
-
-        Args:
-            request: the request object calling the view
-
-        Return:
-            a page that displays a stripe button for making payment
-            of $23
-        """
-        amount = 23
-        amount_in_cents = amount * 100
-        payment_details = {
-            "key": self.stripe_publishable_api_key,
-            "description": "Hairless Armpits",
-        }
-
-        context = {
-            "amount": amount,
-            "amount_in_cents": amount_in_cents,
-            "payment_details": payment_details,
-        }
+        amount = request.POST.get('price', 23)
+        amount_in_cents = int(amount) * 100
+        title = request.POST.get('title')
+        description = request.POST.get('description') or "No description"
 
         # store payment details in session
         payment_details = {
+            "title": title,
+            "key": self.stripe_publishable_api_key,
             "amount": amount_in_cents,
-            "description": "Hairless Armpits",
+            "description": description,
             "currency": "usd",
         }
         request.session['payment_details'] = payment_details
 
+        context = {
+            "amount": amount,
+            "title": title,
+            "description": description,
+            "payment_details": payment_details,
+        }
         return render(request, self.template_name, context)
+

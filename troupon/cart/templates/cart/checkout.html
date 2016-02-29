@@ -5,15 +5,17 @@
     <div class="row">
         <div class="col-sm-12">
             <form action="{% url 'process_payment' %}" method="POST">
+            <h2>{{ title }}</h2>
             <h3>Total amount due: ${{ amount }}</h3>
+            <p>Description: {{ description }}</p>
             {% csrf_token %}
               <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="{{payment_details.key}}"
+                data-key="{{ payment_details.key }}"
                 data-image="{% static 'img/logo-v-lg.png' %}"
                 data-name="Troupon"
-                data-description="{{payment_details.description}}"
-                data-amount="{{ amount_in_cents }}"
+                data-description="{{ payment_details.description }}"
+                data-amount="{{ payment_details.amount }}"
                 data-locale="auto">
               </script>
             </form>

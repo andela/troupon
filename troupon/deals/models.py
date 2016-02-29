@@ -111,9 +111,11 @@ class Deal(models.Model):
         return "{0:.0%}".format(discount)
 
     def __str__(self):
-        return "{0}, {1}, {2}".format(self.id,
+        return "{0}, {1}, {2}, {3}, {4}".format(self.id,
                                       self.title,
-                                      self.advertiser.name)
+                                      self.advertiser.name,
+                                      self.price,
+                                      self.currency)
 
     def get_absolute_url(self):
         return "/deals/{}/" .format(self.id)
