@@ -55,7 +55,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
 
         if form.errors:
             context_var = {}
-            empty = "form should not be submitted empty"
+            empty = "Form should not be submitted empty"
             messages.add_message(request, messages.INFO, empty)
             return render(request, 'account/profile.html', context_var)
 

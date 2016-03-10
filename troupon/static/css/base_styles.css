@@ -430,11 +430,52 @@ Lists
 Other components.
 ========================================================================== */
 .card {
+  position: relative;
   padding: 1px;
   border: 1px solid #DFDFD0;
   border-radius: 6px;
   background: #FFFFFF;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card .overlay {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99;
+  -webkit-transition: opacity .3s;
+  transition: opacity .3s;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+  -webkit-transition: opacity .3s;
+  transition: opacity .3s;
+}
+
+.dropdown-menu {
+  width: 25em;
+  align: center;
+  padding: 1em;
+  margin: auto;
+  opacity: 0.95;
 }
 
 .section-heading .row, .section-heading [class*='col-'] {
