@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% load carton_tags %}
+{% get_cart as cart %}
+
+{% block main %}
+
+{% if not cart.is_empty %}
+<div>
+    <!-- banner section -->
+    <section class="row" id="banner-section">
+        <!-- heading -->
+        {% include "snippet_section_heading.html" with title="Your Cart Items" %}
+
+    </section>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.items %}
+                        <tr>
+                            <td>{{ item.product.title }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.subtotal | intcomma }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pull-right col-sm-2">
+        
+            <h3> Total:  $ {{ cart.total | intcomma }}</h3>
+
+            <button class="btn-action">Proceed to checkout</button>
+        </div>
+    </div>
+
+
+</div>
+{% else %}
+    <section class="row" id="banner-section">
+        <!-- heading -->
+        {% include "snippet_section_heading.html" with title="Your Cart Is Empty." %}
+
+    </section>
+
+    <a href="/" id="button-continue" class="btn-action">Continue Shopping</a>
+{% endif %}
+
+{% endblock main %}
+

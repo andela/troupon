@@ -130,11 +130,43 @@ Other components.
 ========================================================================== */
 
 .card {
+  position: relative;
   padding: 1px;
   border: 1px solid color(card-border);
   border-radius: border-radius(card);
   background: color(card-bg);
   box-shadow: box-shadow(card);
+
+  .overlay {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index:99;
+    transition: opacity .3s;
+  }
+
+  &:hover {
+    .overlay {
+        opacity: 1;
+        transition: opacity .3s;
+    }
+  }
+
+}
+
+.dropdown-menu {
+  width:  25em;
+  align: center;
+  padding: 1em;
+  margin: auto;
+  opacity: 0.95;
 }
 
 .section-heading {
