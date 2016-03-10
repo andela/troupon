@@ -1,4 +1,8 @@
 {% load static from staticfiles %}
+{% load humanize %}
+
+{% load carton_tags %}
+{% get_cart as cart %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -111,12 +115,55 @@
                     </li>
                     <li class="divider-v"></li>
                   {% endif %}
-                  <li>
-                    <a href=""><span class="badge">7</span><i class="fa fa-shopping-cart fa-fw"></i></a>
-                  </li>
+
+
+                  <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                      {% if cart.count != 0 %}
+                        <span class="badge">{{ cart.count }}</span>
+                      {% endif %}
+                      <i class="fa fa-shopping-cart fa-fw"></i>
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      {% if cart.items %}
+                        {% for item in cart.items %}
+                          <li>
+                            <ul>
+                              <li><h4><small>{{ item.product.title }}</small></h4></li>
+                              <li class="pull-right"><h6><small><strong><span class="badge">Quantity: {{ item.quantity }}</span></strong></small></h6></li>
+                              <br/>
+                              <li><p><small><strong>Subtotal: $ {{ item.subtotal | intcomma }}</strong></small></p></li>
+                              <br/>
+                              <li class="pull-left">
+                                <form action="/cart/remove/" method="POST">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="slug" value="{{ item.product.slug }}" />
+                                  <button type="submit" class="btn btn-sm">Remove</button>
+                                </form>
+                              </li>
+                            </ul>
+                          </li>
+                          <hr />
+                        {% endfor %}
+                        <h4>Total: $ {{ cart.total | intcomma }}</h4>
+                        <a class="btn-action" href="/cart/view">View Cart</a>
+                        <a class="btn-action" href="/cart/clear">Clear cart</a>
+                      {% else %}
+                          <div class="dropdown-header">
+                            <p>No items in cart.</p>
+                            <p>Add items by clicking <strong>"Add to Cart"</strong> on a deal.</p>
+                          </div>
+                        {% endif%}
+                    </ul>
+                  </li> 
+
                   <li class="divider-v"></li>
                   <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-user fa-fw"></i> <span class="caret"></span></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                      <i class="fa fa-user fa-fw"></i>
+                      <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                       <li class="dropdown-header">Logged in as:</li>
                       <li class="user-info">{{request.user.username|title }}</li>

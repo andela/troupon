@@ -1,3 +1,9 @@
+/* ==========================================================================
+Variables
+========================================================================== */
+
+$white-transluscent-background: rgba(255, 255, 255, 0.8);
+
 
 /* ==========================================================================
 links
@@ -130,11 +136,41 @@ Other components.
 ========================================================================== */
 
 .card {
-  padding: 1px;
+  background: color(card-bg);
   border: 1px solid color(card-border);
   border-radius: border-radius(card);
-  background: color(card-bg);
   box-shadow: box-shadow(card);
+  padding: 1px;
+  position: relative;
+  
+  .overlay {
+    align-items: center;
+    background: $white-transluscent-background;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity 0.3s;
+    z-index: 99;
+  }
+
+  &:hover {
+    .overlay {
+      opacity: 1;
+      transition: opacity .3s;
+    }
+  }
+}
+
+.dropdown-menu {
+  width:  25em;
+  padding: 1em;
+  margin: auto;
+  opacity: 0.95;
 }
 
 .section-heading {

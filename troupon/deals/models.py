@@ -60,7 +60,7 @@ class Deal(models.Model):
     disclaimer = models.TextField(blank=True, default='')
     description = models.TextField(blank=True, default='')
     slug = models.SlugField(blank=True, null=False, unique=True)
-    title = models.CharField(max_length=100, null=False, blank=False,)
+    title = models.CharField(max_length=100, null=False, blank=False)
     state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
     address = models.CharField(max_length=100, blank=False, default='')
     currency = models.SmallIntegerField(choices=CURRENCY_CHOICES, default=1)
