@@ -150,9 +150,6 @@ h1 {
 }
 
 /* ==========================================================================
-Variables
-========================================================================== */
-/* ==========================================================================
 links
 ========================================================================== */
 a, .dropdown .dropdown-menu > li > a, .menu-link, .label-link, .label-link-list-v > li > a, .label-link-list-h > li > a, #header-bar .auth-options > li > a, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, #header-bar .nav-menu > li > a, #header-bar .member-options > li > a, footer .quick-links > li > a {
@@ -437,7 +434,6 @@ Other components.
   border: 1px solid #DFDFD0;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 1px;
   position: relative;
 }
 
@@ -469,15 +465,15 @@ Other components.
 
 .card:hover .overlay {
   opacity: 1;
-  -webkit-transition: opacity .3s;
-  transition: opacity .3s;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 
 .dropdown-menu {
-  width: 25em;
-  padding: 1em;
   margin: auto;
   opacity: 0.95;
+  padding: 1em;
+  width: 25em;
 }
 
 .section-heading .row, .section-heading [class*='col-'] {
