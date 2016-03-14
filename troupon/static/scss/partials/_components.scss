@@ -1,3 +1,7 @@
+// variables
+
+$white-transluscent-background: rgba(255, 255, 255, 0.8);
+
 
 /* ==========================================================================
 links
@@ -130,11 +134,38 @@ Other components.
 ========================================================================== */
 
 .card {
-  padding: 1px;
+  background: color(card-bg);
   border: 1px solid color(card-border);
   border-radius: border-radius(card);
-  background: color(card-bg);
   box-shadow: box-shadow(card);
+  position: relative;
+
+  .overlay {
+    align-items: center;
+    background: $white-transluscent-background;
+    display: flex;
+    flex-direction: row;
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.3s;
+    z-index: 99;
+  }
+
+  &:hover {
+    .overlay {
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+  }
+}
+
+.dropdown-menu {
+  margin: auto;
+  opacity: 0.95;
+  padding: 1em;
+  width: 25em;
 }
 
 .section-heading {
@@ -197,7 +228,7 @@ Other components.
       transform: scale(1.06);
     }
   }
-  
+
   .flickity-viewport {
     overflow: hidden;
     border-radius: border-radius(card) - 1;
@@ -242,7 +273,7 @@ Other components.
 }
 
 .image-frame {
-  
+
   background-color: color(shaded-bg);
   overflow: hidden;
 
@@ -294,7 +325,7 @@ Other components.
 
   .grid-item:hover {
     border-color: color(accent);
-    
+
     .title, .current {
       color: color(accent);
     }
@@ -303,7 +334,7 @@ Other components.
       transform: scale(1.03);
     }
   }
-  
+
   .item-image-wrapper {
     position: relative;
     display: block;
@@ -356,7 +387,7 @@ Other components.
     }
     .grid-item {
       margin-bottom: 20px;
-    } 
+    }
   }
 
   @media (min-width: 480px) and  (max-width: 992px) {
@@ -385,7 +416,7 @@ Other components.
   }
 
   @media (max-width: 480px) {
-    padding: auto 30px; 
+    padding: auto 30px;
     .grid-sizer, .grid-item {
       width: 100%;
     }
@@ -415,7 +446,7 @@ Other components.
   .links ol {
     @include unstyled-h-list-mixin;
     display: inline-block;
-    
+
     li {
       margin: 0px 15px;
     }
@@ -440,7 +471,7 @@ Other components.
 .breadcrumbs {
   @include unstyled-h-list-mixin();
   right: 10px;
-  
+
   li.active {
     color: color(accent);
   }

@@ -75,9 +75,6 @@ node_modules/
 # staticfiles
 troupon/staticfiles/
 
-# database migrations
-troupon/*/migrations/*
-
 # eclipse IDE
 .settings
 .project
