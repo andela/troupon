@@ -10,7 +10,7 @@
     "postinstall": "./node_modules/.bin/bower install"
   },
   "dependencies": {
-    "bower": "^1.7.0"
+    "bower": "^1.7.7"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
