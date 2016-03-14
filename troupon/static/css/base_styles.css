@@ -443,7 +443,6 @@ Other components.
       -ms-flex-align: center;
           align-items: center;
   background: rgba(255, 255, 255, 0.8);
-  bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -453,11 +452,10 @@ Other components.
   -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
-  left: 0;
+  min-width: 100%;
+  min-height: 100%;
   opacity: 0;
   position: absolute;
-  right: 0;
-  top: 0;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   z-index: 99;

@@ -70,12 +70,12 @@
 
                 <!-- Call to action -->
                 {% if not deal.quorum %}
-                    <form action="/cart/view/" method="POST">
+                    <form action="/cart/add/" method="POST">
                     {% csrf_token %}
                 {% else %}
                     <form>
                 {% endif %}
-                    <input type="hidden" name="slug" value="{{deal.slug}}" />
+                    <input type="hidden" name="dealid" value="{{deal.id}}" />
                     <div class="row call-to-action">
                         <div class="col-md-8 col-md-offset-2">
                             {% if not deal.quorum %}

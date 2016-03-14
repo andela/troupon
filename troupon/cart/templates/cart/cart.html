@@ -13,7 +13,6 @@
     <section class="row" id="banner-section">
         <!-- heading -->
         {% include "snippet_section_heading.html" with title="Your Cart Items" %}
-
     </section>
 
     <div class="row">
@@ -39,24 +38,18 @@
         </div>
 
         <div class="pull-right col-sm-2">
-        
             <h3> Total:  $ {{ cart.total | intcomma }}</h3>
-
             <button class="btn-action">Proceed to checkout</button>
         </div>
     </div>
-
-
 </div>
 {% else %}
     <section class="row" id="banner-section">
         <!-- heading -->
         {% include "snippet_section_heading.html" with title="Your Cart Is Empty." %}
-
     </section>
 
     <a href="/" id="button-continue" class="btn-action">Continue Shopping</a>
 {% endif %}
 
 {% endblock main %}
-

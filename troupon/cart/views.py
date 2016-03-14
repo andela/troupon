@@ -58,18 +58,11 @@ class AddToCartView(LoginRequiredMixin, View):
         A redirect to the deals homepage
     """
 
-    def get(self, request, **kwargs):
-        """Show cart items."""
-        cart = Cart(request.session)
-
-        context = {'cart': cart}
-        return TemplateResponse(request, 'cart/cart.html', context)
-
     def post(self, request, **kwargs):
         """Save info in cart."""
-        slug = request.POST.get('slug')
+        dealid = request.POST.get('dealid')
 
-        deal = Deal.objects.get(slug=slug)
+        deal = Deal.objects.get(id=dealid)
 
         cart = Cart(request.session)
 
@@ -79,6 +72,20 @@ class AddToCartView(LoginRequiredMixin, View):
         messages.add_message(request, messages.INFO, success_message)
 
         return redirect('/')
+
+
+class ViewCartView(LoginRequiredMixin, View):
+    """Allow user to view all the items in the cart.
+
+    Returns:
+        A template rendered with all the cart items.
+    """
+    def get(self, request, **kwargs):
+        """Show cart items."""
+        cart = Cart(request.session)
+
+        context = {'cart': cart}
+        return TemplateResponse(request, 'cart/cart.html', context)
 
 
 class ClearCartView(LoginRequiredMixin, View):
@@ -112,10 +119,10 @@ class RemoveItemView(LoginRequiredMixin, View):
     def post(self, request, **kwargs):
         """Remove item from cart."""
         # get the deal slug from request
-        slug = request.POST.get('slug')
+        dealid = request.POST.get('dealid')
 
         # query the deal using the unique slug
-        deal = Deal.objects.get(slug=slug)
+        deal = Deal.objects.get(id=dealid)
 
         # get the cart object from the session
         cart = Cart(request.session)
