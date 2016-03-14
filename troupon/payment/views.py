@@ -44,7 +44,7 @@ class PaymentProcessView(View):
                 Item processing time is a maximum of 10 days.\n \
                 Please contact the supplier for more details."
 
-                messages.add_message(request, messages.WARNING, message)
+                messages.add_message(request, messages.INFO, message)
 
                 # add to transaction history
                 transaction = TransactionHistory(

@@ -1641,10 +1641,10 @@ footer.checkout-footer i {
 }
 
 footer.checkout-footer .divider, footer.checkout-footer .dropdown .dropdown-menu .divider, .dropdown .dropdown-menu footer.checkout-footer .divider {
-  width: 90%;
+  background-color: #DFDFD0;
   height: 1px;
   margin: 0 auto;
-  background-color: #DFDFD0;
+  width: 90%;
 }
 
 footer.checkout-footer .divider-1 {
