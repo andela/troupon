@@ -9,25 +9,23 @@
             <div class="panel panel-{{ message.tags }}">
                 <div class="panel-heading"></div>
                 <div class="panel-body">
-                  
                     <p>
                         {% if status == 'error' %}
-
                             <div class="row">
                                 <div class="col-md-12">
-                                    <i class="fa fa-times fa-4x  text-center" style="display:block; color:red">
+                                    <i class="fa fa-times fa-4x  text-center error-mark">
                                     </i>
                                 </div>
-
                                 <div class="col-md-12"> 
-                                    <h1 style = "color:red;" class="text-center"><b>Payment error!</b>
+                                    <h1 class="text-center pay"><b>Payment error!</b>
                                     </h1>
-                                        <p>
+                                    {% for message in messages %}
+                                        <p class="text-center">
                                             {{message}}
                                         </p>
+                                    {% endfor %}    
                                 </div>
-                            </div>        
-                                
+                            </div>           
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
@@ -38,24 +36,21 @@
                                     </form>
                                 </div>
                             </div>
-
-                                
                         {% endif %}  
 
                         {% if status == 'complete' %}
                             <div class="row">
-                                 <i class="fa fa-check fa-4x  text-center" style="display:block; color:green;">
+                                 <i class="fa fa-check fa-4x  text-center complete-mark">
                                  </i> 
                                 <div class="col-md-3 ">
                                 </div>
                                 <div class="col-md-8"> 
-                                    <h1 style = "color:green;"><b>Payment Success!</b></h1>
+                                    <h1 class="pay2"><b>Payment Success!</b></h1>
                                     {% for message in messages %}
                                     <p>
                                         {{message|linebreaksbr}}
                                     </p>
-                                    {% endfor %}
-                                    
+                                    {% endfor %}  
                                     <div class="row">
                                         <div class="col-md-3">
                                             <form action="#">
@@ -70,18 +65,16 @@
                                         </div>
                                     </div>
                                 </div>  
-                            </div>    
-                                              
+                            </div>                       
                         {% endif %} 
-
                     </p>
                 </div>
-                    <footer "style=color:#CCC9C9; ">
+                    <footer class="checkout-footer">
                       <div class="divider divider-1"></div>
-                      <div class="row" style="color:#CCC9C9;">
+                      <div class="row">
                         <div class="col-md-offset-2">
                             <div class="col-md-3">
-                              <i class="fa fa-cc-stripe fa-2x style=color:#CCC9C9;"></i>
+                              <i class="fa fa-cc-stripe fa-2x"></i>
                             </div>
                             <div class="col-md-3">
                               <i class="fa fa-cc-paypal fa-2x"></i>

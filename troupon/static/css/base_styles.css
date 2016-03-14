@@ -1631,3 +1631,40 @@ main > section.row > [class*='col-'] {
 .strip-unread {
   font-weight: 900;
 }
+
+footer.checkout-footer {
+  color: #CCC9C9;
+}
+
+footer.checkout-footer i {
+  color: #C9C9C9;
+}
+
+footer.checkout-footer .divider, footer.checkout-footer .dropdown .dropdown-menu .divider, .dropdown .dropdown-menu footer.checkout-footer .divider {
+  width: 90%;
+  height: 1px;
+  margin: 0 auto;
+  background-color: #DFDFD0;
+}
+
+footer.checkout-footer .divider-1 {
+  margin-bottom: 25px;
+}
+
+.error-mark {
+  display: block;
+  color: red;
+}
+
+.complete-mark {
+  display: block;
+  color: green;
+}
+
+.pay {
+  color: red;
+}
+
+.pay2 {
+  color: green;
+}
