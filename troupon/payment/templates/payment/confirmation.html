@@ -20,9 +20,8 @@
                                 </div>
 
                                 <div class="col-md-12"> 
-                                     
-                                    <h1 style = "color:red;" class="text-center"><b>Payment error!</b></h1>
-                                        
+                                    <h1 style = "color:red;" class="text-center"><b>Payment error!</b>
+                                    </h1>
                                         <p>
                                             {{message}}
                                         </p>
@@ -30,11 +29,11 @@
                             </div>        
                                 
                             <div class="row">
-                                <div class="col-md-3">
-                                </div>
+                                <div class="col-md-3"></div>
                                 <div class="col-md-6">
                                     <form action="/deals/">
-                                      <button name="order-summary" id="view-order" class="btn-action"></i>Back to checkout</button>
+                                      <button name="order-summary" id="view-order" class="btn-action">
+                                      </i>Back to checkout</button>
                                       <button name="continue-shopping"  id="go-back" class="btn-action"></i>Go back to deals</button> 
                                     </form>
                                 </div>
@@ -45,10 +44,9 @@
 
                         {% if status == 'complete' %}
                             <div class="row">
-                             <i class="fa fa-check fa-4x  text-center" style="display:block; color:green;">
-                             </i> 
+                                 <i class="fa fa-check fa-4x  text-center" style="display:block; color:green;">
+                                 </i> 
                                 <div class="col-md-3 ">
-                                
                                 </div>
                                 <div class="col-md-8"> 
                                     <h1 style = "color:green;"><b>Payment Success!</b></h1>
@@ -66,7 +64,7 @@
                                         </div>  
                                         <div class="col-md-1">
                                             <form action = "/deals/">
-                                              <button name="continue-shopping"  id="go-back"
+                                               <button name="continue-shopping"  id="go-back"
                                                class="btn-action"></i>Continue Shopping > </button> 
                                             </form>
                                         </div>
@@ -74,10 +72,10 @@
                                 </div>  
                             </div>    
                                               
-                    {% endif %} 
+                        {% endif %} 
 
                     </p>
-                    </div>
+                </div>
                     <footer "style=color:#CCC9C9; ">
                       <div class="divider divider-1"></div>
                       <div class="row" style="color:#CCC9C9;">
@@ -85,7 +83,6 @@
                             <div class="col-md-3">
                               <i class="fa fa-cc-stripe fa-2x style=color:#CCC9C9;"></i>
                             </div>
-                              
                             <div class="col-md-3">
                               <i class="fa fa-cc-paypal fa-2x"></i>
                              </div>
