@@ -115,3 +115,39 @@ main > section.row {
 .strip-unread {
   font-weight: 900; 
 }
+
+footer.checkout-footer {
+  color:#CCC9C9;
+  i {
+    color: #C9C9C9;
+  }
+  .divider {
+    background-color: #DFDFD0;
+    height: 1px;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .divider-1 {
+    margin-bottom:25px;
+  }
+}
+
+.error-mark {
+  display:block; 
+  color:red;
+}
+
+.complete-mark {
+  display:block; 
+  color:green;
+}
+
+.pay {
+  color:red;
+}
+
+.pay2 {
+  color:green;
+}
+

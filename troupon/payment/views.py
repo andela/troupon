@@ -39,8 +39,12 @@ class PaymentProcessView(View):
                             description=payment_details['description']
                          )
                 # return a success message
-                message = "Success! Your payment has been received."
-                messages.add_message(request, messages.WARNING, message)
+                amount = payment_details['amount'] / 100
+                message = "Your payment of $ " + str(amount) + " has been received.\n\
+                Item processing time is a maximum of 10 days.\n \
+                Please contact the supplier for more details."
+
+                messages.add_message(request, messages.INFO, message)
 
                 # add to transaction history
                 transaction = TransactionHistory(
@@ -123,7 +127,6 @@ class PaymentProcessView(View):
 
                 message = '''Error!!! %s''' % (e)
                 messages.add_message(request, messages.WARNING, message)
-
 
             # redirect to payment status page for errors
             url = reverse('payment_status')
