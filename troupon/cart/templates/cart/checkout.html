@@ -1,13 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+
+{% load carton_tags %}
+{% get_cart as cart %}
 
 {% block main %}
     <div class="row">
         <div class="col-sm-12">
+            {% if not cart.is_empty %}
+            <div>
+                <!-- banner section -->
+                <section class="row" id="banner-section">
+                    <!-- heading -->
+                    {% include "snippet_section_heading.html" with title="Your Cart Items" %}
+                </section>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart.items %}
+                                    <tr>
+                                        <td>{{ item.product.title }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>{{ item.subtotal | intcomma }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <h3>Total amount due: ${{ amount }}</h3>
+            </div>
             <form action="{% url 'process_payment' %}" method="POST">
-            <h2>{{ title }}</h2>
-            <h3>Total amount due: ${{ amount }}</h3>
-            <p>Description: {{ description }}</p>
             {% csrf_token %}
               <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -19,6 +51,14 @@
                 data-locale="auto">
               </script>
             </form>
+            {% else %}
+                <section class="row" id="banner-section">
+                    <!-- heading -->
+                    {% include "snippet_section_heading.html" with title="Your Cart Is Empty." %}
+                </section>
+
+                <a href="/" id="button-continue" class="btn-action">Continue Shopping</a>
+            {% endif %}
         </div>
     </div>
 {% endblock main %}

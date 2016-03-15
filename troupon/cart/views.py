@@ -6,7 +6,6 @@ from django.template.response import TemplateResponse
 from authentication.views import LoginRequiredMixin
 from carton.cart import Cart
 from deals.models import Deal
-from django.contrib import messages
 
 
 class CheckoutView(LoginRequiredMixin, View):
@@ -23,14 +22,13 @@ class CheckoutView(LoginRequiredMixin, View):
     stripe_secret_api_key = os.getenv('STRIPE_SECRET_API_KEY')
     stripe_publishable_api_key = os.getenv('STRIPE_PUBLISHABLE_API_KEY')
 
-    def post(self, request, **kwargs):
+    def get(self, request, **kwargs):
         """Update information."""
-        # amount = request.POST.get('price', 23)
         cart = Cart(request.session)
         amount = cart.total
         amount_in_cents = int(amount) * 100
-        title = request.POST.get('title')
-        description = request.POST.get('description') or "No description"
+        title = "Total payment expected"
+        description = "Troupon shopping"
 
         # store payment details in session
         payment_details = {
@@ -68,9 +66,6 @@ class AddToCartView(LoginRequiredMixin, View):
 
         cart.add(deal, price=deal.price)
 
-        success_message = "Your item has been added to the cart."
-        messages.add_message(request, messages.INFO, success_message)
-
         return redirect('/')
 
 
@@ -80,6 +75,7 @@ class ViewCartView(LoginRequiredMixin, View):
     Returns:
         A template rendered with all the cart items.
     """
+
     def get(self, request, **kwargs):
         """Show cart items."""
         cart = Cart(request.session)

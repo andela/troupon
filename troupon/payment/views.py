@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import View
 from django.contrib import messages
 from payment.models import TransactionHistory
+from carton.cart import Cart
 
 
 # Create your views here.
@@ -57,6 +58,10 @@ class PaymentProcessView(View):
 
                 # delete payment details from session
                 del request.session['payment_details']
+
+                # clear cart
+                cart = Cart(request.session)
+                cart.clear()
 
                 # redirect to payment status page
                 url = reverse('payment_status')
