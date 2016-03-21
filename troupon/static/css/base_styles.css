@@ -1550,6 +1550,10 @@ main > section.row > [class*='col-'] {
   }
 }
 
+.form-checkout {
+  padding-bottom: 35px;
+}
+
 .gallery-wrapper, .image-wrapper {
   width: 100%;
   height: 350px;

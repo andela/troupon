@@ -1,12 +1,13 @@
-"""Import statements."""
-from django.shortcuts import render, redirect
-from django.views.generic import View
 import os
-from django.template.response import TemplateResponse
-from authentication.views import LoginRequiredMixin
+
 from carton.cart import Cart
+
+from django.shortcuts import render, redirect
+from django.template.response import TemplateResponse
+from django.views.generic import View
+
+from authentication.views import LoginRequiredMixin
 from deals.models import Deal
-from django.contrib import messages
 
 
 class CheckoutView(LoginRequiredMixin, View):
@@ -23,16 +24,27 @@ class CheckoutView(LoginRequiredMixin, View):
     stripe_secret_api_key = os.getenv('STRIPE_SECRET_API_KEY')
     stripe_publishable_api_key = os.getenv('STRIPE_PUBLISHABLE_API_KEY')
 
-    def post(self, request, **kwargs):
-        """Update information."""
-        # amount = request.POST.get('price', 23)
+    def get(self, request, **kwargs):
+        """
+        Create checkout page.
+
+        Gets shopping information from cart and sends it to the payment app
+        in form of a dict. It then renders the checkout template which can then
+        be used to pay.
+
+        Args:
+            request: The incoming get request object
+            **kwargs: Any keyword arguments passed to the function
+
+        Returns:
+            A template rendered with the payment details context
+        """
         cart = Cart(request.session)
         amount = cart.total
         amount_in_cents = int(amount) * 100
-        title = request.POST.get('title')
-        description = request.POST.get('description') or "No description"
+        title = "Total payment expected"
+        description = "Troupon shopping"
 
-        # store payment details in session
         payment_details = {
             "title": title,
             "key": self.stripe_publishable_api_key,
@@ -52,14 +64,28 @@ class CheckoutView(LoginRequiredMixin, View):
 
 
 class AddToCartView(LoginRequiredMixin, View):
-    """Adds item to cart.
+    """
+    Add items to cart.
 
-    Returns:
-        A redirect to the deals homepage
+    When a logged in person clicks on Add to cart on a deal, this view
+    adds the item to the cart.
+
+    Attributes:
+        LoginRequiredMixin: Ensures the user is logged in
+        View: Normal django view
     """
 
     def post(self, request, **kwargs):
-        """Save info in cart."""
+        """
+        Add item to cart.
+
+        Args:
+            request: The incoming post request object
+            **kwargs: Any keyword arguments passed to the function
+
+        Returns:
+            A redirect to the deals homepage
+        """
         dealid = request.POST.get('dealid')
 
         deal = Deal.objects.get(id=dealid)
@@ -68,20 +94,32 @@ class AddToCartView(LoginRequiredMixin, View):
 
         cart.add(deal, price=deal.price)
 
-        success_message = "Your item has been added to the cart."
-        messages.add_message(request, messages.INFO, success_message)
-
         return redirect('/')
 
 
 class ViewCartView(LoginRequiredMixin, View):
-    """Allow user to view all the items in the cart.
-
-    Returns:
-        A template rendered with all the cart items.
     """
+    Allow user to view all the items in the cart.
+
+    A logged in user with items in the cart can see a
+    summary of them and their prices.
+
+    Attributes:
+        LoginRequiredMixin: Ensures the user is logged in
+        View: Normal django view
+    """
+
     def get(self, request, **kwargs):
-        """Show cart items."""
+        """
+        Show cart items.
+
+        Args:
+            request: The incoming get request object
+            **kwargs: Any keyword arguments passed to the function
+
+        Returns:
+            A template rendered with all the cart items.
+        """
         cart = Cart(request.session)
 
         context = {'cart': cart}
@@ -92,19 +130,29 @@ class ClearCartView(LoginRequiredMixin, View):
     """
     Clear items in cart.
 
-    Returns:
-        A redirect to the deals homepage
+    When triggered, removes every item in the cart session
+    and leaves it empty.
+
+    Attributes:
+        LoginRequiredMixin: Ensures the user is logged in
+        View: Normal django view
     """
 
     def get(self, request, **kwargs):
-        """Get cart from session and remove everything from it."""
-        # get the cart object from the session
+        """
+        Get cart from session and remove everything from it.
+
+        Args:
+            request: The incoming get request object
+            **kwargs: Any keyword arguments passed to the function
+
+        Returns:
+            A redirect to the deals homepage
+        """
         cart = Cart(request.session)
 
-        # call the cart's clear method to remove everything from it
         cart.clear()
 
-        # return a redirect to the deals homepage
         return redirect('/')
 
 
@@ -112,23 +160,29 @@ class RemoveItemView(LoginRequiredMixin, View):
     """
     Remove item from cart.
 
-    Returns:
-        A redirect to the deals homepage
+    When triggered, removes a particular item from the cart session
+    based on its id.
+
+    Attributes:
+        LoginRequiredMixin: Ensures the user is logged in
+        View: Normal django view
     """
 
     def post(self, request, **kwargs):
-        """Remove item from cart."""
-        # get the deal slug from request
+        """
+        Remove item from cart.
+
+        Args:
+            request: The incoming get request object
+            **kwargs: Any keyword arguments passed to the function
+
+        Returns:
+            A redirect to the deals homepage
+        """
         dealid = request.POST.get('dealid')
 
-        # query the deal using the unique slug
         deal = Deal.objects.get(id=dealid)
-
-        # get the cart object from the session
         cart = Cart(request.session)
-
-        # remove the queried deal object from the cart
         cart.remove(deal)
 
-        # return a redirect to the deals homepage
         return redirect('/')
