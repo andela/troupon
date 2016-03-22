@@ -17,7 +17,7 @@ class AddToCartViewTest(LiveServerTestCase):
     def login_user(self):
         """Logs in the test user"""
         self.driver.get(
-            '%s%s' % ("localhost:8000", "/login/")
+            '%s%s' % (self.live_server_url, "/login/")
         )
         self.driver.find_element_by_id('email').send_keys(TEST_USER_EMAIL)
         self.driver.find_element_by_id(
@@ -56,7 +56,7 @@ class ViewCartViewTest(LiveServerTestCase):
     def login_user(self):
         """Logs in the test user"""
         self.driver.get(
-            '%s%s' % ("localhost:8000", "/login/")
+            '%s%s' % (self.live_server_url, "/login/")
         )
         self.driver.find_element_by_id('email').send_keys(TEST_USER_EMAIL)
         self.driver.find_element_by_id(
@@ -95,7 +95,7 @@ class ClearCartViewTest(LiveServerTestCase):
     def login_user(self):
         """Logs in the test user"""
         self.driver.get(
-            '%s%s' % ("localhost:8000", "/login/")
+            '%s%s' % (self.live_server_url, "/login/")
         )
         self.driver.find_element_by_id('email').send_keys(TEST_USER_EMAIL)
         self.driver.find_element_by_id(
@@ -134,7 +134,7 @@ class RemoveItemViewTest(LiveServerTestCase):
     def login_user(self):
         """Logs in the test user"""
         self.driver.get(
-            '%s%s' % ("localhost:8000", "/login/")
+            '%s%s' % (self.live_server_url, "/login/")
         )
         self.driver.find_element_by_id('email').send_keys(TEST_USER_EMAIL)
         self.driver.find_element_by_id(
@@ -173,7 +173,7 @@ class CheckoutViewTest(LiveServerTestCase):
     def login_user(self):
         """Logs in the test user"""
         self.driver.get(
-            '%s%s' % ("localhost:8000", "/login/")
+            '%s%s' % (self.live_server_url, "/login/")
         )
         self.driver.find_element_by_id('email').send_keys(TEST_USER_EMAIL)
         self.driver.find_element_by_id(
