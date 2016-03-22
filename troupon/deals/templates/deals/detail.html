@@ -95,11 +95,21 @@
                     </div>
                     <div class="col-xs-12">
                         <ul class="social-share-links">
-                            <li><a href="" class="btn-facebook"><i class="fa fa-facebook-official fa-fw"></i></a></li>
-                            <li><a href="" class="btn-twitter"><i class="fa fa-twitter fa-fw"></i></a></li>
-                            <li><a href="" class="btn-instagram"><i class="fa fa-instagram fa-fw"></i></a></li>
-                            <li><a href="" class="btn-pinterest"><i class="fa fa-pinterest fa-fw"></i></a></li>
-                            <li><a href="" class="btn-email"><i class="fa fa-envelope fa-fw"></i></a></li>
+                            <li>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="btn-facebook">
+                                    <i class="fa fa-facebook-official fa-fw"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/home?status={{ request.build_absolute_uri | urlencode }}" class="btn-twitter">
+                                    <i class="fa fa-twitter fa-fw"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/share?url={{ request.build_absolute_uri }}" class="btn-email">
+                                    <i class="fa fa-google-plus-square"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
