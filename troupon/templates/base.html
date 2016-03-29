@@ -14,6 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
+  {% block facebook_meta %} {% endblock facebook_meta %}
 
   <!-- title and favicon -->
   <title>Troupon - {% block title %}Get Some!{% endblock title %}</title>
@@ -325,6 +326,8 @@
     <script src="{% static 'bower_components/datetimepicker/jquery.datetimepicker.js' %}"></script>
     <!-- Troupon base-->
     <script src="{% static 'js/app.js' %}"></script>
+    <!--Facebook SDK js code-->
+    <script src="{% static 'js/facebook.js' %}"></script>
   {% endblock base_js %}
 
   {% block extended_js %}
