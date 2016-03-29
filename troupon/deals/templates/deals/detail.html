@@ -9,7 +9,7 @@
   <meta property="og:title" content="{{deal.title}}" />
   {% with "Check out this hot deal on Troupon" as default_description %}
     {% if deal.description %}
-    <meta property="og:description" content="{{ default_description }}" />
+    <meta property="og:description" content="{{ deal.description }}" />
     {% else %}
     <meta property="og:description" content="{{ default_description }}" />
     {% endif %}
@@ -19,12 +19,9 @@
 {% endif %}
 
 {% block main %}
-
     {% if deal %}
-
     <!-- banner section -->
     <section class="row" id="banner-section">
-
         <!-- heading -->
         {% with deal.advertiser.name|add:". "|add:deal.address as description %}
         {% include "snippet_section_heading.html" with title=deal.title  description=description %}
@@ -100,7 +97,6 @@
                         </div>
                     </div>
                 </form>
-
 
                 <!-- Sharing options -->
                 <div class="row share-options">
