@@ -11,6 +11,8 @@ from deals.models import Deal, Category, Advertiser, \
 from deals.baseviews import DealListBaseView
 from merchant.forms import DealForm
 from merchant.mixins import MerchantMixin
+from merchant.models import Merchant
+from payment.models import TransactionHistory, IndividualTransactions
 
 
 class ManageDealsView(MerchantMixin, DealListBaseView):
@@ -96,8 +98,16 @@ class TransactionsView(MerchantMixin, View):
         """Renders a page with a table showing a deal, its buyer,
         quantity bought, time of purchase, and its price
         """
-        context_data = []
-        return render(request, 'merchant/transactions.html', context_data)
+        user = self.request.user
+        merchant = Merchant.objects.get(userprofile=user.pk)
+        advertiser = Advertiser.objects.get(name=merchant.name)
+        transactions = IndividualTransactions.objects.filter(advertiser=advertiser.id)
+
+        context = {
+            'transactions': transactions,
+        }
+
+        return render(request, 'merchant/transactions.html', context)
 
 
 class TransactionView(MerchantMixin, View):
