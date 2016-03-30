@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'cart',
     'carton',
     'payment',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
