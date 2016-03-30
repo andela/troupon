@@ -12,7 +12,7 @@ from deals.baseviews import DealListBaseView
 from merchant.forms import DealForm
 from merchant.mixins import MerchantMixin
 from merchant.models import Merchant
-from payment.models import TransactionHistory, IndividualTransactions
+from payment.models import TransactionHistory, Purchases
 
 
 class ManageDealsView(MerchantMixin, DealListBaseView):
@@ -101,7 +101,7 @@ class TransactionsView(MerchantMixin, View):
         user = self.request.user
         merchant = Merchant.objects.get(userprofile=user.pk)
         advertiser = Advertiser.objects.get(name=merchant.name)
-        transactions = IndividualTransactions.objects.filter(advertiser=advertiser.id)
+        transactions = Purchases.objects.filter(advertiser=advertiser.id)
 
         context = {
             'transactions': transactions,
