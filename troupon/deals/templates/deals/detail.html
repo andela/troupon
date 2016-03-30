@@ -4,17 +4,17 @@
 
 {% if deal %}
 {% block facebook_meta %}
-  <meta property="og:url" content="{{request.build_absolute_uri}}" />
-  <meta property="og:type" content="product" />
-  <meta property="og:title" content="{{deal.title}}" />
-  {% with "Check out this hot deal on Troupon" as default_description %}
-    {% if deal.description %}
-    <meta property="og:description" content="{{ deal.description }}" />
-    {% else %}
-    <meta property="og:description" content="{{ default_description }}" />
-    {% endif %}
-  {% endwith %}
-  <meta property="og:image" content="{{ deal.thumbnail_image_url }}" />
+    <meta property="og:url" content="{{request.build_absolute_uri}}" />
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="{{deal.title}}" />
+    {% with "Check out this hot deal on Troupon" as default_description %}
+        {% if deal.description %}
+        <meta property="og:description" content="{{ deal.description }}" />
+        {% else %}
+        <meta property="og:description" content="{{ default_description }}" />
+        {% endif %}
+    {% endwith %}
+    <meta property="og:image" content="{{ deal.thumbnail_image_url }}" />
 {% endblock facebook_meta %}
 {% endif %}
 
