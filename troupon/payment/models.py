@@ -30,7 +30,7 @@ class TransactionHistory(models.Model):
 
 
 class Purchases(models.Model):
-    STATUSES = [(1, 'Succeeded'), (2, 'Failed')]
+    PAYMENT_STATUS = [(1, 'Succeeded'), (2, 'Failed')]
     item = models.ForeignKey('deals.Deal')
     price = models.IntegerField()
     quantity = models.IntegerField(default=1)
@@ -45,4 +45,4 @@ class Purchases(models.Model):
                                           null=False,
                                           blank=False,
                                           default=2,
-                                          choices=STATUSES)
+                                          choices=PAYMENT_STATUS)
