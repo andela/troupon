@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from deals.models import Advertiser, Deal
 
 
 class TransactionHistory(models.Model):
@@ -26,3 +27,22 @@ class TransactionHistory(models.Model):
                                        null=True,
                                        blank=True)
     user = models.ForeignKey(User)
+
+
+class Purchases(models.Model):
+    PAYMENT_STATUS = [(1, 'Succeeded'), (2, 'Failed')]
+    item = models.ForeignKey('deals.Deal')
+    price = models.IntegerField()
+    quantity = models.IntegerField(default=1)
+    advertiser = models.ForeignKey('deals.Advertiser')
+    title = models.CharField(max_length=100, null=False, blank=False)
+    description = models.TextField(blank=True, default='')
+    stripe_transaction_id = models.CharField(max_length=100,
+                                      null=False,
+                                      blank=False,
+                                      default='')
+    stripe_transaction_status = models.CharField(max_length=100,
+                                          null=False,
+                                          blank=False,
+                                          default=2,
+                                          choices=PAYMENT_STATUS)

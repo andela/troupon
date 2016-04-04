@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import View
 from django.contrib import messages
-from payment.models import TransactionHistory
+from payment.models import TransactionHistory, Purchases
 from carton.cart import Cart
 
 
@@ -60,11 +60,33 @@ class PaymentProcessView(View):
                                 )
                 transaction.save()
 
+                cart = Cart(request.session)
+
+                for item in cart.items:
+                    if charge.status == "succeeded" or\
+                            charge.status == "complete" or\
+                            charge.status == "Succeeded":
+                        charge.status = "Succeeded"
+                    else:
+                        print charge.status
+                        charge.status = "Failed"
+
+                    item_details = Purchases(
+                        item=item.product,
+                        price=item.product.price,
+                        advertiser=item.product.advertiser,
+                        quantity=item.quantity,
+                        title=item.product.title,
+                        description=item.product.description,
+                        stripe_transaction_id=charge.id,
+                        stripe_transaction_status=charge.status
+                    )
+
+                    item_details.save()
+
                 # delete payment details from session
                 del request.session['payment_details']
-
                 # clear cart
-                cart = Cart(request.session)
                 cart.clear()
 
                 # redirect to payment status page
