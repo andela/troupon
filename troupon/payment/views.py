@@ -63,9 +63,12 @@ class PaymentProcessView(View):
                 cart = Cart(request.session)
 
                 for item in cart.items:
-                    if charge.status == "succeeded":
+                    if charge.status == "succeeded" or\
+                            charge.status == "complete" or\
+                            charge.status == "Succeeded":
                         charge.status = "Succeeded"
                     else:
+                        print charge.status
                         charge.status = "Failed"
 
                     item_details = Purchases(
