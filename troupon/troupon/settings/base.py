@@ -12,9 +12,13 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 Defines settings that are common across deploys.
 """
 
+from __future__ import absolute_import
 import os
 # from django_envie.workroom import convertfiletovars
 import cloudinary
+
+from celery import app as celery_app
+from celery.task.schedules import crontab
 
 # load and set environment variables from '.env.yml'
 # or '.env.py' files with django_envie
@@ -117,7 +121,7 @@ HAYSTACK_CONNECTIONS = {
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'Africa/Lagos'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -189,3 +193,29 @@ NEXMO_USERNAME = os.getenv('NEXMO_USERNAME')
 NEXMO_PASSWORD = os.getenv('NEXMO_PASSWORD')
 NEXMO_FROM = 'Troupon'
 OTP_SECRET_KEY = os.getenv('OTP_SECRET_KEY')
+
+
+# Custom Email
+ADMIN_EMAIL = 'penina.wanjiru@andela.com'
+TROUPON_EMAIL = 'noreplytroupon@andela.com'
+
+# Celery configuration
+# The backend used to store task results using RabbitMQ as a broker
+# This sends results back as AMQP messages
+CELERY_RESULT_BACKEND = 'amqp'
+
+
+# Scheduling periodic task with Celery
+CELERYBEAT_SCHEDULE = {
+    # Executes daily at midnight
+    'popular-post-updates-daily': {
+        'task': 'deals.tasks.send_periodic_emails',
+        'schedule': crontab(minute=56, hour=19, day_of_week=2),
+        'args': (16,16),
+    },
+}
+CELERY_ENABLE_UTC = True
+CELERY_TIMEZONE = 'UTC+03:00'
+
+
+# Celery Test Runner for unit tests
