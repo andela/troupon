@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'djangobower',
     'django_nose',
+    'djcelery',
     'allaccess',
     'haystack',
     'whoosh',
@@ -194,7 +195,7 @@ NEXMO_PASSWORD = os.getenv('NEXMO_PASSWORD')
 NEXMO_FROM = 'Troupon'
 OTP_SECRET_KEY = os.getenv('OTP_SECRET_KEY')
 
-
+BROKER_URL = "amqp://myuser:mypassword@localhost:5672/myvhost"
 # Custom Email
 ADMIN_EMAIL = 'penina.wanjiru@andela.com'
 TROUPON_EMAIL = 'noreplytroupon@andela.com'
@@ -202,9 +203,13 @@ TROUPON_EMAIL = 'noreplytroupon@andela.com'
 # Celery configuration
 # The backend used to store task results using RabbitMQ as a broker
 # This sends results back as AMQP messages
-CELERY_RESULT_BACKEND = 'amqp'
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
-
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'   
+CELERY_TIMEZONE = 'Africa/Nairobi'
 # Scheduling periodic task with Celery
 CELERYBEAT_SCHEDULE = {
     # Executes daily at midnight
@@ -214,8 +219,5 @@ CELERYBEAT_SCHEDULE = {
         'args': (16,16),
     },
 }
-CELERY_ENABLE_UTC = True
-CELERY_TIMEZONE = 'UTC+03:00'
-
 
 # Celery Test Runner for unit tests
