@@ -50,6 +50,5 @@ SQLAlchemy==1.0.8
 stripe==1.27.1
 tox==2.1.1
 virtualenv==13.1.2
-wheel==0.24.0
 whitenoise==2.0.3
 Whoosh==2.7.0
