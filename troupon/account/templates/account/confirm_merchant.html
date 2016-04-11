@@ -1,0 +1,19 @@
+{% extends "account/profile_base.html" %}
+{% load static%}
+
+{% block sidebar_menu %}
+  {% with active_tab='Merchant' %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock sidebar_menu %}
+
+{% block subview %}
+
+  <div class="row">
+    <div class="col-sm-7">
+        <p>Thank you for choosing to become a Merchant on the Troupon platform.</p>
+        <p>Your merchant dashboard will be enabled as soon as your application is approved.</p>
+    </div>
+  </div>
+
+{% endblock subview %}
