@@ -1,3 +1,5 @@
+import api
+
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
@@ -39,5 +41,9 @@ urlpatterns = [
 
     # third party apps:
     url(r'^accounts/', include('allaccess.urls')),
+
+    # api routes
+    url(r'^api/', include(api)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 ]

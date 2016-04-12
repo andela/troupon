@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
                 ('price', models.IntegerField()),
                 ('duration', models.IntegerField()),
                 ('original_price', models.IntegerField()),
-                ('quorum', models.IntegerField(default=0, null=True, blank=True)),
+                ('quorum', models.IntegerField(null=True, blank=True)),
                 ('disclaimer', models.TextField(default=b'', blank=True)),
                 ('description', models.TextField(default=b'', blank=True)),
                 ('slug', models.SlugField(unique=True, blank=True)),

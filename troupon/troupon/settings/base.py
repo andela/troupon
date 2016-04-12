@@ -60,6 +60,7 @@ INSTALLED_APPS = (
     'carton',
     'payment',
     'rest_framework',
+    'rest_framework_swagger',
 )
 
 MIDDLEWARE_CLASSES = (
