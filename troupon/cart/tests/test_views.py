@@ -3,14 +3,22 @@ import unittest
 from merchant.models import Merchant
 from account.models import UserProfile
 from django.contrib.auth.models import User
-from deals.models import Deal, Category, Advertiser
+from deals.models import Advertiser, Category, Deal
 from django.test import LiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 TEST_USER_EMAIL = 'testuser@email.com'
 TEST_USER_PASSWORD = 'testpassword'
+
+xpath_first_deal_item = "/html/body/div/div[1]/div/main/section[2]/div[2]/div/div[3]/form/button"
+xpath_checkout_basket = "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']"
+xpath_items_quantity_text = "//li/ul/li[@class='pull-right']/h6/small/strong/span[@class='badge']"
+xpath_view_cart = "//a[@class='btn-action'][1]"
+xpath_cart_items_title = "//h1[@class='title']"
+xpath_clear_cart_button = "//a[@class='btn-action'][2]"
+xpath_items_quantity = "//ul[@class='dropdown-menu dropdown-menu-right']/div[@class='dropdown-header']/p[1]"
+xpath_remove_cart_button = "//li[1]/ul/li[@class='pull-left']/form/button[@class='btn btn-sm']"
+xpath_checkout_button = "//div[@class='pull-right col-sm-2']/a[@class='btn-action']"
+xpath_paycard_label = "//div[@class='text-center']/form[@class='form-checkout']/button[@class='stripe-button-el']/span"
 
 
 class AuthenticateAddDeal():
@@ -61,8 +69,6 @@ class AuthenticateAddDeal():
         date_end = "2015-03-03"
 
         category = Category.objects.create(name="Electronics", slug="stuff")
-
-        # category = Category.objects.get(id=category_id)
         advertiser = Advertiser.objects.get(id=advertiser_id)
 
         deal = Deal(
@@ -92,13 +98,13 @@ class AddToCartViewTest(LiveServerTestCase, AuthenticateAddDeal):
         self.login_user()
         self.driver.execute_script("window.scrollTo(0, 400)")
         self.driver.implicitly_wait(10)
+        self.driver.find_element_by_xpath(xpath_first_deal_item
+                                          ).click()  # click first item
         self.driver.find_element_by_xpath(
-            "/html/body/div/div[1]/div/main/section[2]/div[2]/div/div[3]/form/button").click()  # click first item
-        self.driver.find_element_by_xpath(
-            "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']").click()  # click checkout basket
+            xpath_checkout_basket).click()  # click checkout basket
         self.driver.implicitly_wait(20)
         text_quantity = self.driver.find_element_by_xpath(
-            "//li/ul/li[@class='pull-right']/h6/small/strong/span[@class='badge']").text  # get items quantity
+            xpath_items_quantity_text).text  # get items quantity
 
         assert "Quantity: 1" in text_quantity
 
@@ -123,14 +129,14 @@ class ViewCartViewTest(LiveServerTestCase, AuthenticateAddDeal):
         self.driver.execute_script("window.scrollTo(0, 400)")
         self.driver.implicitly_wait(10)
         self.driver.find_element_by_xpath(
-            "/html/body/div/div[1]/div/main/section[2]/div[2]/div/div[3]/form/button").click()  # click first item
+            xpath_first_deal_item).click()  # click first item
         self.driver.find_element_by_xpath(
-            "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']").click()  # click checkout basket
+            xpath_checkout_basket).click()  # click checkout basket
         self.driver.implicitly_wait(20)
-        self.driver.find_element_by_xpath(
-            "//a[@class='btn-action'][1]").click()  # clicks view cart
+        self.driver.find_element_by_xpath(xpath_view_cart
+                                          ).click()  # clicks view cart
         cart_label = self.driver.find_element_by_xpath(
-            "//h1[@class='title']").text  # gets cart items title
+            xpath_cart_items_title).text  # gets cart items title
         assert "Your Cart Items" in cart_label
 
     def tearDown(self):
@@ -154,14 +160,14 @@ class ClearCartViewTest(LiveServerTestCase, AuthenticateAddDeal):
         self.driver.execute_script("window.scrollTo(0, 400)")
         self.driver.implicitly_wait(10)
         self.driver.find_element_by_xpath(
-            "/html/body/div/div[1]/div/main/section[2]/div[2]/div/div[3]/form/button").click()  # click first item
+            xpath_first_deal_item).click()  # click first item
         self.driver.find_element_by_xpath(
-            "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']").click()  # click checkout basket
+            xpath_checkout_basket).click()  # click checkout basket
         self.driver.implicitly_wait(20)
         self.driver.find_element_by_xpath(
-            "//a[@class='btn-action'][2]").click()  # clicks clear cart button
+            xpath_clear_cart_button).click()  # clicks clear cart button
         text_quantity = self.driver.find_element_by_xpath(
-            "//ul[@class='dropdown-menu dropdown-menu-right']/div[@class='dropdown-header']/p[1]").text  # get items quantity if any
+            xpath_items_quantity).text  # get items quantity
         assert "Quantity: 1" not in text_quantity
 
     def tearDown(self):
@@ -185,14 +191,14 @@ class RemoveItemViewTest(LiveServerTestCase, AuthenticateAddDeal):
         self.driver.execute_script("window.scrollTo(0, 400)")
         self.driver.implicitly_wait(10)
         self.driver.find_element_by_xpath(
-            "//div[@class='grid-item card'][1]/form[@class='overlay row']/button[@class='btn-action cta-button']").click()  # click first item
+            xpath_first_deal_item).click()  # click first item
         self.driver.find_element_by_xpath(
-            "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']").click()  # click checkout basket
+            xpath_checkout_basket).click()  # click checkout basket
         self.driver.implicitly_wait(20)
         self.driver.find_element_by_xpath(
-            "//li[1]/ul/li[@class='pull-left']/form/button[@class='btn btn-sm']").click()  # clicks remove cart button
+            xpath_remove_cart_button).click()  # clicks remove cart button
         text_quantity = self.driver.find_element_by_xpath(
-            "//ul[@class='dropdown-menu dropdown-menu-right']/div[@class='dropdown-header']/p[1]").text  # get items quantity if any
+            xpath_items_quantity).text  # get items quantity after removing item
         assert "Quantity: 1" not in text_quantity
 
     def tearDown(self):
@@ -216,19 +222,17 @@ class CheckoutViewTest(LiveServerTestCase, AuthenticateAddDeal):
         self.driver.execute_script("window.scrollTo(0, 400)")
         self.driver.implicitly_wait(10)
         self.driver.find_element_by_xpath(
-            "//div[@class='grid-item card'][1]/form[@class='overlay row']/button[@class='btn-action cta-button']").click()  # click first item
+            xpath_first_deal_item).click()  # click first item
         self.driver.find_element_by_xpath(
-            "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']").click()  # click checkout basket
+            xpath_checkout_basket).click()  # click checkout basket
         self.driver.implicitly_wait(20)
         self.driver.find_element_by_xpath(
-            "//a[@class='btn-action'][1]").click()  # clicks view cart
-        cart_label = self.driver.find_element_by_xpath(
-            "//h1[@class='title']").text  # gets cart items title
-        #clicks the proceed to checkout button
+            xpath_view_cart).click()  # clicks view cart
+        # clicks the proceed to checkout button
         self.driver.find_element_by_xpath(
-            "//div[@class='pull-right col-sm-2']/a[@class='btn-action']").click()
+            xpath_checkout_button).click()
         pay_card_label = self.driver.find_element_by_xpath(
-            "//div[@class='text-center']/form[@class='form-checkout']/button[@class='stripe-button-el']/span").text
+            xpath_paycard_label).text
         assert "Pay with Card" in pay_card_label
 
     def tearDown(self):
