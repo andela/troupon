@@ -73,6 +73,10 @@ class DealAPITest(APITestCase):
 
         deals = self.client.get('/api/deals/')
 
-        first_deal = deals.data['results'][0]['title']
+        print deals
+
+        results = deals.data.get('results')
+
+        first_deal = results[0]['title']
 
         self.assertIn('Sofa', first_deal)
