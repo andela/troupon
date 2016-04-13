@@ -69,6 +69,9 @@ class DealAPITest(APITestCase):
         merchant = create_merchant(user)
         deal = create_deal(merchant)
 
+        deals_from_db = Deal.objects.all()
+        print deals_from_db[0]
+
         self.client.login(username='amos', password='12345')
 
         deals = self.client.get('/api/deals/')
