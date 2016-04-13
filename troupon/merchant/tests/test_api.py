@@ -64,13 +64,13 @@ def create_deal(merchant):
 
 
 class DealAPITest(APITestCase):
-    def setUp(self):
+    def test_merchant_can_access_all_his_deals(self):
         user = create_test_user()
         merchant = create_merchant(user)
         deal = create_deal(merchant)
+
         self.client.login(username='amos', password='12345')
 
-    def test_merchant_can_access_all_his_deals(self):
         deals = self.client.get('/api/deals/')
 
         first_deal = deals.data['results'][0]['title']
