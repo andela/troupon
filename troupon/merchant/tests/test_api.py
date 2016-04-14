@@ -25,4 +25,13 @@ class DealAPITest(TestCase):
     def test_merchant_can_access_all_his_deals(self):
         response = self.client.get('/api/deals/')
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(200, response.status_code)
+        self.assertNotEqual(response.data.get('results'), {})
+        self.assertEqual(response.data['count'], 1)
+
+    def test_merchant_can_access_deal_by_id(self):
+        response = self.client.get('/api/deals/21')
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(response.data['title'], 'Fine Kenyan Coffee Beans')
+        self.assertNotEqual(response.data.get('results'), {})
