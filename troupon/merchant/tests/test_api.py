@@ -16,7 +16,8 @@ class DealAPITest(TestCase):
     fixtures = ['deals.json']
 
     def setUp(self):
-        username = User.objects.get().username
+        username = User.objects.first().username
+
         password = "12345"
 
         self.client.login(username="omondi", password="12345")
