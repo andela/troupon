@@ -1,12 +1,16 @@
 """Tests for deal management API endpoints."""
+import json
+
 from django.contrib.auth.models import User
+from django.test import TestCase
 
 from account.models import UserProfile
 from deals.models import Deal, Category, Advertiser, Category
 from merchant.api import DealListAPIView, DealActionsAPIView
 from merchant.models import Merchant
 
-from rest_framework.test import APITestCase
+from rest_framework.test import APIRequestFactory
+from rest_framework.test import force_authenticate
 
 
 def create_test_user():
@@ -63,23 +67,20 @@ def create_deal(merchant):
     return deal
 
 
-class DealAPITest(APITestCase):
+class DealAPITest(TestCase):
     def test_merchant_can_access_all_his_deals(self):
+        factory = APIRequestFactory()
+        view = DealListAPIView.as_view()
+
         user = create_test_user()
         merchant = create_merchant(user)
         deal = create_deal(merchant)
 
-        deals_from_db = Deal.objects.all()
-        print deals_from_db[0]
+        request = factory.get('/api/deals/')
+        force_authenticate(request, user=user)
+        response = view(request)
 
-        self.client.login(username='amos', password='12345')
+        results = json.loads(response.render().content)
+        json_deal_response = results['results'][0]
 
-        deals = self.client.get('/api/deals/')
-
-        print deals
-
-        results = deals.data.get('results')
-
-        first_deal = results[0]['title']
-
-        self.assertIn('Sofa', first_deal)
+        self.assertEqual('Sofa', json_deal_response['title'])
