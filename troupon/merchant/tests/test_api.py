@@ -14,15 +14,7 @@ from rest_framework.test import APITestCase
 class DealAPITest(APITestCase):
     fixtures = ['deals.json']
 
-    def setUp(self):
-        username = User.objects.first().username
-        password = "12345"
-
-        self.client.login(username=username, password=password)
-
     def test_unauthorized_access_is_not_allowed(self):
-        self.client.logout()
-
         response = self.client.get('/api/deals/')
 
         self.assertEqual(response.status_code, 403)
@@ -30,6 +22,7 @@ class DealAPITest(APITestCase):
         self.assertIn('Authentication credentials were not provided.', detail)
 
     def test_merchant_can_access_all_his_deals(self):
+        self.client.login(username="omondi", password="12345")
         response = self.client.get('/api/deals/')
 
         self.assertEqual(200, response.status_code)
@@ -37,6 +30,7 @@ class DealAPITest(APITestCase):
         self.assertEqual(response.data['count'], 1)
 
     def test_merchant_can_access_deal_by_id(self):
+        self.client.login(username="omondi", password="12345")
         response = self.client.get('/api/deals/21')
 
         self.assertEqual(200, response.status_code)
@@ -44,6 +38,7 @@ class DealAPITest(APITestCase):
         self.assertNotEqual(response.data.get('results'), {})
 
     def test_merchant_can_create_a_deal(self):
+        self.client.login(username="omondi", password="12345")
         response = self.client.post('/api/deals/',
                                     {
                                         'price': 300,
@@ -61,6 +56,7 @@ class DealAPITest(APITestCase):
         self.assertEqual(new_deal['title'], 'New deal')
 
     def test_merchant_can_update_deal(self):
+        self.client.login(username="omondi", password="12345")
         update_data = {'title': 'New title'}
 
         update_response = self.client.patch('/api/deals/21', update_data)
@@ -70,6 +66,7 @@ class DealAPITest(APITestCase):
         self.assertEqual(data['title'], 'New title')
 
     def test_merchant_can_delete_a_deal(self):
+        self.client.login(username="omondi", password="12345")
         response = self.client.delete('/api/deals/21')
 
         self.assertEqual(204, response.status_code)
