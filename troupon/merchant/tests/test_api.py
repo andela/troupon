@@ -18,12 +18,11 @@ class DealAPITest(APITestCase):
         username = User.objects.first().username
         password = "12345"
 
-        user_object = {'username': username, 'password': password}
-
-        response = self.client.post('/api/login/', user_object)
-        self.token = 'JWT ' + response.data.get('token')
+        self.client.login(username=username, password=password)
 
     def test_unauthorized_access_is_not_allowed(self):
+        self.client.logout()
+
         response = self.client.get('/api/deals/')
 
         self.assertEqual(response.status_code, 403)
@@ -31,7 +30,6 @@ class DealAPITest(APITestCase):
         self.assertIn('Authentication credentials were not provided.', detail)
 
     def test_merchant_can_access_all_his_deals(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.token)
         response = self.client.get('/api/deals/')
 
         self.assertEqual(200, response.status_code)
@@ -39,7 +37,6 @@ class DealAPITest(APITestCase):
         self.assertEqual(response.data['count'], 1)
 
     def test_merchant_can_access_deal_by_id(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.token)
         response = self.client.get('/api/deals/21')
 
         self.assertEqual(200, response.status_code)
@@ -47,7 +44,6 @@ class DealAPITest(APITestCase):
         self.assertNotEqual(response.data.get('results'), {})
 
     def test_merchant_can_create_a_deal(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.token)
         response = self.client.post('/api/deals/',
                                     {
                                         'price': 300,
@@ -67,8 +63,6 @@ class DealAPITest(APITestCase):
     def test_merchant_can_update_deal(self):
         update_data = {'title': 'New title'}
 
-        self.client.credentials(HTTP_AUTHORIZATION=self.token)
-
         update_response = self.client.patch('/api/deals/21', update_data)
         data = update_response.data
 
@@ -76,7 +70,6 @@ class DealAPITest(APITestCase):
         self.assertEqual(data['title'], 'New title')
 
     def test_merchant_can_delete_a_deal(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.token)
         response = self.client.delete('/api/deals/21')
 
         self.assertEqual(204, response.status_code)
