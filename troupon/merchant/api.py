@@ -3,8 +3,8 @@ from datetime import date, timedelta
 
 from django.shortcuts import get_object_or_404
 
-from merchant.models import Merchant
 from deals.models import Deal, Advertiser, Category, STATE_CHOICES
+from merchant.models import Merchant
 from merchant.serializers import DealSerializer
 
 from rest_framework import generics
@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 
 class DealListAPIView(generics.ListCreateAPIView):
-    """Authenticated merchant  can see a list of all his deals and create a deal."""
+    """Authenticated merchant can see a list of all his deals and create a deal."""
     serializer_class = DealSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -28,7 +28,7 @@ class DealListAPIView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         date_end_unicode = self.request.POST.get('date_end') or \
             (date.today() + timedelta(days=2)).isoformat()
-        category_id = self.request.POST.get('category')
+        category_id = self.request.POST.get('category', 4)
         advertiser_id = self.request.user.profile.merchant.advertiser_ptr.id
         category = Category.objects.get(id=category_id)
         advertiser = Advertiser.objects.get(id=advertiser_id)
