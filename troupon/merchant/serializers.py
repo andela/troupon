@@ -1,11 +1,15 @@
 """Serializers for the merchant app."""
-from deals.models import Deal
-from rest_framework import serializers
-from django.contrib.auth.models import User
 from datetime import date, timedelta
+
+from django.contrib.auth.models import User
+
+from deals.models import Deal, Category
+
+from rest_framework import serializers
 
 
 class UserSerializer():
+    """Serializer for User instances."""
     class Meta:
         model = User
 
@@ -13,6 +17,7 @@ class UserSerializer():
 
 
 class DealSerializer(serializers.ModelSerializer):
+    """Serializer for Deal instances."""
     class Meta():
         model = Deal
 
