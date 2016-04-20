@@ -1,8 +1,11 @@
+import api
+
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
-
 from deals.views import HomePageView
+
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
 
@@ -40,4 +43,8 @@ urlpatterns = [
     # third party apps:
     url(r'^accounts/', include('allaccess.urls')),
 
+    # api routes
+    url(r'^api/', include(api)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/login/', obtain_jwt_token),
 ]
