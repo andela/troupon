@@ -5,9 +5,9 @@ from utils import scraper
 
 
 logger = get_task_logger(__name__)
-# A periodic task that will run every minute (the symbol "*" means every)
 
 
+# A periodic task that will run every minute
 @periodic_task(run_every=(crontab(hour="*", minute="*", day_of_week="*")))
 def send_periodic_emails():
     logger.info("Start task")

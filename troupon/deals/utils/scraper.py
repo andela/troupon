@@ -1,5 +1,4 @@
 import os
-from celery.task import task
 from django.db.models import Sum
 from django.contrib.auth.models import User
 from troupon.settings.base import TROUPON_EMAIL
@@ -8,8 +7,14 @@ from payment.models import Purchases
 from authentication.emails import SendGrid
 
 
-
 def send_periodic_emails():
+    """
+    Sends top 5 deals to registered users.
+
+    Returns:
+        Status code for sent email.
+
+    """
 
     # get users who are not merchants
     users = User.objects.all()
@@ -18,13 +23,14 @@ def send_periodic_emails():
         user_emails.append(user.email)
 
     # Top 5 deals with highest number of buyers
-    tops = Purchases.objects.values('title').annotate(qcount=Sum('quantity')).order_by('-qcount')[:5]
+    tops = Purchases.objects.all().annotate(
+        qcount=Sum('quantity')).order_by('-qcount')[:5]
 
     deals = []
-    for item in tops:
-        title = item.get('title')
-        deals.append(title)
+    for top in tops:
+        deal = top.item
 
+        deals.append(deal)
 
     # URL to Troupon
     troupon_url = os.getenv('TROUPON_HOME')
