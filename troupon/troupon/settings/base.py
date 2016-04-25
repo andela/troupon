@@ -144,7 +144,8 @@ LOGIN_URL = '/login/'
 LOGOUT_URL = '/'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = 'staticfiles'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
@@ -155,6 +156,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'djangobower.finders.BowerFinder',
 )
+
+DEBUG = True
 
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'static')
 
