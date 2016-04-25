@@ -73,7 +73,7 @@ node_modules/
 .DS_Store
 
 # staticfiles
-
+troupon/staticfiles/
 
 # eclipse IDE
 .settings
