@@ -195,6 +195,6 @@ NEXMO_PASSWORD = os.getenv('NEXMO_PASSWORD')
 NEXMO_FROM = 'Troupon'
 OTP_SECRET_KEY = os.getenv('OTP_SECRET_KEY')
 # Defined rabbitmq user
-BROKER_URL = "amqp://myuser:mypassword@localhost:5672/myvhost"
+BROKER_URL = "amqp://1KSjqqZh:golZT1TcOxAA9yLvCISWzotedCoSvZ5N@white-bartsia-45.bigwig.lshift.net:10097/Mfp0HgAcgl9Q"
 # Troupon email
 TROUPON_EMAIL = 'noreplytroupon@andela.com'
