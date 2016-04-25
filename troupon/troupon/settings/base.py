@@ -158,7 +158,7 @@ STATICFILES_FINDERS = (
 
 DEBUG = True
 
-BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'static')
 
 BOWER_INSTALLED_APPS = (
     'jquery',
