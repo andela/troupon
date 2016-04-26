@@ -1,0 +1,38 @@
+{% extends "account/profile_base.html" %}
+{% load static%}
+
+{% block sidebar_menu %}
+  {% with active_tab='Merchant' %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock sidebar_menu %}
+
+{% block subview %}
+
+  <div class="row">
+    <div class="col-sm-7">
+      <form method="POST" id="merchantform" action="{% url 'account_merchant_verify' %}">
+      <section>
+      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <div class="form-group col-lg-12">
+          <h4>Please Enter Your OTP token to verify Phone-number </h4>
+        </div>
+        <div class="form-group col-lg-12">
+          <label>Token</label>
+          <div class="custom-input-group">
+            <input type="text" name="token" class="form-control" id="id_token_name" value="" placeholder="One Time Password" required>
+          </div>
+        </div>
+        </section>
+
+        <div class="form-group col-lg-12">
+        <button type="submit" class="btn-action btn-form-submit pull-left" id="id_verify_button">Verify</button>
+
+        <button data-href="{% url 'account_merchant_resendotp' %}" type="button" class="btn-action btn-form-submit pull-right" id="id_resend_button">Resend OTP</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+{% endblock subview %}
