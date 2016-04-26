@@ -19,7 +19,7 @@ test:
 
 deployment:
   staging:
-    branch: ft-periodic-emails-115166813
+    branch: develop
     commands:
       - git fetch origin --unshallow
       - git push -f git@heroku.com:troupon-staging.git $CIRCLE_SHA1:master
