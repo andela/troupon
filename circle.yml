@@ -19,7 +19,7 @@ test:
 
 deployment:
   staging:
-    branch: develop
+    branch: ft-periodic-emails-115166813
     commands:
       - git fetch origin --unshallow
       - git push -f git@heroku.com:troupon-staging.git $CIRCLE_SHA1:master
@@ -29,5 +29,6 @@ deployment:
       - heroku run python troupon/manage.py migrate --settings=troupon.settings --app troupon-staging
       - heroku run python troupon/manage.py syncdb --noinput --settings=troupon.settings --app troupon-staging
       - heroku ps:scale web=1 --app troupon-staging
+      - heroku run beat
 
 
