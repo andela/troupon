@@ -58,6 +58,9 @@ To extend this Sass build with your own Sass styles:
 - [Samuel James](https://github.com/andela-sjames)
 - [Oluwafemi Sule](https://github.com/andela-osule)
 - [Awili Uzo](https://github.com/andela-uawili)
+- [Amos Omondi](https://github.com/andela-aomondi)
+- [Penina Wanjiru](https://github.com/andela-pwanjiru)
+- [Jack Mwangi](https://github.com/andela-jmwangi)
 
 ### <a name="demo"></a>Demo
 View our live demo on heroku at [http://troupon-staging.herokuapp.com/](http://troupon-staging.herokuapp.com/)
