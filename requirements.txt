@@ -10,6 +10,7 @@ Django==1.8.3
 django-all-access==0.7.2
 django-bower==5.0.4
 django-carton==1.2.1
+django-celery==3.1.17
 django-envie==0.0.9
 django-filter==0.13.0
 django-haystack==2.4.0
