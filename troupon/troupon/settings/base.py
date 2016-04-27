@@ -17,9 +17,6 @@ import os
 # from django_envie.workroom import convertfiletovars
 import cloudinary
 
-from celery import app as celery_app
-from celery.task.schedules import crontab
-
 # load and set environment variables from '.env.yml'
 # or '.env.py' files with django_envie
 # convertfiletovars()

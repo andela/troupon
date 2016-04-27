@@ -1,10 +1,12 @@
 import os
+
+from authentication.emails import SendGrid
 from django.db.models import Sum
 from django.contrib.auth.models import User
-from troupon.settings.base import TROUPON_EMAIL
 from django.template import Context, loader
+
+from troupon.settings.base import TROUPON_EMAIL
 from payment.models import Purchases
-from authentication.emails import SendGrid
 
 
 def send_periodic_emails():
@@ -18,19 +20,14 @@ def send_periodic_emails():
 
     # get users who are not merchants
     users = User.objects.all()
-    user_emails = []
-    for user in users:
-        user_emails.append(user.email)
+
+    user_emails = [user.email for user in users]
 
     # Top 5 deals with highest number of buyers
     tops = Purchases.objects.all().annotate(
         qcount=Sum('quantity')).order_by('-qcount')[:5]
 
-    deals = []
-    for top in tops:
-        deal = top.item
-
-        deals.append(deal)
+    deals = [top.item for top in tops]
 
     # URL to Troupon
     troupon_url = os.getenv('TROUPON_HOME')

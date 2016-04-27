@@ -1,35 +1,39 @@
-<div style="overflow: hidden;">
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div style="overflow: hidden;">
 
-    <div style="background-color:#fff;min-height:100%;line-height:1.6;margin:0;padding:0;width:100%">
+            <div style="background-color:#fff;min-height:100%;line-height:1.6;margin:0;padding:0;width:100%">
 
-        <div style="background-color:#f6f6f6;font-family:&quot;Helvetica Neue&quot;,Helvetica,Arial,&quot;Lucida Grande&quot;,sans-serif;font-size:14px;font-weight:normal;display:block;margin:0 auto;max-width:580px;padding:10%;vertical-align:top;text-align:left">
+                <div style="background-color:#f6f6f6;font-family:&quot;Helvetica Neue&quot;,Helvetica,Arial,&quot;Lucida Grande&quot;,sans-serif;font-size:14px;font-weight:normal;display:block;margin:0 auto;max-width:580px;padding:10%;vertical-align:top;text-align:left">
 
-            <h1 style="margin:0;margin-bottom:15px;padding:0;color:#f26521">Hi, <br>Here are the trending deals on Troupon</h1>
-            
-            <div style="width:auto;margin-bottom:15px;text-align:left;vertical-align:top;">
+                    <h1 style="margin:0;margin-bottom:15px;padding:0;color:#f26521">Hi, <br>Here are the trending deals on Troupon</h1>
+                    
+                    <div style="width:auto;margin-bottom:15px;text-align:left;vertical-align:top;">
 
-                <div style="padding-left:0px;margin-bottom: 20px;">
-                    {% for deal in trending_deals %}
-                    <div style="padding-left: 0px; margin-bottom: 20px; background-color: #FFF;">
-                        <h2 style="position: relative; display: block; padding: 25px 15px; text-align:center;">{{ deal.title }}<br>Price:{{ deal.price }}$</h2>
-                        <div style="padding-left:100px; padding-right:100px ">
-                        <img src="{{deal.thumbnail_image_url }}" alt="Profile Picture" width="200"/>
-                        
+                        <div style="padding-left:0px;margin-bottom: 20px;">
+                            {% for deal in trending_deals %}
+                            <div style="padding-left: 0px; margin-bottom: 20px; background-color: #FFF;">
+                                <h2 style="position: relative; display: block; padding: 25px 15px; text-align:center;">{{ deal.title }}<br>Price:{{ deal.price }}$</h2>
+                                <div style="padding-left:100px; padding-right:100px ">
+                                <img src="{{deal.thumbnail_image_url }}" alt="Profile Picture" width="200"/>
+                                
+                            </div>
+                            {% empty %}
+                            <p style="position: relative; display: block; padding: 10px 15px; margin-bottom: -1px; background-color: #FFF;">No Popular Posts Today </p>
+                            {% endfor %}
+                        </div>
                     </div>
-                    {% empty %}
-                    <p style="position: relative; display: block; padding: 10px 15px; margin-bottom: -1px; background-color: #FFF;">No Popular Posts Today </p>
-                    {% endfor %}
+                    <div style="padding-left:120px;" >
+                    <a href="{{ troupon_url }}" style="background-color:#f26521;border:solid 1px #f26521;border-color:#f26521;border-radius:5px;color:#fff;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize" target="_blank">Click to view</a>
+                    </div>
+
+
+                    <p style="margin:0 auto; padding-bottom:20px; text-align:center;">Thanks, Troupon Team.</p>
+
                 </div>
             </div>
-            <div style="padding-left:120px;" >
-            <a href="{{ troupon_url }}" style="background-color:#f26521;border:solid 1px #f26521;border-color:#f26521;border-radius:5px;color:#fff;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize" target="_blank">Click to view</a>
-            </div>
-
-
-            <p style="margin:0 auto; padding-bottom:20px; text-align:center;">Thanks, Troupon Team.</p>
-
         </div>
-
-    </div>
-
-</div>
+    </body>
+</html>
