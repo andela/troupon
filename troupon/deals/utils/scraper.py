@@ -17,21 +17,14 @@ def send_periodic_emails():
         Status code for sent email.
 
     """
-
-    # get users who are not merchants
     users = User.objects.all()
-
     user_emails = [user.email for user in users]
-
     # Top 5 deals with highest number of buyers
     tops = Purchases.objects.all().annotate(
         qcount=Sum('quantity')).order_by('-qcount')[:5]
-
     deals = [top.item for top in tops]
-
     # URL to Troupon
     troupon_url = os.getenv('TROUPON_HOME')
-
     # Compose the email
     message = SendGrid.compose(
         sender='Troupon <{}>'.format(TROUPON_EMAIL),
@@ -45,7 +38,6 @@ def send_periodic_emails():
             'troupon_url': troupon_url
         }))
     )
-
     # send email
     response = SendGrid.send(message)
     return response
