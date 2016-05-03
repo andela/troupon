@@ -3,13 +3,12 @@ from datetime import date, timedelta
 
 from django.shortcuts import get_object_or_404
 
-from deals.models import Deal, Advertiser, Category, STATE_CHOICES
+from deals.models import Deal, Advertiser, Category
 from merchant.models import Merchant
 from merchant.serializers import DealSerializer
 
 from rest_framework import generics
 from rest_framework import permissions
-from rest_framework.response import Response
 
 
 class DealListAPIView(generics.ListCreateAPIView):
