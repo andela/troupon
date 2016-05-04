@@ -19,8 +19,6 @@ BOWER_COMPONENTS_ROOT = os.path.join(
 
 BOWER_PATH = '/app/node_modules/bower'
 
-
-
 # Enable Connection Pooling
 DATABASES['default']['ENGINE'] = 'django_postgrespool'
 

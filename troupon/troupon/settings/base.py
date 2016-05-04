@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 Defines settings that are common across deploys.
 """
 
+from __future__ import absolute_import
 import os
 # from django_envie.workroom import convertfiletovars
 import cloudinary
@@ -50,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'djangobower',
     'django_nose',
+    'djcelery',
     'allaccess',
     'haystack',
     'whoosh',
@@ -120,7 +122,7 @@ HAYSTACK_CONNECTIONS = {
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'Africa/Lagos'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -172,6 +174,8 @@ STATICFILES_FINDERS = (
     'djangobower.finders.BowerFinder',
 )
 
+DEBUG = True
+
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'static')
 
 BOWER_INSTALLED_APPS = (
@@ -210,3 +214,7 @@ NEXMO_USERNAME = os.getenv('NEXMO_USERNAME')
 NEXMO_PASSWORD = os.getenv('NEXMO_PASSWORD')
 NEXMO_FROM = 'Troupon'
 OTP_SECRET_KEY = os.getenv('OTP_SECRET_KEY')
+# Defined rabbitmq user
+BROKER_URL = "amqp://1KSjqqZh:golZT1TcOxAA9yLvCISWzotedCoSvZ5N@white-bartsia-45.bigwig.lshift.net:10097/Mfp0HgAcgl9Q"
+# Troupon's email
+TROUPON_EMAIL = 'noreplytroupon@andela.com'
