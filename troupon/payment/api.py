@@ -22,7 +22,7 @@ class TransationsList(generics.ListAPIView):
         return Purchases.objects.filter(advertiser=advertiser)
 
 
-class TransactionsDetails(generics.ListAPIView, generics.DestroyAPIView):
+class TransactionsDetails(generics.ListAPIView):
     """Using a transaction ID, a merchant can see the details of a particular transaction.
     """
 
