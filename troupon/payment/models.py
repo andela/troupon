@@ -46,3 +46,6 @@ class Purchases(models.Model):
                                           blank=False,
                                           default=2,
                                           choices=PAYMENT_STATUS)
+
+    def __str__(self):
+        return self.title
