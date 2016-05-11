@@ -3,6 +3,7 @@
 
 {% block subview %}
 <div>
+    {% if transactions %}
     <!-- banner section -->
     <section class="row" id="banner-section">
         <!-- heading -->
@@ -39,5 +40,8 @@
             </table>
         </div>
     </div>
+    {% else %}
+        <h3>You have no transactions</h3>
+    {% endif %}
 </div>
 {% endblock %}
