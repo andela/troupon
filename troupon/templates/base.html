@@ -1,0 +1,339 @@
+{% load static from staticfiles %}
+{% load humanize %}
+
+{% load carton_tags %}
+{% get_cart as cart %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  {% block facebook_meta %} {% endblock facebook_meta %}
+
+  <!-- title and favicon -->
+  <title>Troupon - {% block title %}Get Some!{% endblock title %}</title>
+  <link rel="icon" href="{% static 'img/icon.png' %}" type="image/x-icon">
+
+  {% block base_css %}
+  <!-- Bootstrap Core -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Lato:900,700italic,700,400italic,400,300' rel='stylesheet' type='text/css'>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+  <!--International telephoneinput-->
+  <link rel="stylesheet" type="text/css" href="{% static 'bower_components/jackocnr/build/css/intlTelInput.css' %}">
+  <!-- Flickity -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bower_components/flickity/dist/flickity.min.css' %}">
+  <!-- Datetimepicker -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bower_components/datetimepicker/jquery.datetimepicker.css' %}" >
+  <!-- Troupon base-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base_styles.css' %}" />
+  {% endblock base_css %}
+
+
+  {% block extended_css %}
+    {# override this block to add app/feature-specific css in extending templates #}
+  {% endblock extended_css %}
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+
+<body>
+
+  <div class="container-fluid viewport-container {% if shaded_bg %}shaded{% endif %}"> <!-- viewport container (wraps everything)-->
+
+    <div class="modals-parent">
+      <div class="container page-container"> <!-- page container (contains page content)-->
+
+        {% block newsletter_section %}
+        {% if show_newsletter_section %}
+        <!-- newsletter bar -->
+        <section class="collapse in" id="newsletter-bar">
+          <form action="" action="" method="POST">
+            <div class="row">
+              <div class="col-xs-11 col-sm-5">
+                <div class="tag-line">
+                  <span>Be the first to know! Subscribe to the Troupon Newsletter today!</span></p>
+                </div>
+              </div>
+              <div class="col-xs-9 col-sm-4 col-lg-5">
+                <div class="custom-input-group">
+                  <span class="left-icon"><i class="fa fa-envelope fa-fw"></i></span>
+                  <input type="email" name="email" id="subscriberEmail" placeholder="Your email" required>
+                </div>
+              </div>
+              <div class="col-xs-2 col-sm-2 col-lg-1">
+                <button type="submit" class="btn-action-alt"><i class="fa fa-paper-plane fa-fw"></i><span class="hidden-xs"> Subscribe</span></button>
+              </div>
+            </div>
+          </form>
+          <button type="button" class="section-close" data-toggle="collapse" data-target="#newsletter-bar"><span>&times;</span></button>
+          <div class="divider"></div>
+        </section>
+        {% endif %}
+        {% endblock newsletter_section %}
+
+        {% block header %}      {% if not no_header %} {# shows by default, pass 'no_header: True' in the context to hide #}
+        <!-- header bar-->
+        <header id="header-bar">
+          <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+              <div class="brand">
+                 <a class="logo" href="{% url 'homepage' %}"><img src="{% static 'img/logo-h-sm.png' %}" alt="Troupon logo"></a>
+              </div>
+
+              <button type="button" class="menu-toggle visible-xs collapsed" data-toggle="collapse" data-target="#menu-bar"><i class="fa fa-bars"></i></button>
+            </div>
+            <div class="navbar-collapse collapse" id="menu-bar">
+              <nav class="col-xs-12 col-sm-5 col-md-6 col-lg-6">
+                <ul class="nav-menu">
+                  <li><a href="{% url 'homepage' %}" class="hidden-sm">Home</a></li>
+                  <li><a href="{% url 'deals' %}">Deals</a></li>
+                  <li><a href="" class="modal-toggle" data-modal-target="#modal-categories">Categories</a></li>
+                  <li><a href="" class="modal-toggle" data-modal-target="#modal-cities">Cities</a></li>
+                  <li><a href="" class="modal-toggle hidden-sm" data-modal-target="#modal-merchants">Merchants</a></li>
+                </ul>
+              </nav>
+              <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                {% if request.user.is_authenticated %}
+                <ul class="member-options">
+                  {% if  request.user.profile.merchant.enabled or False %}
+                    <li>
+                      <a href="{% url 'messages' %}">{% if unread_mesg_count %}<span class="badge">{{ unread_mesg_count }}</span>{% endif %}<i class="fa fa-inbox fa-fw"></i></a>
+                    </li>
+                    <li class="divider-v"></li>
+                  {% endif %}
+
+
+                  <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                      {% if cart.count != 0 %}
+                        <span class="badge">{{ cart.count }}</span>
+                      {% endif %}
+                      <i class="fa fa-shopping-cart fa-fw"></i>
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      {% if cart.items %}
+                        {% for item in cart.items %}
+                          <li>
+                            <ul>
+                              <li><h4><small>{{ item.product.title }}</small></h4></li>
+                              <li class="pull-right"><h6><small><strong><span class="badge">Quantity: {{ item.quantity }}</span></strong></small></h6></li>
+                              <br/>
+                              <li><p><small><strong>Subtotal: $ {{ item.subtotal | intcomma }}</strong></small></p></li>
+                              <br/>
+                              <li class="pull-left">
+                                <form action="/cart/remove/" method="POST">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="dealid" value="{{ item.product.id }}" />
+                                  <button type="submit" class="btn btn-sm">Remove</button>
+                                </form>
+                              </li>
+                            </ul>
+                          </li>
+                          <hr />
+                        {% endfor %}
+                        <h4>Total: $ {{ cart.total | intcomma }}</h4>
+                        <a class="btn-action" href="/cart/view">View Cart</a>
+                        <a class="btn-action" href="/cart/clear">Clear cart</a>
+                      {% else %}
+                          <div class="dropdown-header">
+                            <p>No items in cart.</p>
+                            <p>Add items by clicking <strong>"Add to Cart"</strong> on a deal.</p>
+                          </div>
+                        {% endif%}
+                    </ul>
+                  </li>
+
+                  <li class="divider-v"></li>
+                  <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                      <i class="fa fa-user fa-fw"></i>
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li class="dropdown-header">Logged in as:</li>
+                      <li class="user-info">{{request.user.username|title }}</li>
+                      <li><div class="divider"></div></li>
+                      {% if request.user.profile.merchant.approved or False %}
+                        <li><a href="{% url 'merchant_manage_deals' %}">Merchant Dashboard</a></li>
+                      {% endif %}
+                      <li><a href="{% url 'account_profile' %}">My Profile</a></li>
+                      <li><a href="{% url 'account_change_password' %}"></i>Change Password</a></li>
+                      <li><a href="#"></i>Preferences</a></li>
+                      <li><a href="#"></i>History</a></li>
+                      <li  class="divider"></li>
+                      <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                {% else %}
+                 <ul class="auth-options">
+                  <li><a href="{% url 'login' %}" class="modal-toggle" data-modal-target="#modal-login">Log in</a></li>
+                  <li class="divider-v"></li>
+                  <li><a href="{% url 'register' %}" class="modal-toggle" data-modal-target="#modal-register">Register</a></li>
+                </ul>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </header>
+        {% endif %}
+        {% endblock header %}
+
+        {% block search %}
+        {% if search_options %} {# hides by default, pass the 'search_options' dictionary in the context to show #}
+        <!-- search bar-->
+        <section id="search-bar" class="navbar-collapse collapse">
+          <form class="form-inline" action="{% url 'dealsearchcity' %}" method="GET">
+            <div class="row">
+              <div class="col-sm-5 col-md-6 col-lg-6">
+                <div class="custom-input-group">
+                  <span class="left-icon"><i class="fa fa-search"></i></span>
+
+                  <input type="text" id="search" name="q" placeholder="e.g. barbeque discounts in Ikeja." aria-label="search query" value="{{ search_options.query }}">
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-4 col-lg-4">
+                <div class="custom-input-group">
+                  <span class="left-icon"><i class="fa fa-map-marker"></i></span>
+                  <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+                  <select name="city" placeholder="Select City">
+                    {% for city in cities %}
+                      <option value="{{ city.0 }}" {% if city.0 == search_options.default_city %}selected{% endif %} >
+                        {{ city.1 }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-3 col-md-2 col-lg-2">
+                <button type="submit" class="btn-action">Find Deals<i class="fa fa-angle-double-right fa-fw"></i></button>
+              </div>
+            </div>
+          </form>
+        </section>
+        {% endif %}
+        {% endblock search %}
+
+        <main>
+        {% block main %}
+          {# The main content of the page (added in extending/subclassing templates) goes here. #}
+          {# NOTE: the <main> tag is excluded from the main block so subclassing templates need not include them. #}
+          <div class="placeholder">
+            <p>View content goes here!</p>
+          </div>
+        {% endblock main %}
+        </main>
+
+        {% block footer %}
+        {% if not hide_footer %} {# shows by default, pass 'hide_footer: True' in the context to hide #}
+        <footer>
+          <div class="divider divider-1"></div>
+          <div class="row">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+              <h4>Troupon Loyalties Ltd.</h4>
+              <p>Troupon is a marketing service that offers its subscribers daily discount coupons. Typical Troupon deals focus on local restaurants, stores, services, events and regional products.</p>
+            </div>
+            <div class="col-sm-offset-1 col-sm-2 col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-1">
+              <h4>Quick links</h4>
+              <ul class="quick-links">
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'investor' %}">Investors</a></li>
+                <li><a href="{% url 'team' %}">Team</a></li>
+                <li><a href="{% url 'support' %}">Support</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-offset-1 col-lg-2">
+              <h4>Don't be shy, connect</h4>
+              <ul class="social-links">
+                <li><a href=""><i class="fa fa-facebook fa-fw"></i></a></li>
+                <li><a href=""><i class="fa fa-twitter fa-fw"></i></a></li>
+                <li><a href=""><i class="fa fa-google-plus fa-fw"></i></a></li>
+                <li><a href=""><i class="fa fa-linkedin fa-fw"></i></a></li>
+                <li><a href=""><i class="fa fa-envelope fa-fw"></i></a></li>
+              </ul>
+            </div>
+            <div class="col-sm-offset-1 col-sm-2 col-md-2 col-lg-offset-1 col-lg-3">
+              <div class="brand">
+                 <a class="logo" href="{% url 'homepage' %}"><img src="{% static 'img/logo-h-sm.png' %}" alt="Troupon logo"></a>
+              </div>
+            </div>
+          </div>
+          <div class="divider divider-2"></div>
+          <div class="copyright">
+            <p>Copyright ©2015 Troupon Loyalties Ltd.</p>
+          </div>
+        </footer>
+        {% endif %}
+        {% endblock footer %}
+
+      </div> <!-- ends page container -->
+    </div>
+    <!-- modals -->
+    <div class="modals-wrapper">
+      <div class="modals-container">
+
+        {% if not request.user.is_authenticated %}
+        {% include "modal_register.html" %}
+        {% include "modal_login.html" %}
+        {% include "modal_forgot_password.html" %}
+        {% endif %}
+
+        {% if not no_header %}
+          {% include "modal_listing.html" with active_tab="categories" list=categories %}
+          {% include "modal_listing.html" with active_tab="cities" list=cities %}
+          {% include "modal_listing.html" with active_tab="merchants" list=advertisers %}
+        {% endif %}
+
+        {% block extended_modals %}
+          {# override this block to add app/feature-specific modals in extending templates #}
+        {% endblock extended_modals %}
+
+      </div>
+      <button type="button" id="modals-close"><span>&times;</span><span class="caption hidden-xs">Escape</span></button>
+    </div> <!-- ends modals -->
+
+
+  </div> <!-- ends viewport container -->
+
+  {% block base_js %}
+    <!-- jQuery -->
+    <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap Core -->
+    <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <!-- Flickity -->
+    <script src="{% static 'bower_components/flickity/dist/flickity.pkgd.min.js' %}"></script>
+    <!-- Packery -->
+    <script src="{% static 'bower_components/packery/dist/packery.pkgd.min.js' %}"></script>
+    <!--Intl tel number-->
+    <script src="{% static 'bower_components/jackocnr/build/js/intlTelInput.min.js' %}"></script>
+    <!-- datetimepicker-->
+    <script src="{% static 'bower_components/datetimepicker/jquery.datetimepicker.js' %}"></script>
+    <!-- Troupon base-->
+    <script src="{% static 'js/app.js' %}"></script>
+    <!--Facebook SDK js code-->
+    <script src="{% static 'js/facebook.js' %}"></script>
+  {% endblock base_js %}
+
+  {% block extended_js %}
+     <!-- override this block to add app/feature-specific js libraries and scripts in extending templates -->
+  {% endblock extended_js %}
+
+</body>
+
+</html>
