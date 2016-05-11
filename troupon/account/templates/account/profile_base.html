@@ -24,12 +24,6 @@
   {% url 'account_change_password' as url %}
   {% include "snippet_sidebar_item.html" with name='Change Password' url=url %}
 
-  {% url 'account_preferences' as url %}
-  {% include "snippet_sidebar_item.html" with name='Preferences' url=url %}
-
-  {% url 'account_history' as url %}
-  {% include "snippet_sidebar_item.html" with name='History' url=url %}
-
   {% if not request.user.profile.is_approved_merchant %}
     {% url 'account_merchant' as url %}
     {% include "snippet_sidebar_item.html" with name='Merchant' url=url %}
