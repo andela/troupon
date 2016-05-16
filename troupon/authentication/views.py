@@ -181,7 +181,7 @@ class ForgotPasswordView(View):
 
         Args: request.
         Returns: A HttpResponse with a forgot_password_recovery_status template
-                 otherwise, return forgot_password template. 
+                 otherwise, return forgot_password template.
         """
         email_form = EmailForm(request.POST, auto_id=True)
         if email_form.is_valid():
@@ -245,7 +245,7 @@ class ForgotPasswordView(View):
 class ResetPasswordView(View):
     """This class allows user to reset password from recovery email.
     """
-    
+
     def get(self, request, *args, **kwargs):
         """Handles GET requests to 'account_reset_password' named route.
 
@@ -294,8 +294,8 @@ class ResetPasswordView(View):
             raise Http404("/User does not exist")
 
     def post(self, request, *args, **kwargs):
-        """Handles POST requests to 'account_reset_password' named route. 
-        
+        """Handles POST requests to 'account_reset_password' named route.
+
         Returns: A HttpResponse with the reset_password template.
         """
         reset_password_form = ResetPasswordForm(request.POST, auto_id=True)
@@ -345,19 +345,19 @@ class UserRegistrationView(View):
         """
         Handles the GET request to the 'register' named route.
         Returns: A HttpResponse with register template.
-        """ 
+        """
         args = {}
         args.update(csrf(request))
         return render(request, 'authentication/register.html', args)
 
     def post(self, request):
         """Handles POST requests to 'register' named route.
-        
+
         Raw data posted from form is received here,bound to form
         as dictionary and sent to unrendered django form for validation.
 
         Returns:
-            A HttpResponse with a register template, otherwise, redirects to the 
+            A HttpResponse with a register template, otherwise, redirects to the
             login page.
         """
         usersignupform = UserSignupForm(request.POST)
@@ -424,7 +424,7 @@ class ActivateAccountView(View):
 
     def get(self, request, *args, **kwargs):
         """Handles GET requests to 'activate_account' named route.
-        
+
         Returns: A redirect to the login page.
         Raises: A Http404 error.
         """
@@ -449,7 +449,7 @@ class UserConfirm(TemplateView):
     """
     This class handles account creation confirmation.
 
-    Attributes: 
+    Attributes:
         template_name.
     """
     template_name = 'authentication/confirm.html'
@@ -457,7 +457,7 @@ class UserConfirm(TemplateView):
     def get(self, request, *args, **kwargs):
         """
         Handles GET requests to 'confirm_registration' named route.
-        
+
         Returns:
             A rendered template response.
         """

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extended_css %} 
+{% block extended_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" />
 {% endblock extended_css %}
 
@@ -30,7 +30,7 @@
                         <h2>Log in</h2>
                     </div>
                     <div class="col-lg-8">
-                        <p>Don't have an account yet? <a id="user_register_link" href="{% url 'register' %}" class="modal-toggle" data-modal-target="#modal-sign-up">Register Here</a></p>
+                        <p>Don't have an account yet? <a href="{% url 'register' %}" id="user_register_link">Register Here</a></p>
                     </div>
                 </header>
                 <div class="row">
@@ -54,7 +54,6 @@
                                 </div>
                             </div>
                             <input id="loginBtn" type="submit" class="btn-action btn-form-submit" value="Log in" />
-                            <a href="">Log in with Facebook</a>
                         </form>
                     </div>
                 </div>
