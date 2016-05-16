@@ -415,8 +415,7 @@ class UserRegistrationView(View):
         else:
             args = {}
             args.update(csrf(request))
-            messages.add_message(request, messages.INFO, usersignupform.errors)
-            return render(request, 'authentication/register.html', args)
+            return render(request, 'authentication/register.html', {'form': usersignupform})
 
 
 class ActivateAccountView(View):

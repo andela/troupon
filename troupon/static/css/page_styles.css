@@ -1,5 +1,6 @@
 .errorlist li{
     margin-left: 10px;
+    color: red;
 }
 .errorlist li ul li{
     margin-left: 10px;
