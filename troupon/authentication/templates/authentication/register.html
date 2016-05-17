@@ -5,20 +5,19 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" />
 {% endblock extended_css %}
 
-{% if messages %}
-  <div class="col-sm-12 no-left">
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            <a class="close" data-dismiss="alert">×</a>
-            {{ message|safe }}
-        </div>
-    {% endfor %}
-  </div>
-{% endif %}
-
 {% block main %}
 <div class="modal-view" id="modal-sign-up">
     <div class="row">
+    {% if messages %}
+      <div class="col-sm-12 no-left">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <a class="close" data-dismiss="alert">×</a>
+                {{ message|safe }}
+            </div>
+        {% endfor %}
+      </div>
+    {% endif %}
         <div class="col-sm-5 hidden-xs brand-col">
             <div class="brand">
                <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
@@ -38,24 +37,28 @@
                     <form action="{% url 'register' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                         <div class="custom-form-group">
                             <label for="email">Email <span class="label-asterik">*</span></label>
+                            {{ form.email.errors }}
                             <div class="custom-input-group">
                                 <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
                             </div>
                         </div>
                         <div class="custom-form-group">
                             <label for="username">Username <span class="label-asterik">*</span></label>
+                            {{ form.username.errors }}
                             <div class="custom-input-group">
                                 <input type="text" name="username" id="username" placeholder="">
                             </div>
                         </div>
                         <div class="custom-form-group">
                             <label for="password1">Password <span class="label-asterik">*</span></label>
+                            {{ form.password1.errors }}
                             <div class="custom-input-group">
                                 <input type="password" name="password1" id="password1" placeholder="At least 6 characters.">
                             </div>
                         </div>
                         <div class="custom-form-group">
                             <label for="password2">Confirm Password <span class="label-asterik">*</span></label>
+                            {{ form.password2.errors }}
                             <div class="custom-input-group">
                                 <input type="password" name="password2" id="password2" placeholder="Must match Password above.">
                             </div>

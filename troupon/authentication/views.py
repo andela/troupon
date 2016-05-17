@@ -49,11 +49,11 @@ class UserLoginView(View):
     """
     engine = Engine.get_default()  # get static reference to template engine
     cls_default_msgs = {
-                        'not_signed_in': 'User is not signed in',
-                        'invalid_param': 'Invalid signin parameters. \
+        'not_signed_in': 'User is not signed in',
+        'invalid_param': 'Invalid signin parameters. \
                         Possible causes might be: an incorrect username,\
                         an incorrect password or inexistent user account',
-                        }  # class default messages
+    }  # class default messages
 
     def get(self, *args, **kwargs):
         """Handles the get request to the 'login' named route.
@@ -96,8 +96,9 @@ class UserLoginView(View):
         else:
             username = self.request.POST.get('username', '')
             password = self.request.POST.get('password', '')
-            csrfmiddlewaretoken = self.request.POST.get('csrfmiddlewaretoken', '')
-            #import pdb; pdb.set_trace()
+            csrfmiddlewaretoken = self.request.POST.get(
+                'csrfmiddlewaretoken', '')
+            # import pdb; pdb.set_trace()
             try:
                 validate_email(username)
                 user = User.objects.get(email__exact=username)
@@ -120,7 +121,8 @@ class UserLoginView(View):
                 messages.add_message(self.request, messages.INFO, error_msg)
 
                 # Set template
-                template = self.engine.get_template('authentication/login.html')
+                template = self.engine.get_template(
+                    'authentication/login.html')
 
                 # Set result in RequestContext
                 context = RequestContext(self.request)
@@ -153,6 +155,7 @@ class UserLogoutView(View):
     """
     This class logs out an authenticated user from session.
     """
+
     def get(self, request, *args, **kwargs):
         logout(request)
         return HttpResponseRedirect(
@@ -164,6 +167,7 @@ class ForgotPasswordView(View):
     """
     This class allows user to send account recovery email.
     """
+
     def get(self, request, *args, **kwargs):
         """Handles GET requests to the 'account_forgot_password' named route.
 
@@ -208,10 +212,10 @@ class ForgotPasswordView(View):
                     subject='Troupon: Password Recovery',
                     html=loader.get_template(
                         'authentication/forgot_password_recovery_email.html'
-                        ).render(recovery_email_context),
+                    ).render(recovery_email_context),
                     text=loader.get_template(
                         'authentication/forgot_password_recovery_email.txt'
-                        ).render(recovery_email_context),
+                    ).render(recovery_email_context),
                 )
                 # send it and get the request status:
                 email_status = SendGrid.send(recovery_email)
@@ -219,7 +223,7 @@ class ForgotPasswordView(View):
                 # inform the user of the status of the recovery mail:
                 context = {
                     'page_title': 'Forgot Password',
-                    'registered_user':  registered_user,
+                    'registered_user': registered_user,
                     'recovery_mail_status': email_status,
                 }
                 return render(
@@ -364,7 +368,6 @@ class UserRegistrationView(View):
         # get the user email address
         email = request.POST.get('email')
         signup_new_user = User.objects.filter(email__exact=email)
-
         if signup_new_user:
             args = {}
             args.update(csrf(request))
@@ -373,7 +376,6 @@ class UserRegistrationView(View):
             return render(request, 'authentication/register.html', args)
 
         if usersignupform.is_valid():
-
             usersignupform.save()
             new_user = User.objects.get(email__exact=email)
 
@@ -406,15 +408,14 @@ class UserRegistrationView(View):
             # inform the user of activation mail sent
             if activation_status == 200:
                 new_user_email = new_user.email
-                messages.add_message(request, messages.INFO, new_user_email)
+                messages.add_message(
+                    request, messages.INFO, new_user_email)
             return redirect(reverse('confirm_registration'))
 
         else:
-            login = "Invalid username or password"
             args = {}
             args.update(csrf(request))
-            messages.add_message(request, messages.INFO, login)
-            return render(request, 'authentication/login.html', args)
+            return render(request, 'authentication/register.html', {'form': usersignupform})
 
 
 class ActivateAccountView(View):
