@@ -46,7 +46,7 @@ Troupon is a Groupon clone. Users are able to buy products and services at a dis
     ```
 	**Important**: the secret key must be of length 16, 24 or 32 bytes.   
 
-- Create a virtual environment `$ workon [name_of_virtual_environment]`
+- Create a virtual environment `$ workon [name_of_virtual_environment]`.
 - Run `$ pip install -r requirements.txt` to install all dependencies.
 - Ensure npm and bower are installed in your environment.
 - Run `$ bower install` in the project root folder.
