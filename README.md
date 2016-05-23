@@ -19,20 +19,38 @@ Troupon is a Groupon clone. Users are able to buy products and services at a dis
 ### <a name="installation"></a>Installation
 - Clone repo: `$ git clone https://github.com/andela/troupon.git`
 - Checkout to branch develop: `$ git checkout develop`
-- Create a .env.py file in your root directory. In it put the following key - value pairs:
+- Create a .env.yml file in your root directory. In it put the following key - value pairs:
 	```cmd
-	DB_USER = "your_database_username_here"
-	DB_PASSWORD = "your_database_password_here"
-	MAILGUN_URL = "your_mailgun_url_here"
-	MAILGUN_USERNAME = "your_mailgun_username_here"
-	MAILGUN_PASSWORD = "your_mailgun_password_here"
-	SECRET_KEY = "abcdefghijklmnop"
-	```
+    sendgrid_apikey:
+      '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'
+    SECRET_KEY:
+      '56v4s5a++n(2p2&1e(cy+vyd0lw4#ywuee4ud#)okwffk^)vww'
+    cloudinary_api_key:
+      '757719616949584'
+    cloudinary_api_secret:
+      'BRTpbUl4U_t8-tixOuzNayWgoKE'
+    cloudinary_cloud_name:
+      'awiliuzo'
+    DB_USER:
+      'Administrator'
+    DB_PASSWORD:
+      'administrator'
+    NEXMO_PASSWORD: a8abd3c5
+    NEXMO_USERNAME: 5691ad12
+    OTP_SECRET_KEY:
+      'ZFO7AMNTL4YHHU7P'
+    STRIPE_SECRET_API_KEY:
+      'sk_test_s82TaVCUowXnYzVIxmnrbH0P'
+    STRIPE_PUBLISHABLE_API_KEY: 
+      'pk_test_c9WUOPI8shw6Lm7evSaSzzHu'	
+    ```
 	**Important**: the secret key must be of length 16, 24 or 32 bytes.   
 
+- Create a virtual environment `$ workon [name_of_virtual_environment]`
 - Run `$ pip install -r requirements.txt` to install all dependencies.
 - Ensure npm and bower are installed in your environment.
 - Run `$ bower install` in the project root folder.
+- Navigate to the troupon directory `$ cd troupon/`
 - Run `$ python manage.py collectstatic` to collect static files.
 - Run `$ python troupon/manage.py runserver` to start the server. 
 - With that you can view the project in your browser via `http://127.0.0.1:8000/`.
