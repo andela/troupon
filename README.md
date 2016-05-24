@@ -22,27 +22,27 @@ Troupon is a Groupon clone. Users are able to buy products and services at a dis
 - Create a .env.yml file in your root directory. In it put the following key - value pairs:
 	```cmd
     sendgrid_apikey:
-      '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'
+      'your_sendgrip_apikey_here'
     SECRET_KEY:
-      '56v4s5a++n(2p2&1e(cy+vyd0lw4#ywuee4ud#)okwffk^)vww'
+      'your_secret_key_here'
     cloudinary_api_key:
-      '757719616949584'
+      'your_cloudinary_api_key_here'
     cloudinary_api_secret:
-      'BRTpbUl4U_t8-tixOuzNayWgoKE'
+      'your_cloudinary_api_secret_here'
     cloudinary_cloud_name:
-      'awiliuzo'
+      'your_cloudinary_cloud_name_here'
     DB_USER:
-      'Administrator'
+      'your_db_user_here'
     DB_PASSWORD:
-      'administrator'
-    NEXMO_PASSWORD: a8abd3c5
-    NEXMO_USERNAME: 5691ad12
+      'your_db_password_here'
+    NEXMO_PASSWORD: your_nexmo_password_here
+    NEXMO_USERNAME: your_nexmo_password_here
     OTP_SECRET_KEY:
-      'ZFO7AMNTL4YHHU7P'
+      'your_otp_secret_key_here'
     STRIPE_SECRET_API_KEY:
-      'sk_test_s82TaVCUowXnYzVIxmnrbH0P'
+      'your_stripe_secret_api_key_here'
     STRIPE_PUBLISHABLE_API_KEY: 
-      'pk_test_c9WUOPI8shw6Lm7evSaSzzHu'	
+      'your_stripe_publishable_api_key_here'	
     ```
 	**Important**: the secret key must be of length 16, 24 or 32 bytes.   
 
