@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.contrib import messages
 
 from deals.models import Deal, Category, Advertiser, \
-    STATE_CHOICES, CURRENCY_CHOICES
+    COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, CURRENCY_CHOICES
 from deals.baseviews import DealListBaseView
 from merchant.forms import DealForm
 from merchant.mixins import MerchantMixin
@@ -125,7 +125,9 @@ class CreateDealView(MerchantMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context_var = super(CreateDealView, self).get_context_data(**kwargs)
         context_var.update({
-            'states': {'choices': STATE_CHOICES, 'default': 25},
+            'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
+            'kenyanlocations': {'choices': KENYAN_LOCATIONS, 'default': 47},
+            'nigerianlocations': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
             'currency': {'choices': CURRENCY_CHOICES, 'default': 1},
             'category': Category.objects.order_by('name')
         })

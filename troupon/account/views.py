@@ -13,7 +13,8 @@ from django.conf import settings
 from django.utils.text import slugify
 
 from authentication.views import LoginRequiredMixin
-from deals.models import STATE_CHOICES, Advertiser
+# from deals.models import STATE_CHOICES, Advertiser
+from deals.models import Advertiser
 from account.forms import UserProfileForm
 from account.models import UserProfile
 from merchant.models import Merchant
@@ -34,7 +35,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         context_var = super(UserProfileView, self).get_context_data(**kwargs)
         context_var.update({
             'profile': self.request.user.profile,
-            'states': {'choices': STATE_CHOICES, 'default': 25},
+            # 'states': {'choices': STATE_CHOICES, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Profile', },
@@ -114,7 +115,7 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
 
         # define the base breadcrumbs for this view:
         context = {
-            'states': {'choices': STATE_CHOICES, 'default': 25},
+            # 'states': {'choices': STATE_CHOICES, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
@@ -134,7 +135,7 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
 
         name = request.POST.get('name')
         context = {
-            'states': {'choices': STATE_CHOICES, 'default': 25},
+            # 'states': {'choices': STATE_CHOICES, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},

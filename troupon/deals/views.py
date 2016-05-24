@@ -10,7 +10,7 @@ from django.template.defaultfilters import slugify
 import cloudinary
 from haystack.query import SearchQuerySet
 
-from models import Category, Deal, Advertiser, STATE_CHOICES
+from models import Category, Deal, Advertiser, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS
 from baseviews import DealListBaseView
 
 
@@ -98,20 +98,20 @@ class FilteredDealsView(DealListBaseView):
                                    .format(advertiser.name)
             queryset = queryset.filter(advertiser=advertiser)
 
-        elif filter_type == 'city':
-            try:
-                state = [state for state in STATE_CHOICES
-                         if slugify(state[1]) == filter_slug][0]
-            except:
-                raise Http404('Not found')
-
-            self.title = self.city_title_format\
-                             .format(state[1])
-            self.description = self.city_description_format\
-                                   .format(state[1])
-            queryset = queryset.filter(state=state[0])
-        else:
-            raise SuspiciousOperation('Invalid request')
+        # elif filter_type == 'city':
+        #     try:
+        #         state = [state for state in STATE_CHOICES
+        #                  if slugify(state[1]) == filter_slug][0]
+        #     except:
+        #         raise Http404('Not found')
+        #
+        #     self.title = self.city_title_format\
+        #                      .format(state[1])
+        #     self.description = self.city_description_format\
+        #                            .format(state[1])
+        #     queryset = queryset.filter(state=state[0])
+        # else:
+        #     raise SuspiciousOperation('Invalid request')
 
         return queryset
 
@@ -132,30 +132,31 @@ class DealHaystackSearchView(View):
 class DealSearchCityView(DealListBaseView):
 
     """ class to search for deals via title and states"""
-
-    def get(self, request, *args, **kwargs):
-        value = request.GET.get('q', '')
-        cityquery = int(request.GET.get('city', '25'))
-        # get the deal results:
-        deals = Deal.objects.filter(title__icontains=value)\
-                            .filter(state__icontains=cityquery)
-
-        # get the rendered list of deals
-        rendered_deal_list = self.render_deal_list(
-            request,
-            queryset=deals,
-            title='Search Results',
-            zero_items_message='Your search - {} - in {} \
-            did not match any deals.'
-            .format(value, STATE_CHOICES[cityquery - 1][1]),
-            description='{} deal(s) found for this search.'.format(len(deals))
-            # pagination_base_url=reverse('deals')
-        )
-        context = {
-            'rendered_deal_list': rendered_deal_list
-        }
-        context.update(csrf(request))
-        return TemplateResponse(request, 'deals/searchresult.html', context)
+    pass
+#
+#     def get(self, request, *args, **kwargs):
+#         value = request.GET.get('q', '')
+#         cityquery = int(request.GET.get('city', '25'))
+#         # get the deal results:
+#         deals = Deal.objects.filter(title__icontains=value)\
+#                             .filter(state__icontains=cityquery)
+#
+#         # get the rendered list of deals
+#         rendered_deal_list = self.render_deal_list(
+#             request,
+#             queryset=deals,
+#             title='Search Results',
+#             zero_items_message='Your search - {} - in {} \
+#             did not match any deals.'
+#             .format(value, STATE_CHOICES[cityquery - 1][1]),
+#             description='{} deal(s) found for this search.'.format(len(deals))
+#             # pagination_base_url=reverse('deals')
+#         )
+#         context = {
+#             'rendered_deal_list': rendered_deal_list
+#         }
+#         context.update(csrf(request))
+#         return TemplateResponse(request, 'deals/searchresult.html', context)
 
 
 class DealSlugView(View):

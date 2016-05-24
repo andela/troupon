@@ -3,7 +3,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from deals.models import STATE_CHOICES
+from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS
 
 
 class UserProfile(models.Model):
@@ -17,8 +17,13 @@ class UserProfile(models.Model):
     """
 
     user = models.OneToOneField(User)
-    user_state = models.SmallIntegerField(choices=STATE_CHOICES,
-                                          default=25)
+    user_country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=2)
+    if user_country == 1:
+        user_location = models.SmallIntegerField(choices=NIGERIAN_LOCATIONS,
+                                                 default=25)
+    else:
+        user_location = models.SmallIntegerField(choices=KENYAN_LOCATIONS,
+                                                 default=47)
     occupation = models.TextField(blank=True, default='')
     phonenumber = models.CharField(blank=True, default='', max_length=20)
     intlnumber = models.CharField(blank=True, default='', max_length=20)

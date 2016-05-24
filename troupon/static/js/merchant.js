@@ -81,4 +81,9 @@ $(document).ready(function() {
 
     DealEditingAbl.init();
 
+    // Show relevant country locations
+    $('#user-country').on('change', function(event){
+      alert("fdffgcfg");
+    });
+
 });

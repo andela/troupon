@@ -10,8 +10,11 @@ from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
 import re
 
+# Country Choices
+COUNTRY_CHOICES = [(1, 'Nigeria'), (2, 'Kenya')]
+
 # States in Nigeria
-STATE_CHOICES = [
+NIGERIAN_LOCATIONS = [
     (1, 'Abia'), (2, 'Abuja FCT'), (3, 'Adamawa'),
     (4, 'Akwa Ibom'), (5, 'Anambra'), (6, 'Bauchi'),
     (7, 'Bayelsa'), (8, 'Benue'), (9, 'Borno'),
@@ -27,10 +30,31 @@ STATE_CHOICES = [
     (37, 'Zamfara'),
 ]
 
+# States in Kenya
+KENYAN_LOCATIONS = [
+    (1, 'Mombasa'), (2, 'Kwale'), (3, 'Kilifi'),
+    (4, 'Tana River'), (5, 'Lamu'), (6, 'Taita-Taveta'),
+    (7, 'Garissa'), (8, 'Wajir'), (9, 'Mandera'),
+    (10, 'Marsabit'), (11, 'Isiolo'), (12, 'Meru'),
+    (13, 'Tharaka-Nithi'), (14, 'Embu'), (15, 'Kitui'),
+    (16, 'Machakos'), (17, 'Makueni'), (18, 'Nyandarua'),
+    (19, 'Nyeri'), (20, 'Kirinyaga'), (21, "Murang'a"),
+    (22, 'Kiambu'), (23, 'Turkana'), (24, 'West Pokot'),
+    (25, 'Samburu'), (26, 'Trans-Nzoia'), (27, 'Uasin Gishu'),
+    (28, 'Elgeyo-Marakwet'), (29, 'Nandi'), (30, 'Baringo'),
+    (31, 'Laikipia'), (32, 'Nakuru'), (33, 'Narok'),
+    (34, 'Kajiado'), (35, 'Kericho'), (36, 'Bomet'),
+    (37, 'Kakamega'), (38, 'Vihiga'), (39, 'Bungoma'), (40, 'Busia'),
+    (41, 'Siaya'), (42, 'Kisumu'), (43, 'Homa Bay'),
+    (44, 'Migori'), (45, 'Kisii'), (46, 'Nyamira'),
+    (47, 'Nairobi')
+]
+
 # Available site-wide currencies
 CURRENCY_CHOICES = [
     (1, 'N'),
-    (2, '$'),
+    (2, 'KES'),
+    (3, '$'),
 ]
 
 # date sorting epochs:
@@ -61,7 +85,13 @@ class Deal(models.Model):
     description = models.TextField(blank=True, default='')
     slug = models.SlugField(blank=True, null=False, unique=True)
     title = models.CharField(max_length=100, null=False, blank=False)
-    state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
+    country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=1)
+    if country == 1:
+        location = models.SmallIntegerField(choices=NIGERIAN_LOCATIONS,
+                                            default=25)
+    else:
+        location = models.SmallIntegerField(choices=KENYAN_LOCATIONS,
+                                            default=47)
     address = models.CharField(max_length=100, blank=False, default='')
     currency = models.SmallIntegerField(choices=CURRENCY_CHOICES, default=1)
     image = CloudinaryField(
@@ -93,7 +123,10 @@ class Deal(models.Model):
     def state_name(self):
         """Returns the state name
         """
-        return dict(STATE_CHOICES).get(self.state)
+        if self.country == 1:
+            return dict(NIGERIAN_LOCATIONS).get(self.state)
+        else:
+            return dict(KENYAN_LOCATIONS).get(self.state)
 
     def slideshow_image_url(self):
         """Returns a slide image URL
@@ -147,7 +180,11 @@ class Advertiser(ImageMixin, models.Model):
     )
     slug = models.SlugField(blank=True)
     address = models.CharField(max_length=200, default='')
-    state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
+    country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=2)
+    if country == 1:
+        location = models.SmallIntegerField(choices=NIGERIAN_LOCATIONS, default=25)
+    else:
+        location = models.SmallIntegerField(choices=KENYAN_LOCATIONS, default=47)
     telephone = models.CharField(max_length=60, default='')
     email = models.EmailField(default='')
 

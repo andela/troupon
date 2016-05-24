@@ -1,7 +1,7 @@
 
 from django.conf import settings
 
-from deals.models import Category, Advertiser, STATE_CHOICES
+from deals.models import Category, Advertiser, NIGERIAN_LOCATIONS, KENYAN_LOCATIONS
 
 
 class SharedContextMiddleware(object):
@@ -27,7 +27,8 @@ class SharedContextMiddleware(object):
         view function returns a response.
         """
         response.context_data.update({
-            'cities': STATE_CHOICES,
+            'kenyan_locations': KENYAN_LOCATIONS,
+            'nigerian_locations': NIGERIAN_LOCATIONS,
             'categories': Category.objects.all(),
             'advertisers': Advertiser.objects.all(),
             'search_options': {
