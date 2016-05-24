@@ -1,0 +1,160 @@
+/* =========================================================================
+page-related styles:
+========================================================================== */
+
+main > section.row {
+  padding: 30px 0px 0px ;
+
+  & > [class *='col-'] {
+    padding: 0px;
+  }
+}
+
+// home page:
+
+.flickity-gallery {
+  
+  .gallery-cell {
+    width: auto;
+    margin: 0px 0.5px;
+  }
+
+  @media (min-width: 686px) {
+    .flickity-page-dots {
+      position: absolute;
+      width: max-content;
+      height: 21px;
+      top: -35px;
+      right: 0px;
+    }
+  }
+}
+
+.form-checkout {
+  padding-bottom: 35px;
+}
+
+.gallery-wrapper, .image-wrapper {
+  width: 100%;
+  height: 350px;
+  margin: 20px 0px;
+
+  @media (max-width: 768px) {
+    height: 300px;
+    margin-top: -20px;
+    margin-bottom: 40px;
+  }
+}
+
+// deal details:
+
+.image-wrapper {
+  height: 410px;
+}
+
+.deals-specs {
+  margin: 20px 0px;
+  padding: 0 0 0 20%;
+
+  .prices {
+    text-align: center;
+    
+    .original {
+      margin-bottom: 3px;
+      text-decoration: line-through;
+    }
+  }     
+
+  .price-specs {
+    margin-bottom: 15px;
+    p {
+      margin: 10px 0;
+    }
+  }
+
+  #buy-btn {
+    @include fluid-width;
+    margin-bottom: 20px;
+  }
+
+  .share-options{
+    text-align: center;
+    margin-top: 10px;
+
+    ul.social-share-links {
+      @include unstyled-h-list-mixin();
+    }
+    ul.social-share-links li a {
+      font-size: 24px;
+      line-height: 1rem;
+      padding: 0;
+      color: color(icon-light);
+    }
+  }
+
+  @each $social-platform in (facebook, twitter, email){
+    .share-options .btn-#{$social-platform}:hover {
+      color: color(#{$social-platform});
+    }
+    .share-options .btn-#{$social-platform}:focus {
+      color: color(#{$social-platform});
+    }
+  }
+}
+
+.section-label {
+  margin-bottom: 15px;
+}
+
+
+// merchant get-started
+
+.shopper-img{
+  margin: -60px 0 -47px 120px;
+  pointer-events: none;
+}
+
+// merchant messages
+
+.strip-unread {
+  font-weight: 900; 
+}
+
+footer.checkout-footer {
+  color:#CCC9C9;
+  i {
+    color: #C9C9C9;
+  }
+  .divider {
+    background-color: #DFDFD0;
+    height: 1px;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .divider-1 {
+    margin-bottom:25px;
+  }
+}
+
+.error-mark {
+  display:block; 
+  color:red;
+}
+
+.complete-mark {
+  display:block; 
+  color:green;
+}
+
+.pay {
+  color:red;
+}
+
+.pay2 {
+  color:green;
+}
+
+.cart_table{
+  margin-top: 20px;
+}

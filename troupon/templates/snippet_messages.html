@@ -1,0 +1,17 @@
+{% if messages %}
+  <!-- messages bar -->
+  <div class="row">
+    <div class="col-sm-12">
+  {% for message in messages %}
+    <div class="row flash-message collapse in" id="message-{{ forloop.counter }}">
+      <div class="col-sm-11">
+          <span class="message-line">{{ message }}</span>
+      </div>
+      <div class="col-sm-1">
+          <button type="button" class="section-close" data-toggle="collapse" data-target="#message-{{ forloop.counter }}"><span>&times;</span></button>
+      </div>
+    </div>
+  {% endfor %}
+    </div>
+  </div>
+{% endif %}

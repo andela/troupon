@@ -1,0 +1,39 @@
+
+<div class="section-heading">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <h1 class="title">{{ title|title }}</h1>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      {% block view_options %}
+
+        {% if date_filter %}
+
+        <div class="custom-input-group">
+          <span class="left-icon"><i class="fa fa-calendar"></i></span>
+          <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+          <select name="filters" class="date-filter-select" placeholder="Select Date">
+            {% for choice in date_filter.choices %}
+              <option value="{{ choice.0 }}" {% if choice.0 == date_filter.default %}selected{% endif %} >
+                {{ choice.1 }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {% else %}
+
+          {% include "snippet_breadcrumbs.html" %}
+
+        {% endif %}
+      {% endblock view_options %}
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="divider"></div>
+  </div>
+
+  {% if description %}
+    <p class="description">{{ description|truncatechars:150|capfirst }}<p>
+  {% endif %}
+</div>
