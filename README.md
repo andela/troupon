@@ -8,6 +8,7 @@
 4.  [Team](#team)
 5.  [Demo](#demo)
 6.  [Gulp Workflow](#Gulp Workflow)
+
 ### <a name="introduction"></a>Introduction
 Troupon is a Groupon clone. Users are able to buy products and services at a discounted price.
 
