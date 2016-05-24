@@ -7,7 +7,7 @@
 3.  [Installation](#installation)
 4.  [Team](#team)
 5.  [Demo](#demo)
-
+6.  [Gulp Workflow](#Gulp Workflow)
 ### <a name="introduction"></a>Introduction
 Troupon is a Groupon clone. Users are able to buy products and services at a discounted price.
 
@@ -61,6 +61,39 @@ To extend this Sass build with your own Sass styles:
 - [Amos Omondi](https://github.com/andela-aomondi)
 - [Penina Wanjiru](https://github.com/andela-pwanjiru)
 - [Jack Mwangi](https://github.com/andela-jmwangi)
+
+###Gulp Workflow
+#####Package.json
+```cmd
+"devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.1.0",
+    "gulp-uncss": "^1.0.5"
+  }
+```
+Where all packacges to be used by Gulp are included for use when you create your tasks.
+In Troupon we include gulp,gulp-sass, gulp-autoprefixer & gulp-uncss for automating tasks,compiling sass to css & prefixing css respectively.
+
+####Gulp setup:
+
+#####gulp.js
+
+Troupon has 3 tasks which are:
+1.sass-compile
+  -compiles scss files to css
+  -source:'./troupon/static/scss/**/*.scss'
+  -output:'./troupon/static/css';
+
+2.Watch
+  -Watch any files that are changed
+  -watches :./troupon/static/scss/**/*.scss
+  -logs the changes
+
+3.uncss
+  - Identifies unused css files.
+  -checks basestyles.css and compares with ./troupon/templates/*.html & ./troupon/**/**/**/*.html' html files
+
 
 ### <a name="demo"></a>Demo
 View our live demo on heroku at [http://troupon-staging.herokuapp.com/](http://troupon-staging.herokuapp.com/)

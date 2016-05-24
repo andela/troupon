@@ -92,7 +92,7 @@ main > section.row {
     }
   }
 
-  @each $social-platform in (facebook, twitter, instagram, pinterest, email){
+  @each $social-platform in (facebook, twitter, email){
     .share-options .btn-#{$social-platform}:hover {
       color: color(#{$social-platform});
     }
@@ -155,3 +155,6 @@ footer.checkout-footer {
   color:green;
 }
 
+.cart_table{
+  margin-top: 20px;
+}

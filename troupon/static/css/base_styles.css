@@ -1379,6 +1379,10 @@ footer .copyright p {
   padding-x: 50px;
 }
 
+.modals-wrapper #loginmodal {
+  margin-top: 20px;
+}
+
 .modals-wrapper .modal-view {
   position: absolute;
   padding-top: 10%;
@@ -1636,22 +1640,6 @@ main > section.row > [class*='col-'] {
   color: #5FC9EE;
 }
 
-.deals-specs .share-options .btn-instagram:hover {
-  color: #316598;
-}
-
-.deals-specs .share-options .btn-instagram:focus {
-  color: #316598;
-}
-
-.deals-specs .share-options .btn-pinterest:hover {
-  color: #B4101D;
-}
-
-.deals-specs .share-options .btn-pinterest:focus {
-  color: #B4101D;
-}
-
 .deals-specs .share-options .btn-email:hover {
   color: #E44954;
 }
@@ -1708,4 +1696,8 @@ footer.checkout-footer .divider-1 {
 
 .pay2 {
   color: green;
+}
+
+.cart_table {
+  margin-top: 20px;
 }
