@@ -37,7 +37,7 @@ gulp.task('uncss', function () {
         .pipe(uncss({
             html: [parent_templates, child_templates]
         }))
-        .pipe(gulp.dest(output + "/test"));
+        .pipe(gulp.dest(output + '/test'));
 });
 // set 'sass-compile' and 'watch'  as default tasks:
 gulp.task('default', ['sass-compile', 'watch', 'uncss']);
