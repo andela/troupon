@@ -3,12 +3,12 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var uncss = require('gulp-uncss');
 
-var parent_templates = './troupon/templates/*.html';
-var child_templates = './troupon/**/**/**/*.html';
+var parentTemplates = './troupon/templates/*.html';
+var childTemplates = './troupon/**/**/**/*.html';
 
 var input = './troupon/static/scss/**/*.scss';
 var output = './troupon/static/css';
-var base_styles = output + '/base_styles.css';
+var baseStyles = output + '/base_styles.css';
 
 var sassOptions = {
   errLogToConsole: true,
@@ -33,9 +33,9 @@ gulp.task('watch', function() {
 });
 
 gulp.task('uncss', function () {
-    return gulp.src(base_styles)
+    return gulp.src(baseStyles)
         .pipe(uncss({
-            html: [parent_templates, child_templates]
+            html: [parentTemplates, childTemplates]
         }))
         .pipe(gulp.dest(output + '/test'));
 });
