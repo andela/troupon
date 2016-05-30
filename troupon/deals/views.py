@@ -1,3 +1,5 @@
+import cloudinary
+
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import View
 from django.core.urlresolvers import reverse
@@ -7,11 +9,12 @@ from django.template.response import TemplateResponse
 from django.core.context_processors import csrf
 from django.template.defaultfilters import slugify
 
-import cloudinary
 from haystack.query import SearchQuerySet
 
-from models import Category, Deal, Advertiser, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS
+from models import Category, Deal, Advertiser, KENYAN_LOCATIONS,\
+    NIGERIAN_LOCATIONS
 from baseviews import DealListBaseView
+from geoip import geolite2
 
 
 class HomePageView(DealListBaseView):
@@ -22,6 +25,17 @@ class HomePageView(DealListBaseView):
     """
 
     def get(self, request, *args, **kwargs):
+        # def get_client_ip(request):
+        #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        #     if x_forwarded_for:
+        #         ip = x_forwarded_for.split(',')[0]
+        #     else:
+        #         ip = request.META.get('REMOTE_ADDR')
+        #         return ip
+        #
+        # client_ip = get_client_ip(request)
+        # match = geolite2.lookup(client_ip)
+        # print match.country
 
         # get the popular categories:
         popular_categories = Category.objects.all()[:12]

@@ -18,8 +18,8 @@ def set_advertiser_and_category():
     return dict(
         title="Deal #1", description="Deal some...deal all!",
         disclaimer="Deal at your own risk", advertiser=advertiser,
-        address="14, Alara Street", state=14,
-        slug=slugify("Deal #1"), category=category,
+        address="14, Alara Street", country=1, location_kenya=0,
+        location_nigeria=14, slug=slugify("Deal #1"), category=category,
         original_price=1500, price=750,
         duration=15, active=1,
         max_quantity_available=3,

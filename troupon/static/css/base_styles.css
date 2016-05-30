@@ -375,11 +375,7 @@ Forms Controls
   text-transform: uppercase;
 }
 
-#kenyan-locations {
-  display: none;
-}
-
-#nigerian-locations {
+.hidden {
   display: none;
 }
 
@@ -447,14 +443,17 @@ Other components.
 
 .card .overlay {
   -webkit-box-align: center;
+  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   background: rgba(255, 255, 255, 0.8);
   display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
   min-height: 100%;

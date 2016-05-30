@@ -27,12 +27,13 @@
       </div>
 
       <div class="custom-form-group col-lg-12">
-        <label>Country <span class="label-asterik">*</span></label>
+        <label>Country<span class="label-asterik">*</span></label>
         <div class="custom-input-group">
           <span class="right-icon"><i class="fa fa-angle-down"></i></span>
           <select name="user_country" placeholder="Kenya" id="user-country">
+            <option value="0" selected>Pick your Country</option>
             {% for choice in countries.choices %}
-              <option value="{{ choice.0 }}" {% if choice.0 == countries.default %}selected{% endif %} >
+              <option value="{{ choice.0 }}">
                 {{ choice.1 }}
               </option>
             {% endfor %}
@@ -40,13 +41,13 @@
         </div>
       </div>
 
-      <div class="custom-form-group col-lg-12" id="kenyan-locations">
+      <div class="custom-form-group col-lg-12 hidden" id="kenyan-locations">
         <label>County/State<span class="label-asterik">*</span></label>
         <div class="custom-input-group">
           <span class="right-icon"><i class="fa fa-angle-down"></i></span>
-          <select name="user_location" placeholder="Nairobi">
+          <select name="kenya_user_location" placeholder="Nairobi">
             {% for choice in kenyanlocations.choices %}
-              <option value="{{ choice.0 }}" {% if choice.0 == kenyanlocations.default %}selected{% endif %}>
+              <option value="{{ choice.0 }}"  {% if choice.0 == kenyanlocations.default %}selected{% endif %}>
                 {{ choice.1 }}
               </option>
             {% endfor %}
@@ -54,11 +55,11 @@
         </div>
       </div>
 
-      <div class="custom-form-group col-lg-12" id="nigerian-locations">
+      <div class="custom-form-group col-lg-12 hidden" id="nigerian-locations">
         <label>County/State<span class="label-asterik">*</span></label>
         <div class="custom-input-group">
           <span class="right-icon"><i class="fa fa-angle-down"></i></span>
-          <select name="user_location" placeholder="Ikeja.Lagos">
+          <select name="nigeria_user_location" placeholder="Ikeja.Lagos">
             {% for choice in nigerianlocations.choices %}
               <option value="{{ choice.0 }}" {% if choice.0 == nigerianlocations.default %}selected{% endif %} >
                 {{ choice.1 }}

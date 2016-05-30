@@ -15,6 +15,7 @@ COUNTRY_CHOICES = [(1, 'Nigeria'), (2, 'Kenya')]
 
 # States in Nigeria
 NIGERIAN_LOCATIONS = [
+    (0, 'None'),
     (1, 'Abia'), (2, 'Abuja FCT'), (3, 'Adamawa'),
     (4, 'Akwa Ibom'), (5, 'Anambra'), (6, 'Bauchi'),
     (7, 'Bayelsa'), (8, 'Benue'), (9, 'Borno'),
@@ -30,8 +31,9 @@ NIGERIAN_LOCATIONS = [
     (37, 'Zamfara'),
 ]
 
-# States in Kenya
+# Counties in Kenya
 KENYAN_LOCATIONS = [
+    (0, 'None'),
     (1, 'Mombasa'), (2, 'Kwale'), (3, 'Kilifi'),
     (4, 'Tana River'), (5, 'Lamu'), (6, 'Taita-Taveta'),
     (7, 'Garissa'), (8, 'Wajir'), (9, 'Mandera'),
@@ -53,8 +55,8 @@ KENYAN_LOCATIONS = [
 # Available site-wide currencies
 CURRENCY_CHOICES = [
     (1, 'N'),
-    (2, 'KES'),
-    (3, '$'),
+    (2, '$'),
+    (3, 'KES'),
 ]
 
 # date sorting epochs:
@@ -86,12 +88,10 @@ class Deal(models.Model):
     slug = models.SlugField(blank=True, null=False, unique=True)
     title = models.CharField(max_length=100, null=False, blank=False)
     country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=1)
-    if country == 1:
-        location = models.SmallIntegerField(choices=NIGERIAN_LOCATIONS,
-                                            default=25)
-    else:
-        location = models.SmallIntegerField(choices=KENYAN_LOCATIONS,
-                                            default=47)
+    location_nigeria = models.SmallIntegerField(choices=NIGERIAN_LOCATIONS,
+                                                default=0)
+    location_kenya = models.SmallIntegerField(choices=KENYAN_LOCATIONS,
+                                              default=0)
     address = models.CharField(max_length=100, blank=False, default='')
     currency = models.SmallIntegerField(choices=CURRENCY_CHOICES, default=1)
     image = CloudinaryField(
@@ -152,6 +152,15 @@ class Deal(models.Model):
 
     def get_absolute_url(self):
         return "/deals/{}/" .format(self.id)
+
+    # def save(self, *args, **kwargs):
+    #     if not self.pk:
+    #         if self.country == 1:
+    #             self.location_kenya = None
+    #         elif self.country == 2:
+    #             self.location_nigeria = None
+    #
+    #     super(Deal, self).save(*args, **kwargs)
 
 
 class ImageMixin(object):
