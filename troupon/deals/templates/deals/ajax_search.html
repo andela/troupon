@@ -1,0 +1,10 @@
+{% if deals.count > 0 %}
+
+{% for deal in deals %}
+    <li><a href="{{ deal.object.get_absolute_url }}">{{ deal.object.title }}</a></li>
+{% endfor %}
+
+{% else %}
+<li>search value not found</li>
+
+{% endif %}

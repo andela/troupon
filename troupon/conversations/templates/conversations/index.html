@@ -1,0 +1,45 @@
+{% extends "conversations/conversations_base.html" %}
+{% load static %}
+
+{% block subview %}
+
+
+<div class="row">
+    <table class="table table-responsive">
+        <thead>
+            <th>Created</th>
+            <th>Subject</th>
+            <th>Type</th>
+            {% if request.user.is_superuser %}
+                <th>Sender</th>
+            {% endif %}
+        </thead>
+        <tbody>
+        {% for letter in mesgs %}
+            <tr>
+                <td>{{ letter.sent_at }}</td>
+                <td><a class="strip{% if letter.recipient == request.user and letter.is_unread or letter.unread %} strip-unread {% endif %}" 
+                        href="{% url 'message' m_id=letter.id %}">
+                        {{ letter.subject }} {% if letter.recipient == request.user and letter.is_unread or letter.unread %} ({{ letter.is_unread|add:letter.unread }}) {% endif %}
+                    </a>
+                </td>
+                <td>{{ letter.get_type_display }}</td>
+                {% if request.user.is_superuser %}
+                <td>{{ letter.sender }}</td>
+                {% endif %}
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4"><p class="placeholder">Sorry, there are no messages</p></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock subview %}
+
+{% block extended_js %}
+    <script type="text/javascript" src="{% static 'js/messaging.js' %}"></script>
+
+{% endblock %}
+

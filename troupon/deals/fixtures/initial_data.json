@@ -1,0 +1,550 @@
+[
+{
+  "fields": {
+    "category": 4,
+    "original_price": 150,
+    "max_quantity_available": 100,
+    "quorum": 10,
+    "advertiser": 3,
+    "price": 100,
+    "description": "Very fine Kenyan coffee. Unleash your inner guru with this blend and brew.",
+    "featured": false,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-04-05",
+    "image": "image/upload/v1459843663/fqm3m6ui2fxtiztxxjsw.jpg",
+    "address": "Amity",
+    "duration": 217,
+    "title": "Fine Kenyan Coffee Beans",
+    "date_last_modified": "2016-04-05",
+    "active": true,
+    "slug": "fine-kenyan-coffee-beans-2016-05-17",
+    "disclaimer": "Don't let young children drink coffee."
+  },
+  "model": "deals.deal",
+  "pk": 21
+},
+{
+  "fields": {
+    "category": 1,
+    "original_price": 415,
+    "max_quantity_available": 100,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 300,
+    "description": "Travel to Diani Beach in Kenya for two nights of fun and sand. Experience the white sandy beaches and the relaxing and welcoming Kenyan atmosphere.",
+    "featured": true,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463468966/o1qtodke9alomerh6v1l.jpg",
+    "address": "Amity",
+    "duration": 175,
+    "title": "Diani Beach Holiday for 2",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "diani-beach-holiday-for-2-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 57
+},
+{
+  "fields": {
+    "category": 5,
+    "original_price": 873,
+    "max_quantity_available": 200,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 790,
+    "description": "A breathtaking getaway trip to the Caribbean for two. 5 nights of fun and love.",
+    "featured": false,
+    "date_end": "2017-09-08",
+    "currency": 2,
+    "state": 2,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463470014/dwcc6oodp1o4anr9mjac.jpg",
+    "address": "Amity",
+    "duration": 479,
+    "title": "Romantic Caribbean Getaway for 2",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "romantic-caribbean-getaway-for-2-2016-05-17",
+    "disclaimer": "Prices subject to change"
+  },
+  "model": "deals.deal",
+  "pk": 58
+},
+{
+  "fields": {
+    "category": 4,
+    "original_price": 4,
+    "max_quantity_available": 10000,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 2,
+    "description": "Freshly picked bananas. One bunch contains 20 bananas.",
+    "featured": true,
+    "date_end": "2020-07-07",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463471003/gmasun0k2o3qa88xrnhb.jpg",
+    "address": "Amity",
+    "duration": 1512,
+    "title": "Awesome bananas",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "awesome-bananas-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 59
+},
+{
+  "fields": {
+    "category": 2,
+    "original_price": 2500,
+    "max_quantity_available": 200,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 2000,
+    "description": "Retina display: 13.3-inch (diagonal) LED-backlit display with IPS technology; 2560-by-1600 resolution at 227 pixels per inch with support for millions of colors\r\n\r\nNative resolution: 2560 by 1600 pixels (Retina); scaled resolutions: 1680 by 1050, 1440 by 900, and 1024 by 640 pixels",
+    "featured": true,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463472503/xjuoaodpizacy3amex8z.jpg",
+    "address": "525 Kindaruma Road, Nairobi",
+    "duration": 175,
+    "title": "13 inch Macbook Pro 2015 Model",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "13-inch-macbook-pro-2015-model-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 60
+},
+{
+  "fields": {
+    "category": 4,
+    "original_price": 15,
+    "max_quantity_available": 1000,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 10,
+    "description": "Fresh apples from Lagos",
+    "featured": false,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463476279/a9dicdv6esd628qy98xk.jpg",
+    "address": "Amity",
+    "duration": 175,
+    "title": "Apples",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "apples-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 61
+},
+{
+  "fields": {
+    "category": 9,
+    "original_price": 25,
+    "max_quantity_available": 100,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 20,
+    "description": "The party of the year. Welcome to the 2016 school leaver's bash.",
+    "featured": false,
+    "date_end": "2016-11-12",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463483037/zntg0qdoskw20k6negti.jpg",
+    "address": "Amity",
+    "duration": 179,
+    "title": "2016 School Leaver's Bash Event Tickets",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "2016-school-leavers-bash-event-tickets-2016-05-17",
+    "disclaimer": "You should be above 21"
+  },
+  "model": "deals.deal",
+  "pk": 62
+},
+{
+  "fields": {
+    "category": 7,
+    "original_price": 8000000,
+    "max_quantity_available": 10,
+    "quorum": 10,
+    "advertiser": 3,
+    "price": 7000000,
+    "description": "The sleekest, baddest and fastest thing on wheels this side of the galaxy.",
+    "featured": true,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463483890/ts7smipza1emodiyajme.jpg",
+    "address": "525 Kindaruma Road, Nairobi",
+    "duration": 175,
+    "title": "Mercedes F015 Concept Car",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "mercedes-f015-concept-car-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 63
+},
+{
+  "fields": {
+    "category": 8,
+    "original_price": 30,
+    "max_quantity_available": 10000,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 25,
+    "description": "Stranded in town? Stay at the Marble Arch Hotel for a relaxing and peaceful night.",
+    "featured": false,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463484515/copjvngcochjxsuyvfmg.jpg",
+    "address": "Lusaka Road, Nairobi",
+    "duration": 175,
+    "title": "Accommodation in Nairobi",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "accommodation-in-nairobi-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 64
+},
+{
+  "fields": {
+    "category": 3,
+    "original_price": 1200,
+    "max_quantity_available": 200,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 1000,
+    "description": "Touch of Class",
+    "featured": true,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463486530/qjmkj5tgqgaiyoxbocte.jpg",
+    "address": "Amity",
+    "duration": 175,
+    "title": "Givenchy Handbag",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "givenchy-handbag-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 65
+},
+{
+  "fields": {
+    "category": 6,
+    "original_price": 199,
+    "max_quantity_available": 100,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 100,
+    "description": "Gift basket for any kind of occassion.",
+    "featured": false,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463486820/yrbtf2bokebdf4v8s5es.jpg",
+    "address": "Amity",
+    "duration": 175,
+    "title": "Gift Basket",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "gift-basket-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 66
+},
+{
+  "fields": {
+    "category": 11,
+    "original_price": 300,
+    "max_quantity_available": 200,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 250,
+    "description": "All a woman needs",
+    "featured": true,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463486964/yka1we2qczhcslyca4vl.jpg",
+    "address": "Amity",
+    "duration": 175,
+    "title": "Complete Makeup Kit",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "complete-makeup-kit-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 67
+},
+{
+  "fields": {
+    "category": 7,
+    "original_price": 12000,
+    "max_quantity_available": 12,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 11000,
+    "description": "Powerfully built. Can handle anything the African terrain throws at it.",
+    "featured": false,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463487608/ax2cac30fdwndv4ygkoc.jpg",
+    "address": "Amity",
+    "duration": 175,
+    "title": "Toyota Hilux",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "toyota-hilux-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 68
+},
+{
+  "fields": {
+    "category": 2,
+    "original_price": 12,
+    "max_quantity_available": 100,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 8,
+    "description": "Excellent Steam Iron box. Very affordable. Get one today!",
+    "featured": false,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463487954/vhqhw9gdzjj2eui4pt0l.jpg",
+    "address": "525 Kindaruma Road, Nairobi",
+    "duration": 175,
+    "title": "Steam Iron box",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "steam-iron-box-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 69
+},
+{
+  "fields": {
+    "category": 9,
+    "original_price": 1500,
+    "max_quantity_available": 100,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 1000,
+    "description": "Come listen to the great Leonard Hofstadter give a once in a lifetime talk on String theory, the God particle and the Evolution of Man.",
+    "featured": false,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463489163/x6fubzngeeni8adt326x.jpg",
+    "address": "525 Kindaruma Road, Nairobi",
+    "duration": 175,
+    "title": "String theory in a nutshell",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "strings-theory-in-a-nutshell-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 70
+},
+{
+  "fields": {
+    "category": 2,
+    "original_price": 2600,
+    "max_quantity_available": 100,
+    "quorum": 0,
+    "advertiser": 3,
+    "price": 2000,
+    "description": "Get awesome viewing experience from this first of its kind OLED smart TV from Samsung.",
+    "featured": true,
+    "date_end": "2016-11-08",
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-17",
+    "image": "image/upload/v1463489732/edsui5dpky7pp2sfgdax.jpg",
+    "address": "525 Kindaruma Road, Nairobi",
+    "duration": 175,
+    "title": "Samsung OLED Smart TV",
+    "date_last_modified": "2016-05-17",
+    "active": true,
+    "slug": "samsung-oled-smart-tv-2016-05-17",
+    "disclaimer": "None"
+  },
+  "model": "deals.deal",
+  "pk": 71
+},
+{
+  "fields": {
+    "name": "Shoprite Ikeja",
+    "telephone": "111-111-11",
+    "slug": "shoprite-ikeja",
+    "state": 1,
+    "address": "234, Agege-Somolu, Victoria Island, Lagos, Nigeria.",
+    "email": "paulmccartney@noho.com"
+  },
+  "model": "deals.advertiser",
+  "pk": 1
+},
+{
+  "fields": {
+    "name": "DressToKill Boutique",
+    "telephone": "456786543213456",
+    "slug": "dresstokill-boutique",
+    "state": 25,
+    "address": "Shoprite Ikeja,Lagos",
+    "email": "dresstokill@troupon.com"
+  },
+  "model": "deals.advertiser",
+  "pk": 2
+},
+{
+  "fields": {
+    "name": "BlackTree Developers",
+    "telephone": "0713625155",
+    "slug": "blacktree-developers",
+    "state": 25,
+    "address": "Amity",
+    "email": "amos.omondi@andela.com"
+  },
+  "model": "deals.advertiser",
+  "pk": 3
+},
+{
+  "fields": {
+    "name": "Travel n Hotels",
+    "slug": "travel-n-hotels"
+  },
+  "model": "deals.category",
+  "pk": 1
+},
+{
+  "fields": {
+    "name": "Electronics",
+    "slug": "electronics"
+  },
+  "model": "deals.category",
+  "pk": 2
+},
+{
+  "fields": {
+    "name": "Fashion",
+    "slug": "fashion"
+  },
+  "model": "deals.category",
+  "pk": 3
+},
+{
+  "fields": {
+    "name": "Foods",
+    "slug": "foods"
+  },
+  "model": "deals.category",
+  "pk": 4
+},
+{
+  "fields": {
+    "name": "Getaways",
+    "slug": "getaways"
+  },
+  "model": "deals.category",
+  "pk": 5
+},
+{
+  "fields": {
+    "name": "Shopping",
+    "slug": "shopping"
+  },
+  "model": "deals.category",
+  "pk": 6
+},
+{
+  "fields": {
+    "name": "Automobiles",
+    "slug": "automobiles"
+  },
+  "model": "deals.category",
+  "pk": 7
+},
+{
+  "fields": {
+    "name": "Hotels",
+    "slug": "hotels"
+  },
+  "model": "deals.category",
+  "pk": 8
+},
+{
+  "fields": {
+    "name": "Event Tickets",
+    "slug": "event-tickets"
+  },
+  "model": "deals.category",
+  "pk": 9
+},
+{
+  "fields": {
+    "name": "Kerosene",
+    "slug": "kerosene"
+  },
+  "model": "deals.category",
+  "pk": 10
+},
+{
+  "fields": {
+    "name": "Beauty Treatments",
+    "slug": "beauty-treatments"
+  },
+  "model": "deals.category",
+  "pk": 11
+},
+{
+  "fields": {
+    "name": "Akara and Pap",
+    "slug": "akara-and-pap"
+  },
+  "model": "deals.category",
+  "pk": 12
+}
+]

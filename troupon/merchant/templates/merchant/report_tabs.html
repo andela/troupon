@@ -1,0 +1,50 @@
+<div class="report">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#history" aria-controls="history" role="tab" data-toggle="tab">Sales History</a></li>
+    <li role="presentation"><a href="#sales" aria-controls="sales" role="tab" data-toggle="tab">Sales Trend</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="history">
+      <div class="row space-top">
+        <div class="col-sm-12">
+          <h4>All purchases of your merchandise</h4>
+          <table class="table table-responsive">
+            <thead>
+              <th>Date</th>
+              <th>Buyer</th>
+              <th>Quantity</th>
+              <th>Cost</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12/3/21</td>
+                <td>Rails</td>
+                <td>12</td>
+                <td>400</td>
+              </tr>
+            </tbody>
+         </table>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="sales">
+      <div class="row space-top">
+        <h4>Monthly sales trend</h4>
+        <div class="col-sm-6">
+          <p>Total sales: 1000</p>
+        </div>
+        <div class="col-sm-6">
+          <p>Quantity available: 120</p>
+        </div>
+        <div class="col-sm-12">
+          <svg id="visualisation" width="1000" height="500"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
