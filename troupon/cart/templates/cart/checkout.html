@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% load carton_tags %}
+{% get_cart as cart %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            {% if not cart.is_empty %}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Checkout</div>
+                <div class="panel-body text-center">
+                    <p class="text-center">Thank you for Shopping on Troupon.</p>
+                    <p> Your total is <strong>$ {{ cart.total | intcomma }}</strong></p>
+                    <div class="text-center">
+                        <form action="{% url 'process_payment' %}" method="POST" class="form-checkout">
+                        {% csrf_token %}
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="{{ payment_details.key }}"
+                                data-image="{% static 'img/logo-v-lg.png' %}"
+                                data-name="Troupon"
+                                data-description="{{ payment_details.description }}"
+                                data-amount="{{ payment_details.amount }}"
+                                data-locale="auto">
+                            </script>
+                        </form>
+                    </div>
+                    <div class="divider divider-1"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <i class="fa fa-cc-stripe fa-2x"></i>
+                            </div>
+                            <div class="col-md-3">
+                                <i class="fa fa-cc-paypal fa-2x"></i>
+                            </div>
+                            <div class="col-md-3">
+                                <i class="fa fa-cc-visa fa-2x"></i>
+                            </div>
+                            <div class="col-md-3">
+                                <i class="fa fa-cc-mastercard fa-2x"></i>
+                            </div>
+                        </div>    
+                    </div>
+
+                </div>
+            </div>    
+            {% else %}
+                <section class="row" id="banner-section">
+                    <!-- heading -->
+                    {% include "snippet_section_heading.html" with title="Your Cart Is Empty." %}
+                </section>
+
+                <a href="/" id="button-continue" class="btn-action">Continue Shopping</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock main %}

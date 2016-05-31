@@ -1,0 +1,109 @@
+{% load humanize %}
+
+<div id="id_deal_edit_form" class="col-xs-12 col-sm-12 col-md-10 hide">
+  <form action="{% url 'merchant_manage_deal' deal_slug=deal.slug %}" method="post" enctype="multipart/form-data">
+
+    <div class="row">
+      <div class="col-sm-6 col-md-7">
+        <div class="row item-info">
+          <div class="col-sm-12">
+            <a class="item-image-wrapper">
+              <img class="img img-responsive" src="{{ deal.thumbnail_image_url }}"/>
+            </a>
+          </div>
+        </div>
+        <div class="row space-top">
+          <div class="col-sm-12">
+            {% csrf_token %}
+            <span class="field">Change deal image:</span>
+            <input class="form-control" name="image" type="file"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="btn btn-action" title="Click to update this deal">Update deal</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-5">
+        <div class="item-info">
+            <div class="">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="label label-text">Title:</span>
+                </div>
+                <div class="col-sm-12">
+                  <input class="form-control" type="text" name="title" value="{{ deal.title }}">
+                </div>
+              </div>
+            </div>
+
+            <div class="advertiser">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="label label-text">Advertiser:</span>
+                </div>
+                <div class="col-sm-12">
+                  <span>{{ deal.advertiser.name }}</span>
+                </div>
+              </div>
+            </div>
+          
+            <div class="address">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="label label-text">Deal address:</span>
+                </div>
+                <div class="col-sm-12">
+                  <textarea class="form-control" name="address">{{ deal.address }}</textarea>
+                </div>
+              </div>
+            </div>
+          
+            <div class="price">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="label label-text">Original price:</span>
+                </div>
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <span class="input-group-addon">{{ deal.currency_symbol }}</span>
+                    <input class="form-control" name="original_price" type="text" value="{{ deal.original_price|intcomma }}">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="price">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="label label-text">Current price:</span>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <span class="input-group-addon">{{ deal.currency_symbol }}</span>
+                  <input class="form-control" name="price" type="text" value="{{ deal.price|intcomma }}">
+                </div>
+              </div>
+            </div>
+
+            <div class="quorum">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="label label-text">Quorum:</span>
+                  <span><input id="id_has_quorum_cbx" type="checkbox" {% if deal.quorum %}checked{% endif %}></span>
+                </div>
+                <div id="id_quorum_tbx" class="col-sm-12 {% if not deal.quorum %} hide {% endif %}" >
+                  <input name="quorum" type="text" value="{{ deal.quorum|default:0 }}">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
