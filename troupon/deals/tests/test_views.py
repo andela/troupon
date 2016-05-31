@@ -1,14 +1,18 @@
 import unittest
-from selenium import webdriver
-from django.test import LiveServerTestCase
-from merchant.models import Merchant
-from account.models import UserProfile
+
 from django.contrib.auth.models import User
+from django.test import LiveServerTestCase
+from selenium import webdriver
+
+from account.models import UserProfile
 from deals.models import Advertiser, Category, Deal
+from merchant.models import Merchant
+
 TEST_USER_EMAIL = 'testuser@myemail.com'
 TEST_USER_PASSWORD = 'testpassword'
 TEST_SEARCH_TERM = "Holiday"
 TEST_SEARCH_LOCATION = "Lagos"
+
 xpath_search_term = "//div[@class='custom-input-group']/input[@id='search']"
 xpath_search_location = "//div[@class='custom-input-group']/select"
 xpath_search_button = "//button[@class='btn-action']"
