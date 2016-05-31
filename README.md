@@ -87,12 +87,11 @@ To extend this Sass build with your own Sass styles:
 "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
-    "gulp-sass": "^2.1.0",
-    "gulp-uncss": "^1.0.5"
+    "gulp-sass": "^2.1.0"
   }
 ```
 Where all packacges to be used by Gulp are included for use when you create your tasks.
-In Troupon we include gulp,gulp-sass, gulp-autoprefixer & gulp-uncss for automating tasks,compiling sass to css & prefixing css respectively.
+In Troupon we include gulp,gulp-sass & gulp-autoprefixer for automating tasks,compiling sass to css & prefixing css respectively.
 
 ####Gulp setup:
 
@@ -108,10 +107,6 @@ Troupon has 3 tasks which are:
   -Watch any files that are changed
   -watches :./troupon/static/scss/**/*.scss
   -logs the changes
-
-3.uncss
-  - Identifies unused css files.
-  -checks basestyles.css and compares with ./troupon/templates/*.html & ./troupon/**/**/**/*.html' html files
 
 
 ### <a name="demo"></a>Demo

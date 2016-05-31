@@ -17,6 +17,12 @@ urlpatterns = [
         name='account_profile'),
 
     # pattern maps to view handling `GET` requests to
+    # /user/history/
+    url(r'^history/$',
+        views.TransactionsView.as_view(),
+        name='account_history'),
+
+    # pattern maps to view handling `GET` requests to
     # /account/merchant/
     url(r'^merchant/$',
         views.MerchantIndexView.as_view(),

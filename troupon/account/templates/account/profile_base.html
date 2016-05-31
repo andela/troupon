@@ -16,6 +16,9 @@
   {% url 'account_profile' as url %}
   {% include "snippet_sidebar_item.html" with name='My Profile' url=url %}
 
+  {% url 'account_history' as url %}
+  {% include "snippet_sidebar_item.html" with name='History' url=url %}
+
   {% if request.user.profile.is_approved_merchant %}
     {% url 'merchant_manage_deals'  as url %}
     {% include "snippet_sidebar_item.html" with name='Merchant Dashboard' url=url %}
