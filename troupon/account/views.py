@@ -12,13 +12,13 @@ from django.core.context_processors import csrf
 from django.conf import settings
 from django.utils.text import slugify
 
-from authentication.views import LoginRequiredMixin
-from deals.models import STATE_CHOICES, Advertiser
 from account.forms import UserProfileForm
 from account.models import UserProfile
-from merchant.models import Merchant
+from authentication.views import LoginRequiredMixin
 from conversations.models import Message
-from payment.models import TransactionHistory, Purchases
+from deals.models import Advertiser, STATE_CHOICES
+from merchant.models import Merchant
+from payment.models import Purchases
 
 secret_key = settings.OTP_SECRET_KEY
 totp_token = pyotp.TOTP(secret_key, interval=180)

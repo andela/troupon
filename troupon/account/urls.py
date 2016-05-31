@@ -46,11 +46,6 @@ urlpatterns = [
         views.MerchantResendOtpView.as_view(),
         name='account_merchant_resendotp'),
 
-    # #pattern maps to view handling `GET` requests to 
-    # url(r'^merchant/confirm/$',
-    #     views.MerchantConfirmView.as_view(),
-    #     name='account_history'),
-
     # pattern maps to view handling `GET` requests to
     # /account/merchant/confirm/
     url(r'^merchant/confirm/$',
