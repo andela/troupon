@@ -122,7 +122,8 @@
           "stripe_transaction_id": "ch_17wWHaBIJasW6y26Y44aoteI",
           "stripe_transaction_status": "Succeeded",
           "advertiser_id": 3,
-          "item_id": 21
+          "item_id": 21,
+          "user": 2
           },
       "model": "payment.purchases",
       "pk": 1
