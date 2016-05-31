@@ -83,7 +83,7 @@ class CreateDeal(object):
         """Create the test user"""
         User.objects.create_user(username='mytestuser',
                                  email=TEST_USER_EMAIL,
-                                 password=TEST_USER_EMAIL)
+                                 password=TEST_USER_PASSWORD)
 
     def login_user(self):
         """Log in as the test user"""
