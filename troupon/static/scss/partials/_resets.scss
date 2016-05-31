@@ -62,5 +62,20 @@ ul, ol {
     .divider {
       @extend .divider;
     }
+
+    @media (max-width: 480px) {
+      width: 18em;
+    }
+
+    .dropdown-header {
+      & > p {
+        white-space: normal;
+      }
+    }
   }
+}
+
+//overide bootstrap navbar
+.navbar-collapse.in {
+    overflow-y: visible;
 }

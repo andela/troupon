@@ -458,3 +458,10 @@ footer {
 .flash-message{
   margin-bottom: 20px;
 }
+
+.section-heading .row > [class*='col-'] > h1 {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
