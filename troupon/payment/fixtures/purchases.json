@@ -123,7 +123,7 @@
           "stripe_transaction_status": "Succeeded",
           "advertiser_id": 3,
           "item_id": 21,
-          "user": 2
+          "user_id": 2
           },
       "model": "payment.purchases",
       "pk": 1
