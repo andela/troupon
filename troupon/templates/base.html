@@ -183,9 +183,9 @@
                 </ul>
                 {% else %}
                  <ul class="auth-options">
-                  <li><a href="{% url 'login' %}" class="modal-toggle" data-modal-target="#modal-login">Log in</a></li>
+                  <li><a href="{% url 'login' %}">Log in</a></li>
                   <li class="divider-v"></li>
-                  <li><a href="{% url 'register' %}" class="modal-toggle" data-modal-target="#modal-register">Register</a></li>
+                  <li><a href="{% url 'register' %}">Register</a></li>
                 </ul>
                 {% endif %}
               </div>
@@ -289,8 +289,6 @@
       <div class="modals-container">
 
         {% if not request.user.is_authenticated %}
-        {% include "modal_register.html" %}
-        {% include "modal_login.html" %}
         {% include "modal_forgot_password.html" %}
         {% endif %}
 
