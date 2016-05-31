@@ -5,19 +5,19 @@
     "original_price": 15000,
     "max_quantity_available": 20,
     "quorum": null,
-    "advertiser": 1,
+    "advertiser": 14,
     "price": 10000,
-    "description": "This August, the renowned Kenyan afro-pop band is kicking off their international tour, and you can be a part of it with this discounted ticket! Get your ticket at this unbelievable price and see the kings of afro-pop live in concert.",
+    "description": "This month, the renowned Kenyan afro-pop band is kicking off their international tour, and you can be a part of it with this discounted ticket! Get your ticket at this unbelievable price and see the kings of afro-pop live in concert.",
     "featured": true,
     "date_end": null,
     "currency": 1,
     "state": 25,
     "date_created": "2016-05-30",
     "image": "image/upload/v1464613778/vjwe6biwleh7odgl2pzo.jpg",
-    "address": "Balmoral Hall, Kudirat Abiola Way, Lagos, Nigeria",
+    "address": "Lagos, Nigeria",
     "duration": 30,
     "title": "Sauti Sol Live in Concert",
-    "date_last_modified": "2016-05-30",
+    "date_last_modified": "2016-05-31",
     "active": true,
     "slug": "sauti-sol-live-in-concert-2016-05-30",
     "disclaimer": "You must be at least 18 years of age to purchase this deal."
@@ -31,7 +31,7 @@
     "original_price": 300,
     "max_quantity_available": 5,
     "quorum": null,
-    "advertiser": 3,
+    "advertiser": 12,
     "price": 200,
     "description": "Enjoy one night's stay for two at a fabulous Lagos hotel with this exciting deal. Surrounded by palm trees, this modern, high-end hotel with a streamlined facade is only 2 km from the airport and close to all major amenities.",
     "featured": true,
@@ -43,7 +43,7 @@
     "address": "Lagos, Nigeria ",
     "duration": 10,
     "title": "One Night for 2 in Lagos",
-    "date_last_modified": "2016-05-30",
+    "date_last_modified": "2016-05-31",
     "active": true,
     "slug": "one-night-for-2-in-lagos",
     "disclaimer": ""
@@ -57,7 +57,7 @@
     "original_price": 90000,
     "max_quantity_available": 2,
     "quorum": null,
-    "advertiser": 3,
+    "advertiser": 10,
     "price": 75000,
     "description": "Drive away into the sunset with this incredible deal! For an amazing price, this luxury Mercedes Benz could be all yours. Leather interiors, sleek exterior, and speeds you just can't beat, this will be your best purchase for years to come. ",
     "featured": true,
@@ -69,7 +69,7 @@
     "address": "Abuja, Nigeria",
     "duration": 20,
     "title": "Luxury Mercedes Benz",
-    "date_last_modified": "2016-05-30",
+    "date_last_modified": "2016-05-31",
     "active": true,
     "slug": "luxury-mercedes-benz-2016-05-30",
     "disclaimer": ""
@@ -83,7 +83,7 @@
     "original_price": 12000,
     "max_quantity_available": 10,
     "quorum": null,
-    "advertiser": 1,
+    "advertiser": 11,
     "price": 9000,
     "description": "Upgrade your kitchen with this colourful 24-piece dinnerware set, in a wide assortment of bright colours. This set is dishwasher and microwave safe, and is suitable for wide range of table settings.",
     "featured": true,
@@ -95,7 +95,7 @@
     "address": "Abuja, Nigeria",
     "duration": 10,
     "title": "24-Piece Dinnerset",
-    "date_last_modified": "2016-05-30",
+    "date_last_modified": "2016-05-31",
     "active": true,
     "slug": "24-piece-dinnerset-2016-05-30",
     "disclaimer": ""
@@ -135,7 +135,7 @@
     "original_price": 600,
     "max_quantity_available": 20,
     "quorum": null,
-    "advertiser": 3,
+    "advertiser": 12,
     "price": 500,
     "description": "Unleash your wild side with this deal for a ten-day safari! Travel to the exotic Mara where you will see the famous big 5, and take an enchanting sunset ride in a hot air balloon. Purchase this deal for the trip of a lifetime!",
     "featured": true,
@@ -147,7 +147,7 @@
     "address": "Masai Mara, Kenya",
     "duration": 10,
     "title": "10-Day Masai Mara Safari",
-    "date_last_modified": "2016-05-30",
+    "date_last_modified": "2016-05-31",
     "active": true,
     "slug": "10-day-masai-mara-safari-2016-05-30",
     "disclaimer": ""
@@ -161,7 +161,7 @@
     "original_price": 3000,
     "max_quantity_available": 2,
     "quorum": null,
-    "advertiser": 2,
+    "advertiser": 9,
     "price": 2000,
     "description": "Purchase this deal and get yourself an amazing beauty make-over and become a new you for the new year! Inner beauty is great, but a little help never hurt!\r\n",
     "featured": false,
@@ -173,7 +173,7 @@
     "address": "Lagos, Nigeria",
     "duration": 10,
     "title": "Beauty Make-Over",
-    "date_last_modified": "2016-05-30",
+    "date_last_modified": "2016-05-31",
     "active": true,
     "slug": "beauty-make-over-2016-05-30",
     "disclaimer": ""
@@ -184,36 +184,10 @@
 {
   "fields": {
     "category": 3,
-    "original_price": 4000,
-    "max_quantity_available": 5,
-    "quorum": 5,
-    "advertiser": 2,
-    "price": 3000,
-    "description": "",
-    "featured": false,
-    "date_end": null,
-    "currency": 1,
-    "state": 2,
-    "date_created": "2016-05-30",
-    "image": "image/upload/v1464632753/gudn6imgrzvfpc3l8j5w.jpg",
-    "address": "Abuja, Nigeria",
-    "duration": 20,
-    "title": "Ankara Clutch Bag and High heels",
-    "date_last_modified": "2016-05-30",
-    "active": true,
-    "slug": "ankara-clutch-bag-and-high-heels-2016-05-30",
-    "disclaimer": ""
-  },
-  "model": "deals.deal",
-  "pk": 79
-},
-{
-  "fields": {
-    "category": 3,
     "original_price": 40000,
     "max_quantity_available": 10,
     "quorum": null,
-    "advertiser": 2,
+    "advertiser": 9,
     "price": 30000,
     "description": "Buying a bespoke suit is not cheap, but nothing compares to the experience of creating a quality garment that is tailored specifically for your body and lifestyle. With our deal, you can get a made-to-measure suit at a great price!",
     "featured": false,
@@ -225,7 +199,7 @@
     "address": "Lagos, Nigeria",
     "duration": 10,
     "title": "Made-to-Measure Suits",
-    "date_last_modified": "2016-05-30",
+    "date_last_modified": "2016-05-31",
     "active": true,
     "slug": "made-to-measure-suits-2016-05-30",
     "disclaimer": ""
@@ -239,7 +213,7 @@
     "original_price": 2500,
     "max_quantity_available": 100,
     "quorum": null,
-    "advertiser": 1,
+    "advertiser": 13,
     "price": 2000,
     "description": "Each of our pizzas is carefully crafted with flavourful, superior-quality ingredients and toppings. With this deal, you get one free pizza for each one you buy.",
     "featured": true,
@@ -251,7 +225,7 @@
     "address": "Abuja, Nigeria",
     "duration": 50,
     "title": "BOGOF Deal on Pizza",
-    "date_last_modified": "2016-05-30",
+    "date_last_modified": "2016-05-31",
     "active": true,
     "slug": "bogof-on-pizza-2016-05-30",
     "disclaimer": ""
@@ -284,6 +258,32 @@
   },
   "model": "deals.deal",
   "pk": 82
+},
+{
+  "fields": {
+    "category": 3,
+    "original_price": 4500,
+    "max_quantity_available": 10,
+    "quorum": 10,
+    "advertiser": 2,
+    "price": 4000,
+    "description": "Stay current with this deal featuring a pair of unique ankara print wedges! Ankara is a 100% cotton fabric with vibrant patterns, taking the fashion world by storm. With this deal, you can stay fashion-forward while looking fabulous!",
+    "featured": false,
+    "date_end": null,
+    "currency": 1,
+    "state": 2,
+    "date_created": "2016-05-31",
+    "image": "image/upload/v1464682445/glo6nnnuugbrm0tjxrxb.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 10,
+    "title": "Ankara Print Wedges",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "ankara-print-wedges-2016-05-31",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 83
 },
 {
   "fields": {
@@ -323,15 +323,75 @@
 },
 {
   "fields": {
-    "name": "Mbithe's Stuff",
-    "telephone": "0705863889",
-    "slug": "mbithes-stuff",
-    "state": 25,
-    "address": "123 Lagos",
-    "email": "mbithe@mbithesstuff.com"
+    "name": "Couture Boutique",
+    "telephone": "+234123456789",
+    "slug": "couture-boutique",
+    "state": 2,
+    "address": "Garki, Abuja, Nigeria",
+    "email": "sales@coutureboutique.com"
   },
   "model": "deals.advertiser",
-  "pk": 4
+  "pk": 9
+},
+{
+  "fields": {
+    "name": "Luxury Vehicles Centre",
+    "telephone": "+234123456789",
+    "slug": "luxury-vehicles-centre",
+    "state": 25,
+    "address": "Ikoja, Lagos, Nigeria",
+    "email": "cars@luxurryvehiclescentre.com"
+  },
+  "model": "deals.advertiser",
+  "pk": 10
+},
+{
+  "fields": {
+    "name": "Sunshine's Home Accessories",
+    "telephone": "+234123456789",
+    "slug": "sunshines-home-accessories",
+    "state": 25,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "email": "decor@sunshineshomes.com"
+  },
+  "model": "deals.advertiser",
+  "pk": 11
+},
+{
+  "fields": {
+    "name": "Globetrotters Tours & Travels",
+    "telephone": "+234123456789",
+    "slug": "gobetrotters-tours-travels",
+    "state": 25,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "email": "travel@globetrotters.com"
+  },
+  "model": "deals.advertiser",
+  "pk": 12
+},
+{
+  "fields": {
+    "name": "Eat Out Reviews",
+    "telephone": "+234123456789",
+    "slug": "eat-out-reviews",
+    "state": 25,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "email": "dine@eatoutreviews.com"
+  },
+  "model": "deals.advertiser",
+  "pk": 13
+},
+{
+  "fields": {
+    "name": "Ultimate Events & Entertainment",
+    "telephone": "+234123456789",
+    "slug": "ultimate-events-entertainment",
+    "state": 25,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "email": "tickets@ultimateevents.com"
+  },
+  "model": "deals.advertiser",
+  "pk": 14
 },
 {
   "fields": {
