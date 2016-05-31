@@ -46,6 +46,7 @@ class Purchases(models.Model):
                                           blank=False,
                                           default=2,
                                           choices=PAYMENT_STATUS)
+    user = models.ForeignKey(User)
 
     def __str__(self):
         return self.title
