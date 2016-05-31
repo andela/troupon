@@ -4,7 +4,6 @@ var autoprefixer = require('gulp-autoprefixer');
 
 var input = './troupon/static/scss/**/*.scss';
 var output = './troupon/static/css';
-var baseStyles = output + '/base_styles.css';
 
 var sassOptions = {
   errLogToConsole: true,
