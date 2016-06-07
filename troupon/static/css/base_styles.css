@@ -74,7 +74,7 @@ ul, ol {
   }
 }
 
-.dropdown .dropdown-menu .dropdown-header > p {
+.dropdown .dropdown-menu .dropdown-header p {
   white-space: normal;
 }
 
@@ -1546,7 +1546,7 @@ footer .copyright p {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 /* =========================================================================
