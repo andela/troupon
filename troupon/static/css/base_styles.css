@@ -1613,6 +1613,18 @@ main > section.row > [class*='col-'] {
   text-decoration: line-through;
 }
 
+@media (max-width: 768px) {
+  .deals-specs {
+    padding: 0 10% 0 10%;
+  }
+}
+
+@media (max-width: 480px) {
+  .deals-specs {
+    padding: 0;
+  }
+}
+
 .deals-specs .price-specs {
   margin-bottom: 15px;
 }
