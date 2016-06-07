@@ -1615,7 +1615,7 @@ main > section.row > [class*='col-'] {
 
 @media (max-width: 768px) {
   .deals-specs {
-    padding: 0 10% 0 10%;
+    padding: 0 10%;
   }
 }
 

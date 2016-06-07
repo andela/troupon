@@ -63,16 +63,16 @@ main > section.row {
       margin-bottom: 3px;
       text-decoration: line-through;
     }
-  }     
+  }
 
   @media (max-width: 768px) {
-    padding: 0 10% 0 10%;
+    padding: 0 10%;
   }
 
   @media (max-width: 480px) {
     padding: 0;
   }
-  
+
   .price-specs {
     margin-bottom: 15px;
     p {
