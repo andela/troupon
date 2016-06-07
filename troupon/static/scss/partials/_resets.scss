@@ -59,21 +59,19 @@ ul, ol {
       padding: 5px 20px;
     }
 
-    .divider {
-      @extend .divider;
-    }
-  }
-
-  .dropdown-menu{
     @media (max-width: 480px) {
       width: 18em;
     }
 
-    .dropdown-header {
-      p {
-        white-space: normal;
-      }
+    .divider {
+      @extend .divider;
     }
+  }
+}
+
+.dropdown-header {
+  p {
+    white-space: normal;
   }
 }
 
