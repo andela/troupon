@@ -11,14 +11,15 @@ from merchant.models import Merchant
 TEST_USER_EMAIL = 'testuser@myemail.com'
 TEST_USER_PASSWORD = 'testpassword'
 TEST_SEARCH_TERM = "Holiday"
-TEST_SEARCH_LOCATION = "Lagos"
+TEST_SEARCH_LOCATION = "Nairobi"
 
 xpath_search_term = "//div[@class='custom-input-group']/input[@id='search']"
 xpath_search_location = "//div[@class='custom-input-group']/select"
 xpath_search_button = "//button[@class='btn-action']"
 xpath_search_results_title = "//h1[@class='title']"
 xpath_search_results_desc = "//p[@class='description']"
-xpath_search_results_deal = "/html/body/div[@class='container-fluid viewport-container ']/div[@class='modals-parent']/div[@class='container page-container']/main/section[@id='listing-section']/div[@class='col-xs-12'][1]/div[@class='packery-grid deal-grid']/div[@class='grid-item card']/form[@class='overlay row']"
+xpath_search_results_deal = "//div[@class='packery-grid deal-grid']" \
+    "/div[@class='grid-item card']/form[@class='overlay row']"
 xpath_deals_page_title = "//h1[@class='title']"
 xpath_deals_first_deal = "//div[@class='grid-item card'][1]" \
     "/form[@class='overlay row']/a[@class='moredetails btn-action']"
@@ -118,6 +119,8 @@ class CreateDeal(object):
         price = 5000
         original_price = 6000
         currency = 1
+        country = 2
+        location = 84
         quorum = 0
         disclaimer = ''
         description = 'Holiday for two to the luxurious Masai Mara.'
@@ -134,17 +137,17 @@ class CreateDeal(object):
 
         deal = Deal(
             price=price, original_price=original_price, currency=currency,
-            category=category, quorum=quorum,
-            disclaimer=disclaimer, description=description, address=address,
-            max_quantity_available=max_quantity_available, date_end=date_end,
-            active=active, title=title, advertiser=advertiser,
-            duration=20
+            country=country, location=location, category=category,
+            quorum=quorum, disclaimer=disclaimer, description=description,
+            address=address, max_quantity_available=max_quantity_available,
+            date_end=date_end, active=active, title=title,
+            advertiser=advertiser, duration=20
         )
 
         deal.save()
 
 
-class DegstalsViewTest(LiveServerTestCase, CreateDeal):
+class DealsViewTest(LiveServerTestCase, CreateDeal):
 
     def setUp(self):
         """Setup the test driver and create deal"""
