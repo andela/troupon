@@ -19,7 +19,7 @@ class DealSerializer(serializers.ModelSerializer):
         model = Deal
         fields = ('id', 'title', 'slug', 'description', 'advertiser',
                   'original_price', 'price', 'category', 'currency',
-                  'state', 'quorum', 'disclaimer', 'address',
+                  'quorum', 'disclaimer', 'address',
                   'max_quantity_available', 'date_created', 'date_end',
                   'active', 'image')
         read_only_fields = ('id', 'slug', 'advertiser', 'date_created')

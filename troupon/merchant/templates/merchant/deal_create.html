@@ -46,8 +46,8 @@
         <div class="custom-input-group">
           <span class="right-icon"><i class="fa fa-angle-down"></i></span>
           <select name="kenya_user_location" placeholder="Nairobi">
-            {% for choice in kenyanlocations.choices %}
-              <option value="{{ choice.0 }}"  {% if choice.0 == kenyanlocations.default %}selected{% endif %}>
+            {% for choice in locations_kenya.choices %}
+              <option value="{{ choice.0 }}"  {% if choice.0 == locations_kenya.default %}selected{% endif %}>
                 {{ choice.1 }}
               </option>
             {% endfor %}
@@ -60,8 +60,8 @@
         <div class="custom-input-group">
           <span class="right-icon"><i class="fa fa-angle-down"></i></span>
           <select name="nigeria_user_location" placeholder="Ikeja.Lagos">
-            {% for choice in nigerianlocations.choices %}
-              <option value="{{ choice.0 }}" {% if choice.0 == nigerianlocations.default %}selected{% endif %} >
+            {% for choice in locations_nigeria.choices %}
+              <option value="{{ choice.0 }}" {% if choice.0 == locations_nigeria.default %}selected{% endif %} >
                 {{ choice.1 }}
               </option>
             {% endfor %}

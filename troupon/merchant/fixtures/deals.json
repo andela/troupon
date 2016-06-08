@@ -19,7 +19,6 @@
   },
   {
     "fields": {
-        "user_state": 25,
         "occupation": "Software Developer",
         "phonenumber": "0713625155",
         "intlnumber": "+254713625155",
@@ -45,7 +44,6 @@
         "name": "BlackTree Developers",
         "slug": "blacktree-developers",
         "address": "Amity",
-        "state": 25,
         "telephone": "0713625155",
         "email": "amos.omondi@andela.com"
     },
@@ -71,7 +69,6 @@
         "description": "Very fine Kenyan coffee. Unleash your inner guru with this blend and brew.",
         "slug": "fine-kenyan-coffee-beans-2016-04-05",
         "title": "Fine Kenyan Coffee Beans",
-        "state": 25,
         "address": "Amity",
         "currency": 2,
         "image": "image/upload/v1459843663/fqm3m6ui2fxtiztxxjsw.jpg",

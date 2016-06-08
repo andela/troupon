@@ -15,7 +15,6 @@ COUNTRY_CHOICES = [(1, 'Nigeria'), (2, 'Kenya')]
 
 # States in Nigeria
 NIGERIAN_LOCATIONS = [
-    (0, 'None'),
     (1, 'Abia'), (2, 'Abuja FCT'), (3, 'Adamawa'),
     (4, 'Akwa Ibom'), (5, 'Anambra'), (6, 'Bauchi'),
     (7, 'Bayelsa'), (8, 'Benue'), (9, 'Borno'),
@@ -33,24 +32,25 @@ NIGERIAN_LOCATIONS = [
 
 # Counties in Kenya
 KENYAN_LOCATIONS = [
-    (0, 'None'),
-    (1, 'Mombasa'), (2, 'Kwale'), (3, 'Kilifi'),
-    (4, 'Tana River'), (5, 'Lamu'), (6, 'Taita-Taveta'),
-    (7, 'Garissa'), (8, 'Wajir'), (9, 'Mandera'),
-    (10, 'Marsabit'), (11, 'Isiolo'), (12, 'Meru'),
-    (13, 'Tharaka-Nithi'), (14, 'Embu'), (15, 'Kitui'),
-    (16, 'Machakos'), (17, 'Makueni'), (18, 'Nyandarua'),
-    (19, 'Nyeri'), (20, 'Kirinyaga'), (21, "Murang'a"),
-    (22, 'Kiambu'), (23, 'Turkana'), (24, 'West Pokot'),
-    (25, 'Samburu'), (26, 'Trans-Nzoia'), (27, 'Uasin Gishu'),
-    (28, 'Elgeyo-Marakwet'), (29, 'Nandi'), (30, 'Baringo'),
-    (31, 'Laikipia'), (32, 'Nakuru'), (33, 'Narok'),
-    (34, 'Kajiado'), (35, 'Kericho'), (36, 'Bomet'),
-    (37, 'Kakamega'), (38, 'Vihiga'), (39, 'Bungoma'), (40, 'Busia'),
-    (41, 'Siaya'), (42, 'Kisumu'), (43, 'Homa Bay'),
-    (44, 'Migori'), (45, 'Kisii'), (46, 'Nyamira'),
-    (47, 'Nairobi')
+    (38, 'Mombasa'), (39, 'Kwale'), (40, 'Kilifi'),
+    (41, 'Tana River'), (42, 'Lamu'), (43, 'Taita-Taveta'),
+    (44, 'Garissa'), (45, 'Wajir'), (46, 'Mandera'),
+    (47, 'Marsabit'), (48, 'Isiolo'), (49, 'Meru'),
+    (50, 'Tharaka-Nithi'), (51, 'Embu'), (52, 'Kitui'),
+    (53, 'Machakos'), (54, 'Makueni'), (55, 'Nyandarua'),
+    (56, 'Nyeri'), (57, 'Kirinyaga'), (58, "Murang'a"),
+    (59, 'Kiambu'), (60, 'Turkana'), (61, 'West Pokot'),
+    (62, 'Samburu'), (63, 'Trans-Nzoia'), (64, 'Uasin Gishu'),
+    (65, 'Elgeyo-Marakwet'), (66, 'Nandi'), (67, 'Baringo'),
+    (68, 'Laikipia'), (69, 'Nakuru'), (70, 'Narok'),
+    (71, 'Kajiado'), (72, 'Kericho'), (73, 'Bomet'),
+    (74, 'Kakamega'), (75, 'Vihiga'), (76, 'Bungoma'),
+    (77, 'Busia'), (78, 'Siaya'), (79, 'Kisumu'),
+    (80, 'Homa Bay'), (81, 'Migori'), (82, 'Kisii'),
+    (83, 'Nyamira'), (84, 'Nairobi')
 ]
+
+ALL_LOCATIONS = NIGERIAN_LOCATIONS + KENYAN_LOCATIONS
 
 # Available site-wide currencies
 CURRENCY_CHOICES = [
@@ -59,7 +59,7 @@ CURRENCY_CHOICES = [
     (3, 'KES'),
 ]
 
-# date sorting epochs:
+# Date sorting epochs:
 EPOCH_CHOICES = [
     (1, "1 day"),
     (7, "Last 7 Days"),
@@ -87,11 +87,8 @@ class Deal(models.Model):
     description = models.TextField(blank=True, default='')
     slug = models.SlugField(blank=True, null=False, unique=True)
     title = models.CharField(max_length=100, null=False, blank=False)
-    country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=1)
-    location_nigeria = models.SmallIntegerField(choices=NIGERIAN_LOCATIONS,
-                                                default=0)
-    location_kenya = models.SmallIntegerField(choices=KENYAN_LOCATIONS,
-                                              default=0)
+    country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=2)
+    location = models.SmallIntegerField(choices=ALL_LOCATIONS, default=84)
     address = models.CharField(max_length=100, blank=False, default='')
     currency = models.SmallIntegerField(choices=CURRENCY_CHOICES, default=1)
     image = CloudinaryField(
@@ -145,22 +142,13 @@ class Deal(models.Model):
 
     def __str__(self):
         return "{0}, {1}, {2}, {3}, {4}".format(self.id,
-                                      self.title,
-                                      self.advertiser.name,
-                                      self.price,
-                                      self.currency)
+                                                self.title,
+                                                self.advertiser.name,
+                                                self.price,
+                                                self.currency)
 
     def get_absolute_url(self):
         return "/deals/{}/" .format(self.id)
-
-    # def save(self, *args, **kwargs):
-    #     if not self.pk:
-    #         if self.country == 1:
-    #             self.location_kenya = None
-    #         elif self.country == 2:
-    #             self.location_nigeria = None
-    #
-    #     super(Deal, self).save(*args, **kwargs)
 
 
 class ImageMixin(object):
