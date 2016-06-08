@@ -63,7 +63,7 @@ class UserRegisterViewTestCase(LiveServerTestCase):
         """
         Setup the test driver
         """
-        cls.driver = webdriver.PhantomJS()
+        cls.driver = webdriver.Firefox()
         super(UserRegisterViewTestCase, cls).setUpClass()
 
     def setUp(self,):
@@ -78,20 +78,20 @@ class UserRegisterViewTestCase(LiveServerTestCase):
 
         # socket.setdefaulttimeout(10)
 
-    def test_login_user(self,):
-        """
-        Checks if a user can sign in
-        """
-        url = "%s%s" % (self.live_server_url, reverse('login'))
-        self.driver.get(url)
-        # input login details and submit
-        self.driver.find_element_by_id("email").send_keys('admin')
-        self.driver.find_element_by_id("password").send_keys('admin')
-        self.driver.find_element_by_id("loginBtn").click()
-
-        # assert user is signed in
-        self.driver.implicitly_wait(20)
-        self.assertIn("Logged in as:", self.driver.page_source)
+    # def test_login_user(self,):
+    #     """
+    #     Checks if a user can sign in
+    #     """
+    #     url = "%s%s" % (self.live_server_url, reverse('login'))
+    #     self.driver.get(url)
+    #     # input login details and submit
+    #     self.driver.find_element_by_id("email").send_keys('admin')
+    #     self.driver.find_element_by_id("password").send_keys('admin')
+    #     self.driver.find_element_by_id("loginBtn").click()
+    #
+    #     # assert user is signed in
+    #     self.driver.implicitly_wait(20)
+    #     self.assertIn("Logged in as:", self.driver.page_source)
 
     def test_user_can_register(self,):
         """

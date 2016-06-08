@@ -48,7 +48,7 @@ class AuthenticateAddDeal():
         """Creates the test userprofile"""
         user_object = User.objects.all()[:1].get()
         user_profile = UserProfile.objects.create(
-            user=user_object, user_state=25, occupation='Business man', intlnumber='238974')
+            user=user_object, occupation='Business man', intlnumber='238974')
         return user_profile
 
     def create_deal(self):
@@ -57,7 +57,6 @@ class AuthenticateAddDeal():
         price = 200
         original_price = 100
         currency = 2
-        state = 2
         quorum = 0
         disclaimer = 'fdg'
         description = 'This is a phone'
@@ -73,7 +72,7 @@ class AuthenticateAddDeal():
 
         deal = Deal(
             price=price, original_price=original_price, currency=currency,
-            state=state, category=category, quorum=quorum,
+            category=category, quorum=quorum,
             disclaimer=disclaimer, description=description, address=address,
             max_quantity_available=max_quantity_available, date_end=date_end,
             active=active, title=title, advertiser=advertiser,
