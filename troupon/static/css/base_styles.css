@@ -1166,7 +1166,7 @@ body {
     min-height: 32px;
     text-align: center;
   }
-  #header-bar .dropdown .dropdown-menu.nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .nav-menu > li > .label-link, #header-bar .nav-menu > li > a, #header-bar footer .quick-links.nav-menu > li > a {
+  #header-bar .nav-menu > li a, #header-bar .dropdown .dropdown-menu.nav-menu > li > a, #header-bar .nav-menu > li .menu-link, #header-bar .nav-menu > li .label-link, #header-bar .nav-menu > li > a, #header-bar footer .quick-links.nav-menu > li > a {
     font-weight: 500;
     vertical-align: middle;
   }
