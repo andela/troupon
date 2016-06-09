@@ -40,29 +40,23 @@ main > section.row {
   margin: 20px 0px;
 
   @media (max-width: 768px) {
-    // height: 300px;
     margin-top: -20px;
     margin-bottom: 40px;
   }
 }
 
 .image-wrapper {
+  margin: 20px 0;
   width: 100%;
-  margin: 20px 0px;
 
   @media (max-width: 768px) {
-    // height: 300px;
-    margin-top: -20px;
     margin-bottom: 40px;
+    margin-top: -20px;
   }
 }
 
 
 // deal details:
-
-.image-wrapper {
-  //height: 410px;
-}
 
 .deals-specs {
   margin: 20px 0px;

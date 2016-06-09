@@ -153,10 +153,10 @@ Other components.
     z-index: 99;
 
     .btn-action {
-      height: 3.5em;
-      width: 6em;
-      min-width: 45%;
       font-size: 0.9em;
+      height: 3.5em;
+      min-width: 45%;
+      width: 6em;
     }
   }
 
@@ -182,6 +182,11 @@ Other components.
   .row > [class *='col-'] {
     @include contents-v-middle(60px);
   }
+  .row {
+    deal-detail h1 {
+      position: relative;
+    }
+  }
   .title, .custom-input-group {
     margin: 0px;
   }
@@ -198,9 +203,6 @@ Other components.
       margin: 0px;
     }
   }
-}
-.section-heading.row.deal-detail h1 {
-  position: relative;
 }
 
 .deal-detail p {

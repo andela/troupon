@@ -89,8 +89,8 @@ body {
 
   .nav-menu, .member-options, .auth-options {
     @include unstyled-h-list-mixin;
-     right: 0;
-     
+    right: 0;
+
     & > li > a {
       @extend .menu-link;
       padding: 15px;
@@ -120,8 +120,8 @@ body {
         text-align: center;
 
         & > a {
-          vertical-align: middle;
           font-weight: 500;
+          vertical-align: middle;
         }
       }
     }
@@ -485,7 +485,7 @@ footer {
 }
 
 .section-heading .row {
-  & > [class*='col-'] {
+  [class*='col-'] {
     & > h1 {
       position: relative;
       top: 50%;
