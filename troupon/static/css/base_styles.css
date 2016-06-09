@@ -510,10 +510,6 @@ Other components.
           transform: translateY(-50%);
 }
 
-.section-heading .row > [class*='col-'] deal-detail h1 {
-  position: relative;
-}
-
 .section-heading .title, .section-heading .custom-input-group {
   margin: 0px;
 }
@@ -530,6 +526,10 @@ Other components.
   .section-heading .title, .section-heading .custom-input-group {
     margin: 0px;
   }
+}
+
+deal-detail h1 {
+  position: relative;
 }
 
 .deal-detail p {
