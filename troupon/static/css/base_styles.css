@@ -1148,7 +1148,7 @@ body {
   height: 23px;
 }
 
-#header-bar .nav-menu > .divider, #header-bar .dropdown .dropdown-menu .nav-menu > .divider, #header-bar .member-options > .divider, #header-bar .dropdown .dropdown-menu .member-options > .divider, #header-bar .auth-options > .divider, #header-bar .dropdown .dropdown-menu .auth-options > .divider {
+#header-bar .nav-menu .divider, #header-bar .member-options .divider, #header-bar .auth-options .divider {
   display: none;
 }
 
