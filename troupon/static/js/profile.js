@@ -52,4 +52,19 @@ $(document).ready(function() {
             button.removeAttr('disabled');
     });
 
+    $('#user-country').on('change', function(event){
+        var country = $(this).val();
+
+        if(country == 0) {
+            $('#nigerian-locations').addClass('hidden');
+            $('#kenyan-locations').addClass('hidden');
+        } else if(country == 1) {
+            $('#nigerian-locations').removeClass("hidden");
+            $('#kenyan-locations').addClass('hidden');
+        } else if(country == 2) {
+            $('#kenyan-locations').removeClass("hidden");
+            $('#nigerian-locations').addClass("hidden");
+        }
+    });
+
 });

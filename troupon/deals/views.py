@@ -104,12 +104,15 @@ class FilteredDealsView(DealListBaseView):
         elif filter_type == 'city':
             try:
                 location = [location for location in ALL_LOCATIONS
-                            if slugify(location[1]) == "akwa-ibom"]
+                            if slugify(location[1]) == filter_slug][0]
             except:
                 raise Http404('Not found')
-            self.title = self.city_title_format.format(location[0][1])
 
-            queryset = queryset.filter(location=location[0][0])
+            self.title = self.city_title_format\
+                             .format(location[1])
+            self.description = self.city_description_format\
+                                   .format(location[1])
+            queryset = queryset.filter(location=location[0])
         else:
             raise SuspiciousOperation('Invalid request')
 

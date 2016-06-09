@@ -135,20 +135,17 @@ class CreateDealView(MerchantMixin, TemplateView):
 
     def post(self, request, **kwargs):
         """Create a deal."""
-
         price = request.POST.get('price')
         original_price = request.POST.get('original_price')
         currency = request.POST.get('currency')
         country = int(request.POST.get('user_country'))
-        location_kenya = 0
-        location_nigeria = 0
 
         if country == 1:
-            location_nigeria = int(request.POST.get('nigeria_user_location'))
+            location = int(request.POST.get('nigeria_user_location'))
         elif country == 2:
-            location_kenya = int(request.POST.get('kenya_user_location'))
+            location = int(request.POST.get('kenya_user_location'))
 
-        quorum = request.POST.get('quorum')
+        quorum = request.POST.get('quorum') or 0
         disclaimer = request.POST.get('disclaimer')
         description = request.POST.get('description')
         title = request.POST.get('title')
@@ -181,8 +178,7 @@ class CreateDealView(MerchantMixin, TemplateView):
 
         deal = Deal(
             price=price, original_price=original_price, currency=currency,
-            country=country, location_kenya=location_kenya,
-            location_nigeria=location_nigeria, category=category,
+            country=country, location=location, category=category,
             quorum=quorum, disclaimer=disclaimer, description=description,
             address=address, max_quantity_available=max_quantity_available,
             date_end=date_end, active=active, image=image, title=title,
