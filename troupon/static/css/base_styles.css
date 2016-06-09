@@ -510,7 +510,7 @@ Other components.
           transform: translateY(-50%);
 }
 
-.section-heading .row deal-detail h1 {
+.section-heading .row > [class*='col-'] deal-detail h1 {
   position: relative;
 }
 
@@ -1573,7 +1573,7 @@ footer .copyright p {
   margin-bottom: 20px;
 }
 
-.section-heading .row [class*='col-'] > h1 {
+.section-heading .row [class*='col-'] h1 {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);

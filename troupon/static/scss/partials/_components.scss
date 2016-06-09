@@ -179,20 +179,23 @@ Other components.
   .row, [class *='col-'] {
     padding: 0px;
   }
+
   .row > [class *='col-'] {
     @include contents-v-middle(60px);
-  }
-  .row {
+
     deal-detail h1 {
       position: relative;
     }
   }
+
   .title, .custom-input-group {
     margin: 0px;
   }
+
   .custom-input-group {
     margin-top: -10px;
   }
+  
   .description {
     margin-top: 10px;
     // color: color(accent);
