@@ -109,12 +109,12 @@ body {
     width: 100%;
 
     @media (max-width: 768px) {
-      & > .divider {
+      .divider {
         display: block;
         min-height: 1px;
       }
 
-      & > li {
+      li {
         display: block;
         min-height: 32px;
         text-align: center;

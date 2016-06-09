@@ -1157,16 +1157,16 @@ body {
 }
 
 @media (max-width: 768px) {
-  #header-bar .nav-menu > .divider, #header-bar .dropdown .dropdown-menu .nav-menu > .divider {
+  #header-bar .nav-menu .divider {
     display: block;
     min-height: 1px;
   }
-  #header-bar .nav-menu > li {
+  #header-bar .nav-menu li {
     display: block;
     min-height: 32px;
     text-align: center;
   }
-  #header-bar .nav-menu > li a, #header-bar .dropdown .dropdown-menu.nav-menu > li > a, #header-bar .nav-menu > li .menu-link, #header-bar .nav-menu > li .label-link, #header-bar .nav-menu > li > a, #header-bar footer .quick-links.nav-menu > li > a {
+  #header-bar .nav-menu li a, #header-bar .nav-menu li .menu-link, #header-bar .nav-menu li .label-link {
     font-weight: 500;
     vertical-align: middle;
   }
