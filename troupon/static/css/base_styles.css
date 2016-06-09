@@ -473,6 +473,13 @@ Other components.
   z-index: 99;
 }
 
+.card .overlay .btn-action {
+  height: 3.5em;
+  width: 6em;
+  min-width: 45%;
+  font-size: 0.9em;
+}
+
 .card:hover .overlay {
   opacity: 1;
   -webkit-transition: opacity 0.3s;
