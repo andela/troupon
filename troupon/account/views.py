@@ -13,8 +13,7 @@ from django.conf import settings
 from django.utils.text import slugify
 
 from authentication.views import LoginRequiredMixin
-from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS
-from deals.models import Advertiser
+from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
 from account.forms import UserProfileForm
 from account.models import UserProfile
 from merchant.models import Merchant

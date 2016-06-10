@@ -32,7 +32,7 @@ NIGERIAN_LOCATIONS = [
 
 # Counties in Kenya
 KENYAN_LOCATIONS = [
-    (0, 'Mombasa'), (38, 'Mombasa'), (39, 'Kwale'), (40, 'Kilifi'),
+    (38, 'Mombasa'), (39, 'Kwale'), (40, 'Kilifi'),
     (41, 'Tana River'), (42, 'Lamu'), (43, 'Taita-Taveta'),
     (44, 'Garissa'), (45, 'Wajir'), (46, 'Mandera'),
     (47, 'Marsabit'), (48, 'Isiolo'), (49, 'Meru'),

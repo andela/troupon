@@ -41,14 +41,16 @@ class AuthenticateAddDeal():
     def create_merchant(self):
         """Creates the test merchant"""
         merchant = Merchant.objects.create(
-            userprofile=self.create_user_profile(), intlnumber='238974', enabled=True, approved=True, trusted=True)
+            userprofile=self.create_user_profile(), intlnumber='238974',
+            enabled=True, approved=True, trusted=True)
         return merchant
 
     def create_user_profile(self):
         """Creates the test userprofile"""
         user_object = User.objects.all()[:1].get()
         user_profile = UserProfile.objects.create(
-            user=user_object, occupation='Business man', intlnumber='238974')
+            user=user_object, country=2, location=84,
+            occupation='Business man', intlnumber='238974')
         return user_profile
 
     def create_deal(self):
@@ -58,6 +60,8 @@ class AuthenticateAddDeal():
         original_price = 100
         currency = 2
         quorum = 0
+        country = 2,
+        location = 84,
         disclaimer = 'fdg'
         description = 'This is a phone'
         title = 'Phone'
@@ -72,11 +76,11 @@ class AuthenticateAddDeal():
 
         deal = Deal(
             price=price, original_price=original_price, currency=currency,
-            category=category, quorum=quorum,
-            disclaimer=disclaimer, description=description, address=address,
-            max_quantity_available=max_quantity_available, date_end=date_end,
-            active=active, title=title, advertiser=advertiser,
-            duration=20
+            category=category, quorum=quorum, country=country,
+            location=location, disclaimer=disclaimer, description=description,
+            address=address, max_quantity_available=max_quantity_available,
+            date_end=date_end, active=active, title=title,
+            advertiser=advertiser, duration=20
         )
 
         deal.save()

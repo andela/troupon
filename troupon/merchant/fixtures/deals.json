@@ -20,6 +20,8 @@
   {
     "fields": {
         "occupation": "Software Developer",
+        "country": 1,
+        "location": 25,
         "phonenumber": "0713625155",
         "intlnumber": "+254713625155",
         "user_id": 2
@@ -70,6 +72,8 @@
         "slug": "fine-kenyan-coffee-beans-2016-04-05",
         "title": "Fine Kenyan Coffee Beans",
         "address": "Amity",
+        "country": 1,
+        "location": 25,
         "currency": 2,
         "image": "image/upload/v1459843663/fqm3m6ui2fxtiztxxjsw.jpg",
         "active": true,

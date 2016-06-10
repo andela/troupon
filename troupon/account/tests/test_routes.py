@@ -22,6 +22,7 @@ class UserProfileMerchantTestCase(TestCase):
         self.userprofile = UserProfile.objects.create(
             user=self.user,
             country=2,
+            location=84,
             occupation='Developer',
             phonenumber='08020202020',
             intlnumber='+12334567789'
@@ -29,6 +30,8 @@ class UserProfileMerchantTestCase(TestCase):
 
         self.merchant = Merchant.objects.create(
             name='yourname',
+            country=2,
+            location=84,
             telephone='12345678901',
             intlnumber='+2342345678901',
             email='youremail',

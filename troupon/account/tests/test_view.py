@@ -24,6 +24,7 @@ class TestMerchantView(UserProfileMerchantTestCase):
         data = {
             'name': 'yourname',
             'country': 2,
+            'location': 84,
             'telephone': '12345678901',
             'intlnumber': '+2342345678901',
             'email': 'youremail',
