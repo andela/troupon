@@ -204,12 +204,14 @@ Other components.
   }
 }
 
-deal-detail h1 {
-  position: relative;
-}
+deal-detail {
+  h1 {
+    position: relative;
+  }
 
-.deal-detail p {
-  margin-top: 50px;
+  p {
+    margin-top: 50px;
+  }
 }
 
 .flickity-gallery {
