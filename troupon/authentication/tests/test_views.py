@@ -7,16 +7,31 @@ from django.contrib.auth.models import User
 
 from authentication.emails import SendGrid
 
+xpath_submit_btn = "//button[contains(@type,'submit')]"
 
-class UserLoginViewTestCase(TestCase):
+
+class UserLoginViewTestCase(LiveServerTestCase):
     """
     Test that post and get requests to login routes is successful
     """
+    @classmethod
+    def setUpClass(cls):
+        """
+        Setup the test driver
+        """
+        cls.driver = webdriver.PhantomJS()
+        super(UserLoginViewTestCase, cls).setUpClass()
+
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user('johndoe',
                                              'johndoe@gmail.com',
                                              '12345')
+        User.objects.create_superuser(
+            'admin', 'admin@example.com', 'admin'
+        )
+        self.driver = UserLoginViewTestCase.driver
+        super(UserLoginViewTestCase, self).setUp()
 
     def test_view_get_auth_login(self):
         """
@@ -33,6 +48,33 @@ class UserLoginViewTestCase(TestCase):
         data = {'username': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/login/', data)
         self.assertEquals(response.status_code, 302)
+
+    def test_login_user(self,):
+        """
+        E2E tests that checks if a user can sign in
+        """
+        url = "%s%s" % (self.live_server_url, reverse('login'))
+        self.driver.get(url)
+        # input login details and submit
+        self.driver.find_element_by_id("email").send_keys('admin')
+        self.driver.find_element_by_id("password").send_keys('admin')
+        self.driver.find_element_by_id("loginBtn").click()
+
+        # assert user is signed in
+        self.driver.implicitly_wait(20)
+        self.assertIn("Logged in as:", self.driver.page_source)
+        self.assertIn("admin", self.driver.page_source)
+
+    def tearDown(self,):
+        """
+        Close the browser window
+        """
+        super(UserLoginViewTestCase, self).tearDown()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super(UserLoginViewTestCase, cls).tearDownClass()
 
 
 class UserLogoutViewTestCase(TestCase):
@@ -78,22 +120,7 @@ class UserRegisterViewTestCase(LiveServerTestCase):
 
         # socket.setdefaulttimeout(10)
 
-    def test_login_user(self,):
-        """
-        Checks if a user can sign in
-        """
-        url = "%s%s" % (self.live_server_url, reverse('login'))
-        self.driver.get(url)
-        # input login details and submit
-        self.driver.find_element_by_id("email").send_keys('admin')
-        self.driver.find_element_by_id("password").send_keys('admin')
-        self.driver.find_element_by_id("loginBtn").click()
-
-        # assert user is signed in
-        self.driver.implicitly_wait(20)
-        self.assertIn("Logged in as:", self.driver.page_source)
-
-    def test_user_can_register(self,):
+    def test_user_can_choose_to_register_from_login(self,):
         """
         Checks if user can register on login page
         """
@@ -101,6 +128,22 @@ class UserRegisterViewTestCase(LiveServerTestCase):
         self.driver.get(url)
         self.driver.find_element_by_id("user_register_link").click()
         self.assertIn("Log in", self.driver.page_source)
+
+    def test_user_can_register(self,):
+        """
+        Checks if user can register
+        """
+        url = "%s%s" % (self.live_server_url, reverse('register'))
+        self.driver.get(url)
+        self.driver.find_element_by_id("email").send_keys('test@andela.com')
+        self.driver.find_element_by_id("username").send_keys('test_user')
+        self.driver.find_element_by_id("password1").send_keys('master')
+        self.driver.find_element_by_id("password2").send_keys('master')
+        self.driver.find_element_by_xpath(xpath_submit_btn).click()
+
+        # assert mail was sent
+        self.driver.implicitly_wait(20)
+        self.assertIn("Activation mail sent!", self.driver.page_source)
 
     def tearDown(self,):
         """
