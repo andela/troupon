@@ -127,9 +127,9 @@ body {
     margin-top: 20px;
 
     .nav-menu {
-      background-color: #c0c0c0;
+      background-color: color(nav-bg);
       width: 35%;
-      
+
       li {
         display: block;
         min-height: 32px;
@@ -460,7 +460,7 @@ footer {
 }
 
 @media(max-width: 360px) {
-  .space-bottom { 
+  .space-bottom {
     margin-bottom: 30px;
   }
   .subview-wrapper {
