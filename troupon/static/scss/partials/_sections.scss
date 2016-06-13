@@ -105,28 +105,6 @@ body {
     }
   }
 
-  .nav-menu {
-    width: 100%;
-
-    @media (max-width: 768px) {
-      .divider {
-        display: block;
-        min-height: 1px;
-      }
-
-      li {
-        display: block;
-        min-height: 32px;
-        text-align: center;
-
-        a {
-          font-weight: 500;
-          vertical-align: middle;
-        }
-      }
-    }
-  }
-
   .member-options {
     z-index: z-index(dropdown);
     .user-info, .dropdown-header {
@@ -147,6 +125,22 @@ body {
 
   @media (max-width: 768px) {
     margin-top: 20px;
+
+    .nav-menu {
+      background-color: #c0c0c0;
+      width: 35%;
+      
+      li {
+        display: block;
+        min-height: 32px;
+        text-align: left;
+      }
+
+      a {
+        font-weight: 500;
+        vertical-align: middle;
+      }
+    }
   }
 }
 
@@ -459,19 +453,19 @@ footer {
 }
 
 @media(max-width: 768px) {
-.space-bottom {
+  .space-bottom {
     margin-bottom: 30px;
     float: right;
   }
 }
 
 @media(max-width: 360px) {
-.space-bottom { 
+  .space-bottom { 
     margin-bottom: 30px;
   }
-.subview-wrapper {
+  .subview-wrapper {
     padding-left: 0px;
-}
+  }
 }
 
 @media(max-width: 980px) {

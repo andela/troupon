@@ -1152,26 +1152,6 @@ body {
   display: none;
 }
 
-#header-bar .nav-menu {
-  width: 100%;
-}
-
-@media (max-width: 768px) {
-  #header-bar .nav-menu .divider {
-    display: block;
-    min-height: 1px;
-  }
-  #header-bar .nav-menu li {
-    display: block;
-    min-height: 32px;
-    text-align: center;
-  }
-  #header-bar .nav-menu li a, #header-bar .nav-menu li .menu-link, #header-bar .nav-menu li .label-link {
-    font-weight: 500;
-    vertical-align: middle;
-  }
-}
-
 #header-bar .member-options {
   z-index: 10000;
 }
@@ -1191,6 +1171,19 @@ body {
 @media (max-width: 768px) {
   #header-bar {
     margin-top: 20px;
+  }
+  #header-bar .nav-menu {
+    background-color: #c0c0c0;
+    width: 35%;
+  }
+  #header-bar .nav-menu li {
+    display: block;
+    min-height: 32px;
+    text-align: left;
+  }
+  #header-bar .nav-menu a, #header-bar .nav-menu .menu-link, #header-bar .nav-menu .label-link, #header-bar .nav-menu .auth-options > li > a, #header-bar .nav-menu > li > a, #header-bar .nav-menu .member-options > li > a {
+    font-weight: 500;
+    vertical-align: middle;
   }
 }
 
