@@ -79,7 +79,8 @@ class PaymentProcessView(View):
                         title=item.product.title,
                         description=item.product.description,
                         stripe_transaction_id=charge.id,
-                        stripe_transaction_status=charge.status
+                        stripe_transaction_status=charge.status,
+                        user=request.user
                     )
 
                     item_details.save()
