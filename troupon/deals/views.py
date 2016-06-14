@@ -83,6 +83,8 @@ class FilteredDealsView(DealListBaseView):
         filter_slug = self.kwargs.get('filter_slug')
         queryset = self.queryset
 
+        print filter_slug
+
         if filter_type == 'category':
             category = get_object_or_404(Category, slug=filter_slug)
             self.title = self.category_title_format\

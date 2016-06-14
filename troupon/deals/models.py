@@ -1,21 +1,22 @@
 from datetime import date
 from random import randint
+import re
+
+from cloudinary.models import CloudinaryField
 from django.db import models
 from django.core import signals
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.utils import timezone
 from django.db.models.signals import pre_save
-from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
-import re
 
 # Country Choices
 COUNTRY_CHOICES = [(1, 'Nigeria'), (2, 'Kenya')]
 
 # States in Nigeria
 NIGERIAN_LOCATIONS = [
-    (1, 'Abia'), (2, 'Abuja FCT'), (3, 'Adamawa'),
+    (1, 'Abia'), (2, 'Abuja'), (3, 'Adamawa'),
     (4, 'Akwa Ibom'), (5, 'Anambra'), (6, 'Bauchi'),
     (7, 'Bayelsa'), (8, 'Benue'), (9, 'Borno'),
     (10, 'Cross River'), (11, 'Delta'), (12, 'Ebonyi'),
