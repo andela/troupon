@@ -390,7 +390,10 @@ class UserRegistrationView(View):
             # compose the email
             activation_email_context = RequestContext(
                 request,
-                {'activation_hash_url': activation_hash_url},
+                {'activation_hash_url': activation_hash_url,
+                 'username': new_user.username,
+                },
+
             )
             activation_email = SendGrid.compose(
                 sender='Troupon <Noreplytroupon@andela.com>',
