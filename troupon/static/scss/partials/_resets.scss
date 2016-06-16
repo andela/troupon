@@ -57,8 +57,23 @@ ul, ol {
       padding: 5px 20px;
     }
 
+    @media (max-width: 480px) {
+      width: 18em;
+    }
+
     .divider {
       @extend .divider;
     }
   }
+}
+
+.dropdown-header {
+  p {
+    white-space: normal;
+  }
+}
+
+//overide bootstrap navbar
+.navbar-collapse.in {
+  overflow-y: visible;
 }

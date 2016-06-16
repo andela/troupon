@@ -12,7 +12,7 @@ var sassOptions = {
 //compile sass
 gulp.task('sass-compile', function () {
   return gulp
-    .src(input)
+    .src(input) 
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(gulp.dest(output));
