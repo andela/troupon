@@ -17,6 +17,7 @@ test:
     - coverage run --source deals,account troupon/manage.py test troupon --noinput --settings=troupon.settings.test -s
     - COVERALLS_REPO_TOKEN=2Z9aK9OBdV2wRdK1Ns5XJakMxmCSIZaDa coveralls
 
+
 deployment:
   staging:
     branch: develop
