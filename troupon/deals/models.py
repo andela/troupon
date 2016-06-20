@@ -1,18 +1,22 @@
 from datetime import date
 from random import randint
+import re
+
+from cloudinary.models import CloudinaryField
 from django.db import models
 from django.core import signals
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.utils import timezone
 from django.db.models.signals import pre_save
-from cloudinary.models import CloudinaryField
 from troupon.settings.base import SITE_IMAGES
-import re
+
+# Country Choices
+COUNTRY_CHOICES = [(1, 'Nigeria'), (2, 'Kenya')]
 
 # States in Nigeria
-STATE_CHOICES = [
-    (1, 'Abia'), (2, 'Abuja FCT'), (3, 'Adamawa'),
+NIGERIAN_LOCATIONS = [
+    (1, 'Abia'), (2, 'Abuja'), (3, 'Adamawa'),
     (4, 'Akwa Ibom'), (5, 'Anambra'), (6, 'Bauchi'),
     (7, 'Bayelsa'), (8, 'Benue'), (9, 'Borno'),
     (10, 'Cross River'), (11, 'Delta'), (12, 'Ebonyi'),
@@ -27,13 +31,36 @@ STATE_CHOICES = [
     (37, 'Zamfara'),
 ]
 
+# Counties in Kenya
+KENYAN_LOCATIONS = [
+    (38, 'Mombasa'), (39, 'Kwale'), (40, 'Kilifi'),
+    (41, 'Tana River'), (42, 'Lamu'), (43, 'Taita-Taveta'),
+    (44, 'Garissa'), (45, 'Wajir'), (46, 'Mandera'),
+    (47, 'Marsabit'), (48, 'Isiolo'), (49, 'Meru'),
+    (50, 'Tharaka-Nithi'), (51, 'Embu'), (52, 'Kitui'),
+    (53, 'Machakos'), (54, 'Makueni'), (55, 'Nyandarua'),
+    (56, 'Nyeri'), (57, 'Kirinyaga'), (58, "Murang'a"),
+    (59, 'Kiambu'), (60, 'Turkana'), (61, 'West Pokot'),
+    (62, 'Samburu'), (63, 'Trans-Nzoia'), (64, 'Uasin Gishu'),
+    (65, 'Elgeyo-Marakwet'), (66, 'Nandi'), (67, 'Baringo'),
+    (68, 'Laikipia'), (69, 'Nakuru'), (70, 'Narok'),
+    (71, 'Kajiado'), (72, 'Kericho'), (73, 'Bomet'),
+    (74, 'Kakamega'), (75, 'Vihiga'), (76, 'Bungoma'),
+    (77, 'Busia'), (78, 'Siaya'), (79, 'Kisumu'),
+    (80, 'Homa Bay'), (81, 'Migori'), (82, 'Kisii'),
+    (83, 'Nyamira'), (84, 'Nairobi')
+]
+
+ALL_LOCATIONS = NIGERIAN_LOCATIONS + KENYAN_LOCATIONS
+
 # Available site-wide currencies
 CURRENCY_CHOICES = [
     (1, 'N'),
     (2, '$'),
+    (3, 'KES'),
 ]
 
-# date sorting epochs:
+# Date sorting epochs:
 EPOCH_CHOICES = [
     (1, "1 day"),
     (7, "Last 7 Days"),
@@ -61,7 +88,8 @@ class Deal(models.Model):
     description = models.TextField(blank=True, default='')
     slug = models.SlugField(blank=True, null=False, unique=True)
     title = models.CharField(max_length=100, null=False, blank=False)
-    state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
+    country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=2)
+    location = models.SmallIntegerField(choices=ALL_LOCATIONS, default=84)
     address = models.CharField(max_length=100, blank=False, default='')
     currency = models.SmallIntegerField(choices=CURRENCY_CHOICES, default=1)
     image = CloudinaryField(
@@ -93,7 +121,10 @@ class Deal(models.Model):
     def state_name(self):
         """Returns the state name
         """
-        return dict(STATE_CHOICES).get(self.state)
+        if self.country == 1:
+            return dict(NIGERIAN_LOCATIONS).get(self.state)
+        else:
+            return dict(KENYAN_LOCATIONS).get(self.state)
 
     def slideshow_image_url(self):
         """Returns a slide image URL
@@ -112,10 +143,10 @@ class Deal(models.Model):
 
     def __str__(self):
         return "{0}, {1}, {2}, {3}, {4}".format(self.id,
-                                      self.title,
-                                      self.advertiser.name,
-                                      self.price,
-                                      self.currency)
+                                                self.title,
+                                                self.advertiser.name,
+                                                self.price,
+                                                self.currency)
 
     def get_absolute_url(self):
         return "/deals/{}/" .format(self.id)
@@ -147,7 +178,11 @@ class Advertiser(ImageMixin, models.Model):
     )
     slug = models.SlugField(blank=True)
     address = models.CharField(max_length=200, default='')
-    state = models.SmallIntegerField(choices=STATE_CHOICES, default=25)
+    country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=2)
+    if country == 1:
+        location = models.SmallIntegerField(choices=NIGERIAN_LOCATIONS, default=25)
+    else:
+        location = models.SmallIntegerField(choices=KENYAN_LOCATIONS, default=47)
     telephone = models.CharField(max_length=60, default='')
     email = models.EmailField(default='')
 

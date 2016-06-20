@@ -1,11 +1,14 @@
 """Import Statements."""
 import unittest
-from merchant.models import Merchant
-from account.models import UserProfile
+
 from django.contrib.auth.models import User
-from deals.models import Advertiser, Category, Deal
 from django.test import LiveServerTestCase
 from selenium import webdriver
+
+from account.models import UserProfile
+from deals.models import Advertiser, Category, Deal
+from merchant.models import Merchant
+
 TEST_USER_EMAIL = 'testuser@email.com'
 TEST_USER_PASSWORD = 'testpassword'
 
@@ -41,43 +44,47 @@ class AuthenticateAddDeal():
     def create_merchant(self):
         """Creates the test merchant"""
         merchant = Merchant.objects.create(
-            userprofile=self.create_user_profile(), intlnumber='238974', enabled=True, approved=True, trusted=True)
+            userprofile=self.create_user_profile(), intlnumber='238974',
+            enabled=True, approved=True, trusted=True)
         return merchant
 
     def create_user_profile(self):
         """Creates the test userprofile"""
         user_object = User.objects.all()[:1].get()
         user_profile = UserProfile.objects.create(
-            user=user_object, user_state=25, occupation='Business man', intlnumber='238974')
+            user=user_object, country=2, location=84,
+            occupation='Business man', intlnumber='238974')
         return user_profile
 
     def create_deal(self):
-        """Creates the test deal"""
+        """Create the test deal"""
         merchant = self.create_merchant()
-        price = 200
-        original_price = 100
-        currency = 2
-        state = 2
+        price = 5000
+        original_price = 6000
+        currency = 1
+        country = 2
+        location = 84
         quorum = 0
-        disclaimer = 'fdg'
-        description = 'This is a phone'
-        title = 'Phone'
-        address = '3820-00100'
+        disclaimer = ''
+        description = 'Holiday for two to the luxurious Masai Mara.'
+        title = 'Masai Mara Holiday'
+        address = 'Masai Mara'
         max_quantity_available = 20
         active = True
         advertiser_id = merchant.advertiser_ptr.id
-        date_end = "2015-03-03"
+        date_end = "2020-09-09"
 
-        category = Category.objects.create(name="Electronics", slug="stuff")
+        category = Category.objects.create(name="Travel N Hotels",
+                                           slug="masai-mara-holiday")
         advertiser = Advertiser.objects.get(id=advertiser_id)
 
         deal = Deal(
             price=price, original_price=original_price, currency=currency,
-            state=state, category=category, quorum=quorum,
-            disclaimer=disclaimer, description=description, address=address,
-            max_quantity_available=max_quantity_available, date_end=date_end,
-            active=active, title=title, advertiser=advertiser,
-            duration=20
+            country=country, location=location, category=category,
+            quorum=quorum, disclaimer=disclaimer, description=description,
+            address=address, max_quantity_available=max_quantity_available,
+            date_end=date_end, active=active, title=title,
+            advertiser=advertiser, duration=20
         )
 
         deal.save()

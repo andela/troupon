@@ -390,6 +390,10 @@ Forms Controls
   text-transform: uppercase;
 }
 
+.hidden {
+  display: none;
+}
+
 .label-asterik {
   color: #E67E22;
   font-size: 16px;
