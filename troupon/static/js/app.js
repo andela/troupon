@@ -180,8 +180,8 @@ $(document).ready(function() {
 
     var $dateFilterSelect = $('.section-heading .date-filter-select');
     $dateFilterSelect.change(function(event){
-        var $queryString = '?dtf=' + event.currentTarget.selectedIndex
-                            + '&pg=1';
+        var $queryString = '?dtf=' + event.currentTarget.selectedIndex +
+            '&pg=1';
         var $path = $(location).attr('pathname');
         $.ajax({url: $path + $queryString, success: 
             function(result) {
