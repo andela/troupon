@@ -180,15 +180,16 @@ $(document).ready(function() {
 
     var $dateFilterSelect = $('.section-heading .date-filter-select');
     $dateFilterSelect.change(function(event){
-        $queryString = '?dtf=' + event.currentTarget.selectedIndex + '&pg=1';
-        $path = $(location).attr('pathname');
-        $.ajax({url: window.location.href + $queryString, success: function(result){
-            $('.description').detach();
-            $('.section-heading').nextAll().detach();
-            $index = result.html.search('<p class="description">');
-            $html = result.html.slice($index, -1);
-            $($html).insertAfter('.section-heading');
-            usePackery();
-        }})
+        var $queryString = '?dtf=' + event.currentTarget.selectedIndex + '&pg=1';
+        var $path = $(location).attr('pathname');
+        $.ajax({url: window.location.href + $queryString, success: 
+            function(result) {
+                $('.description').detach();
+                $('.section-heading').nextAll().detach();
+                var $index = result.html.search('<p class="description">');
+                var $html = result.html.slice($index, -1);
+                $($html).insertAfter('.section-heading');
+                usePackery();
+        }});
     });
 });
