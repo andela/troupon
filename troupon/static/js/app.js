@@ -147,31 +147,48 @@ $(document).ready(function() {
     //----------------------------------------
     
     // initialize Packery on the grids:
-    var $grid = $('.packery-grid');
-
-    $grid.packery({
-
-        'itemSelector': '.grid-item',
-        'columnWidth': '.grid-sizer',
-        'gutter': '.gutter-sizer',
-        'percentPosition': true,
-        'isResizeBound': true
-
-    });
-    // call packery layout everytime an item's image loads:
-    $grid.find('.item-image-wrapper img').load(function() {
-        $grid.packery();
-    });
-
     
+    function usePackery() {
+        var $grid = $('.packery-grid');
+        $grid.packery({
+
+            'itemSelector': '.grid-item',
+            'columnWidth': '.grid-sizer',
+            'gutter': '.gutter-sizer',
+            'percentPosition': true,
+            'isResizeBound': true
+
+        });
+    }
+    usePackery();
+    
+    // call packery layout everytime an item's image loads:
+    $('.packery-grid').find('.item-image-wrapper img').load(function() {
+        usePackery();
+    });
+
+    // call packery layout whenever window is resized:
+    $(window).resize(function() {
+        usePackery();
+    });
+
     //----------------------------------------
     //  Date filters:
     //----------------------------------------
 
+    // send an ajax call to server when date filter selector changes:
+
     var $dateFilterSelect = $('.section-heading .date-filter-select');
     $dateFilterSelect.change(function(event){
-        window.location.search = '?dtf=' + event.currentTarget.selectedIndex + '&pg=1';
+        $queryString = '?dtf=' + event.currentTarget.selectedIndex + '&pg=1';
+        $path = $(location).attr('pathname');
+        $.ajax({url: window.location.href + $queryString, success: function(result){
+            $('.description').detach();
+            $('.section-heading').nextAll().detach();
+            $index = result.html.search('<p class="description">');
+            $html = result.html.slice($index, -1);
+            $($html).insertAfter('.section-heading');
+            usePackery();
+        }})
     });
-
-
 });
