@@ -59,11 +59,11 @@ $(document).ready(function() {
             $('#nigerian-locations').addClass('hidden');
             $('#kenyan-locations').addClass('hidden');
         } else if(country == 1) {
-            $('#nigerian-locations').removeClass("hidden");
+            $('#nigerian-locations').removeClass('hidden');
             $('#kenyan-locations').addClass('hidden');
         } else if(country == 2) {
-            $('#kenyan-locations').removeClass("hidden");
-            $('#nigerian-locations').addClass("hidden");
+            $('#kenyan-locations').removeClass('hidden');
+            $('#nigerian-locations').addClass('hidden');
         }
     });
 
