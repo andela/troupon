@@ -403,8 +403,8 @@ class UserRegistrationView(View):
                     'authentication/activate_account_email.html'
                 ).render(activation_email_context),
                 text=loader.get_template(
-                    'authentication/activate_account_email.txt'
-                ).render(activation_email_context),
+                     'authentication/activate_account_email.txt'
+                 ).render(activation_email_context),
             )
             # send mail to new_user
             activation_status = SendGrid.send(activation_email)
