@@ -71,6 +71,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,7 +82,6 @@ MIDDLEWARE_CLASSES = (
     'middleware.general.SharedContextMiddleware',
     'conversations.middleware.UnreadMessageCount',
     'django_geoip.middleware.LocationMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
 )
 
 ROOT_URLCONF = 'troupon.urls'
@@ -104,6 +104,15 @@ TEMPLATES = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken'
+)
 
 WSGI_APPLICATION = 'troupon.wsgi.application'
 

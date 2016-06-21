@@ -25,7 +25,7 @@
         function showPosition(position) {
             $.ajax({
                 type: "POST",
-                contentType: "application/json; charset=utf-8",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + ',' + position.coords.longitude + '&key=AIzaSyCVSRwHlla02n6Y_sYT9L6CMmbMY3f6QN0',
                 dataType: "json",
                 success: function(data) {
