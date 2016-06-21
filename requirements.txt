@@ -15,6 +15,7 @@ django-appconf==1.0.2
 django-bower==5.0.4
 django-carton==1.2.1
 django-celery==3.1.17
+django-cors-headers==1.1.0
 django-envie==0.0.9
 django-filter==0.13.0
 django-geoip==0.5.2.1
@@ -52,8 +53,6 @@ py==1.4.30
 pycrypto==2.6.1
 PyJWT==1.4.0
 pyotp==2.0.1
-python-geoip==1.2
-python-geoip-geolite2==2015.303
 python-termstyle==0.1.10
 pytz==2015.7
 PyYAML==3.11

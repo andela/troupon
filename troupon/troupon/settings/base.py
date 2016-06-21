@@ -65,7 +65,8 @@ INSTALLED_APPS = (
     'payment',
     'rest_framework',
     'rest_framework_swagger',
-    'django_geoip'
+    'django_geoip',
+    'corsheaders'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,7 +80,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'middleware.general.SharedContextMiddleware',
     'conversations.middleware.UnreadMessageCount',
-    'django_geoip.middleware.LocationMiddleware'
+    'django_geoip.middleware.LocationMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 )
 
 ROOT_URLCONF = 'troupon.urls'
@@ -100,6 +102,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'troupon.wsgi.application'
 
