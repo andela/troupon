@@ -12,8 +12,8 @@ from django.core.context_processors import csrf
 from django.conf import settings
 from django.utils.text import slugify
 
-from account.forms import UserProfileForm
-from account.models import UserProfile
+from accounts.forms import UserProfileForm
+from accounts.models import UserProfile
 from authentication.views import LoginRequiredMixin
 from conversations.models import Message
 from deals.models import Advertiser, STATE_CHOICES
