@@ -1,6 +1,6 @@
 from django.db import models
 from deals.models import Advertiser
-from account.models import UserProfile
+from accounts.models import UserProfile
 from django.contrib.auth.models import User
 from django.db import connection
 import jsonfield

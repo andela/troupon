@@ -53,8 +53,11 @@
                                     <p><a href="{% url 'account_forgot_password' %}">Forgot your password?</a></p>
                                 </div>
                             </div>
-                            <div class="text-center">
-                            <input id="loginBtn" type="submit" class="btn-action btn-form-submit" value="Log in" /></div>
+                            <div class="row" style="margin-left:50px;">
+                                <input id="loginBtn" type="submit" class="btn-action btn-form-submit" value="Log in"/>
+                                or
+                                <a href="/accounts/facebook/login/?process=login" id="loginBtn"class="btn-action btn-form-submit" value="Login with facebook">Login with facebook</a>
+                            </div>
                         </form>
                     </div>
                 </div>
