@@ -1,0 +1,6 @@
+Requirement already satisfied (use --upgrade to upgrade): django-allauth in /Users/penny/projects/troupon/venv/lib/python2.7/site-packages
+Requirement already satisfied (use --upgrade to upgrade): Django>=1.6 in /Users/penny/projects/troupon/venv/lib/python2.7/site-packages (from django-allauth)
+Requirement already satisfied (use --upgrade to upgrade): requests-oauthlib>=0.3.0 in /Users/penny/projects/troupon/venv/lib/python2.7/site-packages (from django-allauth)
+Requirement already satisfied (use --upgrade to upgrade): python-openid>=2.2.5 in /Users/penny/projects/troupon/venv/lib/python2.7/site-packages (from django-allauth)
+Requirement already satisfied (use --upgrade to upgrade): requests>=1.0.3 in /Users/penny/projects/troupon/venv/lib/python2.7/site-packages (from django-allauth)
+Requirement already satisfied (use --upgrade to upgrade): oauthlib>=0.6.2 in /Users/penny/projects/troupon/venv/lib/python2.7/site-packages (from requests-oauthlib>=0.3.0->django-allauth)
