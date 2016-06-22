@@ -2,7 +2,7 @@ from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import User
 
 from merchant.models import Merchant
-from account.models import UserProfile
+from accounts.models import UserProfile
 
 
 class UserProfileMerchantTestCase(TestCase):
