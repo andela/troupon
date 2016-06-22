@@ -24,7 +24,7 @@
         "intlnumber": "+254713625155",
         "user_id": 2
         },
-    "model": "account.userprofile",
+    "model": "accounts.userprofile",
     "pk": 2
   },
   {
