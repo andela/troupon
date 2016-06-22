@@ -201,7 +201,6 @@ Buttons
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  overflow: hidden;
   border: 1px solid;
   height: 55px;
   display: inline-block;

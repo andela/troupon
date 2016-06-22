@@ -55,7 +55,7 @@ INSTALLED_APPS = (
     'allaccess',
     'haystack',
     'whoosh',
-    'account',
+    'accounts',
     'authentication',
     'deals',
     'conversations',
@@ -65,6 +65,11 @@ INSTALLED_APPS = (
     'payment',
     'rest_framework',
     'rest_framework_swagger',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -218,3 +223,13 @@ OTP_SECRET_KEY = os.getenv('OTP_SECRET_KEY')
 BROKER_URL = "amqp://1KSjqqZh:golZT1TcOxAA9yLvCISWzotedCoSvZ5N@white-bartsia-45.bigwig.lshift.net:10097/Mfp0HgAcgl9Q"
 # Troupon's email
 TROUPON_EMAIL = 'noreplytroupon@andela.com'
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/"
