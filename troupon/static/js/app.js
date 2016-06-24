@@ -148,7 +148,7 @@ $(document).ready(function() {
     
     // initialize Packery on the grids:
     
-    function usePackery() {
+    function initDealItemsLayout() {
         var $grid = $('.packery-grid');
         $grid.packery({
 
@@ -160,16 +160,16 @@ $(document).ready(function() {
 
         });
     }
-    usePackery();
+    initDealItemsLayout();
     
     // call packery layout everytime an item's image loads:
     $('.packery-grid').find('.item-image-wrapper img').load(function() {
-        usePackery();
+        initDealItemsLayout();
     });
 
     // call packery layout whenever window is resized:
     $(window).resize(function() {
-        usePackery();
+        initDealItemsLayout();
     });
 
     //----------------------------------------
@@ -190,7 +190,7 @@ $(document).ready(function() {
                 var $index = result.html.search('<p class="description">');
                 var $html = result.html.slice($index, -1);
                 $($html).insertAfter('.section-heading');
-                usePackery();
+                initDealItemsLayout();
         }});
     });
 });
