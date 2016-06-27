@@ -1,4 +1,4 @@
-{% extends 'merchant/dashboard.html' %}
+{% extends "account/profile_base.html" %}
 {% load static %}
 
 {% block subview %}
@@ -19,7 +19,6 @@
                         <th>Title</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Description</th>
                         <th>Transaction ID</th>
                         <th>Transaction Status</th>
                     </tr>
@@ -31,7 +30,6 @@
                             <td>{{ transaction.title }}</td>
                             <td>{{ transaction.price }}</td>
                             <td>{{ transaction.quantity }}</td>
-                            <td>{{ transaction.description }}</td>
                             <td>{{ transaction.stripe_transaction_id }}</td>
                             <td>{{ transaction.stripe_transaction_status }}</td>
                         </tr>

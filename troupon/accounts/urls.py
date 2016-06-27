@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from account import views
+from accounts import views
 
 urlpatterns = [
 
@@ -15,6 +15,12 @@ urlpatterns = [
     url(r'^profile/$',
         views.UserProfileView.as_view(),
         name='account_profile'),
+
+    # pattern maps to view handling `GET` requests to
+    # /user/history/
+    url(r'^history/$',
+        views.TransactionsView.as_view(),
+        name='account_history'),
 
     # pattern maps to view handling `GET` requests to
     # /account/merchant/

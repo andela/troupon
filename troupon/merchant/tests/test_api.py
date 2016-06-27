@@ -1,13 +1,4 @@
 """Tests for deal management API endpoints."""
-import json
-
-from django.contrib.auth.models import User
-
-from account.models import UserProfile
-from deals.models import Deal, Category, Advertiser, Category
-from merchant.api import DealListAPIView, DealActionsAPIView
-from merchant.models import Merchant
-
 from rest_framework.test import APITestCase
 
 

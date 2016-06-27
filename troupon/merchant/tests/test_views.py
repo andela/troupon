@@ -3,7 +3,7 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 from django.utils.importlib import import_module
 from django.conf import settings
 
-from account.tests.test_routes import UserProfileMerchantTestCase
+from accounts.tests.test_routes import UserProfileMerchantTestCase
 from deals.tests.test_routes import set_advertiser_and_category
 from merchant.views import CreateDealView
 

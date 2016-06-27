@@ -68,6 +68,20 @@ ul, ol {
   padding: 5px 20px;
 }
 
+@media (max-width: 480px) {
+  .dropdown .dropdown-menu {
+    width: 18em;
+  }
+}
+
+.dropdown-header p {
+  white-space: normal;
+}
+
+.navbar-collapse.in {
+  overflow-y: visible;
+}
+
 body {
   font-family: "Lato", sans-serif;
 }
@@ -103,6 +117,7 @@ body {
 }
 
 h1 {
+  font-size: 3.5vw;
   letter-spacing: -1px;
 }
 
@@ -186,7 +201,6 @@ Buttons
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  overflow: hidden;
   border: 1px solid;
   height: 55px;
   display: inline-block;
@@ -439,17 +453,14 @@ Other components.
 
 .card .overlay {
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   background: rgba(255, 255, 255, 0.8);
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
   min-height: 100%;
@@ -459,6 +470,13 @@ Other components.
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   z-index: 99;
+}
+
+.card .overlay .btn-action {
+  font-size: 0.9em;
+  height: 3.5em;
+  min-width: 45%;
+  width: 6em;
 }
 
 .card:hover .overlay {
@@ -507,6 +525,14 @@ Other components.
   .section-heading .title, .section-heading .custom-input-group {
     margin: 0px;
   }
+}
+
+deal-detail h1 {
+  position: relative;
+}
+
+deal-detail p {
+  margin-top: 50px;
 }
 
 .flickity-gallery {
@@ -1084,7 +1110,7 @@ body {
 #header-bar [class*='col-'] {
   position: relative;
   display: inline-block;
-  min-height: 50px;
+  min-height: 120px;
 }
 
 #header-bar [class*='col-'] > * {
@@ -1121,6 +1147,10 @@ body {
   height: 23px;
 }
 
+#header-bar .nav-menu .divider, #header-bar .member-options .divider, #header-bar .auth-options .divider {
+  display: none;
+}
+
 #header-bar .member-options {
   z-index: 10000;
 }
@@ -1140,6 +1170,19 @@ body {
 @media (max-width: 768px) {
   #header-bar {
     margin-top: 20px;
+  }
+  #header-bar .nav-menu {
+    background-color: #C0C0C0;
+    width: 35%;
+  }
+  #header-bar .nav-menu li {
+    display: block;
+    min-height: 32px;
+    text-align: left;
+  }
+  #header-bar .nav-menu a, #header-bar .nav-menu .menu-link, #header-bar .nav-menu .label-link, #header-bar .nav-menu .auth-options > li > a, #header-bar .nav-menu > li > a, #header-bar .nav-menu .member-options > li > a {
+    font-weight: 500;
+    vertical-align: middle;
   }
 }
 
@@ -1379,6 +1422,10 @@ footer .copyright p {
   padding-x: 50px;
 }
 
+.modals-wrapper #loginmodal {
+  margin-top: 20px;
+}
+
 .modals-wrapper .modal-view {
   position: absolute;
   padding-top: 10%;
@@ -1522,6 +1569,13 @@ footer .copyright p {
   margin-bottom: 20px;
 }
 
+.section-heading .row [class*='col-'] h1 {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
 /* =========================================================================
 page-related styles:
 ========================================================================== */
@@ -1554,22 +1608,29 @@ main > section.row > [class*='col-'] {
   padding-bottom: 35px;
 }
 
-.gallery-wrapper, .image-wrapper {
+.gallery-wrapper {
   width: 100%;
   height: 350px;
   margin: 20px 0px;
 }
 
 @media (max-width: 768px) {
-  .gallery-wrapper, .image-wrapper {
-    height: 300px;
+  .gallery-wrapper {
     margin-top: -20px;
     margin-bottom: 40px;
   }
 }
 
 .image-wrapper {
-  height: 410px;
+  margin: 20px 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .image-wrapper {
+    margin-bottom: 40px;
+    margin-top: -20px;
+  }
 }
 
 .deals-specs {
@@ -1584,6 +1645,18 @@ main > section.row > [class*='col-'] {
 .deals-specs .prices .original {
   margin-bottom: 3px;
   text-decoration: line-through;
+}
+
+@media (max-width: 768px) {
+  .deals-specs {
+    padding: 0 10%;
+  }
+}
+
+@media (max-width: 480px) {
+  .deals-specs {
+    padding: 0;
+  }
 }
 
 .deals-specs .price-specs {
@@ -1634,22 +1707,6 @@ main > section.row > [class*='col-'] {
 
 .deals-specs .share-options .btn-twitter:focus {
   color: #5FC9EE;
-}
-
-.deals-specs .share-options .btn-instagram:hover {
-  color: #316598;
-}
-
-.deals-specs .share-options .btn-instagram:focus {
-  color: #316598;
-}
-
-.deals-specs .share-options .btn-pinterest:hover {
-  color: #B4101D;
-}
-
-.deals-specs .share-options .btn-pinterest:focus {
-  color: #B4101D;
 }
 
 .deals-specs .share-options .btn-email:hover {
@@ -1708,4 +1765,8 @@ footer.checkout-footer .divider-1 {
 
 .pay2 {
   color: green;
+}
+
+.cart_table {
+  margin-top: 20px;
 }

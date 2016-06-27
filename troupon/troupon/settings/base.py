@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 Defines settings that are common across deploys.
 """
 
+from __future__ import absolute_import
 import os
 # from django_envie.workroom import convertfiletovars
 import cloudinary
@@ -41,6 +42,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,10 +55,11 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'djangobower',
     'django_nose',
+    'djcelery',
     'allaccess',
     'haystack',
     'whoosh',
-    'account',
+    'accounts',
     'authentication',
     'deals',
     'conversations',
@@ -63,6 +69,7 @@ INSTALLED_APPS = (
     'payment',
     'rest_framework',
     'rest_framework_swagger',
+    'django.contrib.sites',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -120,7 +127,7 @@ HAYSTACK_CONNECTIONS = {
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'Africa/Lagos'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -172,6 +179,8 @@ STATICFILES_FINDERS = (
     'djangobower.finders.BowerFinder',
 )
 
+DEBUG = True
+
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'static')
 
 BOWER_INSTALLED_APPS = (
@@ -210,3 +219,18 @@ NEXMO_USERNAME = os.getenv('NEXMO_USERNAME')
 NEXMO_PASSWORD = os.getenv('NEXMO_PASSWORD')
 NEXMO_FROM = 'Troupon'
 OTP_SECRET_KEY = os.getenv('OTP_SECRET_KEY')
+# Defined rabbitmq user
+BROKER_URL = "amqp://1KSjqqZh:golZT1TcOxAA9yLvCISWzotedCoSvZ5N@white-bartsia-45.bigwig.lshift.net:10097/Mfp0HgAcgl9Q"
+# Troupon's email
+TROUPON_EMAIL = 'noreplytroupon@andela.com'
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/"
+

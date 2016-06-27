@@ -151,6 +151,13 @@ Other components.
     position: absolute;
     transition: opacity 0.3s;
     z-index: 99;
+
+    .btn-action {
+      font-size: 0.9em;
+      height: 3.5em;
+      min-width: 45%;
+      width: 6em;
+    }
   }
 
   &:hover {
@@ -172,15 +179,19 @@ Other components.
   .row, [class *='col-'] {
     padding: 0px;
   }
+
   .row > [class *='col-'] {
     @include contents-v-middle(60px);
   }
+
   .title, .custom-input-group {
     margin: 0px;
   }
+
   .custom-input-group {
     margin-top: -10px;
   }
+
   .description {
     margin-top: 10px;
     // color: color(accent);
@@ -190,6 +201,16 @@ Other components.
     .title, .custom-input-group {
       margin: 0px;
     }
+  }
+}
+
+deal-detail {
+  h1 {
+    position: relative;
+  }
+
+  p {
+    margin-top: 50px;
   }
 }
 

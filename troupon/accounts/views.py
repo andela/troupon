@@ -12,12 +12,13 @@ from django.core.context_processors import csrf
 from django.conf import settings
 from django.utils.text import slugify
 
+from accounts.forms import UserProfileForm
+from accounts.models import UserProfile
 from authentication.views import LoginRequiredMixin
-from deals.models import STATE_CHOICES, Advertiser
-from account.forms import UserProfileForm
-from account.models import UserProfile
-from merchant.models import Merchant
 from conversations.models import Message
+from deals.models import Advertiser, STATE_CHOICES
+from merchant.models import Merchant
+from payment.models import Purchases
 
 secret_key = settings.OTP_SECRET_KEY
 totp_token = pyotp.TOTP(secret_key, interval=180)
@@ -74,6 +75,20 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
                 context_instance=RequestContext(request)
             )
 
+class TransactionsView(TemplateView):
+    """View transactions for a user"""
+    def get(self, request):
+        """Renders a page with a table showing a deal,
+        quantity bought, time of purchase, and its price
+        """
+        user = self.request.user
+        transactions = Purchases.objects.filter(user=user)
+
+        context = {
+            'transactions': transactions,
+        }
+
+        return render(request, 'account/transaction.html', context)
 
 class MerchantIndexView(LoginRequiredMixin, TemplateView):
     """

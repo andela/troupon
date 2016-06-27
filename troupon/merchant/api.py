@@ -1,19 +1,17 @@
 """Generic API configuration."""
 from datetime import date, timedelta
-
 from django.shortcuts import get_object_or_404
-
-from deals.models import Deal, Advertiser, Category, STATE_CHOICES
-from merchant.models import Merchant
-from merchant.serializers import DealSerializer
-
 from rest_framework import generics
 from rest_framework import permissions
-from rest_framework.response import Response
+
+from deals.models import Advertiser, Category, Deal
+from merchant.models import Merchant
+from merchant.serializers import DealSerializer
 
 
 class DealListAPIView(generics.ListCreateAPIView):
     """Authenticated merchant can see a list of all his deals and create a deal."""
+
     serializer_class = DealSerializer
     permission_classes = (permissions.IsAuthenticated,)
 

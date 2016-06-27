@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extended_css %} 
+{% block extended_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" />
 {% endblock extended_css %}
 
@@ -24,13 +24,13 @@
                    <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
                 </div>
             </div>
-            <div class="col-xs-11 col-sm-5">
+            <div class="loginmdl col-xs-11 col-sm-5" id="loginmodal">
                 <header class="row">
                     <div class="col-lg-4">
                         <h2>Log in</h2>
                     </div>
-                    <div class="col-lg-8">
-                        <p>Don't have an account yet? <a id="user_register_link" href="{% url 'register' %}" class="modal-toggle" data-modal-target="#modal-sign-up">Register Here</a></p>
+                    <div class="col-lg-8" style="margin-top: 12px;">
+                        <p>Don't have an account yet? <a href="{% url 'register' %}" id="user_register_link">Register Here</a></p>
                     </div>
                 </header>
                 <div class="row">
@@ -53,8 +53,11 @@
                                     <p><a href="{% url 'account_forgot_password' %}">Forgot your password?</a></p>
                                 </div>
                             </div>
-                            <input id="loginBtn" type="submit" class="btn-action btn-form-submit" value="Log in" />
-                            <a href="">Log in with Facebook</a>
+                            <div class="row" style="margin-left:50px;">
+                                <input id="loginBtn" type="submit" class="btn-action btn-form-submit" value="Log in"/>
+                                or
+                                <a href="/accounts/facebook/login/?process=login" id="loginBtn"class="btn-action btn-form-submit" value="Login with facebook">Login with facebook</a>
+                            </div>
                         </form>
                     </div>
                 </div>

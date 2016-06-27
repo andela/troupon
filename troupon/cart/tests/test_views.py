@@ -1,7 +1,7 @@
 """Import Statements."""
 import unittest
 from merchant.models import Merchant
-from account.models import UserProfile
+from accounts.models import UserProfile
 from django.contrib.auth.models import User
 from deals.models import Advertiser, Category, Deal
 from django.test import LiveServerTestCase

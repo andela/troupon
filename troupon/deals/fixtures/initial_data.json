@@ -1,642 +1,492 @@
 [
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": true,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-05-18",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 1
+{
+  "fields": {
+    "category": 9,
+    "original_price": 15000,
+    "max_quantity_available": 20,
+    "quorum": null,
+    "advertiser": 14,
+    "price": 10000,
+    "description": "This month, the renowned Kenyan afro-pop band is kicking off their international tour, and you can be a part of it with this discounted ticket! Get your ticket at this unbelievable price and see the kings of afro-pop live in concert.",
+    "featured": true,
+    "date_end": null,
+    "currency": 1,
+    "state": 25,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464613778/vjwe6biwleh7odgl2pzo.jpg",
+    "address": "Lagos, Nigeria",
+    "duration": 30,
+    "title": "Sauti Sol Live in Concert",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "sauti-sol-live-in-concert-2016-05-30",
+    "disclaimer": "You must be at least 18 years of age to purchase this deal."
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Fashion-holics",
-      "price": 34500,
-      "featured": true,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "fashion-holics-2015-05-19",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 2
+  "model": "deals.deal",
+  "pk": 72
+},
+{
+  "fields": {
+    "category": 1,
+    "original_price": 300,
+    "max_quantity_available": 5,
+    "quorum": null,
+    "advertiser": 12,
+    "price": 200,
+    "description": "Enjoy one night's stay for two at a fabulous Lagos hotel with this exciting deal. Surrounded by palm trees, this modern, high-end hotel with a streamlined facade is only 2 km from the airport and close to all major amenities.",
+    "featured": true,
+    "date_end": null,
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464634889/e5r0xth9ofb5uszoxvvd.jpg",
+    "address": "Lagos, Nigeria ",
+    "duration": 10,
+    "title": "One Night for 2 in Lagos",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "one-night-for-2-in-lagos",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "Hairless Armpits",
-      "price": 23500,
-      "featured": true,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-10-20",
-      "quorum": null,
-      "active": true,
-      "slug": "hairless-armpits-2015-05-20",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 3
+  "model": "deals.deal",
+  "pk": 73
+},
+{
+  "fields": {
+    "category": 7,
+    "original_price": 90000,
+    "max_quantity_available": 2,
+    "quorum": null,
+    "advertiser": 10,
+    "price": 75000,
+    "description": "Drive away into the sunset with this incredible deal! For an amazing price, this luxury Mercedes Benz could be all yours. Leather interiors, sleek exterior, and speeds you just can't beat, this will be your best purchase for years to come. ",
+    "featured": true,
+    "date_end": null,
+    "currency": 2,
+    "state": 2,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464615045/w6pc9ddbfcjmh4rri4pk.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 20,
+    "title": "Luxury Mercedes Benz",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "luxury-mercedes-benz-2016-05-30",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "Legendary Moustachios",
-      "price": 23500,
-      "featured": true,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "legendary-moustachios-2015-11-21",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 4
+  "model": "deals.deal",
+  "pk": 74
+},
+{
+  "fields": {
+    "category": 6,
+    "original_price": 12000,
+    "max_quantity_available": 10,
+    "quorum": null,
+    "advertiser": 11,
+    "price": 9000,
+    "description": "Upgrade your kitchen with this colourful 24-piece dinnerware set, in a wide assortment of bright colours. This set is dishwasher and microwave safe, and is suitable for wide range of table settings.",
+    "featured": true,
+    "date_end": null,
+    "currency": 1,
+    "state": 2,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464617199/rir7fjttnkkdtlnheryw.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 10,
+    "title": "24-Piece Dinnerset",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "24-piece-dinnerset-2016-05-30",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": true,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-05-22",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 5
+  "model": "deals.deal",
+  "pk": 75
+},
+{
+  "fields": {
+    "category": 2,
+    "original_price": 8000,
+    "max_quantity_available": 5,
+    "quorum": null,
+    "advertiser": 3,
+    "price": 6000,
+    "description": "Stand out from the crowd with this gorgeously designed case for your MacBook Air. Featuring a white mandala design, this case will protect your precious laptop from any damage, while giving it a fresh look.",
+    "featured": false,
+    "date_end": null,
+    "currency": 1,
+    "state": 25,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464616161/qxalwmmmc8xz0kneznef.jpg",
+    "address": "Lagos, Nigeria",
+    "duration": 10,
+    "title": "MacBook Air Case",
+    "date_last_modified": "2016-05-30",
+    "active": true,
+    "slug": "macbook-air-case-2016-05-30",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "Hairless Armpits",
-      "price": 23500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "hairless-armpits-2015-05-23",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 6
+  "model": "deals.deal",
+  "pk": 76
+},
+{
+  "fields": {
+    "category": 1,
+    "original_price": 600,
+    "max_quantity_available": 20,
+    "quorum": null,
+    "advertiser": 12,
+    "price": 500,
+    "description": "Unleash your wild side with this deal for a ten-day safari! Travel to the exotic Mara where you will see the famous big 5, and take an enchanting sunset ride in a hot air balloon. Purchase this deal for the trip of a lifetime!",
+    "featured": true,
+    "date_end": null,
+    "currency": 2,
+    "state": 25,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464616966/pbiitsix5mhrd8id8cr2.jpg",
+    "address": "Masai Mara, Kenya",
+    "duration": 10,
+    "title": "10-Day Masai Mara Safari",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "10-day-masai-mara-safari-2016-05-30",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445323333/lo7xpyhhbznvbjmlvjjt.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-05-24",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 7
+  "model": "deals.deal",
+  "pk": 77
+},
+{
+  "fields": {
+    "category": 11,
+    "original_price": 3000,
+    "max_quantity_available": 2,
+    "quorum": null,
+    "advertiser": 9,
+    "price": 2000,
+    "description": "Purchase this deal and get yourself an amazing beauty make-over and become a new you for the new year! Inner beauty is great, but a little help never hurt!\r\n",
+    "featured": false,
+    "date_end": null,
+    "currency": 1,
+    "state": 25,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464632056/hl2cgbaoc2aqmdpr2cvw.jpg",
+    "address": "Lagos, Nigeria",
+    "duration": 10,
+    "title": "Beauty Make-Over",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "beauty-make-over-2016-05-30",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-05-25",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 8
+  "model": "deals.deal",
+  "pk": 78
+},
+{
+  "fields": {
+    "category": 3,
+    "original_price": 40000,
+    "max_quantity_available": 10,
+    "quorum": null,
+    "advertiser": 9,
+    "price": 30000,
+    "description": "Buying a bespoke suit is not cheap, but nothing compares to the experience of creating a quality garment that is tailored specifically for your body and lifestyle. With our deal, you can get a made-to-measure suit at a great price!",
+    "featured": false,
+    "date_end": null,
+    "currency": 1,
+    "state": 25,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464634046/oa0bmk0eht0hjimllrhz.jpg",
+    "address": "Lagos, Nigeria",
+    "duration": 10,
+    "title": "Made-to-Measure Suits",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "made-to-measure-suits-2016-05-30",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "Hairless Armpits",
-      "price": 23500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "hairless-armpits-2015-05-26",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 9
+  "model": "deals.deal",
+  "pk": 80
+},
+{
+  "fields": {
+    "category": 4,
+    "original_price": 2500,
+    "max_quantity_available": 100,
+    "quorum": null,
+    "advertiser": 13,
+    "price": 2000,
+    "description": "Each of our pizzas is carefully crafted with flavourful, superior-quality ingredients and toppings. With this deal, you get one free pizza for each one you buy.",
+    "featured": true,
+    "date_end": null,
+    "currency": 1,
+    "state": 2,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464634731/vd4ea9gpaj4cjn5tevgh.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 50,
+    "title": "BOGOF Deal on Pizza",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "bogof-on-pizza-2016-05-30",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-05-27",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 10
+  "model": "deals.deal",
+  "pk": 81
+},
+{
+  "fields": {
+    "category": 11,
+    "original_price": 15000,
+    "max_quantity_available": 10,
+    "quorum": 10,
+    "advertiser": 1,
+    "price": 10000,
+    "description": "With this deal, you can get fit, and stay that way! We believe that fitness is only one of the many factors that contribute to your overall health improvement. And we're here to help you improve each aspect of your health - physical fitness, nutrition and beyond. ",
+    "featured": false,
+    "date_end": null,
+    "currency": 1,
+    "state": 2,
+    "date_created": "2016-05-30",
+    "image": "image/upload/v1464635525/ndeqca5kg9ojx6zagbyj.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 30,
+    "title": "One Month's Gym Membership",
+    "date_last_modified": "2016-05-30",
+    "active": true,
+    "slug": "one-months-gym-membership-2016-05-30",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "LegendaryMoustachios",
-      "price": 23500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "legendarymoustachios-2015-05-28",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 11
+  "model": "deals.deal",
+  "pk": 82
+},
+{
+  "fields": {
+    "category": 3,
+    "original_price": 4500,
+    "max_quantity_available": 10,
+    "quorum": 10,
+    "advertiser": 2,
+    "price": 4000,
+    "description": "Stay current with this deal featuring a pair of unique ankara print wedges! Ankara is a 100% cotton fabric with vibrant patterns, taking the fashion world by storm. With this deal, you can stay fashion-forward while looking fabulous!",
+    "featured": false,
+    "date_end": null,
+    "currency": 1,
+    "state": 2,
+    "date_created": "2016-05-31",
+    "image": "image/upload/v1464682445/glo6nnnuugbrm0tjxrxb.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 10,
+    "title": "Ankara Print Wedges",
+    "date_last_modified": "2016-05-31",
+    "active": true,
+    "slug": "ankara-print-wedges-2016-05-31",
+    "disclaimer": ""
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-05-29",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 12
+  "model": "deals.deal",
+  "pk": 83
+},
+{
+  "fields": {
+    "name": "Shoprite Ikeja",
+    "telephone": "111-111-11",
+    "slug": "shoprite-ikeja",
+    "state": 1,
+    "address": "234, Agege-Somolu, Victoria Island, Lagos, Nigeria.",
+    "email": "paulmccartney@noho.com"
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "Hairless Armpits",
-      "price": 23500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "hairless-armpits-2015-05-30",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 13
+  "model": "deals.advertiser",
+  "pk": 1
+},
+{
+  "fields": {
+    "name": "DressToKill Boutique",
+    "telephone": "456786543213456",
+    "slug": "dresstokill-boutique",
+    "state": 25,
+    "address": "Shoprite Ikeja,Lagos",
+    "email": "dresstokill@troupon.com"
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot2 GiveAway",
-      "price": 34500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445323333/lo7xpyhhbznvbjmlvjjt.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot2-giveaway-2015-06-01",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 14
+  "model": "deals.advertiser",
+  "pk": 2
+},
+{
+  "fields": {
+    "name": "BlackTree Developers",
+    "telephone": "0713625155",
+    "slug": "blacktree-developers",
+    "state": 25,
+    "address": "Amity",
+    "email": "amos.omondi@andela.com"
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "Hairless Armpits",
-      "price": 23500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321078/ltqxrzzigrj990ojiiyj.jpg",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "hairless-armpits-2015-06-02",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 15
+  "model": "deals.advertiser",
+  "pk": 3
+},
+{
+  "fields": {
+    "name": "Couture Boutique",
+    "telephone": "+234123456789",
+    "slug": "couture-boutique",
+    "state": 2,
+    "address": "Garki, Abuja, Nigeria",
+    "email": "sales@coutureboutique.com"
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322023/nguirbr1oe64q8pxlj7c.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-06-03",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 16
+  "model": "deals.advertiser",
+  "pk": 9
+},
+{
+  "fields": {
+    "name": "Luxury Vehicles Centre",
+    "telephone": "+234123456789",
+    "slug": "luxury-vehicles-centre",
+    "state": 25,
+    "address": "Ikoja, Lagos, Nigeria",
+    "email": "cars@luxurryvehiclescentre.com"
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "Legendary Moustachios",
-      "price": 23500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321191/cqmruhb3brc3ftltvunp.png",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "legendary-moustachios--2015-06-04",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 17
+  "model": "deals.advertiser",
+  "pk": 10
+},
+{
+  "fields": {
+    "name": "Sunshine's Home Accessories",
+    "telephone": "+234123456789",
+    "slug": "sunshines-home-accessories",
+    "state": 25,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "email": "decor@sunshineshomes.com"
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322253/ygk8eil6padn5thpu43q.jpg",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-06-05",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 18
+  "model": "deals.advertiser",
+  "pk": 11
+},
+{
+  "fields": {
+    "name": "Globetrotters Tours & Travels",
+    "telephone": "+234123456789",
+    "slug": "gobetrotters-tours-travels",
+    "state": 25,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "email": "travel@globetrotters.com"
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 30000,
-      "description": "",
-      "title": "Hairless Armpits",
-      "price": 23500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445321708/le6h7uds4rtdg65s24gr.jpg",
-      "address": "Suite 212, Gatsby Road, Neverland",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "hairless-armpits-2015-06-06",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 19
+  "model": "deals.advertiser",
+  "pk": 12
+},
+{
+  "fields": {
+    "name": "Eat Out Reviews",
+    "telephone": "+234123456789",
+    "slug": "eat-out-reviews",
+    "state": 25,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "email": "dine@eatoutreviews.com"
   },
-  {
-    "fields": {
-      "category": 1,
-      "advertiser": 1,
-      "original_price": 15600,
-      "description": "",
-      "title": "Infinix Hot 2 GiveAway",
-      "price": 34500,
-      "featured": false,
-      "date_end": null,
-      "currency": 1,
-      "state": 25,
-      "date_created": "2015-05-18",
-      "image": "image/upload/v1445322726/z6xgliyv7uodcubdsefz.png",
-      "address": "314, Herbert Macauley Road, Sabo-Yaba, Lagos.",
-      "duration": 10,
-      "max_quantity_available": 5,
-      "date_last_modified": "2015-11-10",
-      "quorum": null,
-      "active": true,
-      "slug": "infinix-hot-2-giveaway-2015-06-07",
-      "disclaimer": ""
-    },
-    "model": "deals.deal",
-    "pk": 20
+  "model": "deals.advertiser",
+  "pk": 13
+},
+{
+  "fields": {
+    "name": "Ultimate Events & Entertainment",
+    "telephone": "+234123456789",
+    "slug": "ultimate-events-entertainment",
+    "state": 25,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "email": "tickets@ultimateevents.com"
   },
-  {
-    "fields": {
-      "name": "Shoprite Ikeja",
-      "telephone": "111-111-11",
-      "slug": "shoprite-ikeja",
-      "state": 1,
-      "address": "234, Agege-Somolu, Victoria Island, Lagos, Nigeria.",
-      "email": "paulmccartney@noho.com"
-    },
-    "model": "deals.advertiser",
-    "pk": 1
+  "model": "deals.advertiser",
+  "pk": 14
+},
+{
+  "fields": {
+    "name": "Travel n Hotels",
+    "slug": "travel-n-hotels"
   },
-  {
-    "fields": {
-      "name": "DressToKill Boutique",
-      "telephone": "456786543213456",
-      "slug": "dresstokill-boutique",
-      "state": 25,
-      "address": "Shoprite Ikeja,Lagos",
-      "email": "dresstokill@troupon.com"
-    },
-    "model": "deals.advertiser",
-    "pk": 2
+  "model": "deals.category",
+  "pk": 1
+},
+{
+  "fields": {
+    "name": "Electronics",
+    "slug": "electronics"
   },
-  {
-    "fields": {
-      "name": "Travel n Hotels",
-      "slug": "travel-n-hotels"
-    },
-    "model": "deals.category",
-    "pk": 1
+  "model": "deals.category",
+  "pk": 2
+},
+{
+  "fields": {
+    "name": "Fashion",
+    "slug": "fashion"
   },
-  {
-    "fields": {
-      "name": "Electronics",
-      "slug": "electronics"
-    },
-    "model": "deals.category",
-    "pk": 2
+  "model": "deals.category",
+  "pk": 3
+},
+{
+  "fields": {
+    "name": "Foods",
+    "slug": "foods"
   },
-  {
-    "fields": {
-      "name": "Fashion",
-      "slug": "fashion"
-    },
-    "model": "deals.category",
-    "pk": 3
+  "model": "deals.category",
+  "pk": 4
+},
+{
+  "fields": {
+    "name": "Getaways",
+    "slug": "getaways"
   },
-  {
-    "fields": {
-      "name": "Foods",
-      "slug": "foods"
-    },
-    "model": "deals.category",
-    "pk": 4
+  "model": "deals.category",
+  "pk": 5
+},
+{
+  "fields": {
+    "name": "Shopping",
+    "slug": "shopping"
   },
-  {
-    "fields": {
-      "name": "Getaways",
-      "slug": "getaways"
-    },
-    "model": "deals.category",
-    "pk": 5
+  "model": "deals.category",
+  "pk": 6
+},
+{
+  "fields": {
+    "name": "Automobiles",
+    "slug": "automobiles"
   },
-  {
-    "fields": {
-      "name": "Shopping",
-      "slug": "shopping"
-    },
-    "model": "deals.category",
-    "pk": 6
+  "model": "deals.category",
+  "pk": 7
+},
+{
+  "fields": {
+    "name": "Hotels",
+    "slug": "hotels"
   },
-  {
-    "fields": {
-      "name": "Automobiles",
-      "slug": "automobiles"
-    },
-    "model": "deals.category",
-    "pk": 7
+  "model": "deals.category",
+  "pk": 8
+},
+{
+  "fields": {
+    "name": "Event Tickets",
+    "slug": "event-tickets"
   },
-  {
-    "fields": {
-      "name": "Hotels",
-      "slug": "hotels"
-    },
-    "model": "deals.category",
-    "pk": 8
+  "model": "deals.category",
+  "pk": 9
+},
+{
+  "fields": {
+    "name": "Kerosene",
+    "slug": "kerosene"
   },
-  {
-    "fields": {
-      "name": "Event Tickets",
-      "slug": "event-tickets"
-    },
-    "model": "deals.category",
-    "pk": 9
+  "model": "deals.category",
+  "pk": 10
+},
+{
+  "fields": {
+    "name": "Beauty Treatments",
+    "slug": "beauty-treatments"
   },
-  {
-    "fields": {
-      "name": "Kerosene",
-      "slug": "kerosene"
-    },
-    "model": "deals.category",
-    "pk": 10
+  "model": "deals.category",
+  "pk": 11
+},
+{
+  "fields": {
+    "name": "Akara and Pap",
+    "slug": "akara-and-pap"
   },
-  {
-    "fields": {
-      "name": "Beauty Treatments",
-      "slug": "beauty-treatments"
-    },
-    "model": "deals.category",
-    "pk": 11
-  },
-  {
-    "fields": {
-      "name": "Akara and Pap",
-      "slug": "akara-and-pap"
-    },
-    "model": "deals.category",
-    "pk": 12
-  }
+  "model": "deals.category",
+  "pk": 12
+}
 ]

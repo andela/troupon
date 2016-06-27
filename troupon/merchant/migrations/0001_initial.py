@@ -9,7 +9,7 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0001_initial'),
+        ('accounts', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('deals', '0001_initial'),
     ]
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('enabled', models.BooleanField(default=False)),
                 ('approved', models.BooleanField(default=False)),
                 ('trusted', models.BooleanField(default=False)),
-                ('userprofile', models.OneToOneField(to='account.UserProfile')),
+                ('userprofile', models.OneToOneField(to='accounts.UserProfile')),
             ],
             bases=('deals.advertiser',),
         ),

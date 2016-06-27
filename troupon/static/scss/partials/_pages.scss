@@ -34,23 +34,29 @@ main > section.row {
   padding-bottom: 35px;
 }
 
-.gallery-wrapper, .image-wrapper {
+.gallery-wrapper {
   width: 100%;
   height: 350px;
   margin: 20px 0px;
 
   @media (max-width: 768px) {
-    height: 300px;
     margin-top: -20px;
     margin-bottom: 40px;
   }
 }
 
-// deal details:
-
 .image-wrapper {
-  height: 410px;
+  margin: 20px 0;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+    margin-top: -20px;
+  }
 }
+
+
+// deal details:
 
 .deals-specs {
   margin: 20px 0px;
@@ -63,7 +69,15 @@ main > section.row {
       margin-bottom: 3px;
       text-decoration: line-through;
     }
-  }     
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 10%;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0;
+  }
 
   .price-specs {
     margin-bottom: 15px;
@@ -92,7 +106,7 @@ main > section.row {
     }
   }
 
-  @each $social-platform in (facebook, twitter, instagram, pinterest, email){
+  @each $social-platform in (facebook, twitter, email) {
     .share-options .btn-#{$social-platform}:hover {
       color: color(#{$social-platform});
     }
@@ -155,3 +169,6 @@ footer.checkout-footer {
   color:green;
 }
 
+.cart_table {
+  margin-top: 20px;
+}
