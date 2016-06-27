@@ -1,0 +1,9 @@
+{% if request.path == url or active_tab|slugify == name|slugify %}
+  <li class="active">
+    <span>{{ name }}</span>
+  </li>
+{% else %}
+  <li>
+    <a href="{{ url }}">{{ name|title }}</a>
+  </li>
+{% endif %}

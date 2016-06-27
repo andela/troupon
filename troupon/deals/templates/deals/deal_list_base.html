@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+	<!-- deals listing section -->
+    <section class="row" id="deals-section">
+    	{% autoescape off %}
+            {{ rendered_deal_list }}
+        {% endautoescape %}
+    </section>
+
+{% endblock main %}

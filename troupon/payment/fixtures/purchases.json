@@ -1,0 +1,142 @@
+[
+  {
+    "fields":{
+            "username": "omondi",
+            "first_name": "Amos",
+            "last_name": "Omondi",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2016-04-14 10:32:19.209946+03",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$20000$apE2Bxzt3Cwu$bq1SFgYtRGoKjYk/zENgNrGOsP3zZVdtZ7uEUVdzo0s=",
+            "email": "omondiamos48@gmail.com",
+            "date_joined": "2016-04-05 10:56:32.897416+03"
+            },
+        "model": "auth.user",
+        "pk": 2
+  },
+  {
+    "fields": {
+        "occupation": "Software Developer",
+        "phonenumber": "0713625155",
+        "intlnumber": "+254713625155",
+        "user_id": 2
+        },
+    "model": "account.userprofile",
+    "pk": 2
+  },
+  {
+    "fields": {
+        "advertiser_ptr_id": 3,
+        "intlnumber": "+254713625155",
+        "enabled": true,
+        "approved": true,
+        "trusted": true,
+        "userprofile_id": 2
+        },
+    "model": "merchant.merchant",
+    "pk": 1
+  },
+  {
+    "fields": {
+        "name": "BlackTree Developers",
+        "slug": "blacktree-developers",
+        "address": "Amity",
+        "telephone": "0713625155",
+        "email": "amos.omondi@andela.com"
+    },
+    "model": "deals.advertiser",
+    "pk": 3
+  },
+  {
+    "fields": {
+        "id": 4,
+        "name": "Foods",
+        "slug": "foods"
+    },
+    "model": "deals.category",
+    "pk": 4
+  },
+  {
+    "fields": {
+        "price": 100,
+        "duration": 217,
+        "original_price": 150,
+        "quorum": 10,
+        "disclaimer": "Don't let young children drink coffee.",
+        "description": "Very fine Kenyan coffee. Unleash your inner guru with this blend and brew.",
+        "slug": "fine-kenyan-coffee-beans-2016-04-05",
+        "title": "Fine Kenyan Coffee Beans",
+        "address": "Amity",
+        "currency": 2,
+        "image": "image/upload/v1459843663/fqm3m6ui2fxtiztxxjsw.jpg",
+        "active": true,
+        "featured": false,
+        "max_quantity_available": 100,
+        "date_created": "2016-04-05",
+		    "date_last_modified": "2016-04-05",
+		    "date_end": "2016-11-08",
+        "advertiser_id": 3,
+        "category_id": 4
+        },
+    "model": "deals.deal",
+    "pk": 21
+  },
+    {
+      "fields": {
+          "price": 200,
+          "duration": 317,
+          "original_price": 180,
+          "quorum": 11,
+          "disclaimer": "Don't eat and drive",
+          "description": "Very fine potatoes from mexico",
+          "slug": "fine-potatoes-from-mexico-2016-04-05",
+          "title": "Big Potatoes",
+          "address": "Amity",
+          "currency": 2,
+          "image": "image/upload/v1459843663/fqm3m6ui2fxtiztxxjsw.jpg",
+          "active": true,
+          "featured": false,
+          "max_quantity_available": 100,
+          "date_created": "2016-04-05",
+            "date_last_modified": "2016-04-05",
+            "date_end": "2016-11-08",
+          "advertiser_id": 3,
+          "category_id": 4
+          },
+      "model": "deals.deal",
+      "pk": 22
+    },
+    {
+      "fields": {
+          "price": 100,
+          "quantity": 2,
+          "title": "Fine Kenyan Coffee Beans",
+          "description": "Very fine Kenyan coffee. Unleash your inner guru with this blend and brew.",
+          "stripe_transaction_id": "ch_17wWHaBIJasW6y26Y44aoteI",
+          "stripe_transaction_status": "Succeeded",
+          "advertiser_id": 3,
+          "item_id": 21,
+          "user_id": 2
+          },
+      "model": "payment.purchases",
+      "pk": 1
+    },
+    {
+      "fields": {
+          "price": 200,
+          "quantity": 3,
+          "title": "Big Potatoes",
+          "description": "Very fine potatoes from mexico",
+          "stripe_transaction_id": "ch_17wWzWBIJasW6y26Iufha9HF",
+          "stripe_transaction_status": "Succeeded",
+          "advertiser_id": 3,
+          "item_id": 22,
+          "user_id": 2
+          },
+      "model": "payment.purchases",
+      "pk": 2
+    }
+]

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="container vertical-center">
+    {% if messages %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 ">
+            <div class="panel panel-{{ message.tags }}">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                    <p>
+                        {% if status == 'error' %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <i class="fa fa-times fa-4x  text-center error-mark">
+                                    </i>
+                                </div>
+                                <div class="col-md-12">
+                                    <h1 class="text-center pay"><b>Payment error!</b>
+                                    </h1>
+                                    {% for message in messages %}
+                                        <p class="text-center">
+                                            {{message}}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <form action="/deals/">
+                                        <button name="continue-shopping" id="go-back" class="btn-action"></i>Continue Shopping > </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if status == 'complete' %}
+                            <div class="row">
+
+                                <div class="col-md-12 ">
+                                    <i class="fa fa-check fa-4x  text-center complete-mark">
+                                    </i>
+                                </div>
+                                <div class="col-md-12">
+                                    <h1 class="text-center pay2"><b>Payment Success!</b></h1>
+                                    {% for message in messages %}
+                                    <p class="text-center">
+                                        {{message|linebreaksbr}}
+                                    </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <form action="/deals/">
+                                        <button name="continue-shopping" id="go-back" class="btn-action"></i>Continue Shopping > </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </p>
+                </div>
+                    <footer class="checkout-footer">
+                      <div class="divider divider-1"></div>
+                      <div class="row">
+                        <div class="col-md-offset-2">
+                            <div class="col-md-3">
+                              <i class="fa fa-cc-stripe fa-2x"></i>
+                            </div>
+                            <div class="col-md-3">
+                              <i class="fa fa-cc-paypal fa-2x"></i>
+                             </div>
+                            <div class="col-md-3">
+                              <i class="fa fa-cc-visa fa-2x"></i>
+                            </div>
+                            <div class="col-md-3">
+                              <i class="fa fa-cc-mastercard fa-2x"></i>
+                            </div>
+                        </div>
+                      </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock main %}
