@@ -1,3 +1,5 @@
+import cloudinary
+
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import View
 from django.core.urlresolvers import reverse
@@ -7,10 +9,9 @@ from django.template.response import TemplateResponse
 from django.core.context_processors import csrf
 from django.template.defaultfilters import slugify
 
-import cloudinary
 from haystack.query import SearchQuerySet
 
-from models import Category, Deal, Advertiser, STATE_CHOICES
+from models import Category, Deal, Advertiser, ALL_LOCATIONS
 from baseviews import DealListBaseView
 from django.http import JsonResponse
 from geoip import geolite2
