@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.contrib import messages
 
 from deals.models import Deal, Category, Advertiser, \
-    STATE_CHOICES, CURRENCY_CHOICES
+    COUNTRY_CHOICES, ALL_LOCATIONS, NIGERIAN_LOCATIONS, KENYAN_LOCATIONS, CURRENCY_CHOICES
 from deals.baseviews import DealListBaseView
 from merchant.forms import DealForm
 from merchant.mixins import MerchantMixin
@@ -125,21 +125,27 @@ class CreateDealView(MerchantMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context_var = super(CreateDealView, self).get_context_data(**kwargs)
         context_var.update({
-            'states': {'choices': STATE_CHOICES, 'default': 25},
+            'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
+            'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
+            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
             'currency': {'choices': CURRENCY_CHOICES, 'default': 1},
             'category': Category.objects.order_by('name')
         })
         return context_var
 
     def post(self, request, **kwargs):
-
         """Create a deal."""
-
         price = request.POST.get('price')
         original_price = request.POST.get('original_price')
         currency = request.POST.get('currency')
-        state = request.POST.get('user_state')
-        quorum = request.POST.get('quorum')
+        country = int(request.POST.get('user_country'))
+
+        if country == 1:
+            location = int(request.POST.get('nigeria_user_location'))
+        elif country == 2:
+            location = int(request.POST.get('kenya_user_location'))
+
+        quorum = request.POST.get('quorum') or 0
         disclaimer = request.POST.get('disclaimer')
         description = request.POST.get('description')
         title = request.POST.get('title')
@@ -172,11 +178,11 @@ class CreateDealView(MerchantMixin, TemplateView):
 
         deal = Deal(
             price=price, original_price=original_price, currency=currency,
-            state=state, category=category, quorum=quorum,
-            disclaimer=disclaimer, description=description, address=address,
-            max_quantity_available=max_quantity_available, date_end=date_end,
-            active=active, image=image, title=title, advertiser=advertiser,
-            duration=duration
+            country=country, location=location, category=category,
+            quorum=quorum, disclaimer=disclaimer, description=description,
+            address=address, max_quantity_available=max_quantity_available,
+            date_end=date_end, active=active, image=image, title=title,
+            advertiser=advertiser, duration=duration
         )
 
         deal.save()

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client, LiveServerTestCase
 from selenium.webdriver.phantomjs.webdriver import WebDriver
+from selenium import webdriver
 import selenium.webdriver.support.ui as ui
 from selenium.webdriver.common.by import By
 import selenium.webdriver.support.expected_conditions as EC
@@ -168,7 +169,7 @@ class SalesHistoryAndTrendTestCase(LiveServerTestCase):
                 intlnumber='123456789'
             )
             cls.merchant.save()
-        cls.selenium = WebDriver()
+        cls.selenium = webdriver.Firefox()
         cls.wait = ui.WebDriverWait(cls.selenium, 10)
         super(SalesHistoryAndTrendTestCase, cls).setUpClass()
 

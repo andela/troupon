@@ -19,7 +19,7 @@ class UserLoginViewTestCase(LiveServerTestCase):
         """
         Setup the test driver
         """
-        cls.driver = webdriver.PhantomJS()
+        cls.driver = webdriver.Firefox()
         super(UserLoginViewTestCase, cls).setUpClass()
 
     def setUp(self):
@@ -56,7 +56,7 @@ class UserLoginViewTestCase(LiveServerTestCase):
         url = "%s%s" % (self.live_server_url, reverse('login'))
         self.driver.get(url)
         # input login details and submit
-        self.driver.find_element_by_id("email").send_keys('admin')
+        self.driver.find_element_by_id("email").send_keys('admin@example.com')
         self.driver.find_element_by_id("password").send_keys('admin')
         self.driver.find_element_by_id("loginBtn").click()
 
@@ -105,7 +105,7 @@ class UserRegisterViewTestCase(LiveServerTestCase):
         """
         Setup the test driver
         """
-        cls.driver = webdriver.PhantomJS()
+        cls.driver = webdriver.Firefox()
         super(UserRegisterViewTestCase, cls).setUpClass()
 
     def setUp(self,):

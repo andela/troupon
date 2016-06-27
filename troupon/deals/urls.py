@@ -2,8 +2,7 @@
 from django.conf.urls import url
 
 from .views import DealsView, FilteredDealsView,\
-    DealSlugView, DealSearchCityView,\
-    DealHaystackSearchView
+    DealSlugView, DealHaystackSearchView, DealSearchCityView
 
 
 urlpatterns = [
