@@ -65,7 +65,6 @@ INSTALLED_APPS = (
     'payment',
     'rest_framework',
     'rest_framework_swagger',
-    'django_geoip',
     'corsheaders'
 )
 
@@ -81,7 +80,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'middleware.general.SharedContextMiddleware',
     'conversations.middleware.UnreadMessageCount',
-    'django_geoip.middleware.LocationMiddleware',
 )
 
 ROOT_URLCONF = 'troupon.urls'

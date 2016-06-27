@@ -18,7 +18,6 @@ django-celery==3.1.17
 django-cors-headers==1.1.0
 django-envie==0.0.9
 django-filter==0.13.0
-django-geoip==0.5.2.1
 django-haystack==2.4.0
 django-jsonfield==0.9.15
 django-nexmo==1.0.1
