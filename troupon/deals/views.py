@@ -1,5 +1,6 @@
 import cloudinary
 import string
+import os
 
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import View
@@ -39,7 +40,8 @@ class HomePageView(DealListBaseView):
             location = string.replace(location, "'", "")
             location_index = [item[0]
                               for item in ALL_LOCATIONS if item[1] == location]
-            latest_deals = Deal.objects.filter(active=True, location=location_index[0]).order_by('date_last_modified')
+            latest_deals = Deal.objects.filter(active=True, location=location_index[
+                                               0]).order_by('date_last_modified')
         else:
             latest_deals = Deal.objects.filter(active=True)\
                                        .order_by('date_last_modified')

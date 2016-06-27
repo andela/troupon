@@ -30,5 +30,6 @@ urlpatterns = [
     # cart
     url(r'^remove/$',
         RemoveItemView.as_view(),
-        name='remove')
+        name='remove'),
+
 ]
