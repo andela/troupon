@@ -47,6 +47,4 @@ urlpatterns = [
     url(r'^api/', include(api)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/login/', obtain_jwt_token),
-    #allow user to change ip
-    url(r'^geoip/', include('django_geoip.urls')),
 ]

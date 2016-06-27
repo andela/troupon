@@ -8,45 +8,64 @@
       function showError(error) {
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            toastr.error("User denied the request for Geolocation.")
+            toastr.error("You have denied Troupon access to your location")
+            deleteCookie();
             break;
           case error.POSITION_UNAVAILABLE:
             toastr.error("Location information is unavailable.")
+            deleteCookie();
             break;
           case error.TIMEOUT:
             toastr.error("The request to get user location timed out.")
+            deleteCookie();
             break;
           case error.UNKNOWN_ERROR:
             toastr.error("An unknown error occurred.")
+            deleteCookie();
             break;
         }
       }
 
-      function getKey() {
+      function deleteCookie() {
+        document.cookie = 'city=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        localStorage.removeItem("reload");
+      }
+
+      function getKey(callback) {
+        var key = "";
         $.ajax({
           type: "GET",
-          contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+          contentType: "application/json",
           url: "/api/serverkey",
           dataType: "json",
           success: function(data) {
-            return data;
+            callback(data);
           },
           error: function(result) {
             toastr.error(result);
           }
         });
+        return key;
       }
 
       function showPosition(position) {
+        var key = "";
+        getKey(function(result) {
+          key = result;
+        });
         $.ajax({
           type: "POST",
           contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-          url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + ',' + position.coords.longitude + '&key=' + getKey(),
+          url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + ',' + position.coords.longitude + '&key=' + key,
           dataType: "json",
           success: function(data) {
             loc = data['results'][4]['formatted_address']
             var city = loc.split(',')[0];
             document.cookie = "city='" + city + "'";
+            if (!localStorage.reload) {
+              localStorage.setItem("reload", "true");
+              window.location.reload();
+            }
           },
           error: function(result) {
             toastr.error(result);
