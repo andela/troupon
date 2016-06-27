@@ -25,7 +25,6 @@ class HomePageView(DealListBaseView):
     """
 
     def get(self, request, *args, **kwargs):
-
         # get the popular categories:
         popular_categories = Category.objects.all()[:12]
 
@@ -90,6 +89,8 @@ class FilteredDealsView(DealListBaseView):
         filter_slug = self.kwargs.get('filter_slug')
         queryset = self.queryset
 
+        print filter_slug
+
         if filter_type == 'category':
             category = get_object_or_404(Category, slug=filter_slug)
             self.title = self.category_title_format\
@@ -108,16 +109,16 @@ class FilteredDealsView(DealListBaseView):
 
         elif filter_type == 'city':
             try:
-                state = [state for state in STATE_CHOICES
-                         if slugify(state[1]) == filter_slug][0]
+                location = [location for location in ALL_LOCATIONS
+                            if slugify(location[1]) == filter_slug][0]
             except:
                 raise Http404('Not found')
 
             self.title = self.city_title_format\
-                             .format(state[1])
+                             .format(location[1])
             self.description = self.city_description_format\
-                                   .format(state[1])
-            queryset = queryset.filter(state=state[0])
+                                   .format(location[1])
+            queryset = queryset.filter(location=location[0])
         else:
             raise SuspiciousOperation('Invalid request')
 
@@ -139,14 +140,15 @@ class DealHaystackSearchView(View):
 
 class DealSearchCityView(DealListBaseView):
 
-    """ class to search for deals via title and states"""
+    """ class to search for deals via title and locations"""
+    pass
 
     def get(self, request, *args, **kwargs):
         value = request.GET.get('q', '')
         cityquery = int(request.GET.get('city', '25'))
         # get the deal results:
         deals = Deal.objects.filter(title__icontains=value)\
-                            .filter(state__icontains=cityquery)
+                            .filter(location__icontains=cityquery)
 
         # get the rendered list of deals
         rendered_deal_list = self.render_deal_list(
@@ -155,9 +157,8 @@ class DealSearchCityView(DealListBaseView):
             title='Search Results',
             zero_items_message='Your search - {} - in {} \
             did not match any deals.'
-            .format(value, STATE_CHOICES[cityquery - 1][1]),
+            .format(value, ALL_LOCATIONS[cityquery - 1][1]),
             description='{} deal(s) found for this search.'.format(len(deals))
-            # pagination_base_url=reverse('deals')
         )
         context = {
             'rendered_deal_list': rendered_deal_list

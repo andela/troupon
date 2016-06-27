@@ -12,11 +12,11 @@ from django.core.context_processors import csrf
 from django.conf import settings
 from django.utils.text import slugify
 
+from authentication.views import LoginRequiredMixin
+from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
 from account.forms import UserProfileForm
 from account.models import UserProfile
-from authentication.views import LoginRequiredMixin
 from conversations.models import Message
-from deals.models import Advertiser, STATE_CHOICES
 from merchant.models import Merchant
 from payment.models import Purchases
 
@@ -35,7 +35,9 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         context_var = super(UserProfileView, self).get_context_data(**kwargs)
         context_var.update({
             'profile': self.request.user.profile,
-            'states': {'choices': STATE_CHOICES, 'default': 25},
+            'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
+            'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
+            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Profile', },
@@ -129,7 +131,10 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
 
         # define the base breadcrumbs for this view:
         context = {
-            'states': {'choices': STATE_CHOICES, 'default': 25},
+            'profile': self.request.user.profile,
+            'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
+            'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
+            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
@@ -149,7 +154,10 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
 
         name = request.POST.get('name')
         context = {
-            'states': {'choices': STATE_CHOICES, 'default': 25},
+            'profile': self.request.user.profile,
+            'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
+            'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
+            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
@@ -165,7 +173,11 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
 
         except Advertiser.DoesNotExist:
 
-            state = request.POST.get('user_state')
+            country = int(request.POST.get('user_country'))
+            if country == 1:
+                location = int(request.POST.get('nigeria_user_location'))
+            elif country == 2:
+                location = int(request.POST.get('kenya_user_location'))
             telephone = request.POST.get('telephone')
             intlnumber = request.POST.get('intlnumber')
             email = request.POST.get('email')
@@ -174,7 +186,7 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             userprofile = request.user.profile
 
             merchant = Merchant(
-                name=name, state=state,
+                name=name, country=country, location=location,
                 telephone=telephone, email=email,
                 address=address, slug=slug,
                 intlnumber=intlnumber,
