@@ -11,12 +11,15 @@ from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.conf import settings
 from django.utils.text import slugify
+from django.template.response import TemplateResponse
 
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
 from authentication.views import LoginRequiredMixin
-from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
+from accounts.forms import UserProfileForm
+from accounts.models import UserProfile
 from conversations.models import Message
+from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
 from merchant.models import Merchant
 from payment.models import Purchases
 
@@ -60,7 +63,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
             context_var = {}
             empty = "Form should not be submitted empty"
             messages.add_message(request, messages.INFO, empty)
-            return render(request, 'account/profile.html', context_var)
+            return TemplateResponse(request, 'account/profile.html', context_var)
 
         if form.is_valid():
             form.save()
@@ -90,7 +93,8 @@ class TransactionsView(TemplateView):
             'transactions': transactions,
         }
 
-        return render(request, 'account/transaction.html', context)
+        return TemplateResponse(request, 'account/transaction.html', context)
+
 
 class MerchantIndexView(LoginRequiredMixin, TemplateView):
     """
@@ -120,7 +124,7 @@ class MerchantIndexView(LoginRequiredMixin, TemplateView):
             ]
         }
         template_name = 'account/become_a_merchant.html'
-        return render(request, template_name, context)
+        return TemplateResponse(request, template_name, context)
 
 
 class MerchantRegisterView(LoginRequiredMixin, TemplateView):
@@ -148,7 +152,7 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             messages.add_message(self.request, messages.INFO, mesg)
             return redirect(reverse('account_profile'))
 
-        return render(request, self.template_name, context)
+        return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, **kwargs):
 
@@ -169,7 +173,7 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             advertiser = Advertiser.objects.get(name__exact=name)
             mssg = "Company Name Already taken/exists"
             messages.add_message(request, messages.ERROR, mssg)
-            return render(request, self.template_name, context)
+            return TemplateResponse(request, self.template_name, context)
 
         except Advertiser.DoesNotExist:
 
@@ -228,7 +232,7 @@ class MerchantVerifyView(LoginRequiredMixin, TemplateView):
 
         try:
             if request.user.profile.merchant:
-                return render(request, self.template_name, context)
+                return TemplateResponse(request, self.template_name, context)
 
         except AttributeError:
             return redirect(reverse('account_profile'))
@@ -282,7 +286,7 @@ class MerchantConfirmView(LoginRequiredMixin, TemplateView):
                     application to become a merchant."""
                     messages.add_message(request, messages.INFO, mesg)
 
-                return render(request, self.template_name, context)
+                return TemplateResponse(request, self.template_name, context)
 
         except AttributeError:
             return redirect(reverse('account_profile'))
@@ -337,7 +341,7 @@ class UserChangePasswordView(LoginRequiredMixin, TemplateView):
             ]
         }
 
-        return render(request, self.template_name, context)
+        return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, **kwargs):
 
@@ -356,7 +360,7 @@ class UserChangePasswordView(LoginRequiredMixin, TemplateView):
             context.update(csrf(request))
             mssg = "Your current password is incorrect"
             messages.add_message(request, messages.INFO, mssg)
-            return render(request, self.template_name, context)
+            return TemplateResponse(request, self.template_name, context)
 
         if password1 and password2:
             if password1 == password2:
@@ -368,7 +372,7 @@ class UserChangePasswordView(LoginRequiredMixin, TemplateView):
                 mssg = "Password Mismatch"
 
             messages.add_message(request, messages.INFO, mssg)
-            return render(request, self.template_name, context)
+            return TemplateResponse(request, self.template_name, context)
 
         if not password1 and not password2:
             context.update(csrf(request))
@@ -378,4 +382,4 @@ class UserChangePasswordView(LoginRequiredMixin, TemplateView):
             mssg = "Passwords should match or field should not be left empty"
 
         messages.add_message(request, messages.INFO, mssg)
-        return render(request, self.template_name, context)
+        return TemplateResponse(request, self.template_name, context)
