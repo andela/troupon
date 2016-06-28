@@ -428,7 +428,7 @@ class ActivateAccountView(View):
     def get(self, request, *args, **kwargs):
         """Handles GET requests to 'activate_account' named route.
 
-        Returns: A redirect to the login page.
+        Returns: A template displaying that activation was successful
         Raises: A Http404 error.
         """
         # get the activation_hash captured in url
@@ -442,7 +442,7 @@ class ActivateAccountView(View):
                 user.is_active = True
                 user.save()
                 if user.is_active:
-                    return redirect(reverse('login'))
+                    return render(request, 'authentication/activation_successful.html')
 
         else:
             raise Http404("/User does not exist")
