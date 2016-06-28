@@ -147,31 +147,50 @@ $(document).ready(function() {
     //----------------------------------------
     
     // initialize Packery on the grids:
-    var $grid = $('.packery-grid');
-
-    $grid.packery({
-
-        'itemSelector': '.grid-item',
-        'columnWidth': '.grid-sizer',
-        'gutter': '.gutter-sizer',
-        'percentPosition': true,
-        'isResizeBound': true
-
-    });
-    // call packery layout everytime an item's image loads:
-    $grid.find('.item-image-wrapper img').load(function() {
-        $grid.packery();
-    });
-
     
+    function initDealItemsLayout() {
+        var $grid = $('.packery-grid');
+        $grid.packery({
+
+            'itemSelector': '.grid-item',
+            'columnWidth': '.grid-sizer',
+            'gutter': '.gutter-sizer',
+            'percentPosition': true,
+            'isResizeBound': true
+
+        });
+    }
+    initDealItemsLayout();
+    
+    // call packery layout everytime an item's image loads:
+    $('.packery-grid').find('.item-image-wrapper img').load(function() {
+        initDealItemsLayout();
+    });
+
+    // call packery layout whenever window is resized:
+    $(window).resize(function() {
+        initDealItemsLayout();
+    });
+
     //----------------------------------------
     //  Date filters:
     //----------------------------------------
 
+    // send an ajax call to server when date filter selector changes:
+
     var $dateFilterSelect = $('.section-heading .date-filter-select');
     $dateFilterSelect.change(function(event){
-        window.location.search = '?dtf=' + event.currentTarget.selectedIndex + '&pg=1';
+        var $queryString = '?dtf=' + event.currentTarget.selectedIndex +
+            '&pg=1';
+        var $path = $(location).attr('pathname');
+        $.ajax({url: $path + $queryString, success: 
+            function(result) {
+                $('.description').detach();
+                $('.section-heading').nextAll().detach();
+                var $index = result.html.search('<p class="description">');
+                var $html = result.html.slice($index, -1);
+                $($html).insertAfter('.section-heading');
+                initDealItemsLayout();
+        }});
     });
-
-
 });
