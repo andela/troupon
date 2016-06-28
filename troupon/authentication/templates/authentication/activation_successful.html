@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+    <section class="row">
+        <!-- heading -->
+        <div class="col-sm-4 hidden-xs brand-col">
+            <div class="brand">
+               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <h2>Account Activation Successful!</h2>
+            <div class="well">
+                <p>Your account has successfully been activated. <a href="{% url 'login' %}">Login here</a></p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
