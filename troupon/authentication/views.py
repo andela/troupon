@@ -442,7 +442,8 @@ class ActivateAccountView(View):
                 user.is_active = True
                 user.save()
                 if user.is_active:
-                    return render(request, 'authentication/activation_successful.html')
+                    return render(request, 
+                                  'authentication/activation_successful.html')
 
         else:
             raise Http404("/User does not exist")
