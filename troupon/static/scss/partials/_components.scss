@@ -38,7 +38,7 @@ a {
   text-transform: uppercase;
 }
 .highlight-link {
-  & > a {
+  a {
     @extend .menu-link;
     color: color(a-highlight);
     font: {
