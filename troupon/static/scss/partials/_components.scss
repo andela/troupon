@@ -37,6 +37,15 @@ a {
   }
   text-transform: uppercase;
 }
+.highlight-link {
+  a {
+    @extend .menu-link;
+    color: color(a-highlight);
+    font: {
+      size: font-size(highlight);
+    }
+  }
+}
 
 
 

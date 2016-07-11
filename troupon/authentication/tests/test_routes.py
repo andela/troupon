@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from mock import patch
-
 from django.test import TestCase, Client
 from django.core.urlresolvers import resolve
 from django.contrib.auth.models import User
@@ -125,12 +123,8 @@ class UserRegistrationRouteTest(TestCase):
         """
         User is redirected after registration data is validated.
         """
-        with patch.object(SendGrid, 'send', return_value=200) \
-                as mock_method:
-                response = self.client_stub.post(
-                    '/register/',
-                    self.form_data)
-                self.assertEquals(response.status_code, 302)
+        response = self.client_stub.post('/register/', self.form_data)
+        self.assertEquals(response.status_code, 302)
 
     def test_view_reg_success_route(self):
         """
@@ -169,8 +163,15 @@ class FacebookSignupTestCase(TestCase):
 
 class ActivateAccountRoute(TestCase):
 
-    def Setup(self):
+    def setUp(self):
         self.client_stub = Client()
+
+        self.form_data = dict(
+            username="andela",
+            password1="andela",
+            password2="andela",
+            email="andela@andela.com",
+        )
 
     def test_activation_link_calls_actual_view_class(self):
         response = self.client.get(
@@ -180,3 +181,14 @@ class ActivateAccountRoute(TestCase):
             response.resolver_match.func.__name__,
             ActivateAccountView.as_view().__name__
         )
+
+    def test_activation_successful(self):
+        """
+        Successful activation triggers feedback.
+        """
+        response = self.client_stub.post('/register/', self.form_data)
+        activation_hash_url = response.context[0]['activation_hash_url']
+        activation_hash = activation_hash_url.split('/')[-1]
+        response = self.client.get('/activation/%s' % activation_hash)
+        self.assertEquals(response.templates[0].name,
+                          'authentication/activation_successful.html')
