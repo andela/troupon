@@ -12,7 +12,7 @@ from merchant.models import Merchant
 TEST_USER_EMAIL = 'testuser@email.com'
 TEST_USER_PASSWORD = 'testpassword'
 
-xpath_first_deal_item = "/html/body/div/div[1]/div/main/section[2]/div[2]/div/div[3]/form/button"
+xpath_first_deal_item = "//div[@class='row']/button[@class='btn-action cta-button']"
 xpath_checkout_basket = "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']"
 xpath_items_quantity_text = "//li/ul/li[@class='pull-right']/h6/small/strong/span[@class='badge']"
 xpath_view_cart = "//a[@class='btn-action'][1]"
