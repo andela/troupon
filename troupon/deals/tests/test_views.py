@@ -35,7 +35,7 @@ class HomepageViewTests(LiveServerTestCase):
         """
         Setup the test driver
         """
-        cls.driver = webdriver.Firefox()
+        cls.driver = webdriver.Chrome()
         super(HomepageViewTests, cls).setUpClass()
 
     def setUp(self,):
@@ -151,7 +151,7 @@ class DealsViewTest(LiveServerTestCase, CreateDeal):
 
     def setUp(self):
         """Setup the test driver and create deal"""
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.create_user()
         self.create_deal()
@@ -185,7 +185,7 @@ class DealsSearchView(LiveServerTestCase, CreateDeal):
 
     def setUp(self):
         """Setup the test driver and create deal"""
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.create_user()
         self.create_deal()

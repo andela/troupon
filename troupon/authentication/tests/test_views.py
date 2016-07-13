@@ -9,6 +9,9 @@ from authentication.emails import SendGrid
 
 xpath_submit_btn = "//button[contains(@type,'submit')]"
 
+TEST_USER_EMAIL = 'testuser@email.com'
+TEST_USER_PASSWORD = 'testpassword'
+
 
 class UserLoginViewTestCase(LiveServerTestCase):
     """
@@ -19,7 +22,7 @@ class UserLoginViewTestCase(LiveServerTestCase):
         """
         Setup the test driver
         """
-        cls.driver = webdriver.Firefox()
+        cls.driver = webdriver.Chrome()
         super(UserLoginViewTestCase, cls).setUpClass()
 
     def setUp(self):
@@ -32,6 +35,27 @@ class UserLoginViewTestCase(LiveServerTestCase):
         )
         self.driver = UserLoginViewTestCase.driver
         super(UserLoginViewTestCase, self).setUp()
+
+
+    def test_facebook_user_login(self,):
+        """
+        Tests user can register with facebook
+        """
+        url = "%s%s" % (self.live_server_url, reverse('login'))
+        self.driver.get(url)
+
+        # input login details and submit
+        # self.driver.find_element_by_id("facebooklogin").click()
+        # self.driver.find_element_by_xpath("/html/body/div[@class='container-fluid viewport-container ']/div[@class='modals-parent']/div[@class='container page-container']/main/div[@id='modal-sign-in']/div[@class='row']/div[@id='loginmodal']/div[@class='row']/div[@class='col-sm-12']/form/a[@id='facebooklogin']").click()
+        self.driver.get("https://facebook.com")
+        self.driver.find_element_by_id("email").send_keys('wanjirupenina@gmail.com')
+        self.driver.find_element_by_id("pass").send_keys('trouponadmin')
+        # self.driver.find_element_by_id(login).click()
+
+
+        # self.driver.implicitly_wait(20)
+        # self.assertIn("Logged in as:", self.driver.page_source)
+        # self.assertIn("troupon", self.driver.page_source)
 
     def test_view_get_auth_login(self):
         """
@@ -48,6 +72,7 @@ class UserLoginViewTestCase(LiveServerTestCase):
         data = {'username': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/login/', data)
         self.assertEquals(response.status_code, 302)
+    
 
     def test_login_user(self,):
         """
@@ -105,7 +130,7 @@ class UserRegisterViewTestCase(LiveServerTestCase):
         """
         Setup the test driver
         """
-        cls.driver = webdriver.Firefox()
+        cls.driver = webdriver.Chrome()
         super(UserRegisterViewTestCase, cls).setUpClass()
 
     def setUp(self,):
@@ -128,6 +153,8 @@ class UserRegisterViewTestCase(LiveServerTestCase):
         self.driver.get(url)
         self.driver.find_element_by_id("user_register_link").click()
         self.assertIn("Log in", self.driver.page_source)
+
+
 
     def test_user_can_register(self,):
         """
