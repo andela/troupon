@@ -55,11 +55,9 @@ class CreateDeal(object):
         response = requests.post("https://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&key=%s" %(str(lat),str(lng),server_key.data))
 
         city = response.json().get("results","")[0].get("formatted_address").split(",")[1].strip()
-        print response.json().get("results","")[0]
-                 
+        ALL_LOCATIONS.insert(0, (999, 'Ashburn'))
         location_index = [item[0]
                               for item in ALL_LOCATIONS if item[1] == city]
-        print location_index
         return location_index
 
     def create_deal(self):
