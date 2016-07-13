@@ -15,6 +15,8 @@ from haystack.query import SearchQuerySet
 
 from models import Category, Deal, Advertiser, ALL_LOCATIONS
 from baseviews import DealListBaseView
+from geoip import geolite2
+from django.http import JsonResponse
 
 
 class HomePageView(DealListBaseView):
