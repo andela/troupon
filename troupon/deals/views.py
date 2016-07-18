@@ -11,7 +11,6 @@ from django.shortcuts import redirect, get_object_or_404
 from django.template.defaultfilters import slugify
 from django.template.response import TemplateResponse
 from django.views.generic import View
-from geoip import geolite2
 from haystack.query import SearchQuerySet
 
 from baseviews import DealListBaseView
