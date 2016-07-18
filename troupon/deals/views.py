@@ -1,22 +1,21 @@
 import cloudinary
-import string
 import os
+import string
 
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import View
-from django.core.urlresolvers import reverse
-from django.core.exceptions import SuspiciousOperation
-from django.http import Http404
-from django.template.response import TemplateResponse
 from django.core.context_processors import csrf
+from django.core.exceptions import SuspiciousOperation
+from django.core.urlresolvers import reverse
+from django.http import Http404
+from django.http import JsonResponse
+from django.shortcuts import redirect, get_object_or_404
 from django.template.defaultfilters import slugify
-
+from django.template.response import TemplateResponse
+from django.views.generic import View
+from geoip import geolite2
 from haystack.query import SearchQuerySet
 
-from models import Category, Deal, Advertiser, ALL_LOCATIONS
 from baseviews import DealListBaseView
-from geoip import geolite2
-from django.http import JsonResponse
+from models import Advertiser, ALL_LOCATIONS, Category, Deal
 
 
 class HomePageView(DealListBaseView):

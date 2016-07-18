@@ -6,24 +6,23 @@
       }
 
       function showError(error) {
+        errorMsg = "";
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            toastr.error("You have denied Troupon access to your location")
-            deleteCookie();
+            errorMsg = "You have denied Troupon access to your location";
             break;
           case error.POSITION_UNAVAILABLE:
-            toastr.error("Location information is unavailable.")
-            deleteCookie();
+            errorMsg = "Location information is unavailable.";
             break;
           case error.TIMEOUT:
-            toastr.error("The request to get user location timed out.")
-            deleteCookie();
+            errorMsg = "The request to get user location timed out.";
             break;
           case error.UNKNOWN_ERROR:
-            toastr.error("An unknown error occurred.")
-            deleteCookie();
+            errorMsg = "An unknown error occurred.";
             break;
         }
+        toastr.error(errorMsg);
+        deleteCookie();
       }
 
       function deleteCookie() {
@@ -59,7 +58,7 @@
           url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + ',' + position.coords.longitude + '&key=' + key,
           dataType: "json",
           success: function(data) {
-            loc = data['results'][4]['formatted_address']
+            var loc = data['results'][4]['formatted_address'];
             var city = loc.split(',')[0];
             document.cookie = "city='" + city + "'";
             if (!localStorage.reload) {
