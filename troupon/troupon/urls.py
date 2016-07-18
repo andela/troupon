@@ -15,7 +15,7 @@ urlpatterns = [
     # apps:
     url(r'^', include('authentication.urls')),
     url(r'^deals/', include('deals.urls')),
-    url(r'^account/', include('account.urls')),
+    url(r'^account/', include('accounts.urls')),
     url(r'^merchant/', include('merchant.urls')),
     url(r'^payment/', include('payment.urls')),
     url(r'^cart/', include('cart.urls')),
@@ -42,9 +42,11 @@ urlpatterns = [
 
     # third party apps:
     url(r'^accounts/', include('allaccess.urls')),
+    url(r'^accounts/', include('allauth.urls')),
 
     # api routes
     url(r'^api/', include(api)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/login/', obtain_jwt_token),
+
 ]

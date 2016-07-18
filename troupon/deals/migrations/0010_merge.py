@@ -7,13 +7,9 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0005_auto_20160531_1540'),
+        ('deals', '0009_auto_20160627_1841'),
+        ('deals', '0009_auto_20160627_1736'),
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='userprofile',
-            old_name='state',
-            new_name='country',
-        ),
     ]

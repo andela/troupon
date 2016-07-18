@@ -1,10 +1,12 @@
-from django.db import models
-from deals.models import Advertiser
-from account.models import UserProfile
-from django.contrib.auth.models import User
-from django.db import connection
 import jsonfield
 import json
+
+from django.contrib.auth.models import User
+from django.db import models
+from django.db import connection
+
+from accounts.models import UserProfile
+from deals.models import Advertiser
 
 
 class Merchant(Advertiser):

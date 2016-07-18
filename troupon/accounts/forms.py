@@ -7,7 +7,7 @@ class UserProfileForm(forms.ModelForm):
     """
 
     class Meta:
-    	"""This class modifies the UserProfileForm class.
+	"""This class modifies the UserProfileForm class.
 
         Attributes:
             model: A model from which to construct the form.

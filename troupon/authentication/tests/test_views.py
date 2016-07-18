@@ -9,6 +9,9 @@ from authentication.emails import SendGrid
 
 xpath_submit_btn = "//button[contains(@type,'submit')]"
 
+TEST_USER_EMAIL = 'testuser@email.com'
+TEST_USER_PASSWORD = 'testpassword'
+
 
 class UserLoginViewTestCase(LiveServerTestCase):
     """
@@ -19,7 +22,7 @@ class UserLoginViewTestCase(LiveServerTestCase):
         """
         Setup the test driver
         """
-        cls.driver = webdriver.Firefox()
+        cls.driver = webdriver.Chrome()
         super(UserLoginViewTestCase, cls).setUpClass()
 
     def setUp(self):
@@ -32,6 +35,19 @@ class UserLoginViewTestCase(LiveServerTestCase):
         )
         self.driver = UserLoginViewTestCase.driver
         super(UserLoginViewTestCase, self).setUp()
+
+    def test_facebook_user_login(self,):
+        """
+        Tests user can register with facebook
+        """
+        url = "%s%s" % (self.live_server_url, reverse('login'))
+        self.driver.get(url)
+
+        self.driver.find_element_by_id("facebooklogin").click()
+        link = self.live_server_url + "/accounts/facebook/login/?process=login"
+        self.driver.get(link)
+        redirected_url = self.driver.current_url
+        self.assertEquals(redirected_url, link)
 
     def test_view_get_auth_login(self):
         """
@@ -105,7 +121,7 @@ class UserRegisterViewTestCase(LiveServerTestCase):
         """
         Setup the test driver
         """
-        cls.driver = webdriver.Firefox()
+        cls.driver = webdriver.Chrome()
         super(UserRegisterViewTestCase, cls).setUpClass()
 
     def setUp(self,):

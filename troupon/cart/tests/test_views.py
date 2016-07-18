@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
 from selenium import webdriver
 
-from account.models import UserProfile
+from accounts.models import UserProfile
 from deals.models import Advertiser, Category, Deal
 from merchant.models import Merchant
 
@@ -93,7 +93,7 @@ class AuthenticateAddDeal():
 class AddToCartViewTest(LiveServerTestCase, AuthenticateAddDeal):
     def setUp(self):
         """Setup the test driver."""
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         super(AddToCartViewTest, self).setUp()
 
@@ -124,7 +124,7 @@ class ViewCartViewTest(LiveServerTestCase, AuthenticateAddDeal):
 
     def setUp(self):
         """Setup the test driver."""
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         super(ViewCartViewTest, self).setUp()
 
@@ -155,7 +155,7 @@ class ClearCartViewTest(LiveServerTestCase, AuthenticateAddDeal):
 
     def setUp(self):
         """Setup the test driver."""
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         super(ClearCartViewTest, self).setUp()
 
@@ -186,7 +186,7 @@ class RemoveItemViewTest(LiveServerTestCase, AuthenticateAddDeal):
 
     def setUp(self):
         """Setup the test driver."""
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         super(RemoveItemViewTest, self).setUp()
 
@@ -217,7 +217,7 @@ class CheckoutViewTest(LiveServerTestCase, AuthenticateAddDeal):
 
     def setUp(self):
         """Setup the test driver."""
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         super(CheckoutViewTest, self).setUp()
 
