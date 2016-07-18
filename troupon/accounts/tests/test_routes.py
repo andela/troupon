@@ -1,8 +1,8 @@
-from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import User
+from django.test import TestCase, Client, RequestFactory
 
-from merchant.models import Merchant
 from accounts.models import UserProfile
+from merchant.models import Merchant
 
 
 class UserProfileMerchantTestCase(TestCase):
