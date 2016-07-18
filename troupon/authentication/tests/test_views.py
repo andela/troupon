@@ -36,7 +36,6 @@ class UserLoginViewTestCase(LiveServerTestCase):
         self.driver = UserLoginViewTestCase.driver
         super(UserLoginViewTestCase, self).setUp()
 
-
     def test_facebook_user_login(self,):
         """
         Tests user can register with facebook
@@ -44,18 +43,11 @@ class UserLoginViewTestCase(LiveServerTestCase):
         url = "%s%s" % (self.live_server_url, reverse('login'))
         self.driver.get(url)
 
-        # input login details and submit
-        # self.driver.find_element_by_id("facebooklogin").click()
-        # self.driver.find_element_by_xpath("/html/body/div[@class='container-fluid viewport-container ']/div[@class='modals-parent']/div[@class='container page-container']/main/div[@id='modal-sign-in']/div[@class='row']/div[@id='loginmodal']/div[@class='row']/div[@class='col-sm-12']/form/a[@id='facebooklogin']").click()
-        self.driver.get("https://facebook.com")
-        self.driver.find_element_by_id("email").send_keys('wanjirupenina@gmail.com')
-        self.driver.find_element_by_id("pass").send_keys('trouponadmin')
-        # self.driver.find_element_by_id(login).click()
-
-
-        # self.driver.implicitly_wait(20)
-        # self.assertIn("Logged in as:", self.driver.page_source)
-        # self.assertIn("troupon", self.driver.page_source)
+        self.driver.find_element_by_id("facebooklogin").click()
+        link = self.live_server_url + "/accounts/facebook/login/?process=login"
+        self.driver.get(link)
+        redirected_url = self.driver.current_url
+        self.assertEquals(redirected_url, link)
 
     def test_view_get_auth_login(self):
         """
@@ -72,7 +64,6 @@ class UserLoginViewTestCase(LiveServerTestCase):
         data = {'username': 'johndoe@gmail.com', 'password': '12345'}
         response = self.client.post('/login/', data)
         self.assertEquals(response.status_code, 302)
-    
 
     def test_login_user(self,):
         """
@@ -153,8 +144,6 @@ class UserRegisterViewTestCase(LiveServerTestCase):
         self.driver.get(url)
         self.driver.find_element_by_id("user_register_link").click()
         self.assertIn("Log in", self.driver.page_source)
-
-
 
     def test_user_can_register(self,):
         """
