@@ -9,7 +9,7 @@ from django.test import RequestFactory, TestCase
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from account.models import UserProfile
+from accounts.models import UserProfile
 from deals.models import Advertiser, Category, Deal
 from merchant.models import Merchant
 from ..models import Category, Deal, Advertiser, ALL_LOCATIONS
