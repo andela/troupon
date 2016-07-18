@@ -6,9 +6,9 @@ from django.conf import settings
 from django.contrib.messages.storage.fallback import FallbackStorage
 
 
-from account.tests.test_routes import UserProfileTestCase,\
+from accounts.tests.test_routes import UserProfileTestCase,\
     UserProfileMerchantTestCase
-from account.views import MerchantRegisterView, MerchantVerifyView, \
+from accounts.views import MerchantRegisterView, MerchantVerifyView, \
     MerchantResendOtpView, MerchantConfirmView
 
 

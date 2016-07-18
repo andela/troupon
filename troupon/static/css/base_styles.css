@@ -194,10 +194,13 @@ a:focus, .dropdown .dropdown-menu > li > a:focus, .menu-link:focus, .label-link:
   text-transform: uppercase;
 }
 
+
+
 .dropdown .dropdown-menu > li.highlight-link > a, .highlight-link > .menu-link, .highlight-link > .label-link, .label-link-list-v > li.highlight-link > a, .label-link-list-h > li.highlight-link > a, #header-bar .auth-options > li.highlight-link > a, #modal-login header p.highlight-link > a, #modal-register header p.highlight-link > a, #modal-forgot-password header p.highlight-link > a, .highlight-link > a, #header-bar .nav-menu > li.highlight-link > a, #header-bar .member-options > li.highlight-link > a, footer .quick-links > li.highlight-link > a {
   color: #660066;
   font-size: 15px;
 }
+
 
 /* ==========================================================================
 Buttons
@@ -206,7 +209,6 @@ Buttons
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  overflow: hidden;
   border: 1px solid;
   height: 55px;
   display: inline-block;

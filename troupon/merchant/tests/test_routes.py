@@ -169,7 +169,7 @@ class SalesHistoryAndTrendTestCase(LiveServerTestCase):
                 intlnumber='123456789'
             )
             cls.merchant.save()
-        cls.selenium = webdriver.Firefox()
+        cls.selenium = webdriver.Chrome()
         cls.wait = ui.WebDriverWait(cls.selenium, 10)
         super(SalesHistoryAndTrendTestCase, cls).setUpClass()
 

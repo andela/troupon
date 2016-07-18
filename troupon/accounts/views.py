@@ -13,12 +13,11 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.template.response import TemplateResponse
 
-
 from authentication.views import LoginRequiredMixin
-from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
-from account.forms import UserProfileForm
-from account.models import UserProfile
+from accounts.forms import UserProfileForm
+from accounts.models import UserProfile
 from conversations.models import Message
+from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
 from merchant.models import Merchant
 from payment.models import Purchases
 
