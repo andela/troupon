@@ -57,6 +57,11 @@ class HomePageView(DealListBaseView):
             description=list_description,
             pagination_base_url=reverse('deals')
         )
+
+        # return a JSON response if request is javascript ajax
+        if request.is_ajax():
+            return JsonResponse({'html': rendered_deal_list})
+
         context = {
             'popular_categories': popular_categories,
             'featured_deals': featured_deals,

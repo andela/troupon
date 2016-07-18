@@ -98,7 +98,6 @@ class DealListBaseView(View):
         )
         template = loader.get_template('snippet_deal_listing.html')
         rendered_template = template.render(deals_list_context)
-
         #  return the rendered template string:
         return rendered_template
 

@@ -167,7 +167,7 @@ h1 {
 /* ==========================================================================
 links
 ========================================================================== */
-a, .dropdown .dropdown-menu > li > a, .menu-link, .label-link, .label-link-list-v > li > a, .label-link-list-h > li > a, #header-bar .auth-options > li > a, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, #header-bar .nav-menu > li > a, #header-bar .member-options > li > a, footer .quick-links > li > a {
+a, .dropdown .dropdown-menu > li > a, .menu-link, .label-link, .label-link-list-v > li > a, .label-link-list-h > li > a, #header-bar .auth-options > li > a, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, .highlight-link > a, #header-bar .nav-menu > li > a, #header-bar .member-options > li > a, footer .quick-links > li > a {
   color: #5E5E77;
   text-decoration: none;
 }
@@ -185,13 +185,18 @@ a:focus, .dropdown .dropdown-menu > li > a:focus, .menu-link:focus, .label-link:
   color: #E67E22;
 }
 
-.menu-link, .label-link, .label-link-list-v > li > a, .dropdown .dropdown-menu.label-link-list-v > li > a, .label-link-list-v > li > .menu-link, .label-link-list-h > li > a, .dropdown .dropdown-menu.label-link-list-h > li > a, .label-link-list-h > li > .menu-link, #header-bar .auth-options > li > a, #header-bar .dropdown .dropdown-menu.auth-options > li > a, #header-bar .auth-options > li > .menu-link, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, #modal-login header p > .menu-link, #modal-register header p > .menu-link, #modal-forgot-password header p > .menu-link, #header-bar .nav-menu > li > a, #header-bar .dropdown .dropdown-menu.nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .member-options > li > a, #header-bar .dropdown .dropdown-menu.member-options > li > a, #header-bar .member-options > li > .menu-link, footer .quick-links > li > a, footer .dropdown .dropdown-menu.quick-links > li > a, .dropdown footer .dropdown-menu.quick-links > li > a, footer .quick-links > li > .menu-link {
+.menu-link, .label-link, .label-link-list-v > li > a, .dropdown .dropdown-menu.label-link-list-v > li > a, .label-link-list-v > li > .menu-link, .label-link-list-h > li > a, .dropdown .dropdown-menu.label-link-list-h > li > a, .label-link-list-h > li > .menu-link, #header-bar .auth-options > li > a, #header-bar .dropdown .dropdown-menu.auth-options > li > a, #header-bar .auth-options > li > .menu-link, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, #modal-login header p > .menu-link, #modal-register header p > .menu-link, #modal-forgot-password header p > .menu-link, .highlight-link > a, .dropdown .dropdown-menu > li.highlight-link > a, .highlight-link > .menu-link, #header-bar .nav-menu > li > a, #header-bar .dropdown .dropdown-menu.nav-menu > li > a, #header-bar .nav-menu > li > .menu-link, #header-bar .member-options > li > a, #header-bar .dropdown .dropdown-menu.member-options > li > a, #header-bar .member-options > li > .menu-link, footer .quick-links > li > a, footer .dropdown .dropdown-menu.quick-links > li > a, .dropdown footer .dropdown-menu.quick-links > li > a, footer .quick-links > li > .menu-link {
   font-weight: 700;
 }
 
 .label-link, .label-link-list-v > li > a, .dropdown .dropdown-menu.label-link-list-v > li > a, .label-link-list-v > li > .menu-link, .label-link-list-v > li > .label-link, #header-bar .nav-menu.label-link-list-v > li > a, #header-bar .member-options.label-link-list-v > li > a, footer .quick-links.label-link-list-v > li > a, .label-link-list-h > li > a, .dropdown .dropdown-menu.label-link-list-h > li > a, .label-link-list-h > li > .menu-link, .label-link-list-h > li > .label-link, #header-bar .nav-menu.label-link-list-h > li > a, #header-bar .member-options.label-link-list-h > li > a, footer .quick-links.label-link-list-h > li > a, #header-bar .dropdown .dropdown-menu.auth-options > li > a, #header-bar .auth-options > li > .menu-link, #header-bar .auth-options > li > .label-link, #header-bar .auth-options > li > a, #header-bar footer .quick-links.auth-options > li > a, #modal-login header p > a, #modal-register header p > a, #modal-forgot-password header p > a, #modal-login header p > .menu-link, #modal-register header p > .menu-link, #modal-forgot-password header p > .menu-link, #modal-login header p > .label-link, #modal-register header p > .label-link, #modal-forgot-password header p > .label-link {
   font-size: 12px;
   text-transform: uppercase;
+}
+
+.dropdown .dropdown-menu > li.highlight-link > a, .highlight-link > .menu-link, .highlight-link > .label-link, .label-link-list-v > li.highlight-link > a, .label-link-list-h > li.highlight-link > a, #header-bar .auth-options > li.highlight-link > a, #modal-login header p.highlight-link > a, #modal-register header p.highlight-link > a, #modal-forgot-password header p.highlight-link > a, .highlight-link > a, #header-bar .nav-menu > li.highlight-link > a, #header-bar .member-options > li.highlight-link > a, footer .quick-links > li.highlight-link > a {
+  color: #660066;
+  font-size: 15px;
 }
 
 /* ==========================================================================
@@ -286,6 +291,9 @@ Buttons
 @media (max-width: 768px) {
   .btn-form-submit {
     width: 100%;
+  }
+  .more-details-btn{
+  margin-left: 90px;
   }
 }
 
@@ -481,7 +489,8 @@ Other components.
   font-size: 0.9em;
   height: 3.5em;
   min-width: 45%;
-  width: 6em;
+  width: 10em;
+  margin-left:90px;
 }
 
 .card:hover .overlay {
@@ -1427,7 +1436,7 @@ footer .copyright p {
   padding-x: 50px;
 }
 
-.modals-wrapper #loginmodal {
+.modals-wrapper .loginmdl {
   margin-top: 20px;
 }
 
