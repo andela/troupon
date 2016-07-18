@@ -13,8 +13,6 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.template.response import TemplateResponse
 
-from accounts.forms import UserProfileForm
-from accounts.models import UserProfile
 from authentication.views import LoginRequiredMixin
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
