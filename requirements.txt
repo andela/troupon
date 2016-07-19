@@ -72,7 +72,7 @@ PyYAML==3.11
 rednose==0.4.3
 requests==2.7.0
 requests-oauthlib==0.5.0
-selenium==2.53.6
+selenium==2.47.1
 sendgrid==1.5.14
 simplegeneric==0.8.1
 six==1.9.0
