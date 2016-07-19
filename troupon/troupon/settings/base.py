@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
@@ -69,7 +70,6 @@ INSTALLED_APPS = (
     'payment',
     'rest_framework',
     'rest_framework_swagger',
-    'django.contrib.sites',
 )
 
 MIDDLEWARE_CLASSES = (
