@@ -17,7 +17,7 @@ ul, ol {
 }
 
 .row {
-  margin: 0px;
+  margin: auto;
 }
 
 [class*='col-'] {
@@ -287,9 +287,6 @@ Buttons
   .btn-form-submit {
     width: 100%;
   }
-  .more-details-btn{
-  margin-left: 90px;
-  }
 }
 
 a.btn-action, .dropdown .dropdown-menu > li > a.btn-action, .btn-action.menu-link, .btn-action.label-link, .label-link-list-v > li > a.btn-action, .label-link-list-h > li > a.btn-action, #header-bar .auth-options > li > a.btn-action, #modal-login header p > a.btn-action, #modal-register header p > a.btn-action, #modal-forgot-password header p > a.btn-action, #header-bar .nav-menu > li > a.btn-action, #header-bar .member-options > li > a.btn-action, footer .quick-links > li > a.btn-action, a.btn-action-alt, .dropdown .dropdown-menu > li > a.btn-action-alt, .btn-action-alt.menu-link, .btn-action-alt.label-link, .label-link-list-v > li > a.btn-action-alt, .label-link-list-h > li > a.btn-action-alt, #header-bar .auth-options > li > a.btn-action-alt, #modal-login header p > a.btn-action-alt, #modal-register header p > a.btn-action-alt, #modal-forgot-password header p > a.btn-action-alt, #header-bar .nav-menu > li > a.btn-action-alt, #header-bar .member-options > li > a.btn-action-alt, footer .quick-links > li > a.btn-action-alt {
@@ -485,7 +482,6 @@ Other components.
   height: 3.5em;
   min-width: 45%;
   width: 10em;
-  margin-left:90px;
 }
 
 .card:hover .overlay {
