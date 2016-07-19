@@ -303,6 +303,11 @@ a.btn-action, .dropdown .dropdown-menu > li > a.btn-action, .btn-action.menu-lin
   line-height: 2.5;
 }
 
+#facebooklogin {
+  margin-left:160px; 
+  color:#5E5E77;
+}
+
 /* ==========================================================================
 Forms Controls
 ========================================================================== */
