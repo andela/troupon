@@ -1,9 +1,9 @@
 import requests
 import unittest
 
-from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.test import LiveServerTestCase
 from django.test import RequestFactory, TestCase
 from rest_framework import status
