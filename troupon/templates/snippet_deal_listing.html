@@ -1,0 +1,25 @@
+
+<!-- listing header -->
+{% include "snippet_section_heading.html" with title=listing.title date_filter=listing.date_filter description=listing.description %}
+
+<!-- admin action -->
+{% if request.user and request.user.profile.is_approved_merchant %}
+  {% url 'merchant_manage_deals' as url %}
+    {% if url == request.path %}
+      <div class="col-xs-12">
+          <a class="btn btn-action" href="{% url 'merchant_create_deal' %}" title="Click to create new deal">Create Deal
+          </a>
+      </div>
+    {% endif %}
+{% endif %}
+
+
+<!-- deal listing -->
+<div class="col-xs-12">
+  {% include "snippet_deal_grid.html" with deals=listing.deals_page action_url=action_url %}
+</div>
+
+<!-- deal pagination -->
+<div class="col-xs-12">
+  {% include "snippet_pagination.html" with page=listing.deals_page pagination_base_url=listing.pagination_base_url %}
+</div>

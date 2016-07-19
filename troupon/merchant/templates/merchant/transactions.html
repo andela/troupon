@@ -1,0 +1,47 @@
+{% extends 'merchant/dashboard.html' %}
+{% load static %}
+
+{% block subview %}
+<div>
+    {% if transactions %}
+    <!-- banner section -->
+    <section class="row" id="banner-section">
+        <!-- heading -->
+        {% include "snippet_section_heading.html" with title="Your Transactions" %}
+    </section>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Transaction ID</th>
+                        <th>Transaction Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.item.id }}</td>
+                            <td>{{ transaction.title }}</td>
+                            <td>{{ transaction.price }}</td>
+                            <td>{{ transaction.quantity }}</td>
+                            <td>{{ transaction.description }}</td>
+                            <td>{{ transaction.stripe_transaction_id }}</td>
+                            <td>{{ transaction.stripe_transaction_status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <h3>You have no transactions</h3>
+    {% endif %}
+</div>
+{% endblock %}

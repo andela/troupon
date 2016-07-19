@@ -1,0 +1,38 @@
+{% load humanize %}
+
+<div class="grid-item card">
+  <form class="overlay row" action="/cart/add/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="dealid" value="{{deal.id}}" />
+    <div class="row" >
+      {% if not deal.quorum %}
+        <button class="btn-action cta-button" type="submit">
+          <i class="glyphicon glyphicon-cart"></i>
+          Add to Cart
+        </button>
+      {% endif %}
+        <a href="{% url action_url deal_slug=deal.slug %}" class="more-details-btn btn-action">More details</a>
+    </div>
+  </form>
+
+  <a class="item-image-wrapper" href="{% url action_url deal_slug=deal.slug %}">
+    <img src="{{ deal.thumbnail_image_url }}"/>
+  </a>
+  <div class="item-info">
+    <h3>
+      <a class="title" href="{% url action_url deal_slug=deal.slug %}">
+        {{ deal.title }}
+      </a>
+    </h3>
+    <div class="advertiser">
+      <p>{{ deal.advertiser.name }}</p>
+      <address>
+        <i class="fa fa-map-marker"></i> {{ deal.address|truncatechars:40 }}
+      </address>
+    </div>
+    <p class="prices">
+      <span class="original">{{ deal.currency_symbol }}{{ deal.original_price|intcomma }}</span>
+      <span class="current">{{ deal.currency_symbol  }}{{ deal.price|intcomma }}</span>
+    </p>
+  </div>
+</div>
