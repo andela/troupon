@@ -183,12 +183,20 @@ $(document).ready(function() {
         var $queryString = '?dtf=' + event.currentTarget.selectedIndex +
             '&pg=1';
         var $path = $(location).attr('pathname');
-        $.ajax({url: $path + $queryString, success: 
-            function(result) {
-                $('.description').detach();
+        $.ajax({url: $path + $queryString,
+            beforeSend: function() {
+                $(".spinner-icon").show();
+            },
+            complete: function() {
+                $(".spinner-icon").hide();
+            },
+            success: function(result) {
                 $('.section-heading').nextAll().detach();
-                var $index = result.html.search('<p class="description">');
+                var $descriptionText = result.html.match(
+                    /(<p class="description">[A-z, ]+[:|!]<\/p>)/);
+                var $index = result.html.search('<!-- admin action -->');
                 var $html = result.html.slice($index, -1);
+                $("p.description").replaceWith($descriptionText[1]);
                 $($html).insertAfter('.section-heading');
                 initDealItemsLayout();
         }});
