@@ -42,10 +42,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,9 +50,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'djangobower',
-    'django_nose',
-    'djcelery',
     'allaccess',
     'haystack',
     'whoosh',
@@ -70,6 +63,13 @@ INSTALLED_APPS = (
     'payment',
     'rest_framework',
     'rest_framework_swagger',
+    'djangobower',
+    'django_nose',
+    'djcelery',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 )
 
 MIDDLEWARE_CLASSES = (
