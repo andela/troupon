@@ -23,7 +23,7 @@ xpath_search_results_deal = "//div[@class='packery-grid deal-grid']" \
 xpath_deals_page_title = "//h1[@class='title']"
 xpath_deals_first_deal = "//div[@class='grid-item card'][1]/form[@class='overlay row']"
 xpath_more_details_button = "//div[@class='grid-item card'][1]" \
-    "/form[@class='overlay row']/div[@class='row']/a[@class='more-details-btn btn-action']"
+    "/form[@class='overlay row']/div[@class='row']/div/a[@class='btn-action']"
 xpath_deal_specs = "//div[@class='deals-specs']"
 
 
