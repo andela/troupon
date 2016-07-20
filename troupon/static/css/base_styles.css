@@ -17,7 +17,7 @@ ul, ol {
 }
 
 .row {
-  margin: auto;
+  margin: 0px;
 }
 
 [class*='col-'] {
@@ -298,7 +298,7 @@ a.btn-action, .dropdown .dropdown-menu > li > a.btn-action, .btn-action.menu-lin
   line-height: 2.5;
 }
 
-.loginbuttons {
+.center-buttons {
   text-align: center;
 }
 
@@ -493,7 +493,7 @@ Other components.
   font-size: 0.9em;
   height: 3.5em;
   min-width: 45%;
-  width: 10em;
+  width: 6em;
 }
 
 .card:hover .overlay {
