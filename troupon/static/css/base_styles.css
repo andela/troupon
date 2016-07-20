@@ -17,7 +17,7 @@ ul, ol {
 }
 
 .row {
-  margin: 0px;
+  margin: auto;
 }
 
 [class*='col-'] {
@@ -489,7 +489,7 @@ Other components.
   font-size: 0.9em;
   height: 3.5em;
   min-width: 45%;
-  width: 6em;
+  width: 10em;
 }
 
 .card:hover .overlay {
