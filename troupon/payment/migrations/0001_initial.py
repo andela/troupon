@@ -25,6 +25,7 @@ class Migration(migrations.Migration):
                 ('stripe_transaction_status', models.CharField(default=2, max_length=100, choices=[(1, b'Succeeded'), (2, b'Failed')])),
                 ('advertiser', models.ForeignKey(to='deals.Advertiser')),
                 ('item', models.ForeignKey(to='deals.Deal')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(

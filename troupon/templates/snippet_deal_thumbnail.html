@@ -4,14 +4,18 @@
   <form class="overlay row" action="/cart/add/" method="POST">
     {% csrf_token %}
     <input type="hidden" name="dealid" value="{{deal.id}}" />
-    <div class="row" >
+    <div class="row">
       {% if not deal.quorum %}
         <button class="btn-action cta-button" type="submit">
           <i class="glyphicon glyphicon-cart"></i>
           Add to Cart
         </button>
       {% endif %}
-        <a href="{% url action_url deal_slug=deal.slug %}" class="more-details-btn btn-action">More details</a>
+      <div>
+        <a href="{% url action_url deal_slug=deal.slug %}" class="btn-action">
+          More details
+        </a>
+      </div>
     </div>
   </form>
 
