@@ -7,7 +7,7 @@ from django.core.exceptions import SuspiciousOperation
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.http import JsonResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import slugify
 from django.template.response import TemplateResponse
 from django.views.generic import View
