@@ -1,7 +1,9 @@
 {% extends "base.html" %} 
 {% load static %} 
 {% block extended_css %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" /> {% endblock extended_css %} {% if messages %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" /> 
+{% endblock extended_css %}
+{% if messages %}
 <div class="col-sm-12 no-left">
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
@@ -9,7 +11,8 @@
     </div>
     {% endfor %}
 </div>
-{% endif %} {% block main %}
+{% endif %} 
+{% block main %}
 <div class="modal-view" id="modal-sign-in">
     <div class="row">
         <div class="col-sm-5 hidden-xs brand-col">
