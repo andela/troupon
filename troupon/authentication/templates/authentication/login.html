@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% load static %} {% block extended_css %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block extended_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" /> {% endblock extended_css %} {% if messages %}
 <div class="col-sm-12 no-left">
     {% for message in messages %}
