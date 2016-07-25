@@ -1,5 +1,9 @@
-{% extends "base.html" %} {% load static %} {% block extended_css %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" /> {% endblock extended_css %} {% if messages %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block extended_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" /> 
+{% endblock extended_css %}
+{% if messages %}
 <div class="col-sm-12 no-left">
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
@@ -7,7 +11,8 @@
     </div>
     {% endfor %}
 </div>
-{% endif %} {% block main %}
+{% endif %} 
+{% block main %}
 <div class="modal-view" id="modal-sign-in">
     <div class="row">
         <div class="col-sm-5 hidden-xs brand-col">
@@ -45,10 +50,14 @@
                                 <p><a href="{% url 'account_forgot_password' %}">Forgot your password?</a></p>
                             </div>
                         </div>
-                        <div class="row" style="margin-left:155px;">
-                            <input id="loginBtn" type="submit" class="btn-action btn-form-submit" value="Log in" />
+                        <div class="row center-buttons">
+                            <div>
+                                <input id="loginBtn" type="submit" class="btn-action btn-form-submit" value="Log in"/>
+                            </div>
+                            <div>
+                                <a href="/accounts/facebook/login/?process=login" id="facebooklogin">Login with facebook</a>
+                            </div>
                         </div>
-                        <a href="/accounts/facebook/login/?process=login" id="facebooklogin" style="margin-left:160px; color:#3b5998;">Login with facebook</a>
                     </form>
                 </div>
             </div>
