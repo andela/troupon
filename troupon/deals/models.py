@@ -141,6 +141,11 @@ class Deal(models.Model):
         discount = 1 - (float(self.price) / self.original_price)
         return "{0:.0%}".format(discount)
 
+    def saving(self):
+        """Returns deal saving"""
+        saving = float(self.original_price - self.price)
+        return saving
+
     def __str__(self):
         return "{0}, {1}, {2}, {3}, {4}".format(self.id,
                                                 self.title,
