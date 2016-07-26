@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extended_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" />
+{% endblock extended_css %}
+
+{% block main %}
+<div class="modal-view" id="modal-sign-up">
+    <div class="row">
+    {% if messages %}
+      <div class="col-sm-12 no-left">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <a class="close" data-dismiss="alert">×</a>
+                {{ message|safe }}
+            </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+        <div class="col-sm-5 hidden-xs brand-col">
+            <div class="brand">
+               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+            </div>
+        </div>
+        <div class="col-xs-11 col-sm-5">
+            <header class="row">
+                <div class="col-lg-4">
+                    <h2>Register</h2>
+                </div>
+                <div class="col-lg-8 text-right" style="margin-top: 12px;" >
+                    <p>Already have an account? <a href="{% url 'login' %}" id="user_login_link">Log in</a></p>
+                </div>
+            </header>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form action="{% url 'register' %}" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <div class="custom-form-group">
+                            <label for="email">Email <span class="label-asterik">*</span></label>
+                            {{ form.email.errors }}
+                            <div class="custom-input-group">
+                                <input type="email" name="email" id="email" placeholder="lagbaja@somedomain.com">
+                            </div>
+                        </div>
+                        <div class="custom-form-group">
+                            <label for="username">Username <span class="label-asterik">*</span></label>
+                            {{ form.username.errors }}
+                            <div class="custom-input-group">
+                                <input type="text" name="username" id="username" placeholder="">
+                            </div>
+                        </div>
+                        <div class="custom-form-group">
+                            <label for="password1">Password <span class="label-asterik">*</span></label>
+                            {{ form.password1.errors }}
+                            <div class="custom-input-group">
+                                <input type="password" name="password1" id="password1" placeholder="At least 6 characters.">
+                            </div>
+                        </div>
+                        <div class="custom-form-group">
+                            <label for="password2">Confirm Password <span class="label-asterik">*</span></label>
+                            {{ form.password2.errors }}
+                            <div class="custom-input-group">
+                                <input type="password" name="password2" id="password2" placeholder="Must match Password above.">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                        <button type="submit" style=""class="btn-action btn-form-submit">Register</button>
+
+                        </div>
+                        <a href="/accounts/facebook/login/?process=login" id="facebookslogin" style="margin-left:160px; color:#3b5998;">Sign in with facebook</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock main %}
