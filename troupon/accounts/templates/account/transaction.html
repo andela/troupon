@@ -20,7 +20,8 @@
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Transaction ID</th>
-                        <th>Transaction Status</th>
+                        <th>Status</th>
+                        <th>Review</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,7 @@
                             <td>{{ transaction.quantity }}</td>
                             <td>{{ transaction.stripe_transaction_id }}</td>
                             <td>{{ transaction.stripe_transaction_status }}</td>
+                            <td><a href="{% url "review_create" content_type='deal' object_id=transaction.item.id %}">Add Review</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
