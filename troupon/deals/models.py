@@ -185,6 +185,12 @@ class Advertiser(ImageMixin, models.Model):
         location = models.SmallIntegerField(choices=KENYAN_LOCATIONS, default=47)
     telephone = models.CharField(max_length=60, default='')
     email = models.EmailField(default='')
+    logo = CloudinaryField(
+        resource_type='image',
+        type='upload',
+        blank=True,
+        default="img/default_logo.png"
+    )
 
     def __str__(self):
         return "{0}".format(self.name)

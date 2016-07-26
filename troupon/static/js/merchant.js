@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     // $('#datetimepicker').datetimepicker({
     //     timepicker:false,
@@ -7,9 +7,9 @@ $(document).ready(function() {
     // });
 
     function uploadbutton() {
-        $('.btn-file :file').change(function(event) {
+        $('.btn-file :file').change(function (event) {
             label = $(this).val().split('\\');
-            $(this).closest('span').after('<p>' + label[label.length -1] +' </p>')
+            $(this).closest('span').after('<p>' + label[label.length - 1] + ' </p>')
         });
     }
 
@@ -22,7 +22,7 @@ $(document).ready(function() {
             location.href = url
         },
         enableVerify: function (event) {
-            if(this.$tokenField.val().length ===  6){
+            if (this.$tokenField.val().length === 6) {
                 this.$verifyButton.removeAttr('disabled');
             } else {
                 this.$verifyButton.attr('disabled', 'disabled');
@@ -82,17 +82,42 @@ $(document).ready(function() {
     DealEditingAbl.init();
 });
 
-$('#user-country').on('change', function(event){
+$('#user-country').on('change', function (event) {
     var country = $(this).val();
 
-    if(country == 0) {
+    if (country == 0) {
         $('#nigerian-locations').addClass('hidden');
         $('#kenyan-locations').addClass('hidden');
-    } else if(country == 1) {
+    } else if (country == 1) {
         $('#nigerian-locations').removeClass('hidden');
         $('#kenyan-locations').addClass('hidden');
-    } else if(country == 2) {
+    } else if (country == 2) {
         $('#kenyan-locations').removeClass('hidden');
         $('#nigerian-locations').addClass('hidden');
+    }
+});
+
+$('#file-upload').on('change', function (evt) {
+    var files = evt.target.files;
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+            continue;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                $("#merchant-logo").attr("src",e.target.result);
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
     }
 });

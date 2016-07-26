@@ -78,8 +78,10 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
                 context_instance=RequestContext(request)
             )
 
+
 class TransactionsView(TemplateView):
     """View transactions for a user"""
+
     def get(self, request):
         """Renders a page with a table showing a deal,
         quantity bought, time of purchase, and its price
@@ -186,12 +188,13 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             address = request.POST.get('address')
             slug = slugify(name)
             userprofile = request.user.profile
+            logo = request.FILES.get('logo')
 
             merchant = Merchant(
                 name=name, country=country, location=location,
                 telephone=telephone, email=email,
                 address=address, slug=slug,
-                intlnumber=intlnumber,
+                intlnumber=intlnumber,logo=logo, 
                 userprofile=userprofile
             )
 
@@ -207,7 +210,6 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             }
             sms = NexmoMessage(msg)
             response = sms.send_request()
-
             if response:
                 return redirect(
                     reverse('account_merchant_verify'))
@@ -270,6 +272,7 @@ class MerchantConfirmView(LoginRequiredMixin, TemplateView):
 
         try:
             if request.user.profile.merchant:
+                
                 if(not Message.confirmation_sent(request.user)):
                     # send message to admin that a merchant has been enabled
                     body = """%s %s just verified his phone number.

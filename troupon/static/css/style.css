@@ -26,3 +26,16 @@ intl tel input styles:
     cursor: inherit;
     display: block;
 }
+.images{
+    display:inline-block;
+    width:400px;
+    height:350px;
+    overflow:hidden;
+    position: relative;
+}
+#merchant-logo{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
