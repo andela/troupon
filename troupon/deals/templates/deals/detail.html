@@ -28,14 +28,14 @@
         {% endwith %}
 
         <!-- deals image(s) -->
-        <div class="col-sm-8">
+        <div class="col-sm-7">
             <div class="deal-image">
                 {% include "snippet_image_card.html" with url=deal.image.url %}
             </div>
         </div>
 
         <!-- deal specs -->
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <div class="deals-specs">
 
                 <!-- Prices -->
@@ -46,37 +46,40 @@
                     </div>
                 </div>
 
+                <!-- Description -->
+                <div class="deal-description">
+                  <div class="description-text">{{deal.description|default:'<p>No description given for this deal.</p>'}}</div>
+                </div>
+
+
                 <!-- Price specs-->
-                <div class="row price-specs">
-                    <div class="divider"></div>
-                    <div class="row">
-                        <div class="col-xs-6 text-left"><p>Value</p></div>
-                        <div class="col-xs-6 text-right">
-                            <p>{{ deal.currency_symbol }} {{ deal.original_price|intcomma }}</p>
-                        </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Value</th>
+                                    <th>Discount</th>
+                                    <th>You Save</th>
+                                    <th>Deal Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ deal.currency_symbol }} {{ deal.original_price|intcomma }}</td>
+                                    <td>{{ deal.discount }}</td>
+                                    <td>{{ deal.currency_symbol  }} {{ deal.saving|intcomma }}</td>
+                                    <td>
+                                      <i class="fa fa-star ratings"></i>
+                                      <i class="fa fa-star ratings"></i>
+                                      <i class="fa fa-star ratings"></i>
+                                      <i class="fa fa-star ratings"></i>
+                                      <i class="fa fa-star-o ratings"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="divider"></div>
-                    <div class="row">
-                        <div class="col-xs-6 text-left"><p>Discount</p></div>
-                        <div class="col-xs-6 text-right">
-                            <p>{{ deal.discount }}</p>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="row">
-                        <div class="col-xs-6 text-left"><p>You Pay</p></div>
-                        <div class="col-xs-6 text-right">
-                            <p>{{ deal.currency_symbol  }} {{ deal.price|intcomma }}</p>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="row">
-                        <div class="col-xs-6 text-left"><p>Purchases</p></div>
-                        <div class="col-xs-6 text-right">
-                            <p>{{ deal.quorum|default:0 }} | {{ deal.max_quantity_available }}</p>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
                 </div>
 
                 <!-- Call to action -->
@@ -138,17 +141,96 @@
     </div>
 
     <section class="row details-section">
-        <!-- deal description -->
-        <div class="col-md-6">
-            <h4 class="section-label"><i class="fa fa-list-alt"></i> Description</h4>
-            <div class="description-text">{{deal.description|default:'<p>No description given for this deal.</p>'}}</div>
+        <div class="col-md-8">
+          <!-- deal reviews -->
+          <div class="deal-reviews">
+            <h4 class="section-label"><i class="fa fa-comments-o"></i> Latest Reviews</h4>
+            <!-- review 1 -->
+            <div class="review-box">
+              <div class="col-md-6">
+                <p>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star-o ratings"></i>
+                  <span class="review-author"> Mbithe Nzomo </span>
+                </p>
+              </div>
+              <div class="col-md-6">
+                <p class="review-date"> 28th March 2016 </p>
+              </div>
+              <div class="col-md-12">
+                <p class="review-text">
+                  Awesome!! Couldn't have asked for anything better. This deal rocks!!
+                </p>
+                <p class="review-helpful">
+                  Was this review helpful?
+                    <button class="review-btn"><i class="fa fa-thumbs-up"></i> Yes</button>
+                </p>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <!-- review 2 -->
+            <div class="review-box">
+              <div class="col-md-6">
+                <p>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star-o ratings"></i>
+                  <i class="fa fa-star-o ratings"></i>
+                  <span class="review-author"> Penny Wanjiru </span>
+                </p>
+              </div>
+              <div class="col-md-6">
+                <p class="review-date"> 5th April 2016 </p>
+              </div>
+              <div class="col-md-12">
+                <p class="review-text">
+                  Average. Just average. Not bad, not good.
+                </p>
+                <p class="review-helpful">
+                  Was this review helpful?
+                    <button class="review-btn"><i class="fa fa-thumbs-up"></i> Yes</button>
+                </p>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <!-- review 3 -->
+            <div class="review-box">
+              <div class="col-md-6">
+                <p>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star ratings"></i>
+                  <i class="fa fa-star-o ratings"></i>
+                  <i class="fa fa-star-o ratings"></i>
+                  <span class="review-author"> Jack Wachira </span>
+                </p>
+              </div>
+              <div class="col-md-6">
+                <p class="review-date"> 17th May 2016 </p>
+              </div>
+              <div class="col-md-12">
+                <p class="review-text">
+                  I'm really impressed with this deal. Not only did it beat what was on the picture,
+                  it also brought back many lovely memories of my childhood.
+                </p>
+                <p class="review-helpful">
+                  Was this review helpful?
+                    <button class="review-btn"><i class="fa fa-thumbs-up"></i> Yes</button>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- deal location/map -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h4 class="section-label"><i class="fa fa-map-marker"></i> Directions</h4>
             <address id="map-ref-address" style="display:none;">{{ deal.address }}</address>
             <div class="image-frame card">
-                <div id="map" style="width:100%; height:450px"></div>
+                <div id="map" style="width:100%; height:500px"></div>
             </div>
         </div>
     </section>
