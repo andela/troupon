@@ -28,14 +28,42 @@ intl tel input styles:
 }
 .images{
     display:inline-block;
-    width:400px;
-    height:350px;
+    width:300px;
+    height:250px;
     overflow:hidden;
     position: relative;
+    margin: 0 auto;
 }
 #merchant-logo{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+label.file-upload-label input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}
+.file-upload-label {
+    width: 50%;
+    height: 30px;
+    border-radius: 4px;
+    background: #660066;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    padding-top: 5px;
+}
+.file-upload-label:hover {
+    background: #E07825;
+}
+.file-upload-label:active {
+    background: #E07825;
+}
+.file-upload-label :valid + span {
+    color: #ffffff;
+}
+.glyphicon-folder-open{
+    margin-right: 10px;
 }

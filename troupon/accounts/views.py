@@ -189,12 +189,11 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             slug = slugify(name)
             userprofile = request.user.profile
             logo = request.FILES.get('logo')
-
             merchant = Merchant(
                 name=name, country=country, location=location,
                 telephone=telephone, email=email,
                 address=address, slug=slug,
-                intlnumber=intlnumber,logo=logo, 
+                intlnumber=intlnumber, logo=logo,
                 userprofile=userprofile
             )
 
@@ -272,7 +271,7 @@ class MerchantConfirmView(LoginRequiredMixin, TemplateView):
 
         try:
             if request.user.profile.merchant:
-                
+
                 if(not Message.confirmation_sent(request.user)):
                     # send message to admin that a merchant has been enabled
                     body = """%s %s just verified his phone number.

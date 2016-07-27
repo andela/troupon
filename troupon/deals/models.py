@@ -156,6 +156,7 @@ class ImageMixin(object):
     """Mixes in an image property which is a random image selected from
     all available deals
     """
+
     def image(self):
         """Retrieve random photo of deal under this category
         """
@@ -189,7 +190,7 @@ class Advertiser(ImageMixin, models.Model):
         resource_type='image',
         type='upload',
         blank=True,
-        default="img/default_logo.png"
+        default="img/logo-v-lg.png"
     )
 
     def __str__(self):
