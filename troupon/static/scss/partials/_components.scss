@@ -563,3 +563,10 @@ deal-detail {
     transform: translateY(-50%);
   }
 }
+
+.spinner-icon {
+  position: absolute;
+  top: 22%;
+  right: 48px;
+  display: none;
+}
