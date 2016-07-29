@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'whoosh',
     'rest_framework',
     'rest_framework_swagger',
+    'corsheaders',
     'djangobower',
     'django_nose',
     'djcelery',
@@ -74,6 +75,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -103,6 +105,17 @@ TEMPLATES = [
         },
     },
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken'
+)
 
 WSGI_APPLICATION = 'troupon.wsgi.application'
 

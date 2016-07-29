@@ -1,20 +1,20 @@
 import cloudinary
+import os
+import string
 
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import View
-from django.core.urlresolvers import reverse
-from django.core.exceptions import SuspiciousOperation
-from django.http import Http404
-from django.template.response import TemplateResponse
 from django.core.context_processors import csrf
+from django.core.exceptions import SuspiciousOperation
+from django.core.urlresolvers import reverse
+from django.http import Http404
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import slugify
-
+from django.template.response import TemplateResponse
+from django.views.generic import View
 from haystack.query import SearchQuerySet
 
-from models import Category, Deal, Advertiser, ALL_LOCATIONS
 from baseviews import DealListBaseView
-from geoip import geolite2
-from django.http import JsonResponse
+from models import Advertiser, ALL_LOCATIONS, Category, Deal
 
 
 class HomePageView(DealListBaseView):
@@ -25,6 +25,10 @@ class HomePageView(DealListBaseView):
     """
 
     def get(self, request, *args, **kwargs):
+
+        # check if location exists
+        location = request.COOKIES.get('city')
+
         # get the popular categories:
         popular_categories = Category.objects.all()[:12]
 
@@ -32,8 +36,15 @@ class HomePageView(DealListBaseView):
         featured_deals = Deal.objects.filter(featured=True).order_by('pk')[:5]
 
         # get the latest deals i.e. sorted by latest date:
-        latest_deals = Deal.objects.filter(active=True)\
-                                   .order_by('date_last_modified')
+        if location:
+            location = string.replace(location, "'", "")
+            location_index = [item[0]
+                              for item in ALL_LOCATIONS if item[1] == location]
+            latest_deals = Deal.objects.filter(active=True, location=location_index[
+                                               0]).order_by('date_last_modified')
+        else:
+            latest_deals = Deal.objects.filter(active=True)\
+                                       .order_by('date_last_modified')
         list_title = "Latest Deals"
         list_description = "Checkout the hottest new deals from all your favourite brands:"
 
@@ -170,6 +181,7 @@ class DealSearchCityView(DealListBaseView):
 class DealSlugView(View):
     """ Respond to routes to deal url using slug
     """
+
     def get(self, request, *args, **kwargs):
         deal_slug = self.kwargs.get('deal_slug')
         try:
