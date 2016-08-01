@@ -238,26 +238,32 @@
                   </p>
 
                 {% if request.user.is_authenticated %}
-                  {% if deal.id in purchased_deals %}
-                    <form action="{% url 'submit-review' %}" method="POST" id="add-review">
-                      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                      <div class="custom-input-group">
-                        <label>Your Rating: <span class="label-asterik">*</span></label>
-                        <select name="rating" id="star-ratings">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </div>
-                      <div class="custom-input-group">
-                        <label>Your Review: <span class="label-asterik">*</span></label>
-                        <input type="textarea" name="description" placeholder="Write your review here.">
-                        <input type="hidden" name="deal_id" value="{{deal.id}}" />
-                      </div>
-                      <button id="add-review-button" type="submit" class="btn-action btn-form-submit">Add Review</button>
-                    </form>
+                    {% if deal.id in purchased_deals %}
+                      {% if deal.id not in already_reviewed %}
+                          <form action="{% url 'submit-review' %}" method="POST" id="add-review">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <div class="custom-input-group">
+                              <label>Your Rating: <span class="label-asterik">*</span></label>
+                              <select name="rating" id="star-ratings">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                              </select>
+                            </div>
+                            <div class="custom-input-group">
+                              <label>Your Review: <span class="label-asterik">*</span></label>
+                              <input type="textarea" name="description" placeholder="Write your review here.">
+                              <input type="hidden" name="deal_id" value="{{deal.id}}" />
+                            </div>
+                            <button id="add-review-button" type="submit" class="btn-action btn-form-submit">Add Review</button>
+                          </form>
+                      {% else %}
+                        <p>
+                          Thank you for your review! It'll go a long way in ensuring we provide only the very best deals.
+                        </p>
+                      {% endif %}
                     {% else %}
                       <p> You need to purchase this deal to rate or review it. </p>
                     {% endif %}

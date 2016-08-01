@@ -188,22 +188,33 @@ class DealSlugView(View):
             raise Http404('Deal with this slug not found!')
 
         reviews = Review.objects.filter(deal=deal)
+
+        # Getting the average_rating rounded to the nearest integer
         average_rating_dict = Review.objects.filter(
                               deal=deal).aggregate(Avg('rating'))
         average_rating = average_rating_dict['rating__avg']
         if average_rating is None:
             average_rating = 0
-        average_rating_rounded = round(average_rating) # round average_rating to the nearest integer
+        average_rating_rounded = round(average_rating)
+
+        # Getting the number of reviews for each deal
         review_number = Review.objects.filter(deal=deal).count()
+
+        # Getting the deals purchased by the current user
         user = self.request.user
         transactions = Purchases.objects.filter(user=user)
         purchased_deals = [transaction.item.id for transaction in transactions]
-        
+
+        # Getting the deals already reviewed by the current user
+        user_reviews = Review.objects.filter(author=user)
+        already_reviewed = [review.deal.id for review in user_reviews]
+
         context = {'deal': deal,
                    'reviews': reviews,
                    'average_rating_rounded': average_rating_rounded,
                    'review_number': review_number,
-                   'purchased_deals': purchased_deals
+                   'purchased_deals': purchased_deals,
+                   'already_reviewed': already_reviewed
                    }
         return TemplateResponse(request, 'deals/detail.html', context)
 
@@ -217,8 +228,7 @@ class ReviewView(View):
             review = review_form.save(commit=False)
             review.description = request.POST.get('description')
             review.rating = request.POST.get('rating')
-            author_id = request.user.profile.id
-            review.author = User.objects.get(id=author_id)
+            review.author = self.request.user
             review.date_created = date.today()
             deal_id = request.POST.get('deal_id')
             review.deal = Deal.objects.get(id=deal_id)
