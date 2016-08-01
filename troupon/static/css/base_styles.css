@@ -1,3 +1,14 @@
+label {
+  width: 180px;
+  clear: left;
+  text-align: left;
+  padding-right: 10px;
+}
+
+input, label {
+  float: left;
+}
+
 /* ==========================================================================
 Resets (overrides for Bootstrap and browser-defaults)
 ========================================================================== */
@@ -17,7 +28,7 @@ ul, ol {
 }
 
 .row {
-  margin: 0px;
+  margin: auto;
 }
 
 [class*='col-'] {
@@ -408,6 +419,10 @@ Forms Controls
   font-size: 16px;
 }
 
+.row {
+  padding: 20px;
+}
+
 /* ==========================================================================
 Lists
 ========================================================================== */
@@ -493,7 +508,7 @@ Other components.
   font-size: 0.9em;
   height: 3.5em;
   min-width: 45%;
-  width: 6em;
+  width: 10em;
 }
 
 .card:hover .overlay {
@@ -1786,4 +1801,8 @@ footer.checkout-footer .divider-1 {
 
 .cart_table {
   margin-top: 20px;
+}
+
+#logo {
+  padding: 55px;
 }

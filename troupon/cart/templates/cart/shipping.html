@@ -1,0 +1,60 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block extended_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/page_styles.css' %}" /> 
+{% endblock extended_css %}
+{% if messages %}
+<div class="col-sm-12 no-left">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        <a class="close" data-dismiss="alert">×</a> {{ message|safe }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %} 
+{% block main %}
+<div class="modal-view" id="modal-sign-in">
+    <div class="row">
+        <div class="col-sm-5 hidden-xs brand-col">
+            <div class="brand">
+                <img src="{% static 'img/logo-v-lg.png' %}" id="logo" alt="Troupon logo">
+            </div>
+        </div>
+        <div class="shippingmdl col-xs-11 col-sm-5" id="shippingmodal">
+            <header class="row">
+                <h2>Shipping Details</h2>
+            </header>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form action="{% url 'proceed_checkout' %}" method="POST">   
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <div class="custom-form-group">
+                            <label for="email">Street address <span class="label-asterik">*</span></label>
+                            <div class="custom-input-group">
+                                <input type="text" name="street"  id="email" placeholder="1234">
+                            </div>
+                        </div>
+                        <div class="custom-form-group">
+                            <label for="password">State/Province <span class="label-asterik">*</span></label>
+                            <div class="custom-input-group">
+                                <input type="text" name="state" id="password" placeholder="State/Province">
+                            </div>
+                        </div>
+                        <div class="custom-form-group">
+                            <label for="password">Telephone<span class="label-asterik">*</span></label>
+                            <div class="custom-input-group">
+                                <input type="text" name="telephone" id="password" placeholder="Telephone">
+                            </div>
+                        </div>
+                        <div class="center-buttons">
+                            <div>
+                                <input type="submit" class="btn-action btn-form-submit" value="Proceed to pay"/>
+                            </div>
+                        </div>         
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

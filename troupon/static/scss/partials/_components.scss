@@ -76,6 +76,7 @@ a.btn-action, a.btn-action-alt {
 .center-buttons {
   text-align: center;
 }
+ 
 
 /* ==========================================================================
 Forms Controls
@@ -98,6 +99,9 @@ Forms Controls
 .label-asterik {
   color: color(accent);
   font-size: font-size(body)
+}
+.row {
+    padding: 20px;
 }
 
 
@@ -171,7 +175,7 @@ Other components.
       font-size: 0.9em;
       height: 3.5em;
       min-width: 45%;
-      width: 6em;
+      width: 10em;
     }
   }
 
