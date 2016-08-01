@@ -15,6 +15,7 @@ from haystack.query import SearchQuerySet
 from datetime import date
 
 from models import Category, Deal, Advertiser, ALL_LOCATIONS, Review
+from payment.models import Purchases
 from forms import ReviewForm
 from baseviews import DealListBaseView
 from geoip import geolite2
@@ -190,15 +191,19 @@ class DealSlugView(View):
         average_rating_dict = Review.objects.filter(
                               deal=deal).aggregate(Avg('rating'))
         average_rating = average_rating_dict['rating__avg']
-        if average_rating == None:
+        if average_rating is None:
             average_rating = 0
-        average_rating_rounded = round(average_rating) # round average_rating to nearest integer
+        average_rating_rounded = round(average_rating) # round average_rating to the nearest integer
         review_number = Review.objects.filter(deal=deal).count()
-
+        user = self.request.user
+        transactions = Purchases.objects.filter(user=user)
+        purchased_deals = [transaction.item.id for transaction in transactions]
+        
         context = {'deal': deal,
                    'reviews': reviews,
                    'average_rating_rounded': average_rating_rounded,
-                   'review_number': review_number
+                   'review_number': review_number,
+                   'purchased_deals': purchased_deals
                    }
         return TemplateResponse(request, 'deals/detail.html', context)
 
@@ -220,7 +225,7 @@ class ReviewView(View):
             deal_slug = review.deal.slug
             review.save()
             return HttpResponseRedirect(reverse('deal-with-slug',
-                                        kwargs={'deal_slug':deal_slug}))
+                                        kwargs={'deal_slug': deal_slug}))
         else:
             print "The form cannot be empty."
 
