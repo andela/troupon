@@ -1,23 +1,24 @@
 from datetime import date, timedelta
 
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import View
 from django.views.generic.base import TemplateView
-from django.contrib import messages
 
-from deals.models import Deal, Category, Advertiser, \
-    COUNTRY_CHOICES, ALL_LOCATIONS, NIGERIAN_LOCATIONS, KENYAN_LOCATIONS, CURRENCY_CHOICES
 from deals.baseviews import DealListBaseView
+from deals.models import Advertiser, ALL_LOCATIONS, Category, COUNTRY_CHOICES, CURRENCY_CHOICES,\
+    Deal, DEAL_TYPES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS
 from merchant.forms import DealForm
 from merchant.mixins import MerchantMixin
 from merchant.models import Merchant
-from payment.models import TransactionHistory, Purchases
+from payment.models import Purchases, TransactionHistory
 
 
 class ManageDealsView(MerchantMixin, DealListBaseView):
 
     """Manage deals"""
+
     def get(self, request):
         """Renders a listing page for all deals that was created by a merchant
         """
@@ -46,6 +47,7 @@ class ManageDealsView(MerchantMixin, DealListBaseView):
 
 class ManageDealView(MerchantMixin, View):
     """Manage a single deal"""
+
     def get(self, request, deal_slug):
         """Renders a page showing a deal that was created by a merchant
         """
@@ -94,6 +96,7 @@ class ManageDealView(MerchantMixin, View):
 
 class TransactionsView(MerchantMixin, View):
     """View transactions for a merchant"""
+
     def get(self, request):
         """Renders a page with a table showing a deal, its buyer,
         quantity bought, time of purchase, and its price
@@ -112,6 +115,7 @@ class TransactionsView(MerchantMixin, View):
 
 class TransactionView(MerchantMixin, View):
     """View transactions detail for a merchant"""
+
     def get(self, request, transaction_id):
         """Renders a detailed view about a transaction """
         context_data = []
@@ -129,7 +133,8 @@ class CreateDealView(MerchantMixin, TemplateView):
             'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
             'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
             'currency': {'choices': CURRENCY_CHOICES, 'default': 1},
-            'category': Category.objects.order_by('name')
+            'category': Category.objects.order_by('name'),
+            'deal_types': {'choices': DEAL_TYPES, 'default': 1}
         })
         return context_var
 
@@ -139,7 +144,7 @@ class CreateDealView(MerchantMixin, TemplateView):
         original_price = request.POST.get('original_price')
         currency = request.POST.get('currency')
         country = int(request.POST.get('user_country'))
-
+        deal_type = request.POST.get('deal_type')
         if country == 1:
             location = int(request.POST.get('nigeria_user_location'))
         elif country == 2:
@@ -182,17 +187,17 @@ class CreateDealView(MerchantMixin, TemplateView):
             quorum=quorum, disclaimer=disclaimer, description=description,
             address=address, max_quantity_available=max_quantity_available,
             date_end=date_end, active=active, image=image, title=title,
-            advertiser=advertiser, duration=duration
+            advertiser=advertiser, duration=duration, type=deal_type
         )
 
         deal.save()
-
         mssg = "Deal successfully created."
         messages.add_message(request, messages.ERROR, mssg)
         return redirect(reverse('merchant_manage_deals'))
 
 
 class MerchantView(MerchantMixin, View):
+
     def get(self, request, merchant_slug):
         """Renders a view containing information about a merchant"""
         pass
