@@ -201,7 +201,7 @@ class DealSlugView(View):
         review_number = Review.objects.filter(deal=deal).count()
 
         # Getting the deals purchased by the current user
-        user = self.request.user
+        user = self.request.user.id
         transactions = Purchases.objects.filter(user=user)
         purchased_deals = [transaction.item.id for transaction in transactions]
 
@@ -228,7 +228,7 @@ class ReviewView(View):
             review = review_form.save(commit=False)
             review.description = request.POST.get('description')
             review.rating = request.POST.get('rating')
-            review.author = self.request.user
+            review.author = self.request.user.id
             review.date_created = date.today()
             deal_id = request.POST.get('deal_id')
             review.deal = Deal.objects.get(id=deal_id)
