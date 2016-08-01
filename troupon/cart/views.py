@@ -3,13 +3,8 @@ import os
 from carton.cart import Cart
 
 from django.contrib import messages
-from django.core.urlresolvers import reverse
-from django.core.context_processors import csrf
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.shortcuts import render_to_response
 from django.template.response import TemplateResponse
-from django.template import RequestContext
 from django.views.generic import View
 
 from authentication.views import LoginRequiredMixin

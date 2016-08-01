@@ -207,7 +207,6 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             }
             sms = NexmoMessage(msg)
             response = sms.send_request()
-            print response
             if response:
                 return redirect(
                     reverse('account_merchant_verify'))
