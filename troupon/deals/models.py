@@ -69,14 +69,17 @@ EPOCH_CHOICES = [
     (-1, 'Show All'),
 ]
 
-# Rating Choices
-rating_choices = [
+# Rating choices when reviewing a deal
+RATING_CHOICES = [
     (1, '1 star'),
     (2, '2 star'),
     (3, '3 star'),
     (4, '4 star'),
     (5, '5 star'),
 ]
+
+# Category of deal as either physical or virtual
+DEAL_TYPES = [(1, 'Physical'), (2, 'Virtual')]
 
 class Deal(models.Model):
     """Deals within the troupon system are represented by this
@@ -109,6 +112,7 @@ class Deal(models.Model):
     active = models.BooleanField(default=False)
     featured = models.BooleanField(default=False)
     max_quantity_available = models.IntegerField()
+    type = models.SmallIntegerField(choices=DEAL_TYPES, default=1)
     date_created = models.DateField(auto_now_add=True)
     date_last_modified = models.DateField(auto_now=True)
     date_end = models.DateField(blank=True, null=True)
@@ -169,6 +173,7 @@ class ImageMixin(object):
     """Mixes in an image property which is a random image selected from
     all available deals
     """
+
     def image(self):
         """Retrieve random photo of deal under this category
         """
@@ -193,11 +198,19 @@ class Advertiser(ImageMixin, models.Model):
     address = models.CharField(max_length=200, default='')
     country = models.SmallIntegerField(choices=COUNTRY_CHOICES, default=2)
     if country == 1:
-        location = models.SmallIntegerField(choices=NIGERIAN_LOCATIONS, default=25)
+        location = models.SmallIntegerField(
+            choices=NIGERIAN_LOCATIONS, default=25)
     else:
-        location = models.SmallIntegerField(choices=KENYAN_LOCATIONS, default=47)
+        location = models.SmallIntegerField(
+            choices=KENYAN_LOCATIONS, default=47)
     telephone = models.CharField(max_length=60, default='')
     email = models.EmailField(default='')
+    logo = CloudinaryField(
+        resource_type='image',
+        type='upload',
+        blank=True,
+        default="img/logo-v-lg.png"
+    )
 
     def __str__(self):
         return "{0}".format(self.name)
@@ -235,7 +248,7 @@ def set_deal_slug(sender, instance, **kwargs):
         slug = slugify('%s %s' % (instance.title, date_created))
 
         deal_slug_exists = Deal.objects.filter(
-                slug__startswith=slug).order_by('-date_created')
+            slug__startswith=slug).order_by('-date_created')
 
         if deal_slug_exists:
             deal_title_slug = slugify(instance.title)
@@ -259,7 +272,7 @@ class Review(models.Model):
     author = models.ForeignKey('auth.User')
     deal = models.ForeignKey(Deal)
     description = models.TextField(max_length=1000)
-    rating = models.SmallIntegerField(choices=rating_choices, default=5)
+    rating = models.SmallIntegerField(choices=RATING_CHOICES, default=5)
     date_created = models.DateField(auto_now_add=True)
 
     def __str__(self):

@@ -4,7 +4,7 @@
     <div class="deal-detail col-xs-12 col-sm-8">
       <h1 class="title">{{ title|title }}</h1>
       {% if description %}
-        <p class="description">{{ description|truncatechars:150|capfirst }}<p>
+        <p class="description">{{ description|truncatechars:150|capfirst }}</p>
       {% endif %}
     </div>
     <div class="col-xs-12 col-sm-4">
@@ -22,6 +22,10 @@
               </option>
             {% endfor %}
           </select>
+          <div class="spinner-icon">
+            <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
         </div>
 
         {% else %}
