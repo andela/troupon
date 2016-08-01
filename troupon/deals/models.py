@@ -62,13 +62,21 @@ CURRENCY_CHOICES = [
 
 # Date sorting epochs:
 EPOCH_CHOICES = [
-    (1, "1 day"),
-    (7, "Last 7 Days"),
-    (14, "Last 2 Weeks"),
-    (30, "1 Month"),
-    (-1, "Show All"),
+    (1, '1 day'),
+    (7, 'Last 7 Days'),
+    (14, 'Last 2 Weeks'),
+    (30, '1 Month'),
+    (-1, 'Show All'),
 ]
 
+# Rating Choices
+rating_choices = [
+    (1, '1 star'),
+    (2, '2 star'),
+    (3, '3 star'),
+    (4, '4 star'),
+    (5, '5 star'),
+]
 
 class Deal(models.Model):
     """Deals within the troupon system are represented by this
@@ -245,3 +253,16 @@ def set_deal_slug(sender, instance, **kwargs):
         instance.slug = slug
 
 signals.request_started.connect(set_deal_inactive)
+
+
+class Review(models.Model):
+    author = models.ForeignKey('auth.User')
+    deal = models.ForeignKey(Deal)
+    description = models.TextField(max_length=1000)
+    rating = models.SmallIntegerField(choices=rating_choices, default=5)
+    date_created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return "{0}, {1}, {2}".format(self.id,
+                                      self.deal.title,
+                                      self.rating)

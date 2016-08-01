@@ -1,17 +1,21 @@
 import cloudinary
 
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import View
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View, TemplateView
 from django.core.urlresolvers import reverse
 from django.core.exceptions import SuspiciousOperation
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.core.context_processors import csrf
 from django.template.defaultfilters import slugify
+from django.db.models import Avg
+from django.contrib.auth.models import User
 
 from haystack.query import SearchQuerySet
+from datetime import date
 
-from models import Category, Deal, Advertiser, ALL_LOCATIONS
+from models import Category, Deal, Advertiser, ALL_LOCATIONS, Review
+from forms import ReviewForm
 from baseviews import DealListBaseView
 from geoip import geolite2
 from django.http import JsonResponse
@@ -170,6 +174,7 @@ class DealSearchCityView(DealListBaseView):
 class DealSlugView(View):
     """ Respond to routes to deal url using slug
     """
+
     def get(self, request, *args, **kwargs):
         deal_slug = self.kwargs.get('deal_slug')
         try:
@@ -181,5 +186,43 @@ class DealSlugView(View):
         except (Deal.DoesNotExist, AttributeError):
             raise Http404('Deal with this slug not found!')
 
-        context = {'deal': deal}
+        reviews = Review.objects.filter(deal=deal)
+        average_rating_dict = Review.objects.filter(
+                              deal=deal).aggregate(Avg('rating'))
+        average_rating = average_rating_dict['rating__avg']
+        if average_rating == None:
+            average_rating = 0
+        average_rating_rounded = round(average_rating) # round average_rating to nearest integer
+        review_number = Review.objects.filter(deal=deal).count()
+
+        context = {'deal': deal,
+                   'reviews': reviews,
+                   'average_rating_rounded': average_rating_rounded,
+                   'review_number': review_number
+                   }
+        return TemplateResponse(request, 'deals/detail.html', context)
+
+
+class ReviewView(View):
+
+    def post(self, request):
+        """ View to handle creation of reviews"""
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.description = request.POST.get('description')
+            review.rating = request.POST.get('rating')
+            author_id = request.user.profile.id
+            review.author = User.objects.get(id=author_id)
+            review.date_created = date.today()
+            deal_id = request.POST.get('deal_id')
+            review.deal = Deal.objects.get(id=deal_id)
+            deal_slug = review.deal.slug
+            review.save()
+            return HttpResponseRedirect(reverse('deal-with-slug',
+                                        kwargs={'deal_slug':deal_slug}))
+        else:
+            print "The form cannot be empty."
+
+        context = {'review_form': review_form}
         return TemplateResponse(request, 'deals/detail.html', context)
