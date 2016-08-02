@@ -1,8 +1,8 @@
     $(document).ready(function() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        // navigator.geolocation.getCurrentPosition(showPosition, showError);
       } else {
-        // toastr.error("Geolocation is not supported by this browser.");
+        toastr.error("Geolocation is not supported by this browser.");
       }
 
       function showError(error) {
@@ -21,7 +21,7 @@
             errorMsg = "An unknown error occurred.";
             break;
         }
-        // toastr.error(errorMsg);
+        toastr.error(errorMsg);
         deleteCookie();
       }
 
