@@ -1,4 +1,4 @@
-  window.onload = function() {
+    $(document).ready(function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
       } else {
@@ -71,4 +71,4 @@
           }
         });
       }
-    };
+    });
