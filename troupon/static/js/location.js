@@ -1,6 +1,6 @@
     $(document).ready(function() {
       if (navigator.geolocation) {
-        // navigator.geolocation.getCurrentPosition(showPosition, showError);
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
       } else {
         toastr.error("Geolocation is not supported by this browser.");
       }
@@ -63,7 +63,7 @@
             document.cookie = "city='" + city + "'";
             if (!localStorage.reload) {
               localStorage.setItem("reload", "true");
-              window.location.reload();
+              // window.location.reload();
             }
           },
           error: function(result) {
