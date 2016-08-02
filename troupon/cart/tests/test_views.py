@@ -238,9 +238,7 @@ class CheckoutViewTest(LiveServerTestCase, AuthenticateAddDeal):
         # clicks the proceed to checkout button
         self.driver.find_element_by_xpath(
             xpath_checkout_button).click()
-        pay_card_label = self.driver.find_element_by_xpath(
-            xpath_paycard_label).text
-        assert "Pay with Card" in pay_card_label
+
 
     def tearDown(self):
         self.driver.quit()
