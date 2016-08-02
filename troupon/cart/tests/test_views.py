@@ -239,7 +239,6 @@ class CheckoutViewTest(LiveServerTestCase, AuthenticateAddDeal):
         self.driver.find_element_by_xpath(
             xpath_checkout_button).click()
 
-
     def tearDown(self):
         self.driver.quit()
         super(CheckoutViewTest, self).tearDown()
