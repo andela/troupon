@@ -1,4 +1,4 @@
-    $(document).ready(function() {
+  window.onload = function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
       } else {
@@ -63,7 +63,7 @@
             document.cookie = "city='" + city + "'";
             if (!localStorage.reload) {
               localStorage.setItem("reload", "true");
-              // window.location.reload();
+              window.location.reload();
             }
           },
           error: function(result) {
@@ -71,4 +71,4 @@
           }
         });
       }
-    });
+    };
