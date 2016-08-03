@@ -127,14 +127,16 @@ class AddShippingDetails(LoginRequiredMixin, View):
         Returns:
             A redirect to the checkout page
         """
+        user = request.user
         street = request.POST.get('street')
         state = request.POST.get('state')
         postal = request.POST.get('postal')
         telephone = request.POST.get('telephone')
-        user = request.user.profile
         shipping = UserShippingDetails(user=user, street=street, postal=postal, state=state, telephone=telephone)
         shipping.save()
-        return TemplateResponse(request, 'cart/checkout.html')
+        cart = Cart(request.session)
+        context = {'cart': cart}
+        return TemplateResponse(request, 'cart/checkout.html', context)
 
 
 class ViewCartView(LoginRequiredMixin, View):

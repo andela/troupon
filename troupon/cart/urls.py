@@ -1,7 +1,6 @@
 """Imports statements."""
 from django.conf.urls import url
-from cart.views import CheckoutView, AddToCartView, ClearCartView, \
-    RemoveItemView, ViewCartView, AddShippingDetails
+from cart.views import AddShippingDetails, AddToCartView, CheckoutView, ClearCartView, RemoveItemView, ViewCartView 
 
 urlpatterns = [
     # points to the checkout view handler
