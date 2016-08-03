@@ -64,9 +64,8 @@ Buttons
 }
 
 .btn-form-submit {
-  @include fluid-width-xs;
-  min-width: 150px;
-  margin: 15px auto;
+    min-width: 150px;
+    margin: 15px auto;
 }
 
 a.btn-action, a.btn-action-alt {
@@ -569,4 +568,46 @@ deal-detail {
   top: 22%;
   right: 48px;
   display: none;
+}
+
+.ratings-full {
+  color: #ffc120;
+}
+.ratings-empty {
+  color: #d2d2d2;
+}
+
+.review-textarea {
+  width:50%;
+  height:100px;
+}
+
+.deal-reviews {
+padding-right: 25px;
+padding-top: 10px;
+}
+
+.deal-reviews .review-box {
+padding-top: 30px;
+}
+
+.deal-reviews .review-author{
+  font-size: 12px;
+}
+
+.deal-reviews .review-date{
+  text-align: right;
+  font-size: 12px;
+}
+
+.deal-reviews .review-btn {
+  color: #a5a8ab;
+}
+
+.deal-reviews .review-btn:hover {
+  color: #660066;
+}
+
+.deal-rating {
+  font-size: 30px;
 }

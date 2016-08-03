@@ -32,14 +32,14 @@
         {% endwith %}
 
         <!-- deals image(s) -->
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <div class="deal-image">
                 {% include "snippet_image_card.html" with url=deal.image.url %}
             </div>
         </div>
 
         <!-- deal specs -->
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             <div class="deals-specs">
 
                 <!-- Prices -->
@@ -50,78 +50,48 @@
                     </div>
                 </div>
 
-                <!-- Description -->
-                <div class="deal-description">
-                  <div class="description-text">{{deal.description|default:'<p>No description given for this deal.</p>'}}</div>
-                </div>
-
-
                 <!-- Price specs-->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-striped table-hover table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Value</th>
-                                    <th>Discount</th>
-                                    <th>You Save</th>
-                                    <th>Deal Rating</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ deal.currency_symbol }} {{ deal.original_price|intcomma }}</td>
-                                    <td>{{ deal.discount }}</td>
-                                    <td>{{ deal.currency_symbol  }} {{ deal.saving|intcomma }}</td>
-                                    <td>
-                                      {% if average_rating_rounded %}
-                                        {% if average_rating_rounded = 1 %}
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                        {% elif average_rating_rounded = 2 %}
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                        {% elif average_rating_rounded = 3 %}
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                        {% elif average_rating_rounded = 4 %}
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                         {% elif average_rating_rounded = 5 %}
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                            <i class='fa fa-star ratings-full'></i>
-                                         {% endif %}
-                                        <br/>
-                                        <span class="mini-text"> ({{ review_number }} ratings)</span>
-                                        {% else %}
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <i class='fa fa-star ratings-empty'></i>
-                                            <br/>
-                                            <span class="mini-text"> (No ratings yet!)</span>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="row price-specs">
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>Value</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>{{ deal.currency_symbol }} {{ deal.original_price|intcomma }}</p>
+                        </div>
                     </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>Discount</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>{{ deal.discount }}</p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>You Save</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>{{ deal.currency_symbol  }} {{ deal.saving|intcomma }}</p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>Purchases</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>{{ deal.quorum|default:0 }} | {{ deal.max_quantity_available }}</p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left"><p>Average Rating</p></div>
+                        <div class="col-xs-6 text-right">
+                            <p>
+                              {% include "snippet_deal_ave_rating.html" %}
+                              <br/>
+                              <span class="mini-text"> ({{ ratings_msg }})</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
                 </div>
 
                 <!-- Call to action -->
@@ -183,153 +153,92 @@
     </div>
 
     <section class="row details-section">
+        <!-- deal description -->
+        <div class="col-md-6">
+            <h4 class="section-label"><i class="fa fa-list-alt"></i> Description</h4>
+            <div class="description-text">{{deal.description|default:'<p>No description given for this deal.</p>'}}</div>
+            <br/>
+            <h4 class="section-label"><i class="fa fa-building"></i> Merchant Details</h4>
+            <div class="description-text">Name: {{ deal.advertiser.name }} </div>
+            <div class="description-text">Location: {{ deal.address }} </div>
+            <div class="description-text">Email: {{ deal.advertiser.email }} </div>
+            <div class="description-text">Telephone: {{ deal.advertiser.telephone }} </div>
+        </div>
+        <!-- deal location/map -->
+        <div class="col-md-6">
+            <h4 class="section-label"><i class="fa fa-map-marker"></i> Directions</h4>
+            <address id="map-ref-address" style="display:none;">{{ deal.address }}</address>
+            <div class="image-frame card">
+                <div id="map" style="width:100%; height:250px"></div>
+            </div>
+            <br/>
+        </div>
+    </section>
+
+    <div class="row" id="banner-section">
+        <div class="col-xs-12">
+            <div class="divider"></div>
+        </div>
+    </div>
+
+    <section class="row review-section">
+        <!-- add review -->
         <div class="col-md-12">
-          <div class="row">
+          <h4 class="section-label"><i class="fa fa-plus"></i> Add Review</h4>
+          <h3> {{ deal.title }} </h2>
+            <p> Average Rating:
+            <span class="deal-rating">
+              {% include "snippet_deal_ave_rating.html" %}
+            </span>
+              <span class="mini-text"> ({{ ratings_msg }})</span>
+            </p>
 
-            <!-- add review form -->
-            <div class="col-md-6">
-                <h4 class="section-label"><i class="fa fa-plus"></i> Add Review</h4>
-                <h3> {{deal.title}} </h2>
-                  <p> Average Rating:
-                  <span class="deal-rating">
-                  {% if reviews %}
-                    {% if average_rating_rounded = 1 %}
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                    {% elif average_rating_rounded = 2 %}
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                    {% elif average_rating_rounded = 3 %}
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                    {% elif average_rating_rounded = 4 %}
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-empty'></i>
-                     {% elif average_rating_rounded = 5 %}
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                        <i class='fa fa-star ratings-full'></i>
-                     {% endif %}
-                    </span>
-                    <span class="mini-text"> ({{ review_number }} ratings)</span>
-                  {% else %}
-                      <i class='fa fa-star ratings-empty'></i>
-                      <i class='fa fa-star ratings-empty'></i>
-                      <i class='fa fa-star ratings-empty'></i>
-                      <i class='fa fa-star ratings-empty'></i>
-                      <i class='fa fa-star ratings-empty'></i>
-                    </span>
-                      <span class="mini-text"> (No ratings yet!)</span>
-                  {% endif %}
-                  </p>
-
-                {% if request.user.is_authenticated %}
-                    {% if deal.id in purchased_deals %}
-                      {% if deal.id not in already_reviewed %}
-                          <form action="{% url 'submit-review' %}" method="POST" id="add-review">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                            <div class="custom-input-group">
-                              <label>Your Rating: <span class="label-asterik">*</span></label>
-                              <select name="rating" id="star-ratings">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                              </select>
-                            </div>
-                            <div class="custom-input-group">
-                              <label>Your Review: <span class="label-asterik">*</span></label>
-                              <input type="textarea" name="description" placeholder="Write your review here.">
-                              <input type="hidden" name="deal_id" value="{{deal.id}}" />
-                            </div>
-                            <button id="add-review-button" type="submit" class="btn-action btn-form-submit">Add Review</button>
-                          </form>
-                      {% else %}
-                        <p>
-                          Thank you for your review! It'll go a long way in ensuring we provide only the very best deals.
-                        </p>
-                      {% endif %}
-                    {% else %}
-                      <p> You need to purchase this deal to rate or review it. </p>
-                    {% endif %}
-                {% else %}
-                  <p> You need to log in to rate and review this deal. </p>
+            {% if display_form %}
+            <form action="{% url 'submit-review' %}" method="POST" id="add-review">
+               <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+               <div class="custom-input-group">
+                 <label>Your Rating: <span class="label-asterik">*</span></label>
+                 <select name="rating" id="star-ratings">
+                   <option value="1">1</option>
+                   <option value="2">2</option>
+                   <option value="3">3</option>
+                   <option value="4">4</option>
+                   <option value="5">5</option>
+                 </select>
+               </div>
+               <div class="custom-input-group">
+                 <label>Your Review: <span class="label-asterik">*</span></label>
+                 <br/>
+                 <textarea class="custom-input-group review-textarea" name="description" placeholder="Write your review here."></textarea>
+                 <input type="hidden" name="deal_id" value="{{deal.id}}" />
+               </div>
+               <button id="add-review-button" type="submit" class="btn-action btn-form-submit">Add Review</button>
+             </form>
+              {% else %}
+                <p> {{ display_msg }} </p>
+                {% if not request.user.is_authenticated %}
                   <a href="{% url 'login' %}">
                     <button class="btn-action">
                       <i class="fa fa-sign-in"></i> Login
                     </button>
                   </a>
                 {% endif %}
-            </div>
-
-            <!-- deal location/map -->
-            <div class="col-md-6">
-                <h4 class="section-label"><i class="fa fa-map-marker"></i> Directions</h4>
-                <address id="map-ref-address" style="display:none;">{{ deal.address }}</address>
-                <div class="image-frame card">
-                    <div id="map" style="width:100%; height:300px"></div>
-                </div>
-            </div>
-
-          </div>
-
-          <!-- deal reviews -->
+            {% endif %}
+        </div>
+        <!-- display reviews -->
+        <div class="col-md-12">
           {% if reviews %}
             <div class="deal-reviews">
-              <br/>
-              <div class="divider"></div>
-              <br/>
-              <h4 class="section-label"><i class="fa fa-comments"></i> Customer Reviews</h4>
                 {% for review in reviews %}
                   <div class="review-box">
                     <div class="col-md-6">
                       <p>
-                         {% if review.rating = 1 %}
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                         {% elif review.rating = 2 %}
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                         {% elif review.rating = 3 %}
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                         {% elif review.rating = 4 %}
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-empty'></i>
-                          {% elif review.rating = 5 %}
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                             <i class='fa fa-star ratings-full'></i>
-                          {% endif %}
+                        {% for rating in review.ratings_full %}
+                          <i class='fa fa-star ratings-full'></i>
+                        {% endfor %}
+                        {% for rating in review.ratings_empty %}
+                          <i class='fa fa-star ratings-empty'></i>
+                        {% endfor %}
                           <span class="review-author"> {{ review.author.first_name }} {{ review.author.last_name }} </span>
                         </p>
                       </div>
@@ -340,18 +249,13 @@
                         <p class="review-text">
                           {{ review.description }}
                         </p>
-                        <p class="review-helpful">
-                          Was this review helpful?
-                          <a href="#"><i class="fa fa-thumbs-up"></i> Yes</a>
-                          <a href="#"><i class="fa fa-thumbs-down"></i> No</a>
-                        </p>
                       </div>
                     </div>
                     {% if not forloop.last %}
                       <div class="divider"></div>
                     {% endif %}
                 {% endfor %}
-          </div>
+            </div>
           {% endif %}
         </div>
     </section>
@@ -365,14 +269,8 @@
 {% endblock main%}
 
 {% block extended_js %}
-    <script src="{% static 'bower_components/jquery-bar-rating/dist/jquery.barrating.min.js' %}"></script>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('#star-ratings').barrating('show', {
-          theme: 'fontawesome-stars'
-        });
-      });
-    </script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA99nlAubrvHjAlDH3yRUrLLWQLpvDKg5c&libraries=places"></script>
-    <script src={% static 'js/map.js' %}></script>
+  <script src="{% static 'bower_components/jquery-bar-rating/dist/jquery.barrating.min.js' %}"></script>
+  <script src="{% static 'bower_components/jquery-bar-rating/dist/jquery.barrating.script.js' %}"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA99nlAubrvHjAlDH3yRUrLLWQLpvDKg5c&libraries=places"></script>
+  <script src={% static 'js/map.js' %}></script>
 {% endblock %}

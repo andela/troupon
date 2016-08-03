@@ -199,23 +199,57 @@ class DealSlugView(View):
 
         # Getting the number of reviews for each deal
         review_number = Review.objects.filter(deal=deal).count()
+        if review_number == 1:
+            review_count = str(review_number) + " rating"
+        else:
+            review_count = str(review_number) + " ratings"
 
-        # Getting the deals purchased by the current user
-        user = self.request.user.id
-        transactions = Purchases.objects.filter(user=user)
-        purchased_deals = [transaction.item.id for transaction in transactions]
+        # Display the average rating in stars
+        ratings_full = list(range(1, int(average_rating_rounded) + 1))
+        ratings_empty = list(range(1, 6 - len(ratings_full)))
+        if len(ratings_empty) == 5:
+            ratings_msg = "No ratings yet!"
+        else:
+            ratings_msg = review_count
 
-        # Getting the deals already reviewed by the current user
-        user_reviews = Review.objects.filter(author=user)
-        already_reviewed = [review.deal.id for review in user_reviews]
+        display_form = False
+        display_msg = ""
+
+        if request.user.is_authenticated():
+            user = self.request.user
+
+            # Getting the deals purchased by the current user
+            transactions = Purchases.objects.filter(user=user)
+            purchased_deals = [transaction.item.id for transaction in transactions]
+
+            # Getting the deals already reviewed by the current user
+            user_reviews = Review.objects.filter(author=user)
+            already_reviewed = [review.deal.id for review in user_reviews]
+
+            # Check when to display form
+            if deal.id in purchased_deals:
+                if deal.id not in already_reviewed:
+                    display_form = True
+                else:
+                    display_msg = "Thank you for your review! It'll go a long \
+                                    way in ensuring we provide only the very \
+                                    best deals."
+            else:
+                display_msg = "You need to purchase this deal to rate or \
+                              review it."
+        else:
+            display_msg = "You need to log in to rate and review this deal."
 
         context = {'deal': deal,
                    'reviews': reviews,
                    'average_rating_rounded': average_rating_rounded,
-                   'review_number': review_number,
-                   'purchased_deals': purchased_deals,
-                   'already_reviewed': already_reviewed
+                   'ratings_full': ratings_full,
+                   'ratings_empty': ratings_empty,
+                   'ratings_msg': ratings_msg,
+                   'display_form': display_form,
+                   'display_msg': display_msg
                    }
+
         return TemplateResponse(request, 'deals/detail.html', context)
 
 
@@ -228,7 +262,7 @@ class ReviewView(View):
             review = review_form.save(commit=False)
             review.description = request.POST.get('description')
             review.rating = request.POST.get('rating')
-            review.author = self.request.user.id
+            review.author = self.request.user
             review.date_created = date.today()
             deal_id = request.POST.get('deal_id')
             review.deal = Deal.objects.get(id=deal_id)

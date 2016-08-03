@@ -155,7 +155,7 @@ class Deal(models.Model):
 
     def saving(self):
         """Returns deal saving"""
-        saving = float(self.original_price - self.price)
+        saving = self.original_price - self.price
         return saving
 
     def __str__(self):
@@ -276,6 +276,21 @@ class Review(models.Model):
     date_created = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return "{0}, {1}, {2}".format(self.id,
-                                      self.deal.title,
-                                      self.rating)
+        return "ID: {0}, Deal: {1}, Rating: {2}".format(self.id,
+                                                        self.deal.title,
+                                                        self.rating)
+
+    def ratings_full(self):
+        """
+        Returns ratings_full variable for displaying ratings
+        """
+        ratings_full = list(range(1, int(self.rating) + 1))
+        return ratings_full
+
+    def ratings_empty(self):
+        """
+        Returns ratings_empty variable for displaying ratings
+        """
+        ratings_full = list(range(1, int(self.rating) + 1))
+        ratings_empty = list(range(1, 6 - len(ratings_full)))
+        return ratings_empty
