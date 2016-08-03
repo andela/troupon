@@ -104,6 +104,18 @@ Forms Controls
     padding: 20px;
 }
 
+label {
+  width: 180px;
+  clear: left;
+  text-align: left;
+  padding-right: 10px;
+}
+
+input,
+label {
+  float: left;
+}
+
 
 /* ==========================================================================
 Lists

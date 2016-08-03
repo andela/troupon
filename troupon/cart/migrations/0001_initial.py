@@ -19,11 +19,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
                 ('street', models.CharField(max_length=250)),
-                ('city', models.CharField(default=b'', max_length=250)),
-                ('zip', models.IntegerField()),
+                ('postal', models.IntegerField()),
                 ('state', models.CharField(max_length=250)),
                 ('telephone', models.IntegerField()),
-                ('userprofile', models.OneToOneField(to='accounts.UserProfile')),
+                ('user', models.OneToOneField(to='accounts.UserProfile')),
             ],
             options={
                 'abstract': False,
