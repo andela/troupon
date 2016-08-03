@@ -20,31 +20,31 @@
                 <h1>Shipping Details</h1>
             </header>
             <div class="row">
-                <div class="col-sm-12 text-center">
+                <div class="col-sm-12">
                     <form action="{% url 'proceed_checkout' %}" method="POST">   
                         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                         <div class="custom-form-group">
                             <label for="email">Street address <span class="label-asterik">*</span></label>
                             <div class="custom-input-group">
-                                <input type="text" name="street"  id="email" placeholder="1234">
+                                <input type="text" name="street"  id="street" placeholder="1234">
                             </div>
                         </div>
                         <div class="custom-form-group">
                             <label for="password">Zip/Postal code<span class="label-asterik">*</span></label>
                             <div class="custom-input-group">
-                                <input type="text" name="postal" id="password" placeholder="Zip/Postal code">
+                                <input type="text" name="postal" id="postal" placeholder="Zip/Postal code">
                             </div>
                         </div>
                         <div class="custom-form-group">
                             <label for="password">State/Province <span class="label-asterik">*</span></label>
                             <div class="custom-input-group">
-                                <input type="text" name="state" id="password" placeholder="State/Province">
+                                <input type="text" name="state" id="state" placeholder="State/Province">
                             </div>
                         </div>
                         <div class="custom-form-group">
                             <label for="password">Telephone<span class="label-asterik">*</span></label>
                             <div class="custom-input-group">
-                                <input type="text" name="telephone" id="password" placeholder="Telephone">
+                                <input type="text" name="telephone" id="telephone" placeholder="Telephone">
                             </div>
                         </div>
                         <div class="center-buttons">
