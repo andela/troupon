@@ -257,9 +257,9 @@ class ReviewView(View):
 
     def post(self, request):
         """ View to handle creation of reviews"""
-        review_form = ReviewForm(request.POST)
-        if review_form.is_valid():
-            review = review_form.save(commit=False)
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
             review.description = request.POST.get('description')
             review.rating = request.POST.get('rating')
             review.author = self.request.user
@@ -270,8 +270,6 @@ class ReviewView(View):
             review.save()
             return HttpResponseRedirect(reverse('deal-with-slug',
                                         kwargs={'deal_slug': deal_slug}))
-        else:
-            print "The form cannot be empty."
 
-        context = {'review_form': review_form}
+        context = {'form': form}
         return TemplateResponse(request, 'deals/detail.html', context)

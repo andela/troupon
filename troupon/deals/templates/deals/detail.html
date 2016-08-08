@@ -192,37 +192,36 @@
             </span>
               <span class="mini-text"> ({{ ratings_msg }})</span>
             </p>
-
             {% if display_form %}
-            <form action="{% url 'submit-review' %}" method="POST" id="add-review">
-               <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-               <div class="custom-input-group">
-                 <label>Your Rating: <span class="label-asterik">*</span></label>
-                 <select name="rating" id="star-ratings">
-                   <option value="1">1</option>
-                   <option value="2">2</option>
-                   <option value="3">3</option>
-                   <option value="4">4</option>
-                   <option value="5">5</option>
-                 </select>
-               </div>
-               <div class="custom-input-group">
-                 <label>Your Review: <span class="label-asterik">*</span></label>
-                 <br/>
-                 <textarea class="custom-input-group review-textarea" name="description" placeholder="Write your review here."></textarea>
-                 <input type="hidden" name="deal_id" value="{{deal.id}}" />
-               </div>
-               <button id="add-review-button" type="submit" class="btn-action btn-form-submit">Add Review</button>
-             </form>
-              {% else %}
-                <p> {{ display_msg }} </p>
-                {% if not request.user.is_authenticated %}
-                  <a href="{% url 'login' %}">
-                    <button class="btn-action">
-                      <i class="fa fa-sign-in"></i> Login
-                    </button>
-                  </a>
-                {% endif %}
+              <form action="{% url 'submit-review' %}" method="POST" id="add-review">
+                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                 <div class="custom-input-group">
+                   <label>Your Rating: <span class="label-asterik">*</span></label>
+                   <select name="rating" id="star-ratings">
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                   </select>
+                 </div>
+                 <div class="custom-input-group">
+                   <label>Your Review: <span class="label-asterik">*</span></label>
+                   <br/>
+                   <textarea class="custom-input-group review-textarea" name="description" placeholder="Write your review here." required></textarea>
+                   <input type="hidden" name="deal_id" value="{{deal.id}}" />
+                 </div>
+                <button id="add-review-button" type="submit" class="btn-action btn-form-submit">Add Review</button>
+              </form>
+            {% else %}
+              <p> {{ display_msg }} </p>
+              {% if not request.user.is_authenticated %}
+                <a href="{% url 'login' %}">
+                  <button class="btn-action">
+                    <i class="fa fa-sign-in"></i> Login
+                  </button>
+                </a>
+              {% endif %}
             {% endif %}
         </div>
         <!-- display reviews -->
