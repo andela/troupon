@@ -199,6 +199,16 @@ class Advertiser(ImageMixin, models.Model):
         default="img/logo-v-lg.png"
     )
 
+    def logo_image_url(self):
+        """Returns a thumbnail image URL
+        """
+        image_url = self.logo.build_url(
+            width=SITE_IMAGES['logo_image_width'],
+            height=SITE_IMAGES['logo_image_height'],
+            crop="fit",
+        )
+        return image_url
+
     def __str__(self):
         return "{0}".format(self.name)
 

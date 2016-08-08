@@ -51,13 +51,35 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <form action="/deals/">
-                                        <button name="continue-shopping" id="go-back" class="btn-action"></i>Continue Shopping > </button>
-                                    </form>
+                            {% if virtual_deals %}
+                                <div class="row">
+                                    <h4 class="text-center">
+                                        Click link{{ plural_suffix }} below to download your purchase{{ plural_suffix }}:
+                                    </h4>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <ul class="label-link-list-v">
+                                        {% for item in virtual_deals %}
+                                            <li class="download-link">
+                                                - <a href="{{ item.href }}" download>{{ item.deal.product.title }}</a>
+                                            </li>
+                                        {% endfor %}
+                                        </ul>
+                                        <form action="/deals/">
+                                            <button name="continue-shopping" id="go-back" class="btn-action"></i>Continue Shopping > </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <form action="/deals/">
+                                            <button name="continue-shopping" id="go-back" class="btn-action"></i>Continue Shopping > </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endif %}
                         {% endif %}
                     </p>
                 </div>
