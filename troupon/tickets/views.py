@@ -101,6 +101,8 @@ class DownloadView(View):
 
         img = qr.make_image()
         filename = 'img/%s.png' % id
-        file_path = 'static/%s' % filename
+        file_path = os.path.dirname(
+            os.path.dirname(os.path.abspath(__file__))) \
+            + "/static/" + filename
         img.save(file_path)
         return filename, id
