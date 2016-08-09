@@ -1,6 +1,6 @@
 $(document).ready(function() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        navigator.geolocation.getCurrentPosition(showPosition, showError, {timeout:5000});
       } else {
         // toastr.error("Geolocation is not supported by this browser.");
       }
