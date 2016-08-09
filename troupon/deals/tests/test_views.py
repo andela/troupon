@@ -271,6 +271,7 @@ class ReviewViewTest(LiveServerTestCase, CreateDeal):
         self.driver.implicitly_wait(10)
         self.driver.find_element_by_xpath(xpath_pay_card_btn).click()
         self.driver.implicitly_wait(10)
+        time.sleep(10)
 
         # Switch to Stripe frame and add email to form
         self.driver.switch_to.frame('stripe_checkout_app')
