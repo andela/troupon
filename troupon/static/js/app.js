@@ -201,13 +201,4 @@ $(document).ready(function() {
                 initDealItemsLayout();
         }});
     });
-
-    //------------------------------------------
-    // Opens and closes new tab when a download
-    // link is clicked
-    //------------------------------------------
-
-    $('.download-link a').on('click', function(e) {
-        alert("Your file download has begun");
-    })
 });

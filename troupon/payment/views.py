@@ -186,8 +186,7 @@ class PaymentStatusView(View):
                         kwargs={'deal_id': item.product.id},
                     )
                 )
-                if item.quantity > 1:
-                    generated_ticket_url += "?qty=" + str(item.quantity)
+                generated_ticket_url += "?qty=" + str(item.quantity)
                 virtual_deals.append({'deal': item,
                                       'href': generated_ticket_url})
 
@@ -197,6 +196,5 @@ class PaymentStatusView(View):
         context = {
             'status': status,
             'virtual_deals': virtual_deals,
-            'plural_suffix': 's' if len(virtual_deals) > 1 else ''
         }
         return render(request, self.template_name, context)

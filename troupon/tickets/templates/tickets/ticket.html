@@ -32,11 +32,9 @@
         </tr>
         <tr>
           <td>Customer name:</td>
-          {% if user.first_name and user.last_name %}
-            <td>{{ user.first_name }} {{ user.last_name }}</td>
-          {% else %}
-            <td>{{ user.username }}</td>
-          {% endif %}
+          {% with full_name=user.first_name|add:' '|add:user.last_name %}
+          <td>{% firstof full_name user.username %}<td/>
+          {% endwith %}
         </tr>
         <tr>
           <td>Price:</td>
@@ -56,7 +54,7 @@
   </div>
   <div>
     <div class="col-xs-3">
-      <img src="{% static qr_img_url|safe %}" width="172px" />
+      <img src="data:image/png;base64,{{ qr_img }}" width="172px" />
     </div>
   </div>
 </div>

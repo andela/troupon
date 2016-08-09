@@ -3,7 +3,7 @@ Test specific settings for troupon project.
 """
 
 from .base import *
-print "HELLO"
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

@@ -6,7 +6,6 @@ from django.template.defaultfilters import slugify
 from django.test import Client, TestCase
 
 from deals.models import Advertiser, Category, Deal
-from tickets.models import Ticket
 
 
 def set_dependent_classes():
@@ -15,7 +14,7 @@ def set_dependent_classes():
     and returns a ticket dictionary
     """
     advertiser = Advertiser.objects.create(
-        name="XYZ Stores", 
+        name="XYZ Stores",
         slug="xyz-stores"
     )
     category = Category.objects.create(
@@ -32,9 +31,9 @@ def set_dependent_classes():
         max_quantity_available=3,
     )
     user = User.objects.create_user(
-        username="senju",
-        email="hashisenju@konoha.com",
-        password="abumnakud"
+        username="test_user",
+        email="test_user@test.com",
+        password="test123"
     )
 
     return dict(
@@ -49,7 +48,7 @@ class PaymentStatusViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
         self.ticket = set_dependent_classes()
-        self.client.login(username="senju", password="abumnakud")
+        self.client.login(username="test_user", password="test123")
         session = self.client.session
         cart = Cart(session)
         cart.add(self.ticket['item'], price=self.ticket['item'].price)
@@ -66,7 +65,5 @@ class PaymentStatusViewTestCase(TestCase):
             base_url=reverse('payment_status'),
             querystring=query_dictionary.urlencode()
         )
-        deal_id = self.ticket['item'].id
         response = self.client.get(url)
-        print response.status_code, deal_id
         self.assertEquals(response.status_code, 200)

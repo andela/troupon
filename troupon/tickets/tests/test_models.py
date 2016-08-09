@@ -9,9 +9,9 @@ class TicketModelTestCase(TestCase):
     """Testsuite for the Tickets model"""
 
     def setUp(self):
-        advertiser, category = Advertiser(name="XYZ Stores"), \
-            Category(name="Books")
+        advertiser = Advertiser(name="XYZ Stores")
         advertiser.save()
+        category = Category(name="Books")
         category.save()
         deal = Deal(title="Deal #1",
                     description="Deal some...deal all!",
@@ -29,7 +29,7 @@ class TicketModelTestCase(TestCase):
                     featured=True,
                     )
         deal.save()
-        user = User(username="senju", password="abumnakud")
+        user = User(username="test_user", password="test123")
         user.save()
         self.ticket = dict(
             user=user, item=deal, quantity=1,
@@ -47,7 +47,7 @@ class TicketModelTestCase(TestCase):
         self.assertIsNotNone(ticket.id)
 
         # update a ticket record
-        new_ticket_id = "theroadtozionisfilledwithallsorts"
+        new_ticket_id = "898273499823hiuh32898w"
         ticket = Ticket.objects.get(id=ticket.id)
         ticket.ticket_id = new_ticket_id
         ticket.save()
@@ -62,6 +62,3 @@ class TicketModelTestCase(TestCase):
         with self.assertRaises(Ticket.DoesNotExist) as context:
             Ticket.objects.get(**self.ticket)
         self.assertTrue("does not exist" in context.exception.message)
-
-    def tearDown(self):
-        Ticket.objects.all().delete()

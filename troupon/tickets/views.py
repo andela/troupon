@@ -1,4 +1,4 @@
-import os
+import StringIO
 import uuid
 
 from django.conf import settings
@@ -28,9 +28,9 @@ class DownloadView(View):
         user = request.user
         deal_id = kwargs['deal_id']
         deal = Deal.objects.get(pk=deal_id)
-        quantity = int(request.GET.get('qty', 1))
+        quantity = int(request.GET.get('qty'))
         price = quantity * deal.price
-        qr_img_url, unique_id = self.generate_unique_code(deal, user)
+        qr_img, unique_id = self.generate_unique_code(deal, user)
         logo_url = deal.advertiser.logo_image_url()
 
         # add ticket to database
@@ -43,7 +43,7 @@ class DownloadView(View):
         context = {
             'deal': deal,
             'logo_url': logo_url,
-            'qr_img_url': qr_img_url,
+            'qr_img': qr_img,
             'issue_date': ticket.date_created,
             'quantity': quantity,
             'price': price,
@@ -61,11 +61,12 @@ class DownloadView(View):
         ]
         pdf_file = HTML(
             string=rendered_html,
-            base_url=request.build_absolute_uri()) \
-            .write_pdf(stylesheets=styles)
+            base_url=request.build_absolute_uri()
+        ).write_pdf(stylesheets=styles)
 
         http_response = HttpResponse(pdf_file, content_type='application/pdf')
-        http_response['Content-Disposition'] = 'filename=%s' % deal.slug
+        http_response['Content-Disposition'] = ('attachment; '
+                                                'filename=%s') % deal.slug
         return http_response
 
     def generate_unique_code(self, deal, user):
@@ -87,7 +88,7 @@ class DownloadView(View):
 
         # Generates a unique code with python's UUID library
         # and embed in qrcode
-        id = uuid.uuid5(
+        ticket_id = uuid.uuid5(
             uuid.NAMESPACE_DNS, merchant_name + deal_name + username
         )
         qr = qrcode.QRCode(
@@ -96,13 +97,12 @@ class DownloadView(View):
             box_size=10,
             border=4,
         )
-        qr.add_data(id)
+        qr.add_data(ticket_id)
         qr.make(fit=True)
 
         img = qr.make_image()
-        filename = 'img/%s.png' % id
-        file_path = os.path.dirname(
-            os.path.dirname(os.path.abspath(__file__))) \
-            + "/static/" + filename
-        img.save(file_path)
-        return filename, id
+        output = StringIO.StringIO()
+        img.save(output, 'PNG')
+        img = output.getvalue().encode("base64")
+        output.close()
+        return img, ticket_id
