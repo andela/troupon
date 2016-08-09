@@ -2,7 +2,7 @@ $(document).ready(function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
       } else {
-        toastr.error("Geolocation is not supported by this browser.");
+        // toastr.error("Geolocation is not supported by this browser.");
       }
 
       function showError(error) {
