@@ -21,7 +21,7 @@ $(document).ready(function() {
             errorMsg = "An unknown error occurred.";
             break;
         }
-        toastr.error(errorMsg);
+        // toastr.error(errorMsg);
         deleteCookie();
       }
 
