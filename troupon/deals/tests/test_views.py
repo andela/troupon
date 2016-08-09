@@ -1,4 +1,5 @@
 import unittest
+import time
 
 from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
@@ -8,23 +9,41 @@ from accounts.models import UserProfile
 from deals.models import Advertiser, Category, Deal
 from merchant.models import Merchant
 
+# Values for creating a test user
 TEST_USER_EMAIL = 'testuser@myemail.com'
 TEST_USER_PASSWORD = 'testpassword'
+
+# Values for running a search
 TEST_SEARCH_TERM = "Holiday"
 TEST_SEARCH_LOCATION = "Nairobi"
 
+# XPaths to test search
 xpath_search_term = "//div[@class='custom-input-group']/input[@id='search']"
 xpath_search_location = "//div[@class='custom-input-group']/select"
-xpath_search_button = "//button[@class='btn-action']"
+xpath_search_btn = "//button[@class='btn-action']"
 xpath_search_results_title = "//h1[@class='title']"
 xpath_search_results_desc = "//p[@class='description']"
-xpath_search_results_deal = "//div[@class='packery-grid deal-grid']" \
-    "/div[@class='grid-item card']/form[@class='overlay row']"
+xpath_search_results_deal = "//div[@class='packery-grid deal-grid']/div[@class='grid-item card']/form[@class='overlay row']"
+
+# XPaths to test deals
 xpath_deals_page_title = "//h1[@class='title']"
 xpath_deals_first_deal = "//div[@class='grid-item card'][1]/form[@class='overlay row']"
-xpath_more_details_button = "//div[@class='grid-item card'][1]" \
-    "/form[@class='overlay row']/div[@class='row']/div/a[@class='btn-action']"
+xpath_more_details_btn = "//div[@class='grid-item card'][1]/form[@class='overlay row']/div[@class='row']/div/a[@class='btn-action']"
 xpath_deal_specs = "//div[@class='deals-specs']"
+
+# XPaths to test reviews
+xpath_review_disp_msg = "//div[@class='col-md-12'][1]/p[2]"
+xpath_review_login_btn = "//a/button[@class='btn-action']"
+xpath_add_to_cart_btn = "//button[@id='buy-btn']"
+xpath_cart_dropdown = "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']"
+xpath_view_cart_btn = "//ul[@class='dropdown-menu dropdown-menu-right']/a[@class='btn-action'][1]"
+xpath_checkout_btn = "//div[@class='pull-right col-sm-2']/a[@class='btn-action']"
+xpath_pay_card_btn = "//button[@class='stripe-button-el']/span"
+xpath_review_form = "//form[@id='add-review']"
+xpath_review_description = "//textarea[@class='custom-input-group review-textarea']"
+xpath_ratings_count = "//div[@class='col-md-12'][1]/p[1]/span[@class='mini-text']"
+xpath_deal_reviews = "//div[@class='deal-reviews']"
+xpath_review_text = "//p[@class='review-text']"
 
 
 class HomepageViewTests(LiveServerTestCase):
@@ -170,7 +189,7 @@ class DealsViewTest(LiveServerTestCase, CreateDeal):
     def test_deal_details(self):
         """Test that deal details are displayed"""
         self.driver.find_element_by_xpath(
-            xpath_more_details_button).click()
+            xpath_more_details_btn).click()
         deal_details_title = self.driver.find_element_by_xpath(
             xpath_deals_page_title).text
         assert "Masai Mara Holiday" in deal_details_title
@@ -200,7 +219,7 @@ class DealsSearchView(LiveServerTestCase, CreateDeal):
                                           ).send_keys(TEST_SEARCH_TERM)
         self.driver.find_element_by_xpath(xpath_search_location
                                           ).send_keys(TEST_SEARCH_LOCATION)
-        self.driver.find_element_by_xpath(xpath_search_button
+        self.driver.find_element_by_xpath(xpath_search_btn
                                           ).click()
 
     def test_deal_search(self):
@@ -217,6 +236,129 @@ class DealsSearchView(LiveServerTestCase, CreateDeal):
     def tearDown(self):
         self.driver.quit()
         super(DealsSearchView, self).tearDown()
+
+
+class ReviewViewTest(LiveServerTestCase, CreateDeal):
+
+    def setUp(self):
+        """Setup the test driver and create deal"""
+        self.driver = webdriver.Chrome()
+        self.driver.maximize_window()
+        self.create_user()
+        self.create_deal()
+        self.driver.get(
+            '%s%s' % (self.live_server_url, "/deals")
+        )
+        super(ReviewViewTest, self).setUp()
+
+    def open_deals_page(self):
+        """Navigate to deal page"""
+        self.driver.get(
+            '%s%s' % (self.live_server_url, "/deals")
+        )
+        self.driver.find_element_by_xpath(xpath_more_details_btn
+                                          ).click()
+
+    def purchase_deal(self):
+        """Add deal to cart and purchase it"""
+        self.login_user()
+        self.open_deals_page()
+        self.driver.find_element_by_xpath(xpath_add_to_cart_btn
+                                          ).click()
+        self.driver.find_element_by_xpath(xpath_cart_dropdown).click()
+        self.driver.find_element_by_xpath(xpath_view_cart_btn).click()
+        self.driver.find_element_by_xpath(xpath_checkout_btn).click()
+        self.driver.implicitly_wait(10)
+        self.driver.find_element_by_xpath(xpath_pay_card_btn).click()
+        self.driver.implicitly_wait(10)
+
+        # Switch to Stripe frame and add email to form
+        self.driver.switch_to.frame('stripe_checkout_app')
+        self.driver.find_element_by_id('email').send_keys(TEST_USER_EMAIL)
+
+        # Add card number
+        card_number = self.driver.find_element_by_id('card_number')
+        card_number.send_keys('4242')
+        self.driver.implicitly_wait(0.25)
+        card_number.send_keys('4242')
+        self.driver.implicitly_wait(0.25)
+        card_number.send_keys('4242')
+        self.driver.implicitly_wait(0.25)
+        card_number.send_keys('4242')
+
+        # Add card expiry month and year
+        card_expiry = self.driver.find_element_by_id('cc-exp')
+        card_expiry.send_keys('01')
+        self.driver.implicitly_wait(0.25)
+        card_expiry.send_keys('19')
+
+        # Add CVC and submit form
+        self.driver.find_element_by_id('cc-csc').send_keys('123')
+        self.driver.find_element_by_id('submitButton').click()
+
+        # Payment processing and redirection
+        self.driver.switch_to.default_content()
+        time.sleep(10)
+
+    def test_unauthenticated_user(self):
+        """
+        Test that the appropriate message is displayed for unauthenticated
+        users
+        """
+        self.open_deals_page()
+        display_msg = self.driver.find_element_by_xpath(
+            xpath_review_disp_msg).text
+        assert "You need to log in to rate and review this deal" in display_msg
+        assert self.driver.find_element_by_xpath(xpath_review_login_btn)
+
+    def test_deal_not_purchased(self):
+        """
+        Test that the appropriate message is displayed when user has not
+        purchased the deal
+        """
+        self.login_user()
+        self.open_deals_page()
+        display_msg = self.driver.find_element_by_xpath(
+            xpath_review_disp_msg).text
+        assert "You need to purchase this deal" in display_msg
+
+    def test_form_display(self):
+        """
+        Test that review form is displayed for authenticated users who have
+        purchased the deal but not reviewed it
+        """
+        self.purchase_deal()
+        self.open_deals_page()
+        assert self.driver.find_element_by_xpath(xpath_review_form)
+
+    def test_add_review(self):
+        """
+        Test that user can add review and it will be displayed.
+        Test that the appropriate message is displayed when user has already
+        reviewed the deal
+        """
+        self.purchase_deal()
+        self.driver.implicitly_wait(30)
+        self.open_deals_page()
+        self.driver.find_element_by_xpath(xpath_review_description
+                                          ).send_keys('Great deal!')
+        self.driver.find_element_by_id('add-review-button').click()
+        self.driver.implicitly_wait(10)
+        ratings_count = self.driver.find_element_by_xpath(
+                        xpath_ratings_count).text
+        assert "1 rating" in ratings_count
+        assert self.driver.find_element_by_xpath(xpath_deal_reviews)
+        display_msg = self.driver.find_element_by_xpath(
+            xpath_review_disp_msg).text
+        assert "Thank you for your review!" in display_msg
+        review_text = self.driver.find_element_by_xpath(
+            xpath_review_text).text
+        assert "Great deal!" in review_text
+
+    def tearDown(self):
+        self.driver.quit()
+        super(ReviewViewTest, self).tearDown()
+
 
 if __name__ == "__main__":
     unittest.main()
