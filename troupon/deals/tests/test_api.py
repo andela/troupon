@@ -47,23 +47,9 @@ class CreateDeal(object):
         return merchant
 
     def get_location(self):
-        """Returns location of user"""
-        server_key = self.client.get(
-            "/api/serverkey/")
-        response = requests.post(
-            "https://www.googleapis.com/geolocation/v1/geolocate?key=%s" % server_key.data)
-        coordinates = response.json().get("location", "")
-        lat = coordinates.get("lat", "")
-        lng = coordinates.get("lng", "")
-        response = requests.post(
-            "https://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&key=%s" % (str(lat), str(lng), server_key.data))
-
-        city = response.json().get("results", "")[0].get(
-            "formatted_address").split(",")[1].strip()
+        """Returns mocked location of user"""
         ALL_LOCATIONS.insert(0, (999, 'Ashburn'))
-        location_index = [item[0]
-                          for item in ALL_LOCATIONS if item[1] == city]
-        return location_index
+        return 999
 
     def create_deal(self):
         """Create the test deal"""
@@ -111,9 +97,9 @@ class ServerAPITestCase(APITestCase, CreateDeal):
         response = self.client.get(
             "/api/serverkey/")
         self.assertEqual(response.status_code, 200)
-    
+
     def test_filter_deals(self):
-        """Tests that deals can be filtered according to location"""        
+        """Tests that deals can be filtered according to location"""
         url = reverse('homepage')
         response = self.client.get(url)
         self.assertContains(response, 'Masai Mara Holiday')
