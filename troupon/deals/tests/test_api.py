@@ -58,7 +58,7 @@ class CreateDeal(object):
         original_price = 6000
         currency = 1
         country = 2
-        location = self.get_location()[0]
+        location = self.get_location()
         quorum = 0
         disclaimer = ''
         description = 'Holiday for two to the luxurious Masai Mara.'
