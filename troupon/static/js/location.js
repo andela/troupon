@@ -2,7 +2,7 @@ $(document).ready(function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError, {timeout:5000});
       } else {
-        // toastr.error("Geolocation is not supported by this browser.");
+        toastr.error("Geolocation is not supported by this browser.");
       }
 
       function showError(error) {
@@ -21,7 +21,7 @@ $(document).ready(function() {
             errorMsg = "An unknown error occurred.";
             break;
         }
-        // toastr.error(errorMsg);
+        toastr.error(errorMsg);
         deleteCookie();
       }
 
