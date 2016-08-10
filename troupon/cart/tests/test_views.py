@@ -22,6 +22,7 @@ xpath_items_quantity = "//ul[@class='dropdown-menu dropdown-menu-right']/div[@cl
 xpath_remove_cart_button = "//li[1]/ul/li[@class='pull-left']/form/button[@class='btn btn-sm']"
 xpath_checkout_button = "//div[@class='pull-right col-sm-2']/a[@class='btn-action']"
 xpath_paycard_label = "//div[@class='text-center']/form[@class='form-checkout']/button[@class='stripe-button-el']/span"
+xpath_proceed_to_pay = "//div[@class='center-buttons']/div/input[@class='btn-action btn-form-submit']"
 
 
 class AuthenticateAddDeal():
@@ -182,6 +183,44 @@ class ClearCartViewTest(LiveServerTestCase, AuthenticateAddDeal):
         super(ClearCartViewTest, self).tearDown()
 
 
+class AddShippingDetailsTest(LiveServerTestCase, AuthenticateAddDeal):
+
+    def setUp(self):
+        """Setup the test driver."""
+        self.driver = webdriver.Chrome()
+        self.driver.maximize_window()
+        super(AddShippingDetailsTest, self).setUp()
+
+    def test_view_cart(self):
+        """Adds user details to the shipping details form and redirects to pay page"""
+        self.create_user()
+        self.create_deal()
+        self.login_user()
+        self.driver.execute_script("window.scrollTo(0, 400)")
+        self.driver.implicitly_wait(10)
+        self.driver.find_element_by_xpath(
+            xpath_first_deal_item).click()  # click first item
+        self.driver.find_element_by_xpath(
+            xpath_checkout_basket).click()  # click checkout basket
+        self.driver.implicitly_wait(20)
+        self.driver.find_element_by_xpath(
+            xpath_view_cart).click()  # clicks view cart
+        # clicks the proceed to checkout button
+        self.driver.find_element_by_xpath(
+            xpath_checkout_button).click()
+        self.driver.find_element_by_id("street").send_keys('12345')
+        self.driver.find_element_by_id("postal").send_keys('5678')
+        self.driver.find_element_by_id("state").send_keys('states')
+        self.driver.find_element_by_id("telephone").send_keys('0794284244')
+        # clicks the proceed to pay button
+        self.driver.find_element_by_xpath(
+            xpath_proceed_to_pay).click()
+
+    def tearDown(self):
+        self.driver.quit()
+        super(AddShippingDetailsTest, self).tearDown()
+
+
 class RemoveItemViewTest(LiveServerTestCase, AuthenticateAddDeal):
 
     def setUp(self):
@@ -238,9 +277,6 @@ class CheckoutViewTest(LiveServerTestCase, AuthenticateAddDeal):
         # clicks the proceed to checkout button
         self.driver.find_element_by_xpath(
             xpath_checkout_button).click()
-        pay_card_label = self.driver.find_element_by_xpath(
-            xpath_paycard_label).text
-        assert "Pay with Card" in pay_card_label
 
     def tearDown(self):
         self.driver.quit()
