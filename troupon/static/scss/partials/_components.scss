@@ -46,6 +46,23 @@ a {
     }
   }
 }
+.download-link {
+  & > a {
+    color: color(a-hover);
+    &:hover {
+      color: color(a);
+      text-decoration: none;
+    }
+    &:active {
+      @extend a:hover;
+      color: color(a-hover);
+    }
+    &:focus {
+      @extend a:hover;
+      color: color(a);
+    }
+  }
+}
 
 
 

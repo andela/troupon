@@ -87,8 +87,6 @@ class PaymentProcessView(View):
 
                 # delete payment details from session
                 del request.session['payment_details']
-                # clear cart
-                cart.clear()
 
                 # redirect to payment status page
                 url = reverse('payment_status')
@@ -176,4 +174,27 @@ class PaymentStatusView(View):
     def get(self, request, *args, **kwargs):
         # get status from querystring
         status = request.GET['status']
-        return render(request, self.template_name, {'status': status})
+        cart = Cart(request.session)
+        virtual_deals = []
+
+        # check for virtual deals and create download links for each
+        for item in cart.items:
+            if item.product.type == 2:
+                generated_ticket_url = request.build_absolute_uri(
+                    reverse(
+                        'download_ticket',
+                        kwargs={'deal_id': item.product.id},
+                    )
+                )
+                generated_ticket_url += "?qty=" + str(item.quantity)
+                virtual_deals.append({'deal': item,
+                                      'href': generated_ticket_url})
+
+        # clear cart
+        cart.clear()
+
+        context = {
+            'status': status,
+            'virtual_deals': virtual_deals,
+        }
+        return render(request, self.template_name, context)
