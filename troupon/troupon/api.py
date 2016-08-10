@@ -10,12 +10,14 @@ Using Class-based views
 from django.conf.urls import include, url
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from merchant.api import DealListAPIView, DealActionsAPIView
-from payment.api import TransationsList, TransactionsDetails
+from deals.api import ServerAPI
+from merchant.api import DealActionsAPIView, DealListAPIView
+from payment.api import TransactionsDetails, TransationsList
 
 urlpatterns = [
     # URL definition for API goes here.
     url(r'^deals/$', DealListAPIView.as_view()),
+    url(r'^serverkey/$', ServerAPI.as_view()),
     url(r'^deals/(?P<pk>[0-9]+)$', DealActionsAPIView.as_view()),
     url(r'^transactions/$', TransationsList.as_view()),
     url(r'^transactions/(?P<pk>[0-9]+)$', TransactionsDetails.as_view()),
