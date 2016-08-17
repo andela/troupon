@@ -4,6 +4,7 @@ import time
 from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
 from selenium import webdriver
+from selenium.common.exceptions import NoAlertPresentException
 
 from accounts.models import UserProfile
 from deals.models import Advertiser, Category, Deal
@@ -271,10 +272,14 @@ class ReviewViewTest(LiveServerTestCase, CreateDeal):
         self.driver.implicitly_wait(10)
         self.driver.find_element_by_xpath(xpath_pay_card_btn).click()
         self.driver.implicitly_wait(10)
-        time.sleep(10)
 
         # Switch to Stripe frame and add email to form
         self.driver.switch_to.frame('stripe_checkout_app')
+
+        try:
+            self.driver.switch_to.alert.accept()
+        except NoAlertPresentException:
+            pass
         self.driver.find_element_by_id('email').send_keys(TEST_USER_EMAIL)
 
         # Add card number
