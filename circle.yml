@@ -1,0 +1,33 @@
+machine:
+  python:
+    version: 2.7.5
+  environment:
+    DJANGO_SETTINGS_MODULE: troupon.settings.test
+dependencies:
+  pre:
+    - pip install --upgrade pip
+    - pip install --upgrade virtualenv
+    - npm install bower
+test:
+  override:
+    - python troupon/manage.py bower install --settings=troupon.settings.test
+    - python troupon/manage.py collectstatic --noinput --settings=troupon.settings.test
+    - python troupon/manage.py makemigrations
+    - python troupon/manage.py migrate
+    - coverage run --source deals,accounts troupon/manage.py test troupon --noinput --settings=troupon.settings.test -s
+    - COVERALLS_REPO_TOKEN=2Z9aK9OBdV2wRdK1Ns5XJakMxmCSIZaDa coveralls
+
+
+
+deployment:
+  staging:
+    branch: develop
+    commands:
+      - git fetch origin --unshallow
+      - git push -f git@heroku.com:troupon-staging.git $CIRCLE_SHA1:master
+      - heroku run python troupon/manage.py collectstatic --noinput --settings=troupon.settings --app troupon-staging
+      - heroku run python troupon/manage.py makemigrations --settings=troupon.settings --app troupon-staging
+      - heroku run python troupon/manage.py migrate auth --noinput --settings=troupon.settings --app troupon-staging
+      - heroku run python troupon/manage.py migrate --settings=troupon.settings --app troupon-staging
+      - heroku run python troupon/manage.py syncdb --noinput --settings=troupon.settings --app troupon-staging
+      - heroku ps:scale web=1 --app troupon-staging

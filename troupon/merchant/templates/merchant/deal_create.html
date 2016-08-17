@@ -1,0 +1,180 @@
+{% extends 'merchant/dashboard.html' %}
+{% load static %}
+
+{% block extended_css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock extended_css %}
+
+
+{% block subview %}
+<div class="row">
+   <form method="post" id="createdealform" action="{% url 'merchant_create_deal' %}" enctype="multipart/form-data">
+      <div class="col-sm-6">
+          <div class="custom-form-group col-lg-12">
+            <label>Price</label>
+            <div class="custom-input-group">
+              <input type="number" name="price" class="form-control" id="id_price" value="" placeholder="Amount">
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12">
+            <label>Original Price:</label>
+            <div class="custom-input-group">
+              <input type="number" name="original_price" class="form-control" id="" value="" placeholder="12345">
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12">
+            <label>Country<span class="label-asterik">*</span></label>
+            <div class="custom-input-group">
+              <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+              <select name="user_country" placeholder="Kenya" id="user-country">
+                <option value="0" selected>Select your country</option>
+                {% for choice in countries.choices %}
+                  <option value="{{ choice.0 }}">
+                    {{ choice.1 }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12 hidden" id="kenyan-locations">
+            <label>Location<span class="label-asterik">*</span></label>
+            <div class="custom-input-group">
+              <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+              <select name="kenya_user_location" placeholder="Nairobi">
+                {% for choice in locations_kenya.choices %}
+                  <option value="{{ choice.0 }}"  {% if choice.0 == locations_kenya.default %}selected{% endif %}>
+                    {{ choice.1 }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12 hidden" id="nigerian-locations">
+            <label>Location<span class="label-asterik">*</span></label>
+            <div class="custom-input-group">
+              <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+              <select name="nigeria_user_location" placeholder="Lagos">
+                <option value="0" selected>Select your location</option>.
+                {% for choice in locations_nigeria.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == locations_nigeria.default %}selected{% endif %} >
+                    {{ choice.1 }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12">
+            <label>Currency</label>
+            <div class="custom-input-group">
+              <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+              <select name="currency" placeholder="currency" required>
+                {% for choice in currency.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == currency.default %}selected{% endif %} >
+                    {{ choice.1 }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12">
+              <label>Category:<span class="label-asterik">*</span></label>
+              <div class="custom-input-group">
+                <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+                <select name="category" placeholder="category" required>
+                  {% for choice in category %}
+                    <option value="{{ choice.id }}">
+                      {{ choice }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="custom-form-group col-lg-12">
+              <label>Quorum </label>
+              <div class="custom-input-group">
+                <input type="number" name="quorum" id="#" value="" placeholder="quorum (Optional, ignore to make deal free for all)">
+              </div>
+            </div>
+
+            <div class="custom-form-group col-lg-12">
+              <label>Disclamer </label>
+              <div class="custom-input-group">
+                <textarea class="custom-input-group" name="disclaimer" id="#" value="" placeholder="disclaimer"></textarea>
+              </div>
+            </div>
+      </div>
+      <div class="col-sm-6">
+            <div class="custom-form-group col-lg-12">
+            <label>Description </label>
+            <div class="custom-input-group">
+              <textarea class="custom-input-group" name="description" id="#" value="" placeholder="description"></textarea>
+            </div>
+            </div>
+
+            <div class="custom-form-group col-lg-12">
+              <label>Title</label>
+              <div class="custom-input-group">
+                <input type="text" name="title" class="form-control" id="id_title" value="" placeholder="title">
+              </div>
+            </div>
+
+            <div class="custom-form-group col-lg-12">
+              <label>Address </label>
+              <div class="custom-input-group">
+                <input type="text" name="address" class="form-control" id="" value="" placeholder="Address">
+              </div>
+            </div>
+
+
+            <div class="custom-form-group col-lg-12">
+                <label>Max Quantity Available</label>
+                <div class="custom-input-group">
+                  <input type="number" name="max_quantity_available" class="form-control" id="id_qty" value="" placeholder="Max quantity available">
+                </div>
+              </div>
+
+            <div class="custom-form-group col-lg-12">
+              <label>Date End</label>
+              <div class="custom-input-group">
+                <input id="datetimepicker" type="text" name="date_end" class="form-control" placeholder="2001-12-31">
+              </div>
+            </div>
+            <div class="custom-form-group col-lg-12">
+              <label>Deal type</label>
+              <div class="custom-input-group">
+                <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+                <select name="deal_type" placeholder="Type" required>
+                {% for type in deal_types.choices %}
+                  <option value="{{ type.0 }}" {% if type.0 == type.default %}selected{% endif %} >
+                    {{ type.1 }}
+                  </option>
+                {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="custom-form-group col-lg-12">
+              Set deal as : <input type="checkbox" name="active" id="" value="False"> Active
+            </div>
+
+            <div class="custom-form-group col-lg-12">
+                {% csrf_token %}
+                <span class="btn btn-default btn-file">Choose File
+                  <input name="image" type="file" size="#" required>
+                </span>
+            </div>
+      </div>
+       <div class="custom-form-group btn-lg col-sm-12">
+            <input id="save" type = "submit", value = "Create Deal" align="center" class="btn-action"/>
+      </div>
+    </form>
+
+  
+</div>
+{% endblock %}
