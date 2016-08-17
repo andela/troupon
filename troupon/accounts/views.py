@@ -41,7 +41,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
             'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
-                {'name': 'Profile', },
+                {'name': 'Edit Profile', },
             ]
         })
         return context_var
