@@ -37,7 +37,7 @@ class TicketModelTestCase(TestCase):
         )
 
     def test_can_create_read_update_ticket(self):
-        # create a deal record
+        # create a ticket record
         ticket = Ticket(**self.ticket)
         ticket.save()
         self.assertIsNotNone(ticket.id, None)

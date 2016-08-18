@@ -196,7 +196,7 @@ class Advertiser(ImageMixin, models.Model):
         resource_type='image',
         type='upload',
         blank=True,
-        default="img/logo-v-lg.png"
+        default="v1471450209/default_logo_oi5hd0.png"
     )
 
     def logo_image_url(self):

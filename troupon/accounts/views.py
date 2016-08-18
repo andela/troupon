@@ -1,5 +1,6 @@
 import pyotp
 from nexmo.libpynexmo.nexmomessage import NexmoMessage
+import StringIO
 import time
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -189,13 +190,23 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             slug = slugify(name)
             userprofile = request.user.profile
             logo = request.FILES.get('logo')
-            merchant = Merchant(
-                name=name, country=country, location=location,
-                telephone=telephone, email=email,
-                address=address, slug=slug,
-                intlnumber=intlnumber, logo=logo,
-                userprofile=userprofile
-            )
+
+            # copy default image to logo if empty
+            if not logo:
+                merchant = Merchant(
+                    name=name, country=country, location=location,
+                    telephone=telephone, email=email,
+                    address=address, slug=slug,
+                    intlnumber=intlnumber, userprofile=userprofile
+                )
+            else:
+                merchant = Merchant(
+                    name=name, country=country, location=location,
+                    telephone=telephone, email=email,
+                    address=address, slug=slug,
+                    intlnumber=intlnumber, logo=logo,
+                    userprofile=userprofile
+                )
 
             merchant.save()
             token = totp_token.now()
@@ -212,6 +223,12 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             if response:
                 return redirect(
                     reverse('account_merchant_verify'))
+            else:
+                mssg = ("Your merchant account has been created.  "
+                        "However, we could not send the OTP to your phone. "
+                        "Please click the Resend OTP button to try again!")
+                messages.add_message(request, messages.ERROR, mssg)
+                return redirect(reverse('account_merchant_verify'))
 
 
 class MerchantVerifyView(LoginRequiredMixin, TemplateView):
@@ -317,6 +334,10 @@ class MerchantResendOtpView(LoginRequiredMixin, TemplateView):
 
             if response:
                 mssg = "OTP Verification number has been sent."
+                messages.add_message(request, messages.ERROR, mssg)
+                return redirect(reverse('account_merchant_verify'))
+            else:
+                mssg = "Resend OTP Verification number failed!"
                 messages.add_message(request, messages.ERROR, mssg)
                 return redirect(reverse('account_merchant_verify'))
 
