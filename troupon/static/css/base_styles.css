@@ -9,10 +9,7 @@ input, label {
   float: left;
 }
 
-/* ==========================================================================
-Resets (overrides for Bootstrap and browser-defaults)
-========================================================================== */
-body {
+f body {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -511,17 +508,14 @@ Other components.
 
 .card .overlay {
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   background: rgba(255, 255, 255, 0.8);
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
   min-height: 100%;
@@ -1841,4 +1835,14 @@ footer.checkout-footer .divider-1 {
 
 #logo {
   padding: 55px;
+}
+
+.preview-upload-img #preview-upload-img-title {
+  margin-bottom: 20px;
+  margin-left: 86px;
+}
+
+.preview-upload-img .file-upload-label {
+  width: 222px;
+  margin-left: 40px;
 }
