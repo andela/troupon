@@ -1,10 +1,6 @@
 {% extends "account/profile_base.html" %}
 {% load static %}
 
-{% block extended_css %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-{% endblock extended_css %}
-
 {% block sidebar_menu %}
   {% with active_tab='Edit Profile' %}
     {{ block.super }}
@@ -12,6 +8,8 @@
 {% endblock sidebar_menu %}
 
 {% block subview %}
+<!-- banner section -->
+
   <div class="row">
     <div class="col-sm-7">
 
@@ -22,7 +20,7 @@
         </div>
       </div>
 
-      <form action="{% url 'account_profile' %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+      <form action="{% url 'account_profile_edit' %}" method="POST" id="profile-section"><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
         <div class="custom-form-group">
           <label>Country<span class="label-asterik">*</span></label>

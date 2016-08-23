@@ -1,0 +1,69 @@
+{% extends "account/profile_base.html" %}
+{% load static %}
+
+{% block sidebar_menu %}
+  {% with active_tab='View Profile' %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock sidebar_menu %}
+
+{% block subview %}
+<div>
+    <div class="row">
+      <div class="col-sm-8">
+          <header class="row">
+            <div class="col-sm-12">
+              <strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}
+              <hr/>
+            </div>
+            <div class="col-sm-12">
+              <strong>Username: </strong>
+              {{ user.username }}
+              <hr/>
+            </div>
+            <div class="col-sm-12">
+              <strong>Email: </strong>
+              {{ user.email }}
+              <hr/>
+            </div>
+            <div class="col-sm-12">
+              <strong>Location: </strong>
+              {% if profile.location and profile.country %}
+                {{ location }}, {{ country }}
+              {% else %}
+                Not set
+              {% endif %}
+              <hr/>
+            </div>
+            <div class="col-sm-12">
+              <strong>Occupation: </strong>
+              {% if profile.occupation %}
+                {{ profile.occupation }}
+              {% else %}
+                Not set
+              {% endif %}
+              <hr/>
+            </div>
+            <div class="col-sm-12">
+              <strong>Phone Number: </strong>
+              {% if profile.phonenumber %}
+                {{ profile.phonenumber }}
+              {% else %}
+                Not set
+              {% endif %}
+              <hr/>
+            </div>
+            <a href="{% url 'account_profile_edit' %}">
+              <button id="edit-profile" class="btn-action btn-form-submit">
+                Edit Profile
+              </button>
+            </a>
+        </div>
+        <div class="col-sm-4 hidden-xs brand-col">
+            <div class="brand">
+               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
