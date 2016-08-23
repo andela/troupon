@@ -173,12 +173,9 @@
                       {% if request.user.profile.merchant.approved or False %}
                         <li><a href="{% url 'merchant_manage_deals' %}">Merchant Dashboard</a></li>
                       {% endif %}
-                      <li><a href="{% url 'account_profile_view' %}">View Profile</a></li>
-                      <li><a href="{% url 'account_profile_edit' %}">Edit Profile</a></li>
-                      <li><a href="{% url 'account_change_password' %}"></i>Change Password</a></li>
-                      <li><a href="{% url 'account_history' %}"></i>History</a></li>
+                      <li><a href="{% url 'account_profile_view' %}">Profile</a></li>
                       <li  class="divider"></li>
-                      <li><a href="{% url 'logout' %}" class="logout">Log Out</a></li>
+                      <li><a href="{% url 'logout' %}" class="logout">Logout</a></li>
                     </ul>
                   </li>
                 </ul>
