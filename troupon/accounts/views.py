@@ -191,24 +191,23 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             userprofile = request.user.profile
             logo = request.FILES.get('logo')
 
-            # copy default image to logo if empty
-            if not logo:
-                merchant = Merchant(
-                    name=name, country=country, location=location,
-                    telephone=telephone, email=email,
-                    address=address, slug=slug,
-                    intlnumber=intlnumber, userprofile=userprofile
-                )
-            else:
-                merchant = Merchant(
-                    name=name, country=country, location=location,
-                    telephone=telephone, email=email,
-                    address=address, slug=slug,
-                    intlnumber=intlnumber, logo=logo,
-                    userprofile=userprofile
-                )
+            # pack merchant attributes in a dictionary
+            merchant = dict(
+                name=name, country=country, location=location,
+                telephone=telephone, email=email,
+                address=address, slug=slug,
+                intlnumber=intlnumber, logo=logo,
+                userprofile=userprofile
+            )
 
+            # remove logo if empty
+            if not logo:
+                del(merchant['logo'])
+
+            merchant = Merchant(**merchant)
             merchant.save()
+
+            # generate token and prepare message
             token = totp_token.now()
             msg = {
                 'reqtype': 'json',
@@ -337,7 +336,7 @@ class MerchantResendOtpView(LoginRequiredMixin, TemplateView):
                 messages.add_message(request, messages.ERROR, mssg)
                 return redirect(reverse('account_merchant_verify'))
             else:
-                mssg = "Resend OTP Verification number failed!"
+                mssg = "Could not resend OTP Verification number!"
                 messages.add_message(request, messages.ERROR, mssg)
                 return redirect(reverse('account_merchant_verify'))
 
