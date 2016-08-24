@@ -1,10 +1,10 @@
 import mock
 
-from django.core.urlresolvers import reverse
-from django.utils.importlib import import_module
 from django.conf import settings
 from django.contrib.messages.storage.fallback import FallbackStorage
-
+from django.http import QueryDict
+from django.core.urlresolvers import reverse
+from django.utils.importlib import import_module
 
 from accounts.tests.test_routes import UserProfileTestCase,\
     UserProfileMerchantTestCase
@@ -127,3 +127,40 @@ class TestMerchantConfirmationView(UserProfileMerchantTestCase):
         setattr(request, '_messages', messages)
         response = MerchantConfirmView.as_view()(request)
         self.assertEquals(response.status_code, 200)
+
+
+class TransactionsViewTestCase(UserProfileTestCase):
+    """Suite of tests for transaction view"""
+
+    def test_transaction_history_cannot_be_viewed_by_unauthenticated_users(
+            self):
+        self.client.logout()
+        response = self.client.get(reverse('account_history'))
+        self.assertEquals(response.status_code, 302)
+
+    def test_transaction_history_without_page_number(self):
+        response = self.client.get(reverse('account_history'))
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['transactions'].number, 1)
+
+    def test_transaction_history_with_page_number_in_url(self):
+        query_dictionary = QueryDict('', mutable=True)
+        query_dictionary.update({'pg': 1})
+        url = '{base_url}?{querystring}'.format(
+            base_url=reverse('account_history'),
+            querystring=query_dictionary.urlencode()
+        )
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['transactions'].number, 1)
+
+    def test_transaction_history_with_empty_page(self):
+        query_dictionary = QueryDict('', mutable=True)
+        query_dictionary.update({'pg': 2})
+        url = '{base_url}?{querystring}'.format(
+            base_url=reverse('account_history'),
+            querystring=query_dictionary.urlencode()
+        )
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['transactions'].number, 1)

@@ -1,23 +1,25 @@
 import pyotp
 from nexmo.libpynexmo.nexmomessage import NexmoMessage
-import time
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.views.generic.base import TemplateView
-from django.template import RequestContext
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
-from django.conf import settings
-from django.utils.text import slugify
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.shortcuts import redirect, get_object_or_404
+from django.template import RequestContext
 from django.template.response import TemplateResponse
+from django.views.generic.base import TemplateView
+from django.utils.text import slugify
 
-from authentication.views import LoginRequiredMixin
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
+from authentication.views import LoginRequiredMixin
 from conversations.models import Message
-from deals.models import COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
+from deals.models import (
+    COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
+)
 from merchant.models import Merchant
 from payment.models import Purchases
 
@@ -38,7 +40,9 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
             'profile': self.request.user.profile,
             'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
             'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
-            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
+            'locations_nigeria': {
+                'choices': NIGERIAN_LOCATIONS, 'default': 25
+            },
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Profile', },
@@ -61,7 +65,9 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
             context_var = {}
             empty = "Form should not be submitted empty"
             messages.add_message(request, messages.INFO, empty)
-            return TemplateResponse(request, 'account/profile.html', context_var)
+            return TemplateResponse(
+                request, 'account/profile.html', context_var
+            )
 
         if form.is_valid():
             form.save()
@@ -79,18 +85,41 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
             )
 
 
-class TransactionsView(TemplateView):
+class TransactionsView(LoginRequiredMixin, TemplateView):
     """View transactions for a user"""
+    num_page_items = 25
+    min_orphan_items = 5
+    page_num = 1
+    pagination_base_url = reverse_lazy('account_history')
 
     def get(self, request):
         """Renders a page with a table showing a deal,
         quantity bought, time of purchase, and its price
         """
         user = self.request.user
-        transactions = Purchases.objects.filter(user=user)
+        transaction_list = Purchases.objects.filter(user=user)
+        paginator = Paginator(
+            transaction_list,
+            self.num_page_items,
+            self.min_orphan_items,
+        )
+
+        try:
+            # get the page number if present in request.GET
+            page_num = request.GET.get('pg')
+            if not page_num:
+                page_num = self.page_num
+            transactions = paginator.page(page_num)
+        except PageNotAnInteger:
+            # if page is not an integer, access first page
+            transactions = paginator.page(1)
+        except EmptyPage:
+            # if page is out of range, deliver last page
+            transactions = paginator.page(paginator.num_pages)
 
         context = {
             'transactions': transactions,
+            'pagination_base_url': self.pagination_base_url
         }
 
         return TemplateResponse(request, 'account/transaction.html', context)
@@ -138,7 +167,9 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             'profile': self.request.user.profile,
             'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
             'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
-            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
+            'locations_nigeria': {
+                'choices': NIGERIAN_LOCATIONS, 'default': 25
+            },
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
@@ -161,7 +192,9 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             'profile': self.request.user.profile,
             'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
             'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
-            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
+            'locations_nigeria': {
+                'choices': NIGERIAN_LOCATIONS, 'default': 25
+            },
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
