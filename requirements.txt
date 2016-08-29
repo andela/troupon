@@ -24,11 +24,8 @@ django-cors-headers==1.1.0
 django-easy-pdf==0.1.0
 django-envie==0.0.9
 django-filter==0.13.0
-<<<<<<< HEAD
 django-generic-positions==0.2.2
-=======
 django-geoip==0.5.2.1
->>>>>>> develop
 django-haystack==2.4.0
 django-hvad==1.5.1
 django-jsonfield==0.9.15
@@ -67,10 +64,7 @@ pbr==1.8.0
 pexpect==4.0.1
 pickleshare==0.7.2
 Pillow==3.3.0
-<<<<<<< HEAD
-=======
 pisa==3.0.33
->>>>>>> develop
 pluggy==0.3.1
 psycopg2==2.6.1
 ptyprocess==0.5.1
@@ -79,12 +73,9 @@ pycparser==2.14
 pycrypto==2.6.1
 PyJWT==1.4.0
 pyotp==2.0.1
-<<<<<<< HEAD
-=======
 pyPdf==1.13
 PyPDF2==1.26.0
 Pyphen==0.9.4
->>>>>>> develop
 python-geoip==1.2
 python-geoip-geolite2==2015.303
 python-openid==2.2.5
@@ -99,10 +90,7 @@ requests-oauthlib==0.5.0
 selenium==2.52.0
 sendgrid==1.5.14
 simplegeneric==0.8.1
-<<<<<<< HEAD
 simplejson==3.8.2
-=======
->>>>>>> develop
 six==1.10.0
 smtpapi==0.2.0
 SQLAlchemy==1.0.8
