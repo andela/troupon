@@ -8,10 +8,6 @@ dependencies:
     - pip install --upgrade pip
     - pip install --upgrade virtualenv
     - npm install bower
-    - wget https://chromedriver.storage.googleapis.com/2.23/chromedriver_linux64.zip
-    - unzip chromedriver_linux64.zip
-    - ./chromedriver --url-base=wd/hub --port=9515  --verbose --log-path=$CIRCLE_ARTIFACTS/chromedriver.log:
-        background: true
 test:
   override:
     - python troupon/manage.py bower install --settings=troupon.settings.test
