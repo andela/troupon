@@ -1,8 +1,12 @@
+import time
+
 from django.contrib.auth.models import User
 from django.test import TestCase, Client, RequestFactory
 
 from accounts.models import UserProfile
+from accounts.views import TransactionsView
 from merchant.models import Merchant
+from payment.models import TransactionHistory
 
 
 class UserProfileMerchantTestCase(TestCase):
@@ -67,6 +71,13 @@ class UserProfileTestCase(TestCase):
             email='admin@troupon.com',
             password='12345')
 
+        self.transaction = TransactionHistory.objects.create(
+            transaction_id='ch_18bADBHWmTApZLTmXwDVvYrr',
+            transaction_status='Succeeded',
+            transaction_amount=75000,
+            transaction_created=int(time.time()),
+            transaction_currency='usd', user=self.user
+        )
         self.client.login(username='johndoe', password='12345')
 
 
@@ -143,3 +154,18 @@ class ChangePasswordErrorTestCase(TestCase):
         data = dict(current_password="wrong", password1="andela", password2="")
         response = self.client.post("/account/change_password/", data)
         self.assertEqual(response.status_code, 302)
+
+
+class AccountHistoryTestCase(UserProfileTestCase):
+    '''Test that this route is accessible and directs to appropriate view'''
+
+    def test_account_history_returns_200(self):
+        response = self.client.get("/account/history/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_account_history_resolves_to_correct_view(self):
+        response = self.client.get("/account/history/")
+        self.assertEqual(
+            response.resolver_match.func.__name__,
+            TransactionsView.as_view().__name__
+        )

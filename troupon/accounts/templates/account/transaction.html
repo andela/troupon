@@ -38,6 +38,11 @@
             </table>
         </div>
     </div>
+
+    <!-- pagination -->
+    <div class="col-xs-12">
+      {% include "snippet_pagination.html" with page=transactions pagination_base_url=pagination_base_url %}
+    </div>
     {% else %}
         <h3>You have no transactions</h3>
     {% endif %}
