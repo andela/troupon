@@ -1,25 +1,25 @@
 import cloudinary
+import os
+import string
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import View, TemplateView
-from django.core.urlresolvers import reverse
-from django.core.exceptions import SuspiciousOperation
-from django.http import Http404, HttpResponseRedirect
-from django.template.response import TemplateResponse
-from django.core.context_processors import csrf
-from django.template.defaultfilters import slugify
+from datetime import date
 from django.db.models import Avg
 from django.contrib.auth.models import User
-
+from django.core.context_processors import csrf
+from django.core.exceptions import SuspiciousOperation
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponseRedirect
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.defaultfilters import slugify
+from django.template.response import TemplateResponse
+from django.views.generic import View, TemplateView
 from haystack.query import SearchQuerySet
-from datetime import date
 
+from baseviews import DealListBaseView
+from forms import ReviewForm
 from models import Category, Deal, Advertiser, ALL_LOCATIONS, Review
 from payment.models import Purchases
-from forms import ReviewForm
-from baseviews import DealListBaseView
-from geoip import geolite2
-from django.http import JsonResponse
 
 
 class HomePageView(DealListBaseView):
@@ -30,6 +30,10 @@ class HomePageView(DealListBaseView):
     """
 
     def get(self, request, *args, **kwargs):
+
+        # check if location exists
+        location = request.COOKIES.get('city')
+
         # get the popular categories:
         popular_categories = Category.objects.all()[:12]
 
@@ -37,8 +41,15 @@ class HomePageView(DealListBaseView):
         featured_deals = Deal.objects.filter(featured=True).order_by('pk')[:5]
 
         # get the latest deals i.e. sorted by latest date:
-        latest_deals = Deal.objects.filter(active=True)\
-                                   .order_by('date_last_modified')
+        if location:
+            location = string.replace(location, "'", "")
+            location_index = [item[0]
+                              for item in ALL_LOCATIONS if item[1] == location]
+            latest_deals = Deal.objects.filter(active=True, location=location_index[
+                                               0]).order_by('date_last_modified')
+        else:
+            latest_deals = Deal.objects.filter(active=True)\
+                                       .order_by('date_last_modified')
         list_title = "Latest Deals"
         list_description = "Checkout the hottest new deals from all your favourite brands:"
 

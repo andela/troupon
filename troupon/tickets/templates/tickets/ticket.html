@@ -1,0 +1,104 @@
+
+{% load staticfiles%}
+{% load humanize %}
+
+<div class="row">
+  <span>
+    <div class="col-sm-4">
+      <h2><img src="{{ logo_url }}" /></h2>
+    </div>
+  </span>
+</div> 
+<div class="row">
+  <div class="well well-sm well-print">
+    <h3>Receipt</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-9 table-responsive">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Merchant name:</td>
+          <td>{{ deal.advertiser.name }}</td>
+        </tr>
+        <tr>
+          <td>Place of issue:</td>
+          <td>www.troupon.com</td>
+        </tr>
+        <tr>
+          <td>Date of issue:</td>
+          <td>{{ issue_date|date:"DATE_FORMAT" }}</td>
+        </tr>
+        <tr>
+          <td>Customer name:</td>
+          {% with full_name=user.first_name|add:' '|add:user.last_name %}
+          <td>{% firstof full_name user.username %}<td/>
+          {% endwith %}
+        </tr>
+        <tr>
+          <td>Price:</td>
+          <td>{{ deal.currency_symbol }} {{ price|intcomma }}</td>
+        </tr>
+        <tr>
+          <td>Admits:</td>
+          {% if quantity > 1 %}
+            <td>{{ quantity }} people</td>
+          {% else %}
+            <td>{{ quantity }} person</td>
+          {% endif %}
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div class="col-xs-3">
+      <img src="data:image/png;base64,{{ qr_img }}" width="172px" />
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="well well-sm well-print">
+    <h3>Event Details</h3>
+  </div>
+</div>
+<div class="row table-responsive">
+  <div class="col-xs-9">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Name Of Event:</td>
+          <td>{{ deal.title }}</td>
+        </tr>
+        <tr>
+          <td>Venue:</td>
+          <td>{{ deal.address }}</td>
+        </tr>
+          <td>Date:</td>
+          <td>{{ deal.date_last_modified|date:"DATE_FORMAT" }}</td>
+        </tr>
+        </tr>
+          <td>Time:</td>
+          <td>{{ deal.time|default:"NA" }}</td>
+        </tr>
+        </tr>
+          <td>Ticket Category:</td>
+          <td>NA</td>
+        </tr>
+        </tr>
+          <td>Section:</td>
+          <td>NA</td>
+        </tr>
+        </tr>
+          <td>Row:</td>
+          <td>NA</td>
+        </tr>
+        </tr>
+          <td>Seat No:</td>
+          <td>NA</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

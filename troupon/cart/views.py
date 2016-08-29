@@ -2,12 +2,14 @@ import os
 
 from carton.cart import Cart
 
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.template.response import TemplateResponse
 from django.views.generic import View
 
 from authentication.views import LoginRequiredMixin
 from deals.models import Deal
+from .models import UserShippingDetails
 
 
 class CheckoutView(LoginRequiredMixin, View):
@@ -95,6 +97,46 @@ class AddToCartView(LoginRequiredMixin, View):
         cart.add(deal, price=deal.price)
 
         return redirect('/')
+
+
+class AddShippingDetails(LoginRequiredMixin, View):
+    """
+    Add shipping details of user.
+
+    When a logged in user clicks on proceed to checkout this view
+    gets the shipping details of the user
+
+    Attributes:
+        LoginRequiredMixin: Ensures the user is logged in
+        View: Normal django view
+    """
+
+    def get(self, request):
+        cart = Cart(request.session)
+        context = {'cart': cart}
+        return TemplateResponse(request, 'cart/shipping.html', context)
+
+    def post(self, request, **kwargs):
+        """
+        Add shipping details.
+
+        Args:
+            request: The incoming post request object
+            **kwargs: Any keyword arguments passed to the function
+
+        Returns:
+            A redirect to the checkout page
+        """
+        user = request.user
+        street = request.POST.get('street')
+        state = request.POST.get('state')
+        postal = request.POST.get('postal')
+        telephone = request.POST.get('telephone')
+        shipping = UserShippingDetails(user=user, street=street, postal=postal, state=state, telephone=telephone)
+        shipping.save()
+        cart = Cart(request.session)
+        context = {'cart': cart}
+        return TemplateResponse(request, 'cart/checkout.html', context)
 
 
 class ViewCartView(LoginRequiredMixin, View):

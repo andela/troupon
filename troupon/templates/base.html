@@ -21,6 +21,7 @@
   <link rel="icon" href="{% static 'img/icon.png' %}" type="image/x-icon">
 
   {% block base_css %}
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" >
   <!-- Bootstrap Core -->
   <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
   <!-- Google Fonts -->
@@ -330,7 +331,8 @@
   {% block extended_js %}
      <!-- override this block to add app/feature-specific js libraries and scripts in extending templates -->
   {% endblock extended_js %}
-
+  
 </body>
+
 
 </html>

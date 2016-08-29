@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'cart',
     'carton',
     'payment',
+    'tickets',
     'allaccess',
     'haystack',
     'whoosh',
@@ -201,7 +202,9 @@ SITE_IMAGES = {
     'slideshow_image_width': 1000,
     'slideshow_image_height': 1000,
     'thumbnail_image_width': 500,
-    'thumbnail_image_height': 500
+    'thumbnail_image_height': 500,
+    'logo_image_width': 150,
+    'logo_image_height': 100
 }
 
 # deal listings and search:
