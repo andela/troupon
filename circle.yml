@@ -8,6 +8,7 @@ dependencies:
     - pip install --upgrade pip
     - pip install --upgrade virtualenv
     - npm install bower
+    - npm install -g webdriver-manager
     - webdriver-manager update --standalone
     - webdriver-manager start:
         background: true
