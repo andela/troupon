@@ -1838,11 +1838,28 @@ footer.checkout-footer .divider-1 {
 }
 
 .preview-upload-img #preview-upload-img-title {
-  margin-bottom: 20px;
-  margin-left: 86px;
+  margin: 20px auto;
 }
 
-.preview-upload-img .file-upload-label {
-  width: 222px;
-  margin-left: 40px;
+.images {
+  margin-bottom: 20px;
+}
+
+.images img {
+  max-width: 200px;
+}
+
+.file-upload-container {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.file-upload-label {
+  float: none;
+  clear: both;
+  width: 100%;
+}
+
+.clear-float * {
+  float: none;
 }

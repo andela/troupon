@@ -88,13 +88,15 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-5 preview-upload-img">
-          <div class="custom-form-group col-sm-12">
-            <label id="preview-upload-img-title">Merchant  Logo</label> {% csrf_token %}
+        <div class="col-lg-4 col-lg-offset-1 preview-upload-img">
+          <div class="custom-form-group col-sm-12 text-center">
+            <h4 id="preview-upload-img-title">Merchant  Logo</h4>
+            <hr><br>
+            {% csrf_token %}
             <div class="images">
               <img id="merchant-logo" src="{% static 'img/logo-v-lg.png' %}"/>
             </div>
-            <div>
+            <div class="text-center file-upload-container">
               <label class="file-upload-label">
                 <input id="file-upload" name="logo" type="file" size="#" onchange="previewImage();">
                 <span class="glyphicon glyphicon-folder-open" aria-hidden="true" ></span>Select Logo
