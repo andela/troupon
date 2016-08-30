@@ -33,6 +33,7 @@ class TestMerchantView(UserProfileMerchantTestCase):
         }
         data2 = {'token': 123456}
 
+        # test response without adding logo field to request
         with mock.patch(
             'nexmo.libpynexmo.nexmomessage.NexmoMessage.send_request')\
                 as mock_send_request:
@@ -44,6 +45,50 @@ class TestMerchantView(UserProfileMerchantTestCase):
                 request = self.factory.post(
                     reverse('account_merchant_register'),
                     data)
+                request.user = self.user
+                engine = import_module(settings.SESSION_ENGINE)
+                session_key = None
+                request.session = engine.SessionStore(session_key)
+                messages = FallbackStorage(request)
+                setattr(request, '_messages', messages)
+                response = MerchantRegisterView.as_view()(request)
+                self.assertEquals(response.status_code, 200)
+
+        # test with addtion of logo field to request
+        data['logo'] = 'iu_0jdfj.png'
+        with mock.patch(
+            'nexmo.libpynexmo.nexmomessage.NexmoMessage.send_request')\
+                as mock_send_request:
+
+                mock_send_request.return_value = (
+                    {"return": {"return": "return"}}
+                )
+
+                request = self.factory.post(
+                    reverse('account_merchant_register'),
+                    data)
+                request.user = self.user
+                engine = import_module(settings.SESSION_ENGINE)
+                session_key = None
+                request.session = engine.SessionStore(session_key)
+                messages = FallbackStorage(request)
+                setattr(request, '_messages', messages)
+                response = MerchantRegisterView.as_view()(request)
+                self.assertEquals(response.status_code, 200)
+
+        # test failed OTP send
+        with mock.patch(
+            'nexmo.libpynexmo.nexmomessage.NexmoMessage.send_request')\
+                as mock_send_request:
+
+                mock_send_request.return_value = (
+                    False
+                )
+
+                request = self.factory.post(
+                    reverse('account_merchant_register'),
+                    data
+                )
                 request.user = self.user
                 engine = import_module(settings.SESSION_ENGINE)
                 session_key = None
@@ -85,11 +130,6 @@ class TestMerchantView(UserProfileMerchantTestCase):
                 setattr(request, '_messages', messages)
                 response = MerchantResendOtpView.as_view()(request)
                 self.assertEquals(response.status_code, 302)
-
-    def test_otp_form_shown_merchant(self):
-
-        response = self.client.get(reverse('account_merchant_verify'))
-        self.assertEquals(response.status_code, 200)
 
 
 class TestOTPVerification(UserProfileTestCase):

@@ -1,5 +1,7 @@
 import pyotp
 from nexmo.libpynexmo.nexmomessage import NexmoMessage
+import StringIO
+import time
 
 from django.conf import settings
 from django.contrib import messages
@@ -222,7 +224,9 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             slug = slugify(name)
             userprofile = request.user.profile
             logo = request.FILES.get('logo')
-            merchant = Merchant(
+
+            # pack merchant attributes in a dictionary
+            merchant = dict(
                 name=name, country=country, location=location,
                 telephone=telephone, email=email,
                 address=address, slug=slug,
@@ -230,7 +234,14 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
                 userprofile=userprofile
             )
 
+            # remove logo if empty
+            if not logo:
+                del(merchant['logo'])
+
+            merchant = Merchant(**merchant)
             merchant.save()
+
+            # generate token and prepare message
             token = totp_token.now()
             msg = {
                 'reqtype': 'json',
@@ -245,6 +256,12 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             if response:
                 return redirect(
                     reverse('account_merchant_verify'))
+            else:
+                mssg = ("Your merchant account has been created.  "
+                        "However, we could not send the OTP to your phone. "
+                        "Please click the Resend OTP button to try again!")
+                messages.add_message(request, messages.ERROR, mssg)
+                return redirect(reverse('account_merchant_verify'))
 
 
 class MerchantVerifyView(LoginRequiredMixin, TemplateView):
@@ -350,6 +367,10 @@ class MerchantResendOtpView(LoginRequiredMixin, TemplateView):
 
             if response:
                 mssg = "OTP Verification number has been sent."
+                messages.add_message(request, messages.ERROR, mssg)
+                return redirect(reverse('account_merchant_verify'))
+            else:
+                mssg = "Could not resend OTP Verification number!"
                 messages.add_message(request, messages.ERROR, mssg)
                 return redirect(reverse('account_merchant_verify'))
 
