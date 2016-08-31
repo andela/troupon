@@ -4,7 +4,6 @@ import time
 from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
 from selenium import webdriver
-from selenium.common.exceptions import NoAlertPresentException
 
 from accounts.models import UserProfile
 from deals.models import Advertiser, Category, Deal
@@ -39,6 +38,7 @@ xpath_add_to_cart_btn = "//button[@id='buy-btn']"
 xpath_cart_dropdown = "//li[@class='dropdown'][1]/a[@class='dropdown-toggle']"
 xpath_view_cart_btn = "//ul[@class='dropdown-menu dropdown-menu-right']/a[@class='btn-action'][1]"
 xpath_checkout_btn = "//div[@class='pull-right col-sm-2']/a[@class='btn-action']"
+xpath_shipping_details_btn = "//div/input[@class='btn-action btn-form-submit']"
 xpath_pay_card_btn = "//button[@class='stripe-button-el']/span"
 xpath_review_form = "//form[@id='add-review']"
 xpath_review_description = "//textarea[@class='custom-input-group review-textarea']"
@@ -269,23 +269,34 @@ class ReviewViewTest(LiveServerTestCase, CreateDeal):
         self.driver.find_element_by_xpath(xpath_cart_dropdown).click()
         self.driver.find_element_by_xpath(xpath_view_cart_btn).click()
         self.driver.find_element_by_xpath(xpath_checkout_btn).click()
+        self.driver.implicitly_wait(1)
+
+        # Enter shipping details
+        self.driver.find_element_by_id('street').send_keys(
+            "525 Kindaruma Road")
+        self.driver.find_element_by_id('postal').send_keys("00200")
+        self.driver.find_element_by_id('state').send_keys("Nairobi")
+        self.driver.find_element_by_id('telephone').send_keys("+2547000000")
+        self.driver.find_element_by_xpath(xpath_shipping_details_btn).click()
+        self.driver.get(
+            '%s%s' % (self.live_server_url, "/cart/checkout")
+        )
+
+        # Select "pay with card" option
         self.driver.implicitly_wait(10)
         self.driver.find_element_by_xpath(xpath_pay_card_btn).click()
-        self.driver.implicitly_wait(10)
 
         # Switch to Stripe frame and add email to form
-        self.driver.switch_to.frame('stripe_checkout_app')
+        self.driver.switch_to.frame(
+            self.driver.find_element_by_name('stripe_checkout_app'))
         self.driver.find_element_by_id('email').send_keys(TEST_USER_EMAIL)
 
         # Add card number
         card_number = self.driver.find_element_by_id('card_number')
         card_number.send_keys('4242')
-        self.driver.implicitly_wait(0.25)
-        card_number.send_keys('4242')
-        self.driver.implicitly_wait(0.25)
-        card_number.send_keys('4242')
-        self.driver.implicitly_wait(0.25)
-        card_number.send_keys('4242')
+        for x in range(3):
+            self.driver.implicitly_wait(0.25)
+            card_number.send_keys('4242')
 
         # Add card expiry month and year
         card_expiry = self.driver.find_element_by_id('cc-exp')
@@ -323,15 +334,6 @@ class ReviewViewTest(LiveServerTestCase, CreateDeal):
             xpath_review_disp_msg).text
         assert "You need to purchase this deal" in display_msg
 
-    def test_form_display(self):
-        """
-        Test that review form is displayed for authenticated users who have
-        purchased the deal but not reviewed it
-        """
-        self.purchase_deal()
-        self.open_deals_page()
-        assert self.driver.find_element_by_xpath(xpath_review_form)
-
     def test_add_review(self):
         """
         Test that user can add review and it will be displayed.
@@ -341,10 +343,15 @@ class ReviewViewTest(LiveServerTestCase, CreateDeal):
         self.purchase_deal()
         self.driver.implicitly_wait(30)
         self.open_deals_page()
+
+        # Test that form is displayed
+        assert self.driver.find_element_by_xpath(xpath_review_form)
+
+        # Add review
         self.driver.find_element_by_xpath(xpath_review_description
                                           ).send_keys('Great deal!')
         self.driver.find_element_by_id('add-review-button').click()
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(1)
         ratings_count = self.driver.find_element_by_xpath(
                         xpath_ratings_count).text
         assert "1 rating" in ratings_count
@@ -359,7 +366,6 @@ class ReviewViewTest(LiveServerTestCase, CreateDeal):
     def tearDown(self):
         self.driver.quit()
         super(ReviewViewTest, self).tearDown()
-
 
 if __name__ == "__main__":
     unittest.main()
