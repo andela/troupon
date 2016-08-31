@@ -7,14 +7,20 @@ urlpatterns = [
     # pattern maps to view handling `GET` and `POST` requests to
     # /account
     url(r'^$',
-        views.UserProfileView.as_view(),
+        views.ProfileView.as_view(),
         name='account'),
 
-    # pattern maps to view handling `GET` and `POST` requests to
-    # /account/profile/
+    # pattern maps to view handling `GET` requests to
+    # /account/profile
     url(r'^profile/$',
-        views.UserProfileView.as_view(),
-        name='account_profile'),
+        views.ProfileView.as_view(),
+        name='account_profile_view'),
+
+    # pattern maps to view handling `GET` and `POST` requests to
+    # /account/profile/edit
+    url(r'^profile/edit/$',
+        views.EditProfileView.as_view(),
+        name='account_profile_edit'),
 
     # pattern maps to view handling `GET` requests to
     # /user/history/

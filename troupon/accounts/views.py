@@ -19,9 +19,8 @@ from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
 from authentication.views import LoginRequiredMixin
 from conversations.models import Message
-from deals.models import (
-    COUNTRY_CHOICES, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
-)
+from deals.models import COUNTRY_CHOICES, ALL_LOCATIONS, KENYAN_LOCATIONS, \
+    NIGERIAN_LOCATIONS, Advertiser
 from merchant.models import Merchant
 from payment.models import Purchases
 
@@ -29,15 +28,40 @@ secret_key = settings.OTP_SECRET_KEY
 totp_token = pyotp.TOTP(secret_key, interval=180)
 
 
-class UserProfileView(LoginRequiredMixin, TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
+    """
+    Handles display of the user profile details
+    """
+    def get(self, request):
+        """Renders a page showing user details
+        """
+        profile = self.request.user.profile
+        country = dict(COUNTRY_CHOICES).get(profile.country)
+        location = dict(ALL_LOCATIONS).get(profile.location)
+        context = {
+            'user': self.request.user,
+            'profile': profile,
+            'country': country,
+            'location': location,
+            'profile.location': profile.location,
+            'breadcrumbs': [
+                {'name': 'My Account', 'url': reverse('account')},
+                {'name': 'View Profile', },
+            ]
+        }
+
+        return TemplateResponse(request, 'account/view_profile.html', context)
+
+
+class EditProfileView(LoginRequiredMixin, TemplateView):
     """
     Handles display of the account profile form view
     """
     form_class = UserProfileForm
-    template_name = "account/profile.html"
+    template_name = "account/edit_profile.html"
 
     def get_context_data(self, **kwargs):
-        context_var = super(UserProfileView, self).get_context_data(**kwargs)
+        context_var = super(EditProfileView, self).get_context_data(**kwargs)
         context_var.update({
             'profile': self.request.user.profile,
             'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
@@ -47,7 +71,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
             },
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
-                {'name': 'Profile', },
+                {'name': 'Edit Profile', },
             ]
         })
         return context_var
@@ -67,9 +91,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
             context_var = {}
             empty = "Form should not be submitted empty"
             messages.add_message(request, messages.INFO, empty)
-            return TemplateResponse(
-                request, 'account/profile.html', context_var
-            )
+            return TemplateResponse(request, 'account/edit_profile.html', context_var)
 
         if form.is_valid():
             form.save()
@@ -82,7 +104,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
             messages.add_message(
                 request, messages.SUCCESS, 'Profile Updated!')
             return redirect(
-                reverse('account_profile'),
+                reverse('account_profile_edit'),
                 context_instance=RequestContext(request)
             )
 
@@ -183,7 +205,7 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             mesg = """Please complete your profile information
              before applying to become a merchant."""
             messages.add_message(self.request, messages.INFO, mesg)
-            return redirect(reverse('account_profile'))
+            return redirect(reverse('account_profile_edit'))
 
         return TemplateResponse(request, self.template_name, context)
 
@@ -284,7 +306,7 @@ class MerchantVerifyView(LoginRequiredMixin, TemplateView):
                 return TemplateResponse(request, self.template_name, context)
 
         except AttributeError:
-            return redirect(reverse('account_profile'))
+            return redirect(reverse('account_profile_edit'))
 
     def post(self, request, *args, **kwargs):
 
@@ -339,7 +361,7 @@ class MerchantConfirmView(LoginRequiredMixin, TemplateView):
                 return TemplateResponse(request, self.template_name, context)
 
         except AttributeError:
-            return redirect(reverse('account_profile'))
+            return redirect(reverse('account_profile_edit'))
 
 
 class MerchantResendOtpView(LoginRequiredMixin, TemplateView):
@@ -375,7 +397,7 @@ class MerchantResendOtpView(LoginRequiredMixin, TemplateView):
                 return redirect(reverse('account_merchant_verify'))
 
         except AttributeError:
-            return redirect(reverse('account_profile'))
+            return redirect(reverse('account_profile_edit'))
 
 
 class UserChangePasswordView(LoginRequiredMixin, TemplateView):

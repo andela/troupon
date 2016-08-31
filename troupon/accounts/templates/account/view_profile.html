@@ -1,0 +1,85 @@
+{% extends "account/profile_base.html" %}
+{% load static %}
+
+{% block sidebar_menu %}
+  {% with active_tab='View Profile' %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock sidebar_menu %}
+
+{% block subview %}
+<div>
+  <div class="col-sm-6">
+    <h1> Basic Information </h1>
+    <div class="row">
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-user"></i></div>
+            <div class="col-xs-5"><p><strong>Name</strong></p></div>
+            <div class="col-xs-6">
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-user"></i></div>
+            <div class="col-xs-5"><p><strong>Username</strong></p></div>
+            <div class="col-xs-6">
+                <p>{{ user.username }}</p>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-envelope"></i></div>
+            <div class="col-xs-5"><p><strong>Email</strong></p></div>
+            <div class="col-xs-6">
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-map-marker"></i></div>
+            <div class="col-xs-5"><p><strong>Location</strong></p></div>
+            <div class="col-xs-6">
+              {% if profile.location and profile.country %}
+                <p>{{ location }}, {{ country }}</p>
+              {% else %}
+                <p>Not set</p>
+              {% endif %}
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-briefcase"></i></div>
+            <div class="col-xs-5"><p><strong>Occupation</strong></p></div>
+            <div class="col-xs-6">
+              {% if profile.occupation %}
+                <p>{{ profile.occupation }}</p>
+              {% else %}
+                <p>Not set</p>
+              {% endif %}
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-phone"></i></div>
+            <div class="col-xs-5"><p><strong>Phone Number</strong></p></div>
+            <div class="col-xs-6">
+              {% if profile.phonenumber %}
+                <p>{{ profile.phonenumber }}</p>
+              {% else %}
+                <p>Not set</p>
+              {% endif %}
+            </div>
+        </div>
+        <div class="divider"></div>
+    </div>
+    <br/>
+    <a href="{% url 'account_profile_edit' %}">
+      <button id="edit-profile" class="btn-action btn-form-submit">
+        Edit Profile
+      </button>
+    </a>
+  </div>
+</div>
+{% endblock %}
