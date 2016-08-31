@@ -1,23 +1,26 @@
 import pyotp
 from nexmo.libpynexmo.nexmomessage import NexmoMessage
+import StringIO
 import time
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.views.generic.base import TemplateView
-from django.template import RequestContext
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
-from django.conf import settings
-from django.utils.text import slugify
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.shortcuts import redirect, get_object_or_404
+from django.template import RequestContext
 from django.template.response import TemplateResponse
+from django.views.generic.base import TemplateView
+from django.utils.text import slugify
 
-from authentication.views import LoginRequiredMixin
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
+from authentication.views import LoginRequiredMixin
 from conversations.models import Message
-from deals.models import COUNTRY_CHOICES, ALL_LOCATIONS, KENYAN_LOCATIONS, NIGERIAN_LOCATIONS, Advertiser
+from deals.models import COUNTRY_CHOICES, ALL_LOCATIONS, KENYAN_LOCATIONS, \
+    NIGERIAN_LOCATIONS, Advertiser
 from merchant.models import Merchant
 from payment.models import Purchases
 
@@ -63,7 +66,9 @@ class EditProfileView(LoginRequiredMixin, TemplateView):
             'profile': self.request.user.profile,
             'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
             'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
-            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
+            'locations_nigeria': {
+                'choices': NIGERIAN_LOCATIONS, 'default': 25
+            },
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Edit Profile', },
@@ -104,18 +109,41 @@ class EditProfileView(LoginRequiredMixin, TemplateView):
             )
 
 
-class TransactionsView(TemplateView):
+class TransactionsView(LoginRequiredMixin, TemplateView):
     """View transactions for a user"""
+    num_page_items = 25
+    min_orphan_items = 5
+    page_num = 1
+    pagination_base_url = reverse_lazy('account_history')
 
     def get(self, request):
         """Renders a page with a table showing a deal,
         quantity bought, time of purchase, and its price
         """
         user = self.request.user
-        transactions = Purchases.objects.filter(user=user)
+        transaction_list = Purchases.objects.filter(user=user)
+        paginator = Paginator(
+            transaction_list,
+            self.num_page_items,
+            self.min_orphan_items,
+        )
+
+        try:
+            # get the page number if present in request.GET
+            page_num = request.GET.get('pg')
+            if not page_num:
+                page_num = self.page_num
+            transactions = paginator.page(page_num)
+        except PageNotAnInteger:
+            # if page is not an integer, access first page
+            transactions = paginator.page(1)
+        except EmptyPage:
+            # if page is out of range, deliver last page
+            transactions = paginator.page(paginator.num_pages)
 
         context = {
             'transactions': transactions,
+            'pagination_base_url': self.pagination_base_url
         }
 
         return TemplateResponse(request, 'account/transaction.html', context)
@@ -163,7 +191,9 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             'profile': self.request.user.profile,
             'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
             'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
-            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
+            'locations_nigeria': {
+                'choices': NIGERIAN_LOCATIONS, 'default': 25
+            },
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
@@ -186,7 +216,9 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             'profile': self.request.user.profile,
             'countries': {'choices': COUNTRY_CHOICES, 'default': 2},
             'locations_kenya': {'choices': KENYAN_LOCATIONS, 'default': 84},
-            'locations_nigeria': {'choices': NIGERIAN_LOCATIONS, 'default': 25},
+            'locations_nigeria': {
+                'choices': NIGERIAN_LOCATIONS, 'default': 25
+            },
             'breadcrumbs': [
                 {'name': 'My Account', 'url': reverse('account')},
                 {'name': 'Merchant', 'url': reverse('account_merchant')},
@@ -214,7 +246,9 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             slug = slugify(name)
             userprofile = request.user.profile
             logo = request.FILES.get('logo')
-            merchant = Merchant(
+
+            # pack merchant attributes in a dictionary
+            merchant = dict(
                 name=name, country=country, location=location,
                 telephone=telephone, email=email,
                 address=address, slug=slug,
@@ -222,7 +256,14 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
                 userprofile=userprofile
             )
 
+            # remove logo if empty
+            if not logo:
+                del(merchant['logo'])
+
+            merchant = Merchant(**merchant)
             merchant.save()
+
+            # generate token and prepare message
             token = totp_token.now()
             msg = {
                 'reqtype': 'json',
@@ -237,6 +278,12 @@ class MerchantRegisterView(LoginRequiredMixin, TemplateView):
             if response:
                 return redirect(
                     reverse('account_merchant_verify'))
+            else:
+                mssg = ("Your merchant account has been created.  "
+                        "However, we could not send the OTP to your phone. "
+                        "Please click the Resend OTP button to try again!")
+                messages.add_message(request, messages.ERROR, mssg)
+                return redirect(reverse('account_merchant_verify'))
 
 
 class MerchantVerifyView(LoginRequiredMixin, TemplateView):
@@ -342,6 +389,10 @@ class MerchantResendOtpView(LoginRequiredMixin, TemplateView):
 
             if response:
                 mssg = "OTP Verification number has been sent."
+                messages.add_message(request, messages.ERROR, mssg)
+                return redirect(reverse('account_merchant_verify'))
+            else:
+                mssg = "Could not resend OTP Verification number!"
                 messages.add_message(request, messages.ERROR, mssg)
                 return redirect(reverse('account_merchant_verify'))
 

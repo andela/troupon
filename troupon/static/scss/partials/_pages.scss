@@ -175,3 +175,33 @@ footer.checkout-footer {
 #logo{
  padding:55px; 
 }
+
+// merchant register page
+.preview-upload-img {
+  #preview-upload-img-title {
+    margin: 20px auto;
+  }
+}
+
+.images {
+  margin-bottom: 20px;
+  img {
+    max-width: 200px;
+  }
+}
+
+.file-upload-container {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.file-upload-label {
+  float: none;
+  clear: both;
+  width: 100%;
+}
+
+// login page
+.clear-float * {
+  float: none;
+}
