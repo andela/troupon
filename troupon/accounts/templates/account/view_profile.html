@@ -9,61 +9,77 @@
 
 {% block subview %}
 <div>
+  <div class="col-sm-6">
+    <h1> Basic Information </h1>
     <div class="row">
-      <div class="col-sm-8">
-          <header class="row">
-            <div class="col-sm-12">
-              <strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}
-              <hr/>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-user"></i></div>
+            <div class="col-xs-5"><p><strong>Name</strong></p></div>
+            <div class="col-xs-6">
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
             </div>
-            <div class="col-sm-12">
-              <strong>Username: </strong>
-              {{ user.username }}
-              <hr/>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-user"></i></div>
+            <div class="col-xs-5"><p><strong>Username</strong></p></div>
+            <div class="col-xs-6">
+                <p>{{ user.username }}</p>
             </div>
-            <div class="col-sm-12">
-              <strong>Email: </strong>
-              {{ user.email }}
-              <hr/>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-envelope"></i></div>
+            <div class="col-xs-5"><p><strong>Email</strong></p></div>
+            <div class="col-xs-6">
+                <p>{{ user.email }}</p>
             </div>
-            <div class="col-sm-12">
-              <strong>Location: </strong>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-map-marker"></i></div>
+            <div class="col-xs-5"><p><strong>Location</strong></p></div>
+            <div class="col-xs-6">
               {% if profile.location and profile.country %}
-                {{ location }}, {{ country }}
+                <p>{{ location }}, {{ country }}</p>
               {% else %}
-                Not set
+                <p>Not set</p>
               {% endif %}
-              <hr/>
             </div>
-            <div class="col-sm-12">
-              <strong>Occupation: </strong>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-briefcase"></i></div>
+            <div class="col-xs-5"><p><strong>Occupation</strong></p></div>
+            <div class="col-xs-6">
               {% if profile.occupation %}
-                {{ profile.occupation }}
+                <p>{{ profile.occupation }}</p>
               {% else %}
-                Not set
+                <p>Not set</p>
               {% endif %}
-              <hr/>
             </div>
-            <div class="col-sm-12">
-              <strong>Phone Number: </strong>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-xs-1"><i class="fa fa-phone"></i></div>
+            <div class="col-xs-5"><p><strong>Phone Number</strong></p></div>
+            <div class="col-xs-6">
               {% if profile.phonenumber %}
-                {{ profile.phonenumber }}
+                <p>{{ profile.phonenumber }}</p>
               {% else %}
-                Not set
+                <p>Not set</p>
               {% endif %}
-              <hr/>
-            </div>
-            <a href="{% url 'account_profile_edit' %}">
-              <button id="edit-profile" class="btn-action btn-form-submit">
-                Edit Profile
-              </button>
-            </a>
-        </div>
-        <div class="col-sm-4 hidden-xs brand-col">
-            <div class="brand">
-               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
             </div>
         </div>
+        <div class="divider"></div>
     </div>
+    <br/>
+    <a href="{% url 'account_profile_edit' %}">
+      <button id="edit-profile" class="btn-action btn-form-submit">
+        Edit Profile
+      </button>
+    </a>
+  </div>
 </div>
 {% endblock %}
