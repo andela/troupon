@@ -1,0 +1,485 @@
+[
+{
+  "fields": {
+    "category": 9,
+    "original_price": 15000,
+    "max_quantity_available": 20,
+    "quorum": null,
+    "advertiser": 14,
+    "country": 1,
+    "price": 10000,
+    "description": "This month, the renowned Kenyan afro-pop band is kicking off their international tour, and you can be a part of it with this discounted ticket! Get your ticket at this unbelievable price and see the kings of afro-pop live in concert.",
+    "date_end": null,
+    "currency": 1,
+    "featured": true,
+    "date_created": "2016-05-30",
+    "location": 25,
+    "image": "image/upload/v1471445374/vjwe6biwleh7odgl2pzo_x8iajq.jpg",
+    "address": "Lagos, Nigeria",
+    "duration": 30,
+    "title": "Sauti Sol Live in Concert",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "sauti-sol-live-in-concert-2016-05-30",
+    "disclaimer": "You must be at least 18 years of age to purchase this deal."
+  },
+  "model": "deals.deal",
+  "pk": 72
+},
+{
+  "fields": {
+    "category": 1,
+    "original_price": 300,
+    "max_quantity_available": 5,
+    "quorum": null,
+    "advertiser": 12,
+    "country": 1,
+    "price": 200,
+    "description": "Enjoy one night's stay for two at a fabulous Lagos hotel with this exciting deal. Surrounded by palm trees, this modern, high-end hotel with a streamlined facade is only 2 km from the airport and close to all major amenities.",
+    "date_end": null,
+    "currency": 2,
+    "featured": true,
+    "date_created": "2016-05-30",
+    "location": 25,
+    "image": "image/upload/v1471445375/e5r0xth9ofb5uszoxvvd_vnyn3j.jpg",
+    "address": "Lagos, Nigeria ",
+    "duration": 10,
+    "title": "One Night for 2 in Lagos",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "one-night-for-2-in-lagos",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 73
+},
+{
+  "fields": {
+    "category": 7,
+    "original_price": 90000,
+    "max_quantity_available": 2,
+    "quorum": null,
+    "advertiser": 10,
+    "country": 1,
+    "price": 75000,
+    "description": "Drive away into the sunset with this incredible deal! For an amazing price, this luxury Mercedes Benz could be all yours. Leather interiors, sleek exterior, and speeds you just can't beat, this will be your best purchase for years to come. ",
+    "date_end": null,
+    "currency": 2,
+    "featured": true,
+    "date_created": "2016-05-30",
+    "location": 2,
+    "image": "image/upload/v1471445373/w6pc9ddbfcjmh4rri4pk_rbntv2.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 20,
+    "title": "Luxury Mercedes Benz",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "luxury-mercedes-benz-2016-05-30",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 74
+},
+{
+  "fields": {
+    "category": 6,
+    "original_price": 12000,
+    "max_quantity_available": 10,
+    "quorum": null,
+    "advertiser": 11,
+    "country": 2,
+    "price": 9000,
+    "description": "Upgrade your kitchen with this colourful 24-piece dinnerware set, in a wide assortment of bright colours. This set is dishwasher and microwave safe, and is suitable for wide range of table settings.",
+    "date_end": null,
+    "currency": 3,
+    "featured": true,
+    "date_created": "2016-05-30",
+    "location": 38,
+    "image": "image/upload/v1471446293/rir7fjttnkkdtlnheryw_qjib4i.jpg",
+    "address": "Mombasa, Kenya",
+    "duration": 10,
+    "title": "24-Piece Dinnerset",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "24-piece-dinnerset-2016-05-30",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 75
+},
+{
+  "fields": {
+    "category": 2,
+    "original_price": 8000,
+    "max_quantity_available": 5,
+    "quorum": null,
+    "advertiser": 3,
+    "country": 1,
+    "price": 6000,
+    "description": "Stand out from the crowd with this gorgeously designed case for your MacBook Air. Featuring a white mandala design, this case will protect your precious laptop from any damage, while giving it a fresh look.",
+    "date_end": null,
+    "currency": 1,
+    "featured": false,
+    "date_created": "2016-05-30",
+    "location": 25,
+    "image": "image/upload/v1471445372/qxalwmmmc8xz0kneznef_redsgo.jpg",
+    "address": "Lagos, Nigeria",
+    "duration": 10,
+    "title": "MacBook Air Case",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "macbook-air-case-2016-05-30",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 76
+},
+{
+  "fields": {
+    "category": 1,
+    "original_price": 600,
+    "max_quantity_available": 20,
+    "quorum": null,
+    "advertiser": 12,
+    "country": 2,
+    "price": 500,
+    "description": "Unleash your wild side with this deal for a ten-day safari! Travel to the exotic Mara where you will see the famous big 5, and take an enchanting sunset ride in a hot air balloon. Purchase this deal for the trip of a lifetime!",
+    "date_end": null,
+    "currency": 2,
+    "featured": true,
+    "date_created": "2016-05-30",
+    "location": 84,
+    "image": "image/upload/v1471445374/pbiitsix5mhrd8id8cr2_jazrwg.jpg",
+    "address": "Nairobi, Kenya",
+    "duration": 10,
+    "title": "10-Day Masai Mara Safari",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "10-day-masai-mara-safari-2016-05-30",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 77
+},
+{
+  "fields": {
+    "category": 11,
+    "original_price": 3000,
+    "max_quantity_available": 2,
+    "quorum": null,
+    "advertiser": 9,
+    "country": 1,
+    "price": 2000,
+    "description": "Purchase this deal and get yourself an amazing beauty make-over and become a new you for the new year! Inner beauty is great, but a little help never hurt!\r\n",
+    "date_end": null,
+    "currency": 1,
+    "featured": false,
+    "date_created": "2016-05-30",
+    "location": 25,
+    "image": "image/upload/v1471445372/hl2cgbaoc2aqmdpr2cvw_wf0pxr.jpg",
+    "address": "Lagos, Nigeria",
+    "duration": 10,
+    "title": "Beauty Make-Over",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "beauty-make-over-2016-05-30",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 78
+},
+{
+  "fields": {
+    "category": 3,
+    "original_price": 40000,
+    "max_quantity_available": 10,
+    "quorum": null,
+    "advertiser": 9,
+    "country": 2,
+    "price": 30000,
+    "description": "Buying a bespoke suit is not cheap, but nothing compares to the experience of creating a quality garment that is tailored specifically for your body and lifestyle. With our deal, you can get a made-to-measure suit at a great price!",
+    "date_end": null,
+    "currency": 3,
+    "featured": false,
+    "date_created": "2016-05-30",
+    "location": 84,
+    "image": "image/upload/v1471445373/oa0bmk0eht0hjimllrhz_a4luda.jpg",
+    "address": "Nairobi, Kenya",
+    "duration": 10,
+    "title": "Made-to-Measure Suits",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "made-to-measure-suits-2016-05-30",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 80
+},
+{
+  "fields": {
+    "category": 11,
+    "original_price": 15000,
+    "max_quantity_available": 10,
+    "quorum": 10,
+    "advertiser": 1,
+    "country": 1,
+    "price": 10000,
+    "description": "With this deal, you can get fit, and stay that way! We believe that fitness is only one of the many factors that contribute to your overall health improvement. And we're here to help you improve each aspect of your health - physical fitness, nutrition and beyond. ",
+    "date_end": null,
+    "currency": 1,
+    "featured": false,
+    "date_created": "2016-05-30",
+    "location": 2,
+    "image": "image/upload/v1471445373/ndeqca5kg9ojx6zagbyj_oyhumr.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 30,
+    "title": "One Month's Gym Membership",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "one-months-gym-membership-2016-05-30",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 82
+},
+{
+  "fields": {
+    "category": 3,
+    "original_price": 4500,
+    "max_quantity_available": 10,
+    "quorum": 10,
+    "advertiser": 2,
+    "country": 1,
+    "price": 4000,
+    "description": "Stay current with this deal featuring a pair of unique ankara print wedges! Ankara is a 100% cotton fabric with vibrant patterns, taking the fashion world by storm. With this deal, you can stay fashion-forward while looking fabulous!",
+    "date_end": null,
+    "currency": 1,
+    "featured": false,
+    "date_created": "2016-05-31",
+    "location": 2,
+    "image": "image/upload/v1471446294/glo6nnnuugbrm0tjxrxb_ftkzpy.jpg",
+    "address": "Abuja, Nigeria",
+    "duration": 10,
+    "title": "Ankara Print Wedges",
+    "date_last_modified": "2016-06-15",
+    "active": true,
+    "slug": "ankara-print-wedges-2016-05-31",
+    "disclaimer": ""
+  },
+  "model": "deals.deal",
+  "pk": 83
+},
+{
+  "fields": {
+    "name": "Shoprite Ikeja",
+    "country": 2,
+    "telephone": "111-111-11",
+    "email": "paulmccartney@noho.com",
+    "location": 47,
+    "address": "234, Agege-Somolu, Victoria Island, Lagos, Nigeria.",
+    "slug": "shoprite-ikeja"
+  },
+  "model": "deals.advertiser",
+  "pk": 1
+},
+{
+  "fields": {
+    "name": "DressToKill Boutique",
+    "country": 2,
+    "telephone": "456786543213456",
+    "email": "dresstokill@troupon.com",
+    "location": 47,
+    "address": "Shoprite Ikeja,Lagos",
+    "slug": "dresstokill-boutique"
+  },
+  "model": "deals.advertiser",
+  "pk": 2
+},
+{
+  "fields": {
+    "name": "BlackTree Developers",
+    "country": 2,
+    "telephone": "0713625155",
+    "email": "amos.omondi@andela.com",
+    "location": 47,
+    "address": "Amity",
+    "slug": "blacktree-developers"
+  },
+  "model": "deals.advertiser",
+  "pk": 3
+},
+{
+  "fields": {
+    "name": "Couture Boutique",
+    "country": 2,
+    "telephone": "+234123456789",
+    "email": "sales@coutureboutique.com",
+    "location": 47,
+    "address": "Garki, Abuja, Nigeria",
+    "slug": "couture-boutique"
+  },
+  "model": "deals.advertiser",
+  "pk": 9
+},
+{
+  "fields": {
+    "name": "Luxury Vehicles Centre",
+    "country": 2,
+    "telephone": "+234123456789",
+    "email": "cars@luxurryvehiclescentre.com",
+    "location": 47,
+    "address": "Ikoja, Lagos, Nigeria",
+    "slug": "luxury-vehicles-centre"
+  },
+  "model": "deals.advertiser",
+  "pk": 10
+},
+{
+  "fields": {
+    "name": "Sunshine's Home Accessories",
+    "country": 2,
+    "telephone": "+234123456789",
+    "email": "decor@sunshineshomes.com",
+    "location": 84,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "slug": "sunshines-home-accessories"
+  },
+  "model": "deals.advertiser",
+  "pk": 11
+},
+{
+  "fields": {
+    "name": "Globetrotters Tours & Travels",
+    "country": 2,
+    "telephone": "+234123456789",
+    "email": "travel@globetrotters.com",
+    "location": 47,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "slug": "gobetrotters-tours-travels"
+  },
+  "model": "deals.advertiser",
+  "pk": 12
+},
+{
+  "fields": {
+    "name": "Ultimate Events & Entertainment",
+    "country": 2,
+    "telephone": "+234123456789",
+    "email": "tickets@ultimateevents.com",
+    "location": 47,
+    "address": "Ikoyi, Lagos, Nigeria",
+    "slug": "ultimate-events-entertainment"
+  },
+  "model": "deals.advertiser",
+  "pk": 14
+},
+{
+  "fields": {
+    "name": "Mbithe's Stuff",
+    "country": 2,
+    "telephone": "0705863889",
+    "email": "info@mbithe.com",
+    "location": 84,
+    "address": "123 Nairobi",
+    "slug": "mbithes-stuff"
+  },
+  "model": "deals.advertiser",
+  "pk": 27
+},
+{
+  "fields": {
+    "name": "Travel n Hotels",
+    "slug": "travel-n-hotels"
+  },
+  "model": "deals.category",
+  "pk": 1
+},
+{
+  "fields": {
+    "name": "Electronics",
+    "slug": "electronics"
+  },
+  "model": "deals.category",
+  "pk": 2
+},
+{
+  "fields": {
+    "name": "Fashion",
+    "slug": "fashion"
+  },
+  "model": "deals.category",
+  "pk": 3
+},
+{
+  "fields": {
+    "name": "Foods",
+    "slug": "foods"
+  },
+  "model": "deals.category",
+  "pk": 4
+},
+{
+  "fields": {
+    "name": "Getaways",
+    "slug": "getaways"
+  },
+  "model": "deals.category",
+  "pk": 5
+},
+{
+  "fields": {
+    "name": "Shopping",
+    "slug": "shopping"
+  },
+  "model": "deals.category",
+  "pk": 6
+},
+{
+  "fields": {
+    "name": "Automobiles",
+    "slug": "automobiles"
+  },
+  "model": "deals.category",
+  "pk": 7
+},
+{
+  "fields": {
+    "name": "Hotels",
+    "slug": "hotels"
+  },
+  "model": "deals.category",
+  "pk": 8
+},
+{
+  "fields": {
+    "name": "Event Tickets",
+    "slug": "event-tickets"
+  },
+  "model": "deals.category",
+  "pk": 9
+},
+{
+  "fields": {
+    "name": "Kerosene",
+    "slug": "kerosene"
+  },
+  "model": "deals.category",
+  "pk": 10
+},
+{
+  "fields": {
+    "name": "Beauty Treatments",
+    "slug": "beauty-treatments"
+  },
+  "model": "deals.category",
+  "pk": 11
+},
+{
+  "fields": {
+    "name": "Akara and Pap",
+    "slug": "akara-and-pap"
+  },
+  "model": "deals.category",
+  "pk": 12
+}
+]

@@ -1,0 +1,120 @@
+{% extends "account/profile_base.html" %} {% load static%} {% block extended_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+{% endblock extended_css %} 
+{% block sidebar_menu %} 
+  {% with active_tab='Merchant' %} 
+    {{ block.super }} 
+  {% endwith %} 
+{% endblock sidebar_menu %} 
+{% block subview %}
+    <form method="POST" id="merchantform" action="{% url 'account_merchant_register' %}" enctype="multipart/form-data">
+      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+      <div class="row">      
+        <div class="col-sm-7">
+
+          <div class="form-group col-lg-12">
+            <label>Name</label>
+            <div class="custom-input-group">
+              <input type="text" name="name" class="form-control" id="id_name" value="" placeholder="company name">
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12">
+            <label>Address:</label>
+            <div class="custom-input-group">
+              <input type="text" name="address" class="form-control" id="" value="" placeholder="company address">
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12">
+            <label>Country<span class="label-asterik">*</span></label>
+            <div class="custom-input-group">
+              <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+              <select name="user_country" placeholder="Kenya" id="user-country">
+                <option value="0" selected>Select your country</option>
+                {% for choice in countries.choices %}
+                  <option value="{{ choice.0 }}">
+                    {{ choice.1 }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12 hidden" id="kenyan-locations">
+            <label>Location<span class="label-asterik">*</span></label>
+            <div class="custom-input-group">
+              <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+              <select name="kenya_user_location" placeholder="Nairobi">
+                <option value="0" selected>Select your location</option>
+                {% for choice in locations_kenya.choices %}
+                  <option value="{{ choice.0 }}"  {% if choice.0 == locations_kenya.default %}selected{% endif %}>
+                    {{ choice.1 }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12 hidden" id="nigerian-locations">
+            <label>Location<span class="label-asterik">*</span></label>
+            <div class="custom-input-group">
+              <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+              <select name="nigeria_user_location" placeholder="Lagos">
+                <option value="0" selected>Select your location</option>
+                {% for choice in locations_nigeria.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == locations_nigeria.default %}selected{% endif %} >
+                    {{ choice.1 }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12">
+            <label>Email:</label>
+            <div class="custom-input-group">
+              <input type="email" name="email" class="form-control" id="" value="" placeholder="name@businessemail.com">
+            </div>
+          </div>
+
+          <div class="custom-form-group col-lg-12">
+            <label>Phone Number <span class="label-asterik">*</span></label>
+            <div class="custom-input-group">
+              <input type="tel" name="telephone" id="mobile-number" value="" placeholder="">
+              <span id="valid-msg" class="hide">✓ Valid</span>
+              <span id="error-msg" class="hide">Invalid number</span>
+              <input id="hidden" type="hidden" name="intlnumber">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-lg-offset-1 preview-upload-img">
+          <div class="custom-form-group col-sm-12 text-center">
+            <h4 id="preview-upload-img-title">Merchant  Logo</h4>
+            <hr><br>
+            {% csrf_token %}
+            <div class="images">
+              <img id="merchant-logo" src="{% static 'img/logo-v-lg.png' %}"/>
+            </div>
+            <div class="text-center file-upload-container">
+              <label class="file-upload-label">
+                <input id="file-upload" name="logo" type="file" size="#" onchange="previewImage();">
+                <span class="glyphicon glyphicon-folder-open" aria-hidden="true" ></span>Select Logo
+              </label>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+      <div class="row">
+         <div class="custom-form-group btn-lg col-lg-12">
+            <input id="save" type="submit" , value="Submit" align="left" class="btn-action" />
+          </div> 
+      </div>
+    </form>
+</div>
+
+{% endblock subview %}
+{% block extended_js %}
+    <script src={% static 'js/merchant.js' %}></script>
+{% endblock %}

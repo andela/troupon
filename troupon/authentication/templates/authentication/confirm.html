@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+    <section class="row">
+        <!-- heading -->
+        <div class="col-sm-4 hidden-xs brand-col">
+            <div class="brand">
+               <img src="{% static 'img/logo-v-lg.png' %}" alt="Troupon logo">
+            </div>
+        </div>
+
+        {% if messages %}
+
+            {% for message in messages %}
+                <div class="col-sm-8">
+                    <h2>Activation mail sent!</h2>
+                    <div class="well">
+                    <p>You have successfully registered. A mail has been sent to your email address {{ message }}. Follow the link in the mail to activate your account</p>
+                    <br >
+                    <P>Troupon Team</P>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+
+            <div class="col-sm-8">
+                <h2>Account creation failed!</h2>
+                <div class="well">
+                <P>Please Re-enter you signup details</P>
+            </div>
+            </div>
+
+        {% endif %}
+
+    </section>
+
+{% endblock %}
