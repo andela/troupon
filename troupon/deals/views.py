@@ -2,19 +2,24 @@ import cloudinary
 import os
 import string
 
+from datetime import date
+from django.db.models import Avg
+from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.core.exceptions import SuspiciousOperation
 from django.core.urlresolvers import reverse
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import slugify
 from django.template.response import TemplateResponse
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from haystack.query import SearchQuerySet
 
 from baseviews import DealListBaseView
-from models import Advertiser, ALL_LOCATIONS, Category, Deal
+from forms import ReviewForm
+from models import Category, Deal, Advertiser, ALL_LOCATIONS, Review
+from payment.models import Purchases
 
 
 class HomePageView(DealListBaseView):
@@ -193,5 +198,89 @@ class DealSlugView(View):
         except (Deal.DoesNotExist, AttributeError):
             raise Http404('Deal with this slug not found!')
 
-        context = {'deal': deal}
+        reviews = Review.objects.filter(deal=deal)
+
+        # Getting the average_rating rounded to the nearest integer
+        average_rating_dict = Review.objects.filter(
+                              deal=deal).aggregate(Avg('rating'))
+        average_rating = average_rating_dict['rating__avg']
+        if average_rating is None:
+            average_rating = 0
+        average_rating_rounded = round(average_rating)
+
+        # Getting the number of reviews for each deal
+        review_number = Review.objects.filter(deal=deal).count()
+        if review_number == 1:
+            review_count = str(review_number) + " rating"
+        else:
+            review_count = str(review_number) + " ratings"
+
+        # Display the average rating in stars
+        ratings_full = list(range(1, int(average_rating_rounded) + 1))
+        ratings_empty = list(range(1, 6 - len(ratings_full)))
+        if len(ratings_empty) == 5:
+            ratings_msg = "No ratings yet!"
+        else:
+            ratings_msg = review_count
+
+        display_form = False
+        display_msg = ""
+
+        if request.user.is_authenticated():
+            user = self.request.user
+
+            # Getting the deals purchased by the current user
+            transactions = Purchases.objects.filter(user=user)
+            purchased_deals = [transaction.item.id for transaction in transactions]
+
+            # Getting the deals already reviewed by the current user
+            user_reviews = Review.objects.filter(author=user)
+            already_reviewed = [review.deal.id for review in user_reviews]
+
+            # Check when to display form
+            if deal.id in purchased_deals:
+                if deal.id not in already_reviewed:
+                    display_form = True
+                else:
+                    display_msg = "Thank you for your review! It'll go a long \
+                                    way in ensuring we provide only the very \
+                                    best deals."
+            else:
+                display_msg = "You need to purchase this deal to rate or \
+                              review it."
+        else:
+            display_msg = "You need to log in to rate and review this deal."
+
+        context = {'deal': deal,
+                   'reviews': reviews,
+                   'average_rating_rounded': average_rating_rounded,
+                   'ratings_full': ratings_full,
+                   'ratings_empty': ratings_empty,
+                   'ratings_msg': ratings_msg,
+                   'display_form': display_form,
+                   'display_msg': display_msg
+                   }
+
+        return TemplateResponse(request, 'deals/detail.html', context)
+
+
+class ReviewView(View):
+
+    def post(self, request):
+        """ View to handle creation of reviews"""
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.description = request.POST.get('description')
+            review.rating = request.POST.get('rating')
+            review.author = self.request.user
+            review.date_created = date.today()
+            deal_id = request.POST.get('deal_id')
+            review.deal = Deal.objects.get(id=deal_id)
+            deal_slug = review.deal.slug
+            review.save()
+            return HttpResponseRedirect(reverse('deal-with-slug',
+                                        kwargs={'deal_slug': deal_slug}))
+
+        context = {'form': form}
         return TemplateResponse(request, 'deals/detail.html', context)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import Deal, Advertiser, Category
+from models import Advertiser, Category, Deal, Review
 
 
 class DealAdmin(admin.ModelAdmin):
@@ -17,3 +17,4 @@ class AdvertiserAdmin(admin.ModelAdmin):
 admin.site.register(Deal, DealAdmin)
 admin.site.register(Advertiser, AdvertiserAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Review)

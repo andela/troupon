@@ -2,7 +2,7 @@
 from django.conf.urls import url
 
 from .views import DealsView, FilteredDealsView,\
-    DealSlugView, DealHaystackSearchView, DealSearchCityView
+    DealSlugView, DealHaystackSearchView, DealSearchCityView, ReviewView
 
 
 urlpatterns = [
@@ -34,4 +34,10 @@ urlpatterns = [
     url(r'^search/autosuggest/$',
         DealHaystackSearchView.as_view(),
         name='dealsearchauto'),
+
+    # pattern maps to view handling `POST` requests to
+    # /deals/reviews/submit
+    url(r'^reviews/submit$',
+        ReviewView.as_view(),
+        name='submit-review'),
 ]

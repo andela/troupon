@@ -8,6 +8,11 @@ dependencies:
     - pip install --upgrade pip
     - pip install --upgrade virtualenv
     - npm install bower
+    - npm install -g webdriver-manager
+    - webdriver-manager start:
+        background: true
+    - sleep 3
+    - sudo apt-get update && sudo apt-get install --only-upgrade google-chrome-stable
 test:
   override:
     - python troupon/manage.py bower install --settings=troupon.settings.test

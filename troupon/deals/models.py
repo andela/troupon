@@ -62,16 +62,24 @@ CURRENCY_CHOICES = [
 
 # Date sorting epochs:
 EPOCH_CHOICES = [
-    (1, "1 day"),
-    (7, "Last 7 Days"),
-    (14, "Last 2 Weeks"),
-    (30, "1 Month"),
-    (-1, "Show All"),
+    (1, '1 day'),
+    (7, 'Last 7 Days'),
+    (14, 'Last 2 Weeks'),
+    (30, '1 Month'),
+    (-1, 'Show All'),
+]
+
+# Rating choices when reviewing a deal
+RATING_CHOICES = [
+    (1, '1 star'),
+    (2, '2 star'),
+    (3, '3 star'),
+    (4, '4 star'),
+    (5, '5 star'),
 ]
 
 # Category of deal as either physical or virtual
 DEAL_TYPES = [(1, 'Physical'), (2, 'Virtual')]
-
 
 class Deal(models.Model):
     """Deals within the troupon system are represented by this
@@ -144,6 +152,11 @@ class Deal(models.Model):
         """Returns deal discount"""
         discount = 1 - (float(self.price) / self.original_price)
         return "{0:.0%}".format(discount)
+
+    def saving(self):
+        """Returns deal saving"""
+        saving = self.original_price - self.price
+        return saving
 
     def __str__(self):
         return "{0}, {1}, {2}, {3}, {4}".format(self.id,
@@ -263,3 +276,31 @@ def set_deal_slug(sender, instance, **kwargs):
         instance.slug = slug
 
 signals.request_started.connect(set_deal_inactive)
+
+
+class Review(models.Model):
+    author = models.ForeignKey('auth.User')
+    deal = models.ForeignKey(Deal)
+    description = models.TextField(max_length=1000)
+    rating = models.SmallIntegerField(choices=RATING_CHOICES, default=5)
+    date_created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return "ID: {0}, Deal: {1}, Rating: {2}".format(self.id,
+                                                        self.deal.title,
+                                                        self.rating)
+
+    def ratings_full(self):
+        """
+        Returns ratings_full variable for displaying ratings
+        """
+        ratings_full = list(range(1, int(self.rating) + 1))
+        return ratings_full
+
+    def ratings_empty(self):
+        """
+        Returns ratings_empty variable for displaying ratings
+        """
+        ratings_full = list(range(1, int(self.rating) + 1))
+        ratings_empty = list(range(1, 6 - len(ratings_full)))
+        return ratings_empty

@@ -313,12 +313,6 @@ Buttons
   margin: 15px auto;
 }
 
-@media (max-width: 768px) {
-  .btn-form-submit {
-    width: 100%;
-  }
-}
-
 a.btn-action, .dropdown .dropdown-menu > li > a.btn-action, .btn-action.menu-link, .btn-action.label-link, .label-link-list-v > li > a.btn-action, .label-link-list-h > li > a.btn-action, #header-bar .auth-options > li > a.btn-action, #modal-login header p > a.btn-action, #modal-register header p > a.btn-action, #modal-forgot-password header p > a.btn-action, #header-bar .nav-menu > li > a.btn-action, #header-bar .member-options > li > a.btn-action, footer .quick-links > li > a.btn-action, a.btn-action-alt, .dropdown .dropdown-menu > li > a.btn-action-alt, .btn-action-alt.menu-link, .btn-action-alt.label-link, .label-link-list-v > li > a.btn-action-alt, .label-link-list-h > li > a.btn-action-alt, #header-bar .auth-options > li > a.btn-action-alt, #modal-login header p > a.btn-action-alt, #modal-register header p > a.btn-action-alt, #modal-forgot-password header p > a.btn-action-alt, #header-bar .nav-menu > li > a.btn-action-alt, #header-bar .member-options > li > a.btn-action-alt, footer .quick-links > li > a.btn-action-alt {
   line-height: 2.5;
 }
@@ -995,6 +989,49 @@ deal-detail p {
   top: 22%;
   right: 48px;
   display: none;
+}
+
+.ratings-full {
+  color: #ffc120;
+}
+
+.ratings-empty {
+  color: #d2d2d2;
+}
+
+.review-textarea {
+  width: 50%;
+  height: 100px;
+}
+
+.deal-reviews {
+  padding-right: 25px;
+  padding-top: 10px;
+}
+
+.deal-reviews .review-box {
+  padding-top: 30px;
+}
+
+.deal-reviews .review-author {
+  font-size: 12px;
+}
+
+.deal-reviews .review-date {
+  text-align: right;
+  font-size: 12px;
+}
+
+.deal-reviews .review-btn {
+  color: #a5a8ab;
+}
+
+.deal-reviews .review-btn:hover {
+  color: #660066;
+}
+
+.deal-rating {
+  font-size: 30px;
 }
 
 /* ==========================================================================

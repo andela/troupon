@@ -3,13 +3,16 @@ import os
 from carton.cart import Cart
 
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.response import TemplateResponse
+from django.core.urlresolvers import reverse
 from django.views.generic import View
 
 from authentication.views import LoginRequiredMixin
 from deals.models import Deal
 from .models import UserShippingDetails
+from .forms import ShippingForm
 
 
 class CheckoutView(LoginRequiredMixin, View):
@@ -127,13 +130,21 @@ class AddShippingDetails(LoginRequiredMixin, View):
         Returns:
             A redirect to the checkout page
         """
-        user = request.user
-        street = request.POST.get('street')
-        state = request.POST.get('state')
-        postal = request.POST.get('postal')
-        telephone = request.POST.get('telephone')
-        shipping = UserShippingDetails(user=user, street=street, postal=postal, state=state, telephone=telephone)
-        shipping.save()
+        form = ShippingForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            street = request.POST.get('street')
+            state = request.POST.get('state')
+            postal = request.POST.get('postal')
+            telephone = request.POST.get('telephone')
+            shipping = UserShippingDetails(
+                user=user,
+                street=street,
+                postal=postal,
+                state=state, telephone=telephone)
+            shipping.save()
+            return HttpResponseRedirect(reverse('checkout'))
+
         cart = Cart(request.session)
         context = {'cart': cart}
         return TemplateResponse(request, 'cart/checkout.html', context)
